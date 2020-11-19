@@ -1,13 +1,15 @@
-from pepper.framework.sensor.asr import SynchronousGoogleASR, UtteranceHypothesis
-from .ner import NER
-from nltk.metrics.distance import edit_distance
 from concurrent import futures
 
-#TODO Module is not used
+from leolani.framework.sensor.asr import SynchronousGoogleASR, UtteranceHypothesis
+from nltk.metrics.distance import edit_distance
+
+from .ner import NER
+
+
+# TODO Module is not used
 
 
 class KnownNameParser:
-
     TAGGER = None  # type: NER
 
     def __init__(self, names, max_name_distance=3, min_alternatives=4):
@@ -87,7 +89,8 @@ class NameParser:
 
             if closest_name:
                 print(("Closest Name:", closest_name))
-                return UtteranceHypothesis(hypotheses[toi].transcript.replace(words[0][0], closest_name), hypotheses[toi].confidence)
+                return UtteranceHypothesis(hypotheses[toi].transcript.replace(words[0][0], closest_name),
+                                           hypotheses[toi].confidence)
 
         return hypotheses[0]
 

@@ -1,8 +1,9 @@
 import random
 
-from pepper.language.generation.phrasing import *
-from pepper.knowledge.sentences import UNDERSTAND, NEW_KNOWLEDGE, EXISTING_KNOWLEDGE, CONFLICTING_KNOWLEDGE, \
+from leolani.knowledge.sentences import NEW_KNOWLEDGE, EXISTING_KNOWLEDGE, CONFLICTING_KNOWLEDGE, \
     CURIOSITY, HAPPY, TRUST, NO_TRUST
+
+from leolani.language.generation.phrasing import *
 
 
 def phrase_all_conflicts(conflicts, speaker=None):
@@ -276,7 +277,7 @@ def _phrase_overlaps(all_overlaps, utterance):
     elif entity_role == 'complement':
         say = random.choice(HAPPY)
         sample = random.sample(overlaps, 2)
-        types = sample[0].entity_types[0] if sample[0].entity_types  else 'things'
+        types = sample[0].entity_types[0] if sample[0].entity_types else 'things'
         say += ' Now I know %s %s that %s %s, like %s and %s' % (len(overlaps), types,
                                                                  utterance.triple.predicate_name,
                                                                  utterance.triple.complement_name,

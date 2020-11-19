@@ -1,6 +1,7 @@
-from pepper.api import UtteranceType, Emotion
-from pepper.language.ner import NER
-from pepper.language.utils.helper_functions import *
+from leolani.api import UtteranceType, Emotion
+
+from leolani.language.ner import NER
+from leolani.language.utils.helper_functions import *
 
 
 class Analyzer(object):

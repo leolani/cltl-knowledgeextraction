@@ -1,9 +1,9 @@
-
-
 import json
 import logging
 import os
-import urllib.request, urllib.parse, urllib.error
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from nltk import pos_tag
 from nltk import tree as ntree

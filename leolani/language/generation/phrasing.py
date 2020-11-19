@@ -1,7 +1,6 @@
-from pepper.brain.utils.helper_functions import casefold_text
+from leolani.config import HUMAN_UNKNOWN
 
-from pepper.language.utils.helper_functions import wnl
-from pepper.config import HUMAN_UNKNOWN
+from leolani.language.utils.helper_functions import wnl
 
 
 def fix_predicate_morphology(subject, predicate, object, format='triple'):

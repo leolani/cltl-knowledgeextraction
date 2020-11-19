@@ -1,4 +1,3 @@
-
 import logging
 import os
 import socket
@@ -9,8 +8,8 @@ from time import sleep
 
 logger = logging.getLogger(__name__)
 
-class NER(object):
 
+class NER(object):
     ROOT = os.path.join(os.path.dirname(__file__), 'stanford-ner')
     IP = 'localhost'
 

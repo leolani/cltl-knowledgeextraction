@@ -1,7 +1,7 @@
 import random
 
-from pepper.language.generation.phrasing import *
-from pepper.language.utils.helper_functions import lexicon_lookup
+from leolani.language.generation.phrasing import *
+from leolani.language.utils.helper_functions import lexicon_lookup
 
 
 def assign_spo(utterance, item):
