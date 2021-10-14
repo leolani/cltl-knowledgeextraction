@@ -1,6 +1,6 @@
 from concurrent import futures
 
-from leolani.framework.sensor.asr import SynchronousGoogleASR, UtteranceHypothesis
+from src.framework.sensor.asr import SynchronousGoogleASR, UtteranceHypothesis
 from nltk.metrics.distance import edit_distance
 
 from .ner import NER

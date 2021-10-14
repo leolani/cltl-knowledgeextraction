@@ -1,22 +1,7 @@
-from leolani.api import UtteranceType
-from leolani.brain import LongTermMemory
-from leolani.framework.context import Context
-from leolani.framework.sensor.api import UtteranceHypothesis
+# from src.brain import LongTermMemory
 
-from leolani.language import *
-from leolani.language.generation import reply_to_question
-from leolani.language.generation.thoughts_phrasing import phrase_thoughts
-
-
-def fake_context():
-    # objects = {Object('person', 0.79, None, None), Object('teddy bear', 0.88, None, None),
-    #           Object('cat', 0.51, None, None)}
-    # faces = {Face('Selene', 0.90, None, None, None), Face('Stranger', 0.90, None, None, None)}
-
-    context = Context("Leolani", [])
-    # context.add_objects(objects)
-    # context.add_people(faces)
-    return context
+from cltl.combot.backend.api.discrete import UtteranceType
+from cltl.language.api import Chat, UtteranceHypothesis
 
 
 def load_golden_triples(filepath):
@@ -58,29 +43,6 @@ def load_golden_triples(filepath):
     return test_suite, gold
 
 
-def load_scenarios(filepath):
-    '''
-    :param filepath: path to the test file
-    :return: dictionary which contains the initial statement, a set of questions, and the golden standard reply
-    '''
-    file = open(filepath, "r")
-    test = file.readlines()
-    scenarios = []
-
-    for sample in test:
-        if sample == '\n':
-            break
-        scenario = {'statement': '', 'questions': [], 'reply': ''}
-        scenario['statement'] = sample.split(' - ')[0]
-        scenario['reply'] = sample.split(' - ')[2]
-        for el in sample.split(' - ')[1].split(','):
-            scenario['questions'].append(el)
-
-        scenarios.append(scenario)
-
-    return scenarios
-
-
 def compare_triples(triple, gold):
     '''
     :param triple: triple extracted by the system
@@ -107,68 +69,15 @@ def compare_triples(triple, gold):
     return correct
 
 
-def test_scenario(statements, questions, gold):
-    '''
-    :param statement: one or several statements separated by a comma, to be stored in the brain
-    :param questions: set of questions regarding the stored statement
-    :param gold: gold standard reply
-    :return: number of correct replies
-    '''
-    correct = 0
-    chat = Chat("Lenka", fake_context())
-    # WARNING! this deletes everything in the brain, must only be used for testing
-    brain = LongTermMemory(clear_all=False)
-
-    # one or several statements are added to the brain
-    statements = statements.split(',')
-    for stat in statements:
-        chat.add_utterance([UtteranceHypothesis(stat, 1.0)], False)
-        chat.last_utterance.analyze()
-        brain_response = brain.update(chat.last_utterance, reason_types=True)
-        reply = phrase_thoughts(brain_response, True, True)
-        print(reply)
-
-    # brain is queried and a reply is generated and compared with golden standard
-    for question in questions:
-        chat.add_utterance([UtteranceHypothesis(question, 1.0)], False)
-        chat.last_utterance.analyze()
-        brain_response = brain.query_brain(chat.last_utterance)
-        reply = reply_to_question(brain_response)
-        print(reply)
-
-        if reply is None:
-            print(('MISMATCH RESPONSE ', reply, gold.lower().strip()))
-        elif reply.lower().strip() != gold.lower().strip():
-            print(('MISMATCH RESPONSE ', reply.lower().strip(), gold.lower().strip()))
-        else:
-            correct += 1
-
-    return correct
-
-
-def test_scenarios():
-    '''
-    This functions opens the scenarios test file and runs the test for all the scenarios
-    :return: number of correct and number of incorrect replies
-    '''
-    scenarios = load_scenarios("./data/scenarios.txt")
-    correct = 0
-    total = 0
-    for sc in scenarios:
-        correct += test_scenario(sc['statement'], sc['questions'], sc['reply'])
-        total += len(sc['questions'])
-    print(('CORRECT: ', correct, ',\tINCORRECT: ', total - correct))
-
-
 def test_with_triples(path):
     '''
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the test suite,
     including perspective if it is added, as well as the number of correctly and incorrectly extracted triple elements
     :param path: filepath of test file
     '''
-    chat = Chat("Lenka", fake_context())
-    brain = LongTermMemory()
-    # clear_all=True)  # WARNING! this deletes everything in the brain, must only be used for testing
+    chat = Chat("Lenka")
+    # WARNING! this deletes everything in the brain, must only be used for testing
+    brain = LongTermMemory(clear_all=True)
 
     index = 0
     correct = 0
@@ -177,7 +86,7 @@ def test_with_triples(path):
     test_suite, gold = load_golden_triples(path)
 
     for utterance in test_suite:
-        chat.add_utterance([UtteranceHypothesis(utterance, 1.0)], False)
+        chat.add_utterance([UtteranceHypothesis(utterance, 1.0)])
         chat.last_utterance.analyze()
 
         if chat.last_utterance.triple == None:
@@ -195,7 +104,8 @@ def test_with_triples(path):
 
         if chat.last_utterance.type == UtteranceType.QUESTION:
             brain_response = brain.query_brain(chat.last_utterance)
-            reply = reply_to_question(brain_response)
+            # reply = reply_to_question(brain_response)
+            # print(reply)
 
         else:
             if 'perspective' in gold[index]:
@@ -211,6 +121,7 @@ def test_with_triples(path):
                                                                   gold[index]['perspective'][key]]
                     else:
                         correct += 1
+
         index += 1
 
     print((correct, incorrect))
@@ -226,13 +137,8 @@ if __name__ == "__main__":
     test files with scenarios are formatted like so "statement - question1, question2, etc - reply"
     '''
 
-    # all_test_files = ["./data/wh-questions.txt", "./data/verb-questions.txt",
-    #                   "./data/statements.txt", "./data/perspective.txt"]
+    all_test_files = ["./data/wh-questions.txt", "./data/verb-questions.txt",
+                      "./data/statements.txt", "./data/perspective.txt"]
 
-    test_files = ["./data/statements.txt"]
-
-    # for test_file in all_test_files:
-    #     test_with_triples(test_file)
-    test_with_triples(test_files[0])
-
-    test_scenarios()
+    for test_file in all_test_files:
+        test_with_triples(test_file)

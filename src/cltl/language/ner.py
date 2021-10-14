@@ -48,6 +48,7 @@ class NER(object):
 
     def _log_subprocess_output(self, pipe):
         for line in iter(pipe.readline, b''):
+            line = line.decode()
             self._log.debug(line.replace('\n', ''))
 
     def _find_free_port(self):

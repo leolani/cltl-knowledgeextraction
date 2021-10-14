@@ -1,9 +1,9 @@
 import random
 
-from leolani.knowledge.sentences import NEW_KNOWLEDGE, EXISTING_KNOWLEDGE, CONFLICTING_KNOWLEDGE, \
+from cltl.combot.backend.utils.casefolding import casefold_text
+from cltl.language.generation.knowledge.sentences import NEW_KNOWLEDGE, EXISTING_KNOWLEDGE, CONFLICTING_KNOWLEDGE, \
     CURIOSITY, HAPPY, TRUST, NO_TRUST
-
-from leolani.language.generation.phrasing import *
+from cltl.language.generation.reply import replace_pronouns
 
 
 def phrase_all_conflicts(conflicts, speaker=None):

@@ -6,21 +6,77 @@ from datetime import datetime
 from random import getrandbits
 from typing import List, Optional
 
-from leolani.api import UtteranceType, Emotion
-from leolani.brain.infrastructure import RdfBuilder, Triple, Perspective
-from leolani.brain.utils.helper_functions import casefold_text
 from nltk import CFG, RecursiveDescentParser, edit_distance
 from nltk import pos_tag
 
-from leolani.language.analyzer import Analyzer
-from leolani.language.ner import NER
-from leolani.language.pos import POS
+from cltl.combot.backend.api.discrete import UtteranceType
+from cltl.combot.backend.utils.casefolding import casefold_text
+from cltl.language.analyzer import Analyzer
+from cltl.language.ner import NER
+from cltl.language.pos import POS
+from cltl.language.utils.base_cases import friends
 
 logger = logging.getLogger(__name__)
 
 
+class UtteranceHypothesis(object):
+    """
+    Automatic Speech Recognition (ASR) Hypothesis
+
+    Parameters
+    ----------
+    transcript: str
+        Utterance Hypothesis Transcript
+    confidence: float
+        Utterance Hypothesis Confidence
+    """
+
+    def __init__(self, transcript, confidence):
+        # type: (str, float) -> None
+
+        self._transcript = transcript
+        self._confidence = confidence
+
+    @property
+    def transcript(self):
+        # type: () -> str
+        """
+        Automatic Speech Recognition Hypothesis Transcript
+
+        Returns
+        -------
+        transcript: str
+        """
+        return self._transcript
+
+    @transcript.setter
+    def transcript(self, value):
+        # type: (str) -> None
+        self._transcript = value
+
+    @property
+    def confidence(self):
+        # type: () -> float
+        """
+        Automatic Speech Recognition Hypothesis Confidence
+
+        Returns
+        -------
+        confidence: float
+        """
+        return self._confidence
+
+    @confidence.setter
+    def confidence(self, value):
+        # type: (float) -> None
+        self._confidence = value
+
+    def __repr__(self):
+        return "<'{}' [{:3.2%}]>".format(self.transcript, self.confidence)
+
+
 class Chat(object):
-    def __init__(self, speaker, context):
+    def __init__(self, speaker):
         """
         Create Chat
 
@@ -28,27 +84,14 @@ class Chat(object):
         ----------
         speaker: str
             Name of speaker (a.k.a. the person Pepper has a chat with)
-        context: Context
-            Context Chat is part of
         """
 
         self._id = getrandbits(128)
-        self._context = context
         self._speaker = speaker
         self._utterances = []
 
         self._log = self._update_logger()
         self._log.info("<< Start of Chat with {} >>".format(speaker))
-
-    @property
-    def context(self):
-        """
-        Returns
-        -------
-        context: Context
-            Context
-        """
-        return self._context
 
     @property
     def speaker(self):
@@ -101,8 +144,8 @@ class Chat(object):
         """
         return self._utterances[-1]
 
-    def add_utterance(self, hypotheses, me):
-        # type: (List[UtteranceHypothesis], bool) -> Utterance
+    def add_utterance(self, hypotheses):
+        # type: (List[UtteranceHypothesis]) -> Utterance
         """
         Add Utterance to Conversation
 
@@ -114,7 +157,7 @@ class Chat(object):
         -------
         utterance: Utterance
         """
-        utterance = Utterance(self, hypotheses, me, len(self._utterances))
+        utterance = Utterance(self, hypotheses, len(self._utterances))
         self._utterances.append(utterance)
 
         self._log = self._update_logger()
@@ -130,8 +173,8 @@ class Chat(object):
 
 
 class Utterance(object):
-    def __init__(self, chat, hypotheses, me, turn):
-        # type: (Chat, List[UtteranceHypothesis], bool, int) -> Utterance
+    def __init__(self, chat, hypotheses, turn):
+        # type: (Chat, List[UtteranceHypothesis], int) -> Utterance
         """
         Construct Utterance Object
 
@@ -141,8 +184,6 @@ class Utterance(object):
             Reference to Chat Utterance is part of
         hypotheses: List[UtteranceHypothesis]
             Hypotheses on uttered text (transcript, confidence)
-        me: bool
-            True if Robot spoke, False if Person Spoke
         turn: int
             Utterance Turn
         """
@@ -151,17 +192,15 @@ class Utterance(object):
 
         self._datetime = datetime.now()
         self._chat = chat
-        self._context = self._chat.context
         self._chat_speaker = self._chat.speaker
         self._turn = turn
-        self._me = me
 
         self._hypothesis = self._choose_hypothesis(hypotheses)
 
         self._tokens = self._clean(self._tokenize(self.transcript))
 
         # TODO: Optimize: takes 2.6 seconds now! Should be < 1 second!?
-        self._parser = None if self.me else Parser(self)
+        self._parser = Parser(self)
         # TODO analyze sets triple, perspective and type, but currently is not called on constructor
         self._type = None
         self._triple = None
@@ -177,17 +216,6 @@ class Utterance(object):
             Utterance Chat
         """
         return self._chat
-
-    @property
-    def context(self):
-        # type: () -> Context
-        """
-        Returns
-        -------
-        context: Context
-            Context (a.k.a. people, objects and other detections )
-        """
-        return self._context
 
     @property
     def chat_speaker(self):
@@ -232,17 +260,6 @@ class Utterance(object):
             Utterance Confidence
         """
         return self._hypothesis.confidence
-
-    @property
-    def me(self):
-        # type: () -> bool
-        """
-        Returns
-        -------
-        me: bool
-            True if Robot spoke, False if Person Spoke
-        """
-        return self._me
 
     @property
     def turn(self):
@@ -322,6 +339,7 @@ class Utterance(object):
 
         """
         analyzer = Analyzer.analyze(self._chat)
+        self._type = analyzer.utterance_type
 
         if not analyzer:
             return "I cannot parse your input"
@@ -329,74 +347,6 @@ class Utterance(object):
         for el in ["subject", "predicate", "complement"]:
             Analyzer.LOG.info(
                 "RDF {:>10}: {}".format(el, json.dumps(analyzer.triple[el], sort_keys=True, separators=(', ', ': '))))
-
-        self.pack_triple(analyzer.triple, analyzer.utterance_type)
-
-        if analyzer.utterance_type == UtteranceType.STATEMENT:
-            self.pack_perspective(analyzer.perspective)
-
-    def pack_triple(self, rdf, utterance_type):
-        """
-        Sets utterance type, the extracted triple and (in future) the perspective
-        Parameters
-        ----------
-        rdf
-        utterance_type
-
-        Returns
-        -------
-
-        """
-        self._type = utterance_type
-        if type(rdf) == str:
-            return rdf
-
-        if not rdf:
-            return 'error in the rdf'
-
-        builder = RdfBuilder()
-
-        # Build each element
-        subject = builder.fill_entity(casefold_text(rdf['subject']['text'], format='triple'),
-                                      rdf['subject']['type'])
-        predicate = builder.fill_predicate(casefold_text(rdf['predicate']['text'], format='triple'))
-        complement = builder.fill_entity(casefold_text(rdf['complement']['text'], format='triple'),
-                                         rdf['complement']['type'])
-
-        self.set_triple(Triple(subject, predicate, complement))
-
-    def pack_perspective(self, persp):
-        sentiment = persp.get('sentiment', 0.0)
-        emotion = persp.get('emotion', Emotion.NEUTRAL)
-
-        if type(sentiment) not in [float, int]:
-            # Gotta translate this
-            if sentiment.lower() == 'positive':
-                sentiment = 1.0
-            elif sentiment.lower() == 'negative':
-                sentiment = -1.0
-            elif sentiment.lower() == 'neutral':
-                sentiment = 0.0
-
-        if type(emotion) != Emotion:
-            # Gotta translate this
-            if emotion.lower() == 'anger':
-                emotion = Emotion.ANGER
-            elif emotion.lower() == 'disgust':
-                emotion = Emotion.DISGUST
-            elif emotion.lower() == 'fear':
-                emotion = Emotion.FEAR
-            elif emotion.lower() == 'joy':
-                emotion = Emotion.JOY
-            elif emotion.lower() == 'sadness':
-                emotion = Emotion.SADNESS
-            elif emotion.lower() == 'surprise':
-                emotion = Emotion.SURPRISE
-            elif emotion.lower() == 'neutral':
-                emotion = Emotion.NEUTRAL
-
-        self.set_perspective(
-            Perspective(persp.get('certainty', 1), persp.get('polarity', 1), sentiment, emotion=emotion))
 
     def set_triple(self, triple):
         # type: (Triple) -> ()
@@ -424,36 +374,35 @@ class Utterance(object):
     def _choose_hypothesis(self, hypotheses):
         return sorted(self._patch_names(hypotheses), key=lambda hypothesis: hypothesis.confidence, reverse=True)[0]
 
-    def _patch_names(self, hypotheses):
-        if not self.me:
+    @staticmethod
+    def _patch_names(hypotheses):
+        names = []
 
-            names = []
+        # Patch Transcripts with Names
+        for hypothesis in hypotheses:
 
-            # Patch Transcripts with Names
+            transcript = []
+
+            for word in hypothesis.transcript.split():
+                name = Utterance._get_closest_name(word, friends)
+
+                if name:
+                    names.append(name)
+                    transcript.append(name)
+                else:
+                    transcript.append(word)
+
+            hypothesis.transcript = " ".join(transcript)
+
+        if names:
+            # Count Name Frequency and Adjust Hypothesis Confidence
+            names = Counter(names)
+            max_freq = max(names.values())
+
             for hypothesis in hypotheses:
-
-                transcript = []
-
-                for word in hypothesis.transcript.split():
-                    name = Utterance._get_closest_name(word, self.context.friends)
-
-                    if name:
-                        names.append(name)
-                        transcript.append(name)
-                    else:
-                        transcript.append(word)
-
-                hypothesis.transcript = " ".join(transcript)
-
-            if names:
-                # Count Name Frequency and Adjust Hypothesis Confidence
-                names = Counter(names)
-                max_freq = max(names.values())
-
-                for hypothesis in hypotheses:
-                    for name in list(names.keys()):
-                        if name in hypothesis.transcript:
-                            hypothesis.confidence *= float(names[name]) / float(max_freq)
+                for name in list(names.keys()):
+                    if name in hypothesis.transcript:
+                        hypothesis.confidence *= float(names[name]) / float(max_freq)
 
         return hypotheses
 
@@ -532,7 +481,8 @@ class Utterance(object):
 
         return tokens_raw
 
-    def replace_token(self, tokens_raw, old, new):
+    @staticmethod
+    def replace_token(tokens_raw, old, new):
         """
         :param tokens_raw: list of tokens
         :param old: token to replace
@@ -545,7 +495,8 @@ class Utterance(object):
             tokens_raw.insert(index, new)
         return tokens_raw
 
-    def _clean(self, tokens):
+    @staticmethod
+    def _clean(tokens):
         """
         Parameters
         ----------
@@ -560,7 +511,7 @@ class Utterance(object):
         return tokens
 
     def __repr__(self):
-        author = self.chat.context.own_name if self.me else self.chat.speaker
+        author = self.chat.speaker
         return '{:>10s}: "{}"'.format(author, self.transcript)
 
 

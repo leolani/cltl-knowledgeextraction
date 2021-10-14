@@ -2,8 +2,6 @@
 The Pepper Language Package contains tools to generate RDF triples from Natural Language and vice versa.
 """
 
-from leolani.language.language import Chat, Utterance
-
 # Download NLTK Dependencies
 import nltk
 

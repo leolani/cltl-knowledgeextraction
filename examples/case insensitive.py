@@ -1,12 +1,12 @@
 from random import choice
 
-from leolani.api import UtteranceType
-from leolani.brain import LongTermMemory
-from leolani.framework.context import Context
-from leolani.framework.sensor.api import Face, Object, UtteranceHypothesis
+from cltl.combot.backend.api.discrete import UtteranceType
+from src.brain import LongTermMemory
+from src.framework.context import Context
+from src.framework.sensor.api import Face, Object, UtteranceHypothesis
 
-from leolani.language import *
-from leolani.language.generation import reply_to_question, phrase_thoughts
+from cltl.language import *
+from cltl.language.generation import reply_to_question, phrase_thoughts
 
 
 def fake_context():
@@ -65,7 +65,7 @@ def test():
         clear_all=True)  # WARNING! this deletes everything in the brain, must only be used for testing
     for utterance in utterances:
         chat = Chat(choice(people), fake_context())
-        chat.add_utterance([UtteranceHypothesis(utterance, 1.0)], False)
+        chat.add_utterance([UtteranceHypothesis(utterance, 1.0)])
         chat.last_utterance.analyze()
 
         if chat.last_utterance.triple is not None:

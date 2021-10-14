@@ -1,7 +1,7 @@
-from leolani.api import UtteranceType, Emotion
+from cltl.combot.backend.api.discrete import UtteranceType, Emotion
 
-from leolani.language.ner import NER
-from leolani.language.utils.helper_functions import *
+from cltl.language.ner import NER
+from cltl.language.utils.helper_functions import *
 
 
 class Analyzer(object):
