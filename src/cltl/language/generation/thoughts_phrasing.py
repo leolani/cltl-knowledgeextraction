@@ -76,7 +76,7 @@ def _phrase_statement_novelty(novelties, utterance):
 
     # I do not know this before, so be happy to learn
     if not novelties:
-        entity_role = random.choice(['subject', 'complement'])
+        entity_role = random.choice(['subject', 'object'])
 
         say = random.choice(NEW_KNOWLEDGE)
 
@@ -92,7 +92,7 @@ def _phrase_statement_novelty(novelties, utterance):
             say += ' I did not know %s that %s %s' % (any_type, utterance.triple.subject_name,
                                                       utterance.triple.predicate_name)
 
-        elif entity_role == 'complement':
+        elif entity_role == 'object':
             # Checked
             say += ' I did not know anybody who %s %s' % (utterance.triple.predicate_name,
                                                           utterance.triple.complement_name)
@@ -111,7 +111,7 @@ def _phrase_statement_novelty(novelties, utterance):
 def _phrase_type_novelty(novelties, utterance):
     # type: (EntityNovelty, Utterance) -> str
 
-    entity_role = random.choice(['subject', 'complement'])
+    entity_role = random.choice(['subject', 'object'])
     entity_label = utterance.triple.subject_name if entity_role == 'subject' else utterance.triple.complement_name
     novelty = novelties.subject if entity_role == 'subject' else novelties.complement
 
@@ -122,7 +122,7 @@ def _phrase_type_novelty(novelties, utterance):
             # Checked
             say += ' I had never heard about %s before!' % replace_pronouns(utterance.chat_speaker,
                                                                             entity_label=entity_label,
-                                                                            role='complement')
+                                                                            role='object')
         else:
             say += ' I am excited to get to know about %s!' % entity_label
 
@@ -131,7 +131,7 @@ def _phrase_type_novelty(novelties, utterance):
         if entity_label != 'you':
             # Checked
             say += ' I have heard about %s before' % replace_pronouns(utterance.chat_speaker, entity_label=entity_label,
-                                                                      role='complement')
+                                                                      role='object')
         else:
             say += ' I love learning more and more about %s!' % entity_label
 
@@ -141,7 +141,7 @@ def _phrase_type_novelty(novelties, utterance):
 def _phrase_subject_gaps(all_gaps, utterance):
     # type: (Gaps, Utterance) -> str
 
-    entity_role = random.choice(['subject', 'complement'])
+    entity_role = random.choice(['subject', 'object'])
     gaps = all_gaps.subject if entity_role == 'subject' else all_gaps.complement
     say = None
 
@@ -167,7 +167,7 @@ def _phrase_subject_gaps(all_gaps, utterance):
                 # Checked
                 say += ' Has %s %s %s?' % (utterance.triple.subject_name, gap.predicate_name, gap.entity_range_name)
 
-    elif entity_role == 'complement':
+    elif entity_role == 'object':
         say = random.choice(CURIOSITY)
 
         if not gaps:
@@ -195,8 +195,8 @@ def _phrase_subject_gaps(all_gaps, utterance):
 def _phrase_complement_gaps(all_gaps, utterance):
     # type: (Gaps, Utterance) -> str
 
-    # random choice between complement or subject
-    entity_role = random.choice(['subject', 'complement'])
+    # random choice between object or subject
+    entity_role = random.choice(['subject', 'object'])
     gaps = all_gaps.subject if entity_role == 'subject' else all_gaps.complement
     say = None
 
@@ -217,7 +217,7 @@ def _phrase_complement_gaps(all_gaps, utterance):
                                                 gap.predicate_name,
                                                 gap.entity_range_name)
 
-    elif entity_role == 'complement':
+    elif entity_role == 'object':
         say = random.choice(CURIOSITY)
 
         if not gaps:
@@ -244,7 +244,7 @@ def _phrase_complement_gaps(all_gaps, utterance):
 def _phrase_overlaps(all_overlaps, utterance):
     # type: (Overlaps, Utterance) -> str
 
-    entity_role = random.choice(['subject', 'complement'])
+    entity_role = random.choice(['subject', 'object'])
     overlaps = all_overlaps.subject if entity_role == 'subject' else all_overlaps.complement
     say = None
 
@@ -257,7 +257,7 @@ def _phrase_overlaps(all_overlaps, utterance):
         say += ' Did you know that %s also %s %s' % (utterance.triple.subject_name, utterance.triple.predicate_name,
                                                      random.choice(overlaps).entity_name)
 
-    elif len(overlaps) < 2 and entity_role == 'complement':
+    elif len(overlaps) < 2 and entity_role == 'object':
         say = random.choice(HAPPY)
 
         say += ' Did you know that %s also %s %s' % (random.choice(overlaps).entity_name,
@@ -274,7 +274,7 @@ def _phrase_overlaps(all_overlaps, utterance):
                                                                     utterance.triple.predicate_name,
                                                                     entity_0, entity_1)
 
-    elif entity_role == 'complement':
+    elif entity_role == 'object':
         say = random.choice(HAPPY)
         sample = random.sample(overlaps, 2)
         types = sample[0].entity_types[0] if sample[0].entity_types else 'things'
@@ -317,7 +317,7 @@ def phrase_thoughts(update, entity_only=False, proactive=True, persist=False):
         options = ['cardinality_conflicts', 'entity_novelty', 'trust']
 
     if proactive:
-        options.extend(['subject_gaps', 'complement_gaps', 'overlaps'])
+        options.extend(['subject_gaps', 'object_gaps', 'overlaps'])
 
     # Casefold and select approach randomly
     utterance = update['statement']
@@ -345,7 +345,7 @@ def phrase_thoughts(update, entity_only=False, proactive=True, persist=False):
     elif approach == 'subject_gaps':
         say = _phrase_subject_gaps(thoughts.subject_gaps(), utterance)
 
-    elif approach == 'complement_gaps':
+    elif approach == 'object_gaps':
         say = _phrase_complement_gaps(thoughts.complement_gaps(), utterance)
 
     elif approach == 'overlaps':

@@ -21,7 +21,7 @@ lexicon = json.load(open(os.path.join(ROOT, 'data', 'lexicon.json')))
 
 def trim_dash(triple):
     """
-    :param triple: a set with three elements (subject, object, complement)
+    :param triple: a set with three elements (subject, predicate, object)
     :return: clean triple with extra dashes removed
     """
     for el in triple:

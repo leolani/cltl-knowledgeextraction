@@ -196,7 +196,6 @@ class Utterance(object):
         self._turn = turn
 
         self._hypothesis = self._choose_hypothesis(hypotheses)
-
         self._tokens = self._clean(self._tokenize(self.transcript))
 
         # TODO: Optimize: takes 2.6 seconds now! Should be < 1 second!?
@@ -277,7 +276,7 @@ class Utterance(object):
 
     @property
     def triple(self):
-        # type: () -> Triple
+        # type: () -> dict
         """
         Returns
         -------
@@ -288,7 +287,7 @@ class Utterance(object):
 
     @property
     def perspective(self):
-        # type: () -> Perspective
+        # type: () -> dict
         """
         Returns
         -------
@@ -338,22 +337,28 @@ class Utterance(object):
         -------
 
         """
+        # Analyze utterance
         analyzer = Analyzer.analyze(self._chat)
-        self._type = analyzer.utterance_type
 
         if not analyzer:
             return "I cannot parse your input"
 
-        for el in ["subject", "predicate", "complement"]:
+        for el in ["subject", "predicate", "object"]:
             Analyzer.LOG.info(
                 "RDF {:>10}: {}".format(el, json.dumps(analyzer.triple[el], sort_keys=True, separators=(', ', ': '))))
 
+        # Set type, triple and perspective
+        self._type = analyzer.utterance_type
+        self.set_triple(analyzer.triple)
+        if analyzer.utterance_type == UtteranceType.STATEMENT:
+            self.set_perspective(analyzer.perspective)
+
     def set_triple(self, triple):
-        # type: (Triple) -> ()
+        # type: (dict) -> ()
         self._triple = triple
 
     def set_perspective(self, perspective):
-        # type: (Perspective) -> ()
+        # type: (dict) -> ()
         self._perspective = perspective
 
     def casefold(self, format='triple'):
@@ -591,14 +596,14 @@ class Parser(object):
 
         try:
             cfg_parser = CFG.fromstring(self._cfg)
-            RD = RecursiveDescentParser(cfg_parser)
+            rd = RecursiveDescentParser(cfg_parser)
 
             last_token = tokenized_sentence[len(tokenized_sentence) - 1]
 
             if '?' in last_token:
                 tokenized_sentence[len(tokenized_sentence) - 1] = last_token[:-1]
 
-            parsed = RD.parse(tokenized_sentence)
+            parsed = rd.parse(tokenized_sentence)
 
             s_r = {}  # syntactic_realizations are the topmost branches, usually VP/NP
             index = 0

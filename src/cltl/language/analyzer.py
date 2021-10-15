@@ -134,7 +134,7 @@ class Analyzer(object):
     def analyze_vp(self, triple, utterance_info):
         """
         This function analyzes verb phrases
-        :param triple: triple (subject, predicate, complement)
+        :param triple: triple (subject, predicate, object)
         :param utterance_info: the result of analysis thus far
         :return: triple and utterance info, updated with the results of VP analysis
         """
@@ -169,15 +169,15 @@ class Analyzer(object):
                     if label in ['TO', 'IN']:
                         pred += '-' + elem
                     else:
-                        triple['complement'] = elem + '-' + triple['complement']
+                        triple['object'] = elem + '-' + triple['object']
                 triple['predicate'] = pred
                 break
 
-            # prepositions are joined to the predicate and removed from the complement
+            # prepositions are joined to the predicate and removed from the object
             elif label in ['IN', 'TO']:
                 pred += '-' + el
                 for elem in triple['predicate'].split('-')[ind + 1:]:
-                    triple['complement'] = elem + '-' + triple['complement']
+                    triple['object'] = elem + '-' + triple['object']
                 triple['predicate'] = pred
                 break
 
@@ -224,19 +224,19 @@ class Analyzer(object):
     def analyze_possessive(self, triple, element):
         """
         This function analyses possessive phrases, which start with pos. pronoun
-        :param triple: subject, predicate, complement triple
+        :param triple: subject, predicate, object triple
         :param element: element of the triple which has the possessive phrase
         :return: updated triple
         """
         first_word = triple[element].split('-')[0]
 
-        if element == 'complement':
-            complement = fix_pronouns(first_word, self)
+        if element == 'object':
+            objct = fix_pronouns(first_word, self)
 
-            for word in triple['complement'].split('-')[1:]:
-                complement += '-' + word
+            for word in triple['object'].split('-')[1:]:
+                objct += '-' + word
 
-            triple['complement'] = complement
+            triple['object'] = objct
 
         else:
 
@@ -249,8 +249,8 @@ class Analyzer(object):
                     subject += '-' + word
                 else:
                     predicate += '-' + word
-            if element == 'complement':
-                triple['complement'] = triple['subject']
+            if element == 'object':
+                triple['object'] = triple['subject']
 
             # properties are stored with a suffix "-is"
             if predicate:
@@ -263,43 +263,43 @@ class Analyzer(object):
     @staticmethod
     def analyze_complement_with_preposition(triple):
         """
-        This function analyses triple complement which starts with a preposition and updates the triple
+        This function analyses triple object which starts with a preposition and updates the triple
         :param triple: S,P,C triple
         :return: updated triple
         """
         if lexicon_lookup(triple['predicate'], 'aux') or lexicon_lookup(triple['predicate'], 'modal'):
-            triple['predicate'] += '-be-' + triple['complement'].split('-')[0]
+            triple['predicate'] += '-be-' + triple['object'].split('-')[0]
         else:
-            triple['predicate'] += '-' + triple['complement'].split('-')[0]
-        triple['complement'] = triple['complement'].replace(triple['complement'].split('-')[0], '', 1)[1:]
+            triple['predicate'] += '-' + triple['object'].split('-')[0]
+        triple['object'] = triple['object'].replace(triple['object'].split('-')[0], '', 1)[1:]
         return triple
 
     def analyze_one_word_complement(self, triple):
         """
-        This function analyses one word complement and updates the triple
+        This function analyses one word objects and updates the triple
         :param triple: S,P,C triple
         :return: updated triple
         """
         structure_tree = self.chat.last_utterance.parser.forest[0]
 
         # TODO
-        if lexicon_lookup(triple['complement']) and 'person' in lexicon_lookup(triple['complement']):
+        if lexicon_lookup(triple['object']) and 'person' in lexicon_lookup(triple['object']):
             if triple['predicate'] == 'be':
-                subject = fix_pronouns(triple['complement'].lower(), self)
+                subject = fix_pronouns(triple['object'].lower(), self)
                 pred = ''
                 for el in triple['subject'].split('-')[1:]:
                     pred += el + '-'
                 triple['predicate'] = pred + 'is'
-                triple['complement'] = triple['subject'].split('-')[0]
+                triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['complement'] = fix_pronouns(triple['complement'].lower(), self)
-        elif get_pos_in_tree(structure_tree, triple['complement']).startswith('V') and get_pos_in_tree(
+                triple['object'] = fix_pronouns(triple['object'].lower(), self)
+        elif get_pos_in_tree(structure_tree, triple['object']).startswith('V') and get_pos_in_tree(
                 structure_tree,
                 triple[
                     'predicate']) == 'MD':
-            triple['predicate'] += '-' + triple['complement']
-            triple['complement'] = ''
+            triple['predicate'] += '-' + triple['object']
+            triple['object'] = ''
         return triple
 
     def get_types_in_triple(self, triple):
@@ -312,7 +312,7 @@ class Analyzer(object):
         for el in triple:
             text = triple[el]
             final_type = []
-            triple[el] = {'text': text, 'type': []}
+            triple[el] = {'label': text, 'type': []}
 
             # If no text was extracted we cannot get a type
             if text == '':
@@ -464,7 +464,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         :param triple: S,P,C triple
         :return: True if the triple has all three elements, False otherwise
         """
-        for el in ['predicate', 'subject', 'complement']:
+        for el in ['predicate', 'subject', 'object']:
             if not triple[el] or not len(triple[el]):
                 LOG.warning("Cannot find {} in statement".format(el))
                 return False
@@ -500,40 +500,40 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
             elif subtree.label() == 'NP':
                 triple['subject'] = text[:-1]
             else:
-                triple['complement'] = text[:-1]
+                triple['object'] = text[:-1]
             index += 1
         return triple
 
     def initialize_triple(self):
         """
         This function initializes the triple with assumed word order: NP VP C
-        subject is the NP, predicate is VP and complement can be NP, VP, PP, another S or nothing
+        subject is the NP, predicate is VP and object can be NP, VP, PP, another S or nothing
         """
         triple = {'subject': self.chat.last_utterance.parser.constituents[0]['raw'],
                   'predicate': self.chat.last_utterance.parser.constituents[1]['raw'],
-                  'complement': self.chat.last_utterance.parser.constituents[2]['raw']}
+                  'object': self.chat.last_utterance.parser.constituents[2]['raw']}
 
         return triple
 
     def analyze_multiword_complement(self, triple):
         """
-        This function analyses complex complements in statements
+        This function analyses complex objects in statements
         :param triple: S,P,C triple
         :return: updated triple
         """
         structure_tree = self.chat.last_utterance.parser.forest[0]
-        first_word = triple['complement'].split('-')[0]
+        first_word = triple['object'].split('-')[0]
 
         if get_pos_in_tree(structure_tree, first_word) in ['TO', 'IN']:
             triple = self.analyze_complement_with_preposition(triple)
 
         if lexicon_lookup(first_word) and 'person' in lexicon_lookup(first_word):
-            triple = self.analyze_possessive(triple, 'complement')
+            triple = self.analyze_possessive(triple, 'object')
 
         if get_pos_in_tree(structure_tree, first_word).startswith('V'):
             if get_pos_in_tree(structure_tree, triple['predicate']) == 'MD':
                 triple['predicate'] += '-' + first_word
-                triple['complement'] = triple['complement'].replace(first_word, '')
+                triple['object'] = triple['object'].replace(first_word, '')
 
         return triple
 
@@ -570,12 +570,12 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         triple = self.analyze_np(triple)
         Analyzer.LOG.debug('after NP: {}'.format(triple))
 
-        # Analyze complement
-        if len(triple['complement'].split('-')) > 1:  # multi-word complement
+        # Analyze object
+        if len(triple['object'].split('-')) > 1:  # multi-word object
             triple = self.analyze_multiword_complement(triple)
-        elif len(triple['complement'].split('-')) == 1:
+        elif len(triple['object'].split('-')) == 1:
             triple = self.analyze_one_word_complement(triple)
-        Analyzer.LOG.debug('after complement analysis: {}'.format(triple))
+        Analyzer.LOG.debug('after object analysis: {}'.format(triple))
 
         # Final fixes to triple
         triple = trim_dash(triple)
@@ -689,17 +689,18 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
 
     def initialize_triple(self):
         """
-        This function initializes the triple for wh_questions with the assumed word order: aux before predicate, subject before complement
-        :return: initial S,P,C triple
+        This function initializes the triple for wh_questions with the assumed word order:
+                aux before predicate, subject before object
+        :return: initial S,P,O triple
         """
 
-        triple = {'predicate': '', 'subject': '', 'complement': ''}
+        triple = {'predicate': '', 'subject': '', 'object': ''}
         constituents = self.chat.last_utterance.parser.constituents
         if len(constituents) == 3:
             label = get_pos_in_tree(self.chat.last_utterance.parser.forest[0], constituents[2]['raw'])
             if constituents[0]['raw'] == 'who':
                 triple['predicate'] = constituents[1]['raw']
-                triple['complement'] = constituents[2]['raw']
+                triple['object'] = constituents[2]['raw']
             elif label.startswith('V') or label == 'MD':  # rotation "(do you know) what a dog is?"s
                 triple['subject'] = constituents[1]['raw']
                 triple['predicate'] = constituents[2]['raw']
@@ -719,20 +720,20 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         elif len(constituents) == 5:
             triple['predicate'] = constituents[1]['raw'] + '-' + constituents[3]['raw']
             triple['subject'] = constituents[2]['raw']
-            triple['complement'] = constituents[4]['raw']
+            triple['object'] = constituents[4]['raw']
         else:
             Analyzer.LOG.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
 
         return triple
 
     def analyze_multiword_complement(self, triple):
-        first_word = triple['complement'].split('-')[0]
+        first_word = triple['object'].split('-')[0]
 
         if get_pos_in_tree(self.chat.last_utterance.parser.forest[0], first_word) in ['TO', 'IN']:
             triple = self.analyze_complement_with_preposition(triple)
 
         if lexicon_lookup(first_word) and 'person' in lexicon_lookup(first_word):
-            triple = self.analyze_possessive(triple, 'complement')
+            triple = self.analyze_possessive(triple, 'object')
 
         return triple
 
@@ -758,10 +759,10 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         triple = self.analyze_np(triple)
         Analyzer.LOG.debug('after NP: {}'.format(triple))
 
-        if len(triple['complement'].split('-')) > 1:  # multi-word complement
+        if len(triple['object'].split('-')) > 1:  # multi-word object
             triple = self.analyze_multiword_complement(triple)
 
-        if len(triple['complement'].split('-')) == 1:
+        if len(triple['object'].split('-')) == 1:
             triple = self.analyze_one_word_complement(triple)
 
         # Final fixes to triple
@@ -785,9 +786,9 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
 
     def analyze_multiword_complement(self, triple):
         structure_tree = self.chat.last_utterance.parser.forest[0]
-        first_word = triple['complement'].split('-')[0]
+        first_word = triple['object'].split('-')[0]
         if lexicon_lookup(first_word) and 'person' in lexicon_lookup(first_word):
-            triple = self.analyze_possessive(triple, 'complement')
+            triple = self.analyze_possessive(triple, 'object')
 
         elif get_pos_in_tree(structure_tree, first_word) in ['IN', 'TO']:
             triple = self.analyze_complement_with_preposition(triple)
@@ -795,33 +796,33 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         elif get_pos_in_tree(structure_tree, first_word).startswith('V') and get_pos_in_tree(structure_tree,
                                                                                              triple[
                                                                                                  'predicate']) == 'MD':
-            for word in triple['complement'].split('-'):
+            for word in triple['object'].split('-'):
                 label = get_pos_in_tree(structure_tree, word)
                 if label in ['IN', 'TO', 'MD'] or label.startswith('V'):
                     triple['predicate'] += '-' + word
-                    triple['complement'] = triple['complement'].replace(word, '')
+                    triple['object'] = triple['object'].replace(word, '')
 
         elif triple['predicate'].endswith('-is'):
             triple['predicate'] = triple['predicate'][:-3]
-            for word in triple['complement'].split('-')[:-1]:
+            for word in triple['object'].split('-')[:-1]:
                 triple['predicate'] += '-' + word
-            triple['complement'] = triple['complement'].split('-')[len(triple['complement'].split('-')) - 1]
+            triple['object'] = triple['object'].split('-')[len(triple['object'].split('-')) - 1]
             triple['predicate'] += '-is'
 
         return triple
 
     def initialize_triple(self):
-        triple = {'predicate': '', 'subject': '', 'complement': ''}
+        triple = {'predicate': '', 'subject': '', 'object': ''}
 
         constituents = self.chat.last_utterance.parser.constituents
         triple['subject'] = constituents[1]['raw']
 
         if len(constituents) == 4:
             triple['predicate'] = constituents[0]['raw'] + '-' + constituents[2]['raw']
-            triple['complement'] = constituents[3]['raw']
+            triple['object'] = constituents[3]['raw']
         elif len(constituents) == 3:
             triple['predicate'] = constituents[0]['raw']
-            triple['complement'] = constituents[2]['raw']
+            triple['object'] = constituents[2]['raw']
         else:
             Analyzer.LOG.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
         return triple
@@ -857,10 +858,10 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
 
         Analyzer.LOG.debug('after NP: {}'.format(triple))
 
-        if len(triple['complement'].split('-')) > 1:  # multi-word complement
+        if len(triple['object'].split('-')) > 1:  # multi-word object
             triple = self.analyze_multiword_complement(triple)
 
-        if len(triple['complement'].split('-')) == 1:
+        if len(triple['object'].split('-')) == 1:
             triple = self.analyze_one_word_complement(triple)
 
         # Final fixes to triple

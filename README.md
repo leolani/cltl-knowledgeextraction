@@ -24,6 +24,9 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
 
 ### Usage
 
+```python
+utterance.analyze()
+```
 ### Examples
 
 
