@@ -1,5 +1,5 @@
 """
-The Pepper Language Package contains tools to generate RDF triples from Natural Language and vice versa.
+The Leolani Triple Extractor Package contains tools to extract SPO triples from Natural Language.
 """
 
 # Download NLTK Dependencies

@@ -1,7 +1,7 @@
 from cltl.combot.backend.api.discrete import UtteranceType, Emotion
 
-from cltl.language.ner import NER
-from cltl.language.utils.helper_functions import *
+from cltl.triple_extraction.ner import NER
+from cltl.triple_extraction.utils.helper_functions import *
 
 
 class Analyzer(object):

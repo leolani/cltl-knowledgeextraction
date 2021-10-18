@@ -2,7 +2,7 @@ from concurrent import futures
 
 from nltk.metrics.distance import edit_distance
 
-from cltl.language.api import UtteranceHypothesis
+from cltl.triple_extraction.api import UtteranceHypothesis
 from .ner import NER
 
 

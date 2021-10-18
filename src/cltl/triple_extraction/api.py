@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import sys
 from collections import Counter
 from datetime import datetime
 from random import getrandbits
@@ -11,12 +12,19 @@ from nltk import pos_tag
 
 from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.combot.backend.utils.casefolding import casefold_text
-from cltl.language.analyzer import Analyzer
-from cltl.language.ner import NER
-from cltl.language.pos import POS
-from cltl.language.utils.base_cases import friends
+from cltl.triple_extraction.analyzer import Analyzer
+from cltl.triple_extraction.data.base_cases import friends
+from cltl.triple_extraction.ner import NER
+from cltl.triple_extraction.pos import POS
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.INFO)
+formatter = logging.Formatter('\r%(asctime)s - %(levelname)8s - %(name)40s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
 
 
 class UtteranceHypothesis(object):

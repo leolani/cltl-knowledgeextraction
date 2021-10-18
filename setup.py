@@ -7,7 +7,7 @@ with open("VERSION", "r") as fh:
     version = fh.read().strip()
 
 setup(
-    name="cltl.language",
+    name="cltl.triple_extraction",
     description="The Leolani Language module for knowledge extraction",
     version=version,
     long_description=long_description,
@@ -21,7 +21,7 @@ setup(
     },
     package_dir={'': 'src'},
     packages=find_namespace_packages(include=['cltl.*'], where='src'),
-    package_data={},
+    package_data={'cltl.triple_extraction': ['stanford-ner/*', 'stanford-pos/*', 'data/*']},
     python_requires='>=3.7',
     install_requires=[
         'nltk~=3.4.4'

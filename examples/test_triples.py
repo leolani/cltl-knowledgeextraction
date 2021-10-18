@@ -1,7 +1,15 @@
+"""
+THIS SCRIPT TESTS THE TRIPLE (AND PERSPECTIVE) EXTRACTION. IT LOOPS THROUGH FOUR TXT FILES (STATEMENTS, PERSPECTIVES,
+WH-QUESTIONS AND VERB-QUESTIONS) WHICH CONTAIN SINGLE UTTERANCES AND THEIR IDEAL EXTRACTED TRIPLE.
+THIS SCRIPT PROCESSES EACH UTTERANCE AND COMPARES THE TRIPLE EXTRACTED WITH THE IDEAL EXTRACTION, ELEMENTWISE.
+THEREFORE EACH UTTERANCE MAY HAVE THREE COMPARISONS (SPO) OR MORE (IF COUNTING THE PERSPECTIVE).
+TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN INTO ACCOUNT.
+"""
+
 import json
 from collections import defaultdict
 
-from cltl.language.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat, UtteranceHypothesis
 
 
 def load_golden_triples(filepath):
@@ -140,7 +148,7 @@ def test_triples_in_file(path):
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
-    print(f"ISSUES ({len(issues)}): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
 
 if __name__ == "__main__":
