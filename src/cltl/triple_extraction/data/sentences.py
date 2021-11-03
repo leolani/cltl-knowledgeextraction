@@ -158,11 +158,6 @@ ADDRESSING = [
     "I'll tell you,"
 ]
 
-ASK_FOR_QUESTIONS = [
-    "Do you have a question for me?",
-    "Ask me anything!",
-]
-
 USED_WWW = [
     "I looked it up on the internet",
     "I searched the web",
@@ -186,6 +181,17 @@ HAPPY = [
 ASK_ME = [
     "Ask me anything!",
     "Please ask me something",
+    "Do you have a question for me?",
+    "Ask me anything you'd like!"
+]
+
+TALK_TO_ME = [
+    "Let's chat!",
+    "Do you have any gossip?",
+    "Tell me anything, I love learning things",
+    "Would you like to chat? I'll do my best to keep up",
+    "Tell me something, anything!"
+
 ]
 
 SORRY = [
@@ -200,7 +206,9 @@ SORRY = [
 NO_ANSWER = [
     "I have no idea.",
     "I wouldn't know!",
-    "I don't know"
+    "I don't know",
+    "I may be ignorant, bu tI don't know."
+    "I am sorry, I have no idea"
 ]
 
 THANK = [
