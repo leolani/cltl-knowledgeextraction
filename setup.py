@@ -3,10 +3,10 @@
 
 from setuptools import setup, find_namespace_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("VERSION", "r") as fh:
+with open("VERSION", "r", encoding="utf-8") as fh:
     version = fh.read().strip()
 
 setup(
