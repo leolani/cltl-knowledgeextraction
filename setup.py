@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from setuptools import setup, find_namespace_packages
 
 with open("README.md", "r") as fh:
@@ -26,7 +29,7 @@ setup(
         'stanford-ner/**/*',
         'stanford-pos/*',
         'stanford-pos/**/*',
-        'data/*',
+        'data',
         'data/**/*'
     ]},
     python_requires='>=3.7',
