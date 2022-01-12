@@ -1,7 +1,8 @@
 from cltl.combot.backend.api.discrete import UtteranceType, Emotion
-
 from cltl.triple_extraction.ner import NER
 from cltl.triple_extraction.utils.helper_functions import *
+
+logger = logging.getLogger(__name__)
 
 
 class Analyzer(object):

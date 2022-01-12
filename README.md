@@ -116,7 +116,7 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
 
     ```bash
     pip install -e .
-    python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt')"
+    python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
     ```
 
 ### Usage

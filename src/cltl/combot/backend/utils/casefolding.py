@@ -1,6 +1,5 @@
-import string
-
 import re
+import string
 
 
 def casefold_text(text, format='triple'):
@@ -10,6 +9,7 @@ def casefold_text(text, format='triple'):
     if format == 'triple':
         if isinstance(text, str):
             for sign in string.punctuation:
+                text = text.rstrip(sign)
                 text = text.replace(sign, "-")
 
             text = text.lower().replace(" ", "-").strip('-')
