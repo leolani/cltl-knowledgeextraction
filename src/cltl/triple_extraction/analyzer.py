@@ -1,8 +1,11 @@
+import json
+import logging
+import os
+
 from cltl.combot.backend.api.discrete import UtteranceType, Emotion
 from cltl.triple_extraction.ner import NER
-from cltl.triple_extraction.utils.helper_functions import *
-
-logger = logging.getLogger(__name__)
+from cltl.triple_extraction.utils.helper_functions import trim_dash, fix_pronouns, lemmatize, lexicon_lookup, \
+    get_triple_element_type, get_pos_in_tree
 
 
 class Analyzer(object):
@@ -152,15 +155,14 @@ class Analyzer(object):
             if triple['predicate'] == 'cannot':  # special case with no space between not and verb
                 triple['predicate'] = 'can'
                 utterance_info['neg'] = True
-####
-
+            ####
 
             if label in ['IN', 'TO']:
                 pred += '-' + triple['predicate']
                 for elem in triple['predicate'].split('-')[ind + 1:]:
                     triple['object'] = elem + '-' + triple['object']
                 triple['predicate'] = pred
-####
+            ####
             return triple, utterance_info
 
         # complex predicate
@@ -519,7 +521,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         """
         for el in ['predicate', 'subject', 'object']:
             if not triple[el] or not len(triple[el]):
-                LOG.warning("Cannot find {} in statement".format(el))
+                Analyzer.LOG.warning("Cannot find {} in statement".format(el))
                 return False
         return True
 
@@ -532,7 +534,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         """
         for el in ['sentiment', 'certainty', 'polarity', 'emotion']:
             if not perspective[el] or not len(perspective[el]):
-                LOG.warning("Cannot find {} in statement".format(el))
+                Analyzer.LOG.warning("Cannot find {} in statement".format(el))
                 return False
         return True
 
@@ -623,7 +625,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         triple = self.analyze_np(triple)
         Analyzer.LOG.debug('after NP: {}'.format(triple))
 
-# Analyze object
+        # Analyze object
         if len(triple['object'].split('-')) > 1:  # multi-word object
             triple = self.analyze_multiword_complement(triple)
         elif len(triple['object'].split('-')) == 1:
@@ -796,7 +798,6 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
             triple = self.analyze_possessive(triple, 'object')
 
         return triple
-
 
     def analyze_multiword_subject(self, triple):
         first_word = triple['subject'].split('-')[0]
