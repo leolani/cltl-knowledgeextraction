@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class NER(object):
-    ROOT = os.path.join(os.path.dirname(__file__), 'stanford-ner')
+    ROOT = os.path.join(os.path.dirname(__file__), '../stanford-ner')
     IP = 'localhost'
 
     def __init__(self, classifier='english.all.3class.distsim.crf.ser'):

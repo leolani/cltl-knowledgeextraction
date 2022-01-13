@@ -1,7 +1,8 @@
-where is she: she be ?
 I know you: lenka know leolani
+where is she: she be ?
 my best friend is he: lenka best-friend-is he
 I have three white cats: lenka have three-white-cats
+
 I think Selene doesn't like cheese: selene like cheese
 I think Selene hates cheese: selene hate cheese
 selene might come today: selene might-come today

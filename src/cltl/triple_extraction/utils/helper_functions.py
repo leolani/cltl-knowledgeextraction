@@ -30,16 +30,15 @@ def trim_dash(triple):
     return triple
 
 
-def fix_pronouns(pronoun, self):
+def fix_pronouns(pronoun, speaker):
     """
     :param pronoun: personal ronoun which is said in the sentence
-    :param self: Utterance object from which we can get the speaker and lexicon
+    :param speaker: the original speaker get_pos_in_tree an utterance
     :return: disambiguated first or second person pronoun
     In the case of third person pronouns - guesses or asks questions
     * plural *
     """
 
-    speaker = self.chat.speaker
     entry = lexicon_lookup(pronoun, lexicon)
 
     if entry and 'person' in entry:

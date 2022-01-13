@@ -10,7 +10,7 @@ class POS(object):
     """Part of Speech tagging using Stanford POSTagger"""
 
     PACKAGE_ROOT = os.path.dirname(__file__)
-    STANFORD_POS = os.path.join(PACKAGE_ROOT, 'stanford-pos')
+    STANFORD_POS = os.path.join(PACKAGE_ROOT, '../stanford-pos')
     STANFORD_POS_JAR = os.path.join(STANFORD_POS, 'stanford-postagger.jar')
     STANFORD_POS_TAGGER = os.path.join(STANFORD_POS, 'models/english-bidirectional-distsim.tagger')
 

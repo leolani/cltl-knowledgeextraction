@@ -1,6 +1,6 @@
 from cltl.triple_extraction.api import Chat, UtteranceHypothesis
-from cltl.triple_extraction.oie_extractor import OIEAnalyzer
-from cltl.triple_extraction.oie_extractor import Analyzer
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
+from cltl.triple_extraction.oie_analyzer import OIEAnalyzer
 from test_triples import load_golden_triples
 
 
@@ -22,10 +22,13 @@ def test_triples_in_file(path):
         chat = Chat("Lenka")
         chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
 
-        analyzer = OIEAnalyzer(chat)
-        analyzer.analyze(chat)
+        analyzer_1 = OIEAnalyzer()
+        analyzer_1.analyze(chat.last_utterance)
+        print(f"\nTriple:            \t{chat.last_utterance.triple}")
 
-        Analyzer.analyze(chat)
+        analyzer_2 = CFGAnalyzer()
+        analyzer_2.analyze(chat.last_utterance)
+        print(f"\nTriple:            \t{chat.last_utterance.triple}")
 
 
 if __name__ == "__main__":
