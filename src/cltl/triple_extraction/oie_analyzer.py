@@ -1,5 +1,6 @@
 from openie import StanfordOpenIE
 
+from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 
 
@@ -35,13 +36,14 @@ class OIEAnalyzer(Analyzer):
         try:
             with StanfordOpenIE(properties=OIEAnalyzer.PROPERTIES) as client:
                 text = utterance.transcript
-                print('Text: %s.' % text)
-                for triple in client.annotate(text):
-                    self._log.info('|-', triple)
-                    print('|-', triple)
 
-                triple["predicate"] = triple.pop("relation")
-                self.utterance._triple = triple
+                result = client.annotate(text)
+                if result:
+                    for triple in result:
+                        # Final triple assignment
+                        triple["predicate"] = triple.pop("relation")
+                        self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple,
+                                                  perspective=None)
 
         except Exception as e:
             self._log.warning("Couldn't extract triples")

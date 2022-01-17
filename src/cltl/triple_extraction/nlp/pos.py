@@ -1,9 +1,8 @@
-import logging
 import os
 
 from nltk.tag.stanford import StanfordPOSTagger
 
-logger = logging.getLogger(__name__)
+from cltl.triple_extraction import logger
 
 
 class POS(object):

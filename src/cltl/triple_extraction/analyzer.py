@@ -1,17 +1,7 @@
 import json
-import logging
-import sys
 
 from cltl.combot.backend.api.discrete import UtteranceType
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter('\r%(asctime)s - %(levelname)8s - %(name)60s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+from cltl.triple_extraction import logger
 
 
 class Analyzer(object):
@@ -24,7 +14,7 @@ class Analyzer(object):
         ----------
         """
         self._log = logger.getChild(self.__class__.__name__)
-        self._log.info("Booted")
+        self._log.debug("Booted")
 
         self._utterance = None
 

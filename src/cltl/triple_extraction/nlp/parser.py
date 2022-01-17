@@ -1,21 +1,11 @@
-import logging
 import os
-import sys
 
 from nltk import CFG, RecursiveDescentParser
 from nltk import pos_tag
 
+from cltl.triple_extraction import logger
 from cltl.triple_extraction.nlp.ner import NER
 from cltl.triple_extraction.nlp.pos import POS
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter('\r%(asctime)s - %(levelname)8s - %(name)60s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
 
 
 class Parser(object):

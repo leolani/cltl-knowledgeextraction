@@ -13,20 +13,21 @@ def test_triples_in_file(path):
     """
 
     test_suite = load_golden_triples(path)
-
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
+
+    chat = Chat("Lenka")
+
+    analyzer_1 = OIEAnalyzer()
+    analyzer_2 = CFGAnalyzer()
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
 
-        chat = Chat("Lenka")
         chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
 
-        analyzer_1 = OIEAnalyzer()
         analyzer_1.analyze(chat.last_utterance)
         print(f"\nTriple:            \t{chat.last_utterance.triple}")
 
-        analyzer_2 = CFGAnalyzer()
         analyzer_2.analyze(chat.last_utterance)
         print(f"\nTriple:            \t{chat.last_utterance.triple}")
 

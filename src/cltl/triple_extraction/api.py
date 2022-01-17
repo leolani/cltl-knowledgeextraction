@@ -1,5 +1,3 @@
-import logging
-import sys
 from collections import Counter
 from datetime import datetime
 from random import getrandbits
@@ -10,17 +8,9 @@ from nltk import pos_tag
 
 from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.combot.backend.utils.casefolding import casefold_text
+from cltl.triple_extraction import logger
 from cltl.triple_extraction.data.base_cases import friends
 from cltl.triple_extraction.nlp.parser import Parser
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.INFO)
-formatter = logging.Formatter('\r%(asctime)s - %(levelname)8s - %(name)60s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
 
 
 class UtteranceHypothesis(object):
@@ -170,7 +160,7 @@ class Chat(object):
         return utterance
 
     def _update_logger(self):
-        return logger.getChild("Chat {:19s} {:03d}".format("({})".format(self.speaker), len(self._utterances)))
+        return logger.getChild("Chat".format(self.speaker, len(self._utterances)))
 
     def __repr__(self):
         return "\n".join([str(utterance) for utterance in self._utterances])
@@ -502,4 +492,4 @@ class Utterance(object):
 
     def __repr__(self):
         author = self.chat.speaker
-        return '{:>10s}: "{}"'.format(author, self.transcript)
+        return '{:10s} {:03d}: "{}"'.format(author, self.turn, self.transcript)

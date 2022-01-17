@@ -1,4 +1,3 @@
-import logging
 import os
 import socket
 import subprocess
@@ -6,7 +5,7 @@ from contextlib import contextmanager, closing
 from threading import Thread
 from time import sleep
 
-logger = logging.getLogger(__name__)
+from cltl.triple_extraction import logger
 
 
 class NER(object):
