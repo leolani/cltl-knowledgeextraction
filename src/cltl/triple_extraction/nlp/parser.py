@@ -14,25 +14,20 @@ class Parser(object):
     GRAMMAR = None
     CFG_GRAMMAR_FILE = os.path.join(os.path.dirname(__file__), '../data', 'cfg.txt')
 
-    def __init__(self, utterance):
+    def __init__(self):
         self._log = logger.getChild(self.__class__.__name__)
 
         if not Parser.POS_TAGGER:
             Parser.POS_TAGGER = POS()
-            logger.info("Started POS tagger")
 
         if not Parser.NER_TAGGER:
             Parser.NER_TAGGER = NER()
-            logger.info("Started NER tagger")
 
         with open(Parser.CFG_GRAMMAR_FILE) as cfg_file:
             if not Parser.GRAMMAR:
                 Parser.GRAMMAR = cfg_file.read()
-                logger.info("Loaded grammar")
+                self._log.debug("Loaded grammar")
             self._cfg = Parser.GRAMMAR
-
-        self._forest, self._constituents = self._parse(utterance)
-        self._structure_tree = self.forest[0] if self.forest else None
 
     @property
     def forest(self):
@@ -46,14 +41,14 @@ class Parser(object):
     def structure_tree(self):
         return self._structure_tree
 
-    def _parse(self, utterance):
+    def parse(self, utterance):
         """
         :param utterance: an Utterance object, typically last one in the Chat
         :return: parsed syntax tree and a dictionary of syntactic realizations
         """
         self._log.debug("Start parsing")
         tokenized_sentence = utterance.tokens
-        pos = self.POS_TAGGER.tag(tokenized_sentence)  # standford
+        pos = self.POS_TAGGER.tag(tokenized_sentence)  # stanford
         alternative_pos = pos_tag(tokenized_sentence)  # nltk
 
         self._log.debug(pos)
@@ -127,6 +122,11 @@ class Parser(object):
                     s_r[el]['raw'] = string
                 s_r[el]['raw'] = s_r[el]['raw'].strip()
 
-            return forest, s_r
+            self._forest = forest
+            self._constituents = s_r
+            self._structure_tree = self.forest[0] if self.forest else None
+
         except:
-            return [], {}
+            self._forest = []
+            self._constituents = {}
+            self._structure_tree = None

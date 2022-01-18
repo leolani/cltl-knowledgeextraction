@@ -26,10 +26,10 @@ def test_triples_in_file(path):
         chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
 
         analyzer_1.analyze(chat.last_utterance)
-        print(f"\nTriple:            \t{chat.last_utterance.triple}")
+        print(f"\nTriple:            \t{chat.last_utterance.triple}\n")
 
         analyzer_2.analyze(chat.last_utterance)
-        print(f"\nTriple:            \t{chat.last_utterance.triple}")
+        print(f"\nTriple:            \t{chat.last_utterance.triple}\n")
 
 
 if __name__ == "__main__":

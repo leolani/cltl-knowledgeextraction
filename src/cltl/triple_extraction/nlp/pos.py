@@ -17,6 +17,8 @@ class POS(object):
         self._log = logger.getChild(self.__class__.__name__)
         self._tagger = StanfordPOSTagger(POS.STANFORD_POS_TAGGER, path_to_jar=POS.STANFORD_POS_JAR)
 
+        self._log.debug("Booted POS tagger")
+
     def tag(self, tokens):
         """
         Tag Part of Speech using Stanford NER

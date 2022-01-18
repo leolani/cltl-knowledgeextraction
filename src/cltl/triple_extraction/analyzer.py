@@ -47,8 +47,8 @@ class Analyzer(object):
 
         if triple:
             for el in ["subject", "predicate", "object"]:
-                self._log.info("RDF {:>10}: {}".format(el, json.dumps(triple[el], sort_keys=True,
-                                                                      separators=(', ', ': '))))
+                self._log.info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el], sort_keys=True,
+                                                                             separators=(', ', ': '))))
         if perspective:
             for el in ['sentiment', 'certainty', 'polarity']:
                 self._log.info("Perspective {:>10}: {}".format(el, json.dumps(perspective[el], sort_keys=True,

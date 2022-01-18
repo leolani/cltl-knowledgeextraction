@@ -41,7 +41,7 @@ class NER(object):
             'java', '-cp', os.path.join(NER.ROOT, 'stanford-ner.jar'), 'edu.stanford.nlp.ie.NERServer',
             '-port', str(self._port), '-loadClassifier', os.path.join(NER.ROOT, classifier)],
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        self._log.info("Started NER server")
+
         with self._ner_server_process.stdout:
             self._log_subprocess_output(self._ner_server_process.stdout)
 
