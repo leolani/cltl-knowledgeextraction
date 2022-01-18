@@ -39,6 +39,7 @@ class OIEAnalyzer(Analyzer):
 
                 result = client.annotate(text)
                 if result:
+                    self._log.info(f'Found {len(result)} triples')
                     for triple in result:
                         # Final triple assignment
                         triple["predicate"] = triple.pop("relation")

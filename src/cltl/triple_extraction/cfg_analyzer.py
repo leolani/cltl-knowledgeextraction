@@ -50,6 +50,8 @@ class CFGAnalyzer(Analyzer):
             self._log.warning("Couldn't parse input")
 
         else:
+            self._log.info(f'Found {len(CFGAnalyzer.PARSER.forest)} triples')
+
             for tree in CFGAnalyzer.PARSER.forest:
                 sentence_type = tree[0].label()
 
