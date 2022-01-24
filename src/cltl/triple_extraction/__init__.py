@@ -2,10 +2,14 @@
 The Leolani Triple Extractor Package contains tools to extract SPO triples from Natural Language.
 """
 
-import logging.config
-from pathlib import Path
+import logging
 
 # create logger
-LOGGING_CONFIG_PATH = Path(__file__).parents[3] / 'config' / 'logging.config'
-logging.config.fileConfig(LOGGING_CONFIG_PATH)
+LOG_FORMAT = "%(asctime)s - %(levelname)8s - %(name)60s - %(message)s"
+LOG_LEVEL = "INFO"
+LOG_DATEFMT = "%Y-%m-%d %H:%M:%S"
+
+logging.basicConfig(level=getattr(logging, LOG_LEVEL),
+                    format=LOG_FORMAT,
+                    datefmt=LOG_DATEFMT)
 logger = logging.getLogger(__name__)
