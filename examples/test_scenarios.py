@@ -6,6 +6,7 @@ THIS PACKAGE SO THE BEHAVIOUR CANNOT BE COMPARED.
 """
 
 from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
 def load_scenarios(filepath):
@@ -33,7 +34,7 @@ def load_scenarios(filepath):
 
 def test_scenario(statements, questions, gold):
     """
-    :param statement: one or several statements separated by a comma, to be stored in the brain
+    :param statements: one or several statements separated by a comma, to be stored in the brain
     :param questions: set of questions regarding the stored statement
     :param gold: gold standard reply
     :return: number of correct replies
@@ -44,12 +45,13 @@ def test_scenario(statements, questions, gold):
     reply = None
 
     chat = Chat("Lenka")
+    analyzer = CFGAnalyzer()
 
     # one or several statements are added to the brain
     print(f'\nSTATEMENTS\n')
     for statement in statements:
         chat.add_utterance([UtteranceHypothesis(statement, 1.0)])
-        chat.last_utterance.analyze()
+        analyzer.analyze(chat.last_utterance)
 
         print(f"Utterance: {chat.last_utterance}")
         print(f"Triple:      \t{chat.last_utterance.triple}")
@@ -59,7 +61,7 @@ def test_scenario(statements, questions, gold):
     print(f'\nQUESTIONS\n')
     for question in questions:
         chat.add_utterance([UtteranceHypothesis(question, 1.0)])
-        chat.last_utterance.analyze()
+        analyzer.analyze(chat.last_utterance)
 
         print(f"Question:   \t{chat.last_utterance}")
         print(f"Triple:            \t{chat.last_utterance.triple}")

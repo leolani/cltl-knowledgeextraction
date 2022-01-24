@@ -3,7 +3,7 @@
 A knowledge extraction service (aka Leolani's Triple Extractor package). This service performs Natural Language
 Understanding through Grammars natural language textual data and outputs structured data.
 
-### Description
+## Description
 
 This package allows extracting structured information, in the form of SPO triples, from natural language textual data.
 It features:
@@ -11,12 +11,13 @@ It features:
 * Upon initialization, an Utterance is parsed with the CFG and analyzed with the help of the Analyzer class.
 * If an Utterance is a statement, it also has a Perspective object which consists of a polarity, certainty, sentiment
   and emotion value.
-* The Analyzer class consists of a hierarchy of classes, topmost class is the abstract general class Analyzer, which is
+* The Analyzer class is the API for triple extractors. At This moment there are two Analyzers implemented: CFGAnalyzer (
+  which uses Context Free Grammar parsing), and OIE Analyzer (which uses Stanford OIE library)
+* The CFGAnalyzer consists of a hierarchy of classes, topmost class is the abstract general class Analyzer, which is
   separated into two abstract classes StatementAnalyzer and QuestionAnalyzer, which consist of the concrete classes
-  GeneralStatementAnalyzer, WhQuestionAnalyzer and VerbQuestionAnalyzer. These three get the utterance constituents as
-  input (as parsed with the CFG) and map them to triples.
+  GeneralStatementAnalyzer, WhQuestionAnalyzer and VerbQuestionAnalyzer.
 
-#### Triple extraction
+### Triple extraction implementations
 
 The triples consist of subject, predicate and object alongside with their semantic types. In case of a statement, the
 triple is accompanied by a perspective. In the case of a question the triple is incomplete. Below are a few examples of
@@ -29,8 +30,11 @@ the triples which are the output of analyzers:
 The elements of the triple are separated with underscore; while dash is used to separate elements of multiword
 expressions. When a multiword expression is actually a collocation, the multiword expression is marked with apostrophes
 during the analysis (e.g. ”mexico-city”)to ensure that subparts of collocations are not analyzed separately.
+implementations
 
-Basic rules that the analyzer follows are:
+#### CFGAnalyzer
+
+Basic rules that the CFGAnalyzer follows are:
 
 * predicates are lemmatized verbs, with possible prepositions connected to the verb
     - `“live-in”, “come-from”, etc`
@@ -49,8 +53,6 @@ Basic rules that the analyzer follows are:
 * adjectives, determiners and numbers are joined with the noun
     - `“a-dog”, “the-blue-shirt”, etc.`
 
-#### Pipeline
-
 Below is a short summary of NLP that happens during the utterance analysis:
 
 1. Removing usual openers such as “excuse me” or “leolani, can you tell me”, etc.
@@ -66,7 +68,7 @@ Below is a short summary of NLP that happens during the utterance analysis:
 1. Getting semantic types of each element of the triple, and its subparts, using the manually made lexicon, WordNet
    lexname, Stanford NER
 
-#### Sample output
+### Sample output
 
 Here is a sample output for sentence `“I have three white cats”`:
 
@@ -138,14 +140,17 @@ For using this repository as a package different project and on a different virt
 Then you can import it in a python script as:
 
 ```python
-    from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
-    chat = Chat("Lenka")
-    chat.add_utterance([UtteranceHypothesis("I have three white cats", 1.0)])
-    chat.last_utterance.analyze()
+chat = Chat("Lenka")
+analyzer = CFGAnalyzer()
+
+chat.add_utterance([UtteranceHypothesis("I have three white cats", 1.0)])
+analyzer.analyze(chat.last_utterance)
 ```
 
-### Examples
+## Examples
 
 Please take a look at the example scripts provided to get an idea on how to run and use this package. Each example has a
 comment at the top of the script describing the behaviour of the script.
@@ -156,3 +161,24 @@ For these example scripts, you need
 
 1. Run some examples (e.g. python test_with_triples.py)
 
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+Distributed under the MIT License.
+See [`LICENSE`](https://github.com/leolani/cltl-knowledgeextraction/blob/main/LICENCE) for more information.
+
+## Authors
+
+* [Selene Báez Santamaría](https://selbaez.github.io/)
+* [Thomas Baier](https://www.linkedin.com/in/thomas-baier-05519030/)
+* [Piek Vossen](https://github.com/piekvossen)

@@ -10,6 +10,7 @@ import json
 from collections import defaultdict
 
 from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
 def load_golden_triples(filepath):
@@ -92,8 +93,10 @@ def compare_perspectives(perspective, gold):
 
 def test_triples(item, correct, incorrect, issues):
     chat = Chat("Lenka")
+    analyzer = CFGAnalyzer()
+
     chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
-    chat.last_utterance.analyze()
+    analyzer.analyze(chat.last_utterance)
 
     # No triple was extracted, so we missed three items (s, p, o)
     if chat.last_utterance.triple is None:
@@ -147,6 +150,7 @@ def test_triples_in_file(path):
         correct, incorrect, issues = test_triples(item, correct, incorrect, issues)
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
+    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
