@@ -1,72 +1,12 @@
 import json
-from collections import Counter
 from datetime import datetime
 from random import getrandbits
 from typing import List
 
-from nltk import edit_distance
 from nltk import pos_tag
 
-from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.combot.backend.utils.casefolding import casefold_text
 from cltl.triple_extraction import logger
-from cltl.triple_extraction.data.base_cases import friends
-
-
-class UtteranceHypothesis(object):
-    """
-    Automatic Speech Recognition (ASR) Hypothesis
-
-    Parameters
-    ----------
-    transcript: str
-        Utterance Hypothesis Transcript
-    confidence: float
-        Utterance Hypothesis Confidence
-    """
-
-    def __init__(self, transcript, confidence):
-        # type: (str, float) -> None
-
-        self._transcript = transcript
-        self._confidence = confidence
-
-    @property
-    def transcript(self):
-        # type: () -> str
-        """
-        Automatic Speech Recognition Hypothesis Transcript
-
-        Returns
-        -------
-        transcript: str
-        """
-        return self._transcript
-
-    @transcript.setter
-    def transcript(self, value):
-        # type: (str) -> None
-        self._transcript = value
-
-    @property
-    def confidence(self):
-        # type: () -> float
-        """
-        Automatic Speech Recognition Hypothesis Confidence
-
-        Returns
-        -------
-        confidence: float
-        """
-        return self._confidence
-
-    @confidence.setter
-    def confidence(self, value):
-        # type: (float) -> None
-        self._confidence = value
-
-    def __repr__(self):
-        return "<'{}' [{:3.2%}]>".format(self.transcript, self.confidence)
 
 
 class Chat(object):
@@ -80,7 +20,7 @@ class Chat(object):
             Name of speaker (a.k.a. the person Pepper has a chat with)
         """
 
-        self._id = getrandbits(128)
+        self._id = getrandbits(8)
         self._speaker = speaker
         self._utterances = []
 
@@ -113,7 +53,8 @@ class Chat(object):
         """
         return self._id
 
-    def set_id(self, value):
+    @id.setter
+    def id(self, value):
         self._id = value
 
     @property
@@ -138,20 +79,20 @@ class Chat(object):
         """
         return self._utterances[-1]
 
-    def add_utterance(self, hypotheses):
-        # type: (List[UtteranceHypothesis]) -> Utterance
+    def add_utterance(self, transcript):
+        # type: (str) -> Utterance
         """
         Add Utterance to Conversation
 
         Parameters
         ----------
-        hypotheses: list of UtteranceHypothesis
+        transcript: str
 
         Returns
         -------
         utterance: Utterance
         """
-        utterance = Utterance(self, hypotheses, len(self._utterances))
+        utterance = Utterance(self, transcript, len(self._utterances))
         self._utterances.append(utterance)
 
         self._log = self._update_logger()
@@ -167,8 +108,8 @@ class Chat(object):
 
 
 class Utterance(object):
-    def __init__(self, chat, hypotheses, turn):
-        # type: (Chat, List[UtteranceHypothesis], int) -> Utterance
+    def __init__(self, chat, transcript, turn):
+        # type: (Chat, str, int) -> Utterance
         """
         Construct Utterance Object
 
@@ -176,23 +117,22 @@ class Utterance(object):
         ----------
         chat: Chat
             Reference to Chat Utterance is part of
-        hypotheses: List[UtteranceHypothesis]
-            Hypotheses on uttered text (transcript, confidence)
+        transcript: str
+            Text representing the transcript of what was said
         turn: int
             Utterance Turn
         """
 
         self._log = logger.getChild(self.__class__.__name__)
 
-        self._datetime = datetime.now()
         self._chat = chat
         self._chat_speaker = self._chat.speaker
         self._turn = turn
+        self._datetime = datetime.now()
 
-        self._hypothesis = self._choose_hypothesis(hypotheses)
-        self._tokens = self._clean(self._tokenize(self.transcript))
+        self._transcript = transcript
+        self._tokens = self._clean(self._tokenize(self._transcript))
 
-        self._type = None
         self._triples = []
 
     @property
@@ -218,17 +158,6 @@ class Utterance(object):
         return self._chat_speaker
 
     @property
-    def type(self):
-        # type: () -> UtteranceType
-        """
-        Returns
-        -------
-        type: UtteranceType
-            Whether the utterance was a statement, a question or an experience
-        """
-        return self._type
-
-    @property
     def transcript(self):
         # type: () -> str
         """
@@ -237,18 +166,7 @@ class Utterance(object):
         transcript: str
             Utterance Transcript
         """
-        return self._hypothesis.transcript
-
-    @property
-    def confidence(self):
-        # type: () -> float
-        """
-        Returns
-        -------
-        confidence: float
-            Utterance Confidence
-        """
-        return self._hypothesis.confidence
+        return self._transcript
 
     @property
     def turn(self):
@@ -277,16 +195,6 @@ class Utterance(object):
         return self._datetime
 
     @property
-    def language(self):
-        """
-        Returns
-        -------
-        language: str
-            Original language of the Transcript
-        """
-        raise NotImplementedError()
-
-    @property
     def tokens(self):
         """
         Returns
@@ -296,17 +204,6 @@ class Utterance(object):
         """
         return self._tokens
 
-    def set_turn(self, value):
-        self._turn = value
-
-    def set_type(self, utterance_type):
-        # type: (UtteranceType) -> ()
-        self._type = utterance_type
-
-    def set_triples(self, triples):
-        # type: (dict) -> ()
-        self._triples = triples
-
     def add_triple(self, triple):
         # type: (dict) -> ()
 
@@ -314,7 +211,8 @@ class Utterance(object):
         self._triples.append(triple)
 
         # Deduplicate the list  # TODO make more efficient
-        self._triples = [json.loads(i) for i in set([json.dumps(i) for i in [dict(sorted(i.items())) for i in self._triples]])]
+        self._triples = [json.loads(i) for i in
+                         set([json.dumps(i) for i in [dict(sorted(i.items())) for i in self._triples]])]
 
     def casefold(self, format='triple'):
         # type (str) -> ()
@@ -329,50 +227,6 @@ class Utterance(object):
 
         """
         self._chat_speaker = casefold_text(self.chat_speaker, format)
-
-    def _choose_hypothesis(self, hypotheses):
-        return sorted(self._patch_names(hypotheses), key=lambda hypothesis: hypothesis.confidence, reverse=True)[0]
-
-    @staticmethod
-    def _patch_names(hypotheses):
-        names = []
-
-        # Patch Transcripts with Names
-        for hypothesis in hypotheses:
-
-            transcript = []
-
-            for word in hypothesis.transcript.split():
-                name = Utterance._get_closest_name(word, friends)
-
-                if name:
-                    names.append(name)
-                    transcript.append(name)
-                else:
-                    transcript.append(word)
-
-            hypothesis.transcript = " ".join(transcript)
-
-        if names:
-            # Count Name Frequency and Adjust Hypothesis Confidence
-            names = Counter(names)
-            max_freq = max(names.values())
-
-            for hypothesis in hypotheses:
-                for name in list(names.keys()):
-                    if name in hypothesis.transcript:
-                        hypothesis.confidence *= float(names[name]) / float(max_freq)
-
-        return hypotheses
-
-    @staticmethod
-    def _get_closest_name(word, names, max_name_distance=2):
-        # type: (str, List[str], int) -> str
-        if word[0].isupper() and names:
-            name, distance = sorted([(name, edit_distance(name, word)) for name in names], key=lambda key: key[1])[0]
-
-            if distance <= max_name_distance:
-                return name
 
     def _tokenize(self, transcript):
         """
@@ -418,12 +272,12 @@ class Utterance(object):
                     'aren': 'are'}
 
         for key in dict:
-            tokens_raw = self.replace_token(tokens_raw, key, dict[key])
+            tokens_raw = self._replace_token(tokens_raw, key, dict[key])
 
         if 't' in tokens_raw:
-            tokens_raw = self.replace_token(tokens_raw, 't', 'not')
+            tokens_raw = self._replace_token(tokens_raw, 't', 'not')
             for key in dict_not:
-                tokens_raw = self.replace_token(tokens_raw, key, dict_not[key])
+                tokens_raw = self._replace_token(tokens_raw, key, dict_not[key])
 
         # in case of possessive genitive the 's' is just removed, while for the aux verb 'is' is inserted
         if 's' in tokens_raw:
@@ -441,7 +295,7 @@ class Utterance(object):
         return tokens_raw
 
     @staticmethod
-    def replace_token(tokens_raw, old, new):
+    def _replace_token(tokens_raw, old, new):
         """
         :param tokens_raw: list of tokens
         :param old: token to replace

@@ -7,7 +7,7 @@ THIS PACKAGE SO THE BEHAVIOUR CANNOT BE COMPARED.
 
 import json
 
-from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
@@ -50,7 +50,7 @@ def test_scenario(statements, questions, gold):
     # one or several statements are added to the brain
     print(f'\nSTATEMENTS\n')
     for statement in statements:
-        chat.add_utterance([UtteranceHypothesis(statement, 1.0)])
+        chat.add_utterance(statement)
         analyzer.analyze(chat.last_utterance)
 
         print(f"Utterance: {chat.last_utterance}")
@@ -59,7 +59,7 @@ def test_scenario(statements, questions, gold):
     # brain is queried and a reply is generated and compared with golden standard
     print(f'\nQUESTIONS\n')
     for question in questions:
-        chat.add_utterance([UtteranceHypothesis(question, 1.0)])
+        chat.add_utterance(question)
         analyzer.analyze(chat.last_utterance)
 
         print(f"Question:   \t{chat.last_utterance}")

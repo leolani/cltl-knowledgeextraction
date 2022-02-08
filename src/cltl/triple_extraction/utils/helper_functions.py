@@ -375,7 +375,7 @@ def utterance_to_capsules(utterance):
                    "turn": utterance.turn,
                    "author": utterance.chat_speaker,
                    "utterance": utterance.transcript,
-                   "utterance_type": utterance.type,
+                   "utterance_type": triple['utterance_type'],
                    "position": "0-" + str(len(utterance.transcript)),
                    ###
                    "subject": triple['subject'],

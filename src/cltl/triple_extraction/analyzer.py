@@ -1,7 +1,6 @@
 import json
 
 from cltl.combot.backend.api import discrete
-from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.combot.backend.utils.triple_helpers import continuous_to_enum
 from cltl.triple_extraction import logger
 
@@ -40,9 +39,9 @@ class Analyzer(object):
     def set_extracted_values(self, utterance_type=None, triple=None, perspective={}):
         # Pack everything together
         triple["perspective"] = perspective
+        triple["utterance_type"] = utterance_type
 
         # Set type, and triple
-        self.utterance.set_type(utterance_type)
         self.utterance.add_triple(triple)
 
         if utterance_type:
@@ -64,20 +63,10 @@ class Analyzer(object):
         """
         Returns
         -------
-        utterance_type: UtteranceType
-            Utterance Type
+        utterance: Utterance
+            Utterance
         """
         return self._utterance
-
-    @property
-    def utterance_type(self):
-        """
-        Returns
-        -------
-        utterance_type: UtteranceType
-            Utterance Type
-        """
-        return self._utterance.type
 
     @property
     def triple(self):

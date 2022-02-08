@@ -6,6 +6,7 @@ from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
     lexicon_lookup, get_pos_in_tree
+from cltl.combot.backend.utils.triple_helpers import fix_nlp_types
 
 
 class CFGAnalyzer(Analyzer):
@@ -184,6 +185,8 @@ class CFGAnalyzer(Analyzer):
 
                     else:
                         final_type.append(triple[el]['type'][typ])
+
+                final_type = fix_nlp_types(final_type)
                 triple[el]['type'] = final_type
 
             # Patch special types

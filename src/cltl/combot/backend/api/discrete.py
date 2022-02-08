@@ -39,7 +39,7 @@ class Time(enum.Enum):
     FUTURE = 3
 
 
-class UtteranceType(enum.Enum):
+class UtteranceType(str, enum.Enum):
     STATEMENT = 0
     QUESTION = 1
     EXPERIENCE = 2

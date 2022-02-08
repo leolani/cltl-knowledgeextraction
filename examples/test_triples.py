@@ -9,7 +9,7 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 import json
 from collections import defaultdict
 
-from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
@@ -79,7 +79,7 @@ def test_triples(item, correct, incorrect, issues):
     chat = Chat("Lenka")
     analyzer = CFGAnalyzer()
 
-    chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
+    chat.add_utterance(item['utterance'])
     analyzer.analyze(chat.last_utterance)
 
     # No triple was extracted, so we missed three items (s, p, o)

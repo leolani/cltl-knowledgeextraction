@@ -1,4 +1,4 @@
-from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from cltl.triple_extraction.oie_analyzer import OIEAnalyzer
 from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
@@ -24,7 +24,7 @@ def test_triples_in_file(path):
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
 
-        chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
+        chat.add_utterance(item['utterance'])
 
         analyzer_1.analyze(chat.last_utterance)
         capsules = utterance_to_capsules(chat.last_utterance)
