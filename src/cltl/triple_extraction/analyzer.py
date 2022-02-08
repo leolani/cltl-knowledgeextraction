@@ -1,6 +1,8 @@
 import json
 
+from cltl.combot.backend.api import discrete
 from cltl.combot.backend.api.discrete import UtteranceType
+from cltl.combot.backend.utils.triple_helpers import continuous_to_enum
 from cltl.triple_extraction import logger
 
 
@@ -35,28 +37,27 @@ class Analyzer(object):
 
         NotImplementedError()
 
-    def set_extracted_values(self, utterance_type=None, triple=None, perspective=None):
-        # Set type, triple and perspective
+    def set_extracted_values(self, utterance_type=None, triple=None, perspective={}):
+        # Pack everything together
+        triple["perspective"] = perspective
+
+        # Set type, and triple
         self.utterance.set_type(utterance_type)
-        self.utterance.set_triple(triple)
-        self.utterance.set_perspective(perspective)
+        self.utterance.add_triple(triple)
 
         if utterance_type:
-            self._log.info("Utterance type: {}".format(json.dumps(utterance_type.name, sort_keys=True,
-                                                                  separators=(', ', ': '))))
+            self._log.info("Utterance type: {}".format(json.dumps(utterance_type.name,
+                                                                  sort_keys=True, separators=(', ', ': '))))
 
         if triple:
             for el in ["subject", "predicate", "object"]:
-                self._log.info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el], sort_keys=True,
-                                                                             separators=(', ', ': '))))
-        if perspective:
-            for el in ['sentiment', 'certainty', 'polarity']:
-                self._log.info("Perspective {:>10}: {}".format(el, json.dumps(perspective[el], sort_keys=True,
-                                                                              separators=(', ', ': '))))
-
-            for el in ['emotion']:
-                self._log.info("Perspective {:>10}: {}".format(el, json.dumps(perspective[el].name, sort_keys=True,
-                                                                              separators=(', ', ': '))))
+                self._log.info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
+                                                                              sort_keys=True, separators=(', ', ': '))))
+        if triple["perspective"]:
+            for el in ['certainty', 'polarity', 'sentiment', 'emotion']:
+                cls = getattr(discrete, el.title())
+                closest = continuous_to_enum(cls, triple["perspective"][el])
+                self._log.info("Perspective {:>10}: {}".format(el, closest.name))
 
     @property
     def utterance(self):
@@ -86,13 +87,3 @@ class Analyzer(object):
         triple: dict or None
         """
         return self._utterance.triple
-
-    @property
-    def perspective(self):
-        """
-        Returns
-        -------
-        perspective: dict or None
-        """
-
-        return self._utterance.perspective

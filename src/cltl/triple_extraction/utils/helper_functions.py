@@ -266,12 +266,12 @@ def get_word_type(word, forest):
 
 
 def get_lexname_in_tree(word, forest):
-    '''
+    """
     :param word: word for which we want a WordNe lexname
     :param forest: parsed forest of the sentence, to extract the POS tag
     :return: lexname of the word
     https://wordnet.princeton.edu/documentation/lexnames5wn
-    '''
+    """
     if word == '':
         return None
 
@@ -360,3 +360,40 @@ def get_uris(string):
         uris = []
 
     return uris
+
+
+def utterance_to_capsules(utterance):
+    """
+    Transform an Utterance into a list of capsules
+    :param utterance:
+    :return:
+    """
+    capsules = []
+
+    for triple in utterance.triples:
+        capsule = {"chat": utterance.chat.id,
+                   "turn": utterance.turn,
+                   "author": utterance.chat_speaker,
+                   "utterance": utterance.transcript,
+                   "utterance_type": utterance.type,
+                   "position": "0-" + str(len(utterance.transcript)),
+                   ###
+                   "subject": triple['subject'],
+                   "predicate": triple['predicate'],
+                   "object": triple['object'],
+                   "perspective": triple["perspective"],
+                   ###
+                   "context_id": None,
+                   "date": utterance.datetime,
+                   "place": "",
+                   "place_id": None,
+                   "country": "",
+                   "region": "",
+                   "city": "",
+                   "objects": [],
+                   "people": []
+                   }
+
+        capsules.append(capsule)
+
+    return capsules

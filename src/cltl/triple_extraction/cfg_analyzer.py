@@ -1,7 +1,6 @@
 import json
 import os
 
-from cltl.combot.backend.api.discrete import Emotion
 from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.nlp.parser import Parser
@@ -571,10 +570,10 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         :param utterance_info: product of statement analysis thus far
         :return: perspective dictionary consisting of sentiment, certainty, and polarity value
         """
-        sentiment = 0
-        certainty = 1
-        polarity = 1
-        emotion = Emotion.NEUTRAL
+        certainty = 1  # Possible
+        polarity = 1  # Positive
+        sentiment = 0  # Underspecified
+        emotion = 0  # Underspecified
 
         for word in predicate.split('-'):
             word = lemmatize(word)  # with a pos tag ?
@@ -593,7 +592,8 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         if utterance_info['neg']:
             polarity = -1
 
-        perspective = {'sentiment': sentiment, 'certainty': certainty, 'polarity': polarity, 'emotion': emotion}
+        perspective = {'sentiment': float(sentiment), 'certainty': float(certainty), 'polarity': float(polarity),
+                       'emotion': float(emotion)}
         return perspective
 
     def check_triple_completeness(self, triple):
@@ -705,7 +705,7 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         triple, utterance_info = self.fix_triple_details(triple, utterance_info)
 
         # Final triple assignment
-        self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple, perspective=None)
+        self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple)
 
     def initialize_triple(self):
         """
@@ -791,7 +791,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         triple, utterance_info = self.fix_triple_details(triple, utterance_info)
 
         # Final triple assignment
-        self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple, perspective=None)
+        self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple)
 
     def initialize_triple(self):
         triple = {'predicate': '', 'subject': '', 'object': ''}

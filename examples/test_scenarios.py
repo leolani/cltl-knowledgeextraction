@@ -5,6 +5,8 @@ THIS SCRIPT IS SUPPOSED TO EVALUATE THE RESPONSES TO THE QUESTIONS. HOWEVER, LAN
 THIS PACKAGE SO THE BEHAVIOUR CANNOT BE COMPARED.
 """
 
+import json
+
 from cltl.triple_extraction.api import Chat, UtteranceHypothesis
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
@@ -41,8 +43,6 @@ def test_scenario(statements, questions, gold):
     """
 
     print(f'\n\n---------------------------------------------------------------')
-    correct = 0
-    reply = None
 
     chat = Chat("Lenka")
     analyzer = CFGAnalyzer()
@@ -54,8 +54,7 @@ def test_scenario(statements, questions, gold):
         analyzer.analyze(chat.last_utterance)
 
         print(f"Utterance: {chat.last_utterance}")
-        print(f"Triple:      \t{chat.last_utterance.triple}")
-        print(f"Perspective: \t{chat.last_utterance.perspective}\n")
+        print(f"Triple:      \t{json.dumps(chat.last_utterance.triples)}")
 
     # brain is queried and a reply is generated and compared with golden standard
     print(f'\nQUESTIONS\n')
@@ -64,16 +63,8 @@ def test_scenario(statements, questions, gold):
         analyzer.analyze(chat.last_utterance)
 
         print(f"Question:   \t{chat.last_utterance}")
-        print(f"Triple:            \t{chat.last_utterance.triple}")
-        print(f"Response:          \t{reply}")
+        print(f"Triple:            \t{json.dumps(chat.last_utterance.triples)}")
         print(f"Expected response: \t{gold.lower().strip()}\n")
-
-        if reply is None or (reply.lower().strip() != gold.lower().strip()):
-            continue
-        else:
-            correct += 1
-
-    return correct
 
 
 def test_scenarios():
@@ -82,17 +73,18 @@ def test_scenarios():
     :return: number of correct and number of incorrect replies
     """
     scenarios = load_scenarios("./data/scenarios.txt")
-    correct = 0
-    total = 0
+    tot_statements = 0
+    tot_questions = 0
 
     print(f'\nRUNNING {len(scenarios)} SCENARIOS\n\n\n')
 
     for sc in scenarios:
-        correct += test_scenario(sc['statement'], sc['questions'], sc['reply'])
-        total += len(sc['questions'])
+        test_scenario(sc['statement'], sc['questions'], sc['reply'])
+        tot_statements += len(sc['statement'])
+        tot_questions += len(sc['questions'])
 
     print(f'\n\n\n---------------------------------------------------------------\nTOTAL\n')
-    print(f'\nCORRECT RESPONSES: {correct}\tINCORRECT RESPONSES: {total - correct}')
+    print(f'\nTOTAL SCENARIOS: {len(scenarios)}\tSTATEMENTS: {tot_statements}\tQUESTIONS: {tot_questions}')
 
 
 if __name__ == "__main__":

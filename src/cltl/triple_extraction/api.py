@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 from datetime import datetime
 from random import getrandbits
@@ -192,8 +193,7 @@ class Utterance(object):
         self._tokens = self._clean(self._tokenize(self.transcript))
 
         self._type = None
-        self._triple = None
-        self._perspective = None
+        self._triples = []
 
     @property
     def chat(self):
@@ -262,26 +262,15 @@ class Utterance(object):
         return self._turn
 
     @property
-    def triple(self):
-        # type: () -> dict
+    def triples(self):
+        # type: () -> list
         """
         Returns
         -------
-        triple: Triple
-            Structured representation of the utterance
+        triples: List
+            Structured representation of the triples found in the utterance
         """
-        return self._triple
-
-    @property
-    def perspective(self):
-        # type: () -> dict
-        """
-        Returns
-        -------
-        perspective: Perspective
-            NLP features related to the utterance
-        """
-        return self._perspective
+        return self._triples
 
     @property
     def datetime(self):
@@ -314,13 +303,18 @@ class Utterance(object):
         # type: (UtteranceType) -> ()
         self._type = utterance_type
 
-    def set_triple(self, triple):
+    def set_triples(self, triples):
         # type: (dict) -> ()
-        self._triple = triple
+        self._triples = triples
 
-    def set_perspective(self, perspective):
+    def add_triple(self, triple):
         # type: (dict) -> ()
-        self._perspective = perspective
+
+        # Add triple
+        self._triples.append(triple)
+
+        # Deduplicate the list  # TODO make more efficient
+        self._triples = [json.loads(i) for i in set([json.dumps(i) for i in [dict(sorted(i.items())) for i in self._triples]])]
 
     def casefold(self, format='triple'):
         # type (str) -> ()
@@ -334,7 +328,6 @@ class Utterance(object):
         -------
 
         """
-        self._triple.casefold(format)
         self._chat_speaker = casefold_text(self.chat_speaker, format)
 
     def _choose_hypothesis(self, hypotheses):

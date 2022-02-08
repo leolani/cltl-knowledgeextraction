@@ -42,9 +42,13 @@ class OIEAnalyzer(Analyzer):
                     self._log.info(f'Found {len(result)} triples')
                     for triple in result:
                         # Final triple assignment
-                        triple["predicate"] = triple.pop("relation")
-                        self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple,
-                                                  perspective=None)
+                        fixed_triple = {
+                            "subject": {'label': triple['subject'], 'type': []},
+                            "predicate": {'label': triple['relation'], 'type': []},
+                            "object": {'label': triple['object'], 'type': []},
+                        }
+
+                        self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=fixed_triple)
 
         except Exception as e:
             self._log.warning("Couldn't extract triples")
