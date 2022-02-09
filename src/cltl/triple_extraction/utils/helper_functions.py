@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import urllib.error
 import urllib.parse
@@ -10,8 +9,6 @@ from nltk import tree as ntree
 from nltk.stem import WordNetLemmatizer
 
 from . import wordnet_utils as wu
-
-LOG = logging.getLogger(__name__)
 
 wnl = WordNetLemmatizer()
 
@@ -33,108 +30,15 @@ def trim_dash(triple):
     return triple
 
 
-def get_triple_element_type(element, forest):
-    """
-    :param element: text of one element from the triple
-    :param forest: parsed tree
-    :return: dictionary with semantic types of the element or sub-elements
-    """
-
-    types = {}
-
-    # Multiword element
-    if '-' in element:
-        text = element.replace(" ", "-")
-
-        # Try to get type from DBpedia
-        uris = get_uris(text.strip())
-        if len(uris) > 1:
-            # entities with more than 1 uri from DBpedia are NE and collocations
-            return 'NE-col'
-
-        # Try to get types from wordnet
-        lexname = get_lexname_in_tree(text, forest)
-        if lexname:
-            # collocations which exist in WordNet
-            return lexname + '-col'
-
-        # if entity does not exist in DBP or WN it is considered composite. Get type per word
-        for el in element.split('-'):
-            types[el] = get_word_type(el, forest)
-
-    # Single word
-    else:
-        types[element] = get_word_type(element, forest)
-
-    return types
-
-
-def get_word_type(word, forest):
-    """
-    :param word: one word from triple element
-    :param forest: parsed syntax tree
-    :return: semantic type of word
-    """
-
-    if word == '':
-        return ''
-
-    lexname = get_lexname_in_tree(word, forest)
-    if lexname is not None:
-        return lexname
-
-    # words which don't have a lexname are looked up in the lexicon
-    entry = lexicon_lookup(word)
-    if entry is not None:
-        if 'proximity' in entry:
-            return 'deictic:' + entry['proximity'] + ',' + entry['number']
-        if 'person' in entry:
-            return 'pronoun:' + entry['person']
-        if 'root' in entry:
-            return 'modal:' + str(entry['root'])
-        if 'definite' in entry:
-            return 'article:' + entry
-        if 'integer' in entry:
-            return 'numeral:' + entry['integer']
-
-    # for words which are not in the lexicon nor have a lexname,
-    # the sem.type is derived from the POS tag
-    types = {'NN': 'agent', 'V': 'verb', 'IN': 'prep', 'TO': 'prep', 'MD': 'modal'}
-    pos = get_pos_tag(forest, word)
-    if pos in types:
-        return types[pos]
-
-
-def get_lexname_in_tree(word, forest):
-    '''
-    :param word: word for which we want a WordNe lexname
-    :param forest: parsed forest of the sentence, to extract the POS tag
-    :return: lexname of the word
-    https://wordnet.princeton.edu/documentation/lexnames5wn
-    '''
-    if word == '':
-        return None
-
-    # Get POS tag
-    pos_label = get_pos_tag(forest[0], word)
-
-    # Try to get types from wordnet
-    synset = wu.get_synsets(word, pos_label)
-    if synset:
-        type = wu.get_lexname(synset[0])
-        return type
-
-
-def fix_pronouns(pronoun, self):
+def fix_pronouns(pronoun, speaker):
     """
     :param pronoun: personal ronoun which is said in the sentence
-    :param self: Utterance object from which we can get the speaker and lexicon
+    :param speaker: the original speaker get_pos_in_tree an utterance
     :return: disambiguated first or second person pronoun
     In the case of third person pronouns - guesses or asks questions
     * plural *
     """
 
-    speaker = self.chat.speaker
     entry = lexicon_lookup(pronoun, lexicon)
 
     if entry and 'person' in entry:
@@ -164,38 +68,6 @@ def lemmatize(word, tag=''):
     if tag != '':
         return wnl.lemmatize(word, tag)
     return wnl.lemmatize(word)
-
-
-def get_pos_in_tree(tree, word):
-    """
-    This function extracts POS tag of a word from the parsed syntax tree
-    :param tree: syntax tree gotten from initial CFG parsing
-    :param word: word whose POS tag we want
-    :return: POS tag of the word
-    """
-    label = ''
-    for el in tree:
-        for node in el:
-            if type(node) == ntree.Tree:
-                for subtree in node.subtrees():
-                    for n in subtree:
-                        if n == word:
-                            label = str(subtree.label())
-                            return label
-    return label
-
-
-def get_pos_tag(forest, word):
-    """
-    This function extract POS tags from either the tree or the word alone
-    :param forest: syntax tree gotten from initial CFG parsing
-    :param word: word whose POS tag we want
-    :return: POS tag of the word
-    """
-    pos_label = get_pos_in_tree(forest, word)
-    pos_label = pos_tag([word])[0][1] if pos_label == '' else pos_label
-
-    return pos_label
 
 
 def lexicon_lookup(word, typ=None):
@@ -321,6 +193,130 @@ def lexicon_lookup(word, typ=None):
     return None
 
 
+def get_triple_element_type(element, forest):
+    """
+    :param element: text of one element from the triple
+    :param forest: parsed tree
+    :return: dictionary with semantic types of the element or sub-elements
+    """
+
+    types = {}
+
+    # Multiword element
+    if '-' in element:
+        text = element.replace(" ", "-")
+
+        # Try to get type from DBpedia
+        uris = get_uris(text.strip())
+        if len(uris) > 1:
+            # entities with more than 1 uri from DBpedia are NE and collocations
+            return 'NE-col'
+
+        # Try to get types from wordnet
+        lexname = get_lexname_in_tree(text, forest)
+        if lexname:
+            # collocations which exist in WordNet
+            return lexname + '-col'
+
+        # if entity does not exist in DBP or WN it is considered composite. Get type per word
+        for el in element.split('-'):
+            types[el] = get_word_type(el, forest)
+
+    # Single word
+    else:
+        types[element] = get_word_type(element, forest)
+
+    return types
+
+
+def get_word_type(word, forest):
+    """
+    :param word: one word from triple element
+    :param forest: parsed syntax tree
+    :return: semantic type of word
+    """
+
+    if word == '':
+        return ''
+
+    lexname = get_lexname_in_tree(word, forest)
+    if lexname is not None:
+        return lexname
+
+    # words which don't have a lexname are looked up in the lexicon
+    entry = lexicon_lookup(word)
+    if entry is not None:
+        if 'proximity' in entry:
+            return 'deictic:' + entry['proximity'] + ',' + entry['number']
+        if 'person' in entry:
+            return 'pronoun:' + entry['person']
+        if 'root' in entry:
+            return 'modal:' + str(entry['root'])
+        if 'definite' in entry:
+            return 'article:' + entry
+        if 'integer' in entry:
+            return 'numeral:' + entry['integer']
+
+    # for words which are not in the lexicon nor have a lexname,
+    # the sem.type is derived from the POS tag
+    types = {'NN': 'agent', 'V': 'verb', 'IN': 'prep', 'TO': 'prep', 'MD': 'modal'}
+    pos = get_pos_tag(forest, word)
+    if pos in types:
+        return types[pos]
+
+
+def get_lexname_in_tree(word, forest):
+    """
+    :param word: word for which we want a WordNe lexname
+    :param forest: parsed forest of the sentence, to extract the POS tag
+    :return: lexname of the word
+    https://wordnet.princeton.edu/documentation/lexnames5wn
+    """
+    if word == '':
+        return None
+
+    # Get POS tag
+    pos_label = get_pos_tag(forest[0], word)
+
+    # Try to get types from wordnet
+    synset = wu.get_synsets(word, pos_label)
+    if synset:
+        type = wu.get_lexname(synset[0])
+        return type
+
+
+def get_pos_in_tree(tree, word):
+    """
+    This function extracts POS tag of a word from the parsed syntax tree
+    :param tree: syntax tree gotten from initial CFG parsing
+    :param word: word whose POS tag we want
+    :return: POS tag of the word
+    """
+    label = ''
+    for el in tree:
+        for node in el:
+            if type(node) == ntree.Tree:
+                for subtree in node.subtrees():
+                    for n in subtree:
+                        if n == word:
+                            label = str(subtree.label())
+                            return label
+    return label
+
+
+def get_pos_tag(forest, word):
+    """
+    This function extract POS tags from either the tree or the word alone
+    :param forest: syntax tree gotten from initial CFG parsing
+    :param word: word whose POS tag we want
+    :return: POS tag of the word
+    """
+    pos_label = get_pos_in_tree(forest, word)
+    pos_label = pos_tag([word])[0][1] if pos_label == '' else pos_label
+
+    return pos_label
+
+
 def dbp_query(q, base_url, format="application/json"):
     """
     :param q: query for DBpedia
@@ -364,3 +360,40 @@ def get_uris(string):
         uris = []
 
     return uris
+
+
+def utterance_to_capsules(utterance):
+    """
+    Transform an Utterance into a list of capsules
+    :param utterance:
+    :return:
+    """
+    capsules = []
+
+    for triple in utterance.triples:
+        capsule = {"chat": utterance.chat.id,
+                   "turn": utterance.turn,
+                   "author": utterance.chat_speaker,
+                   "utterance": utterance.transcript,
+                   "utterance_type": triple['utterance_type'],
+                   "position": "0-" + str(len(utterance.transcript)),
+                   ###
+                   "subject": triple['subject'],
+                   "predicate": triple['predicate'],
+                   "object": triple['object'],
+                   "perspective": triple["perspective"],
+                   ###
+                   "context_id": None,
+                   "date": utterance.datetime,
+                   "place": "",
+                   "place_id": None,
+                   "country": "",
+                   "region": "",
+                   "city": "",
+                   "objects": [],
+                   "people": []
+                   }
+
+        capsules.append(capsule)
+
+    return capsules

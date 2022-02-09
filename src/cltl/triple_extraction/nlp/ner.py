@@ -1,4 +1,3 @@
-import logging
 import os
 import socket
 import subprocess
@@ -6,11 +5,11 @@ from contextlib import contextmanager, closing
 from threading import Thread
 from time import sleep
 
-logger = logging.getLogger(__name__)
+from cltl.triple_extraction import logger
 
 
 class NER(object):
-    ROOT = os.path.join(os.path.dirname(__file__), 'stanford-ner')
+    ROOT = os.path.join(os.path.dirname(__file__), '../stanford-ner')
     IP = 'localhost'
 
     def __init__(self, classifier='english.all.3class.distsim.crf.ser'):
@@ -42,7 +41,7 @@ class NER(object):
             'java', '-cp', os.path.join(NER.ROOT, 'stanford-ner.jar'), 'edu.stanford.nlp.ie.NERServer',
             '-port', str(self._port), '-loadClassifier', os.path.join(NER.ROOT, classifier)],
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        self._log.info("Started NER server")
+
         with self._ner_server_process.stdout:
             self._log_subprocess_output(self._ner_server_process.stdout)
 

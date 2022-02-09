@@ -10,15 +10,15 @@ class Certainty(enum.Enum):
 
 class Polarity(enum.Enum):
     UNDERSPECIFIED = 0
-    NEGATIVE = 1
-    POSITIVE = 2
+    NEGATIVE = -1
+    POSITIVE = 1
 
 
 class Sentiment(enum.Enum):
     UNDERSPECIFIED = 0
-    NEGATIVE = 1
+    NEGATIVE = -1
+    POSITIVE = 1
     NEUTRAL = 2
-    POSITIVE = 3
 
 
 class Emotion(enum.Enum):
@@ -39,7 +39,7 @@ class Time(enum.Enum):
     FUTURE = 3
 
 
-class UtteranceType(enum.Enum):
+class UtteranceType(str, enum.Enum):
     STATEMENT = 0
     QUESTION = 1
     EXPERIENCE = 2

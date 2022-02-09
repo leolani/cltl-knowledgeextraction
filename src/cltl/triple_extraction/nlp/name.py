@@ -3,7 +3,7 @@ from concurrent import futures
 from nltk.metrics.distance import edit_distance
 
 from cltl.triple_extraction.api import UtteranceHypothesis
-from .ner import NER
+from cltl.triple_extraction.nlp.ner import NER
 
 
 # TODO Module is not used

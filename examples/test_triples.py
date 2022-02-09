@@ -9,7 +9,8 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 import json
 from collections import defaultdict
 
-from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
 def load_golden_triples(filepath):
@@ -50,7 +51,7 @@ def load_golden_triples(filepath):
     return test_suite
 
 
-def compare_triples(triple, gold):
+def compare_elementwise(triple, gold):
     """
     :param triple: triple extracted by the system
     :param gold: golden triple to compare with
@@ -62,28 +63,12 @@ def compare_triples(triple, gold):
         if key not in gold.keys():
             continue
 
-        if triple[key]['label'].lower() != gold[key]:
+        elif type(triple[key]) == dict and triple[key]['label'].lower() != gold[key]:
             print(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}")
-        else:
-            correct += 1
 
-    return correct
+        elif type(triple[key]) == float and triple[key] != gold[key]:
+            print(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}")
 
-
-def compare_perspectives(perspective, gold):
-    """
-    :param perspective: perspective extracted by the system
-    :param gold: golden perspective to compare with
-    :return: number of correct elements in a perspective
-    """
-    correct = 0
-
-    for key in perspective:
-        if key not in gold.keys():
-            continue
-
-        if float(perspective[key]) != gold[key]:
-            print(f"Mismatch in perspective {key}: {perspective[key]} != {gold[key]}")
         else:
             correct += 1
 
@@ -92,40 +77,51 @@ def compare_perspectives(perspective, gold):
 
 def test_triples(item, correct, incorrect, issues):
     chat = Chat("Lenka")
-    chat.add_utterance([UtteranceHypothesis(item['utterance'], 1.0)])
-    chat.last_utterance.analyze()
+    analyzer = CFGAnalyzer()
+
+    chat.add_utterance(item['utterance'])
+    analyzer.analyze(chat.last_utterance)
 
     # No triple was extracted, so we missed three items (s, p, o)
-    if chat.last_utterance.triple is None:
+    if not chat.last_utterance.triples:
         print((chat.last_utterance, 'ERROR'))
         incorrect += 3
         issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
         return correct, incorrect, issues
 
     # A triple was extracted so we compare it elementwise
-    t = compare_triples(chat.last_utterance.triple, item['triple'])
-    correct += t
-    incorrect += (3 - t)
-    if t < 3:
-        issues[chat.last_utterance.transcript]['triple'] = (3 - t)
+    else:
+        # Compare all extracted triples, select the one with the most correct elements
+        triples_scores = [compare_elementwise(extracted_triple, item['triple'])
+                          for extracted_triple in chat.last_utterance.triples]
 
-    # Report
-    print(f"\nUtterance: \t{chat.last_utterance}")
-    print(f"Triple:            \t{chat.last_utterance.triple}")
-    print(f"Expected triple:   \t{item['triple']}")
+        score_best_triple = max(triples_scores)
+        idx_best_triple = triples_scores.index(score_best_triple)
 
-    # Compare perspectives if available
-    if 'perspective' in item.keys():
-        t = compare_perspectives(chat.last_utterance.perspective, item['perspective'])
-        correct += t
-        incorrect += (3 - t)
-        if t < 3:
-            issues[chat.last_utterance.transcript]['perspective'] = (3 - t)
+        # add to statistics
+        correct += score_best_triple
+        incorrect += (3 - score_best_triple)
+        if score_best_triple < 3:
+            issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
 
-        print(f"Perspective:            \t{chat.last_utterance.perspective}")
-        print(f"Expected perspective:   \t{item['perspective']}")
+        # Report
+        print(f"\nUtterance: \t{chat.last_utterance}")
+        print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
+        print(f"Expected triple:   \t{item['triple']}")
 
-    return correct, incorrect, issues
+        # Compare perspectives if available
+        if 'perspective' in item.keys():
+            score_best_pesp = compare_elementwise(chat.last_utterance.triples[idx_best_triple]['perspective'],
+                                                  item['perspective'])
+
+            correct += score_best_pesp
+            incorrect += (3 - score_best_pesp)
+            if score_best_pesp < 3:
+                issues[chat.last_utterance.transcript]['perspective'] = (3 - score_best_pesp)
+
+            print(f"Expected perspective:   \t{item['perspective']}")
+
+        return correct, incorrect, issues
 
 
 def test_triples_in_file(path):
@@ -147,6 +143,7 @@ def test_triples_in_file(path):
         correct, incorrect, issues = test_triples(item, correct, incorrect, issues)
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
+    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
@@ -158,8 +155,12 @@ if __name__ == "__main__":
     collocation
     '''
 
-    all_test_files = ["./data/wh-questions.txt", "./data/verb-questions.txt",
-                      "./data/statements.txt", "./data/perspective.txt"]
+    all_test_files = [
+        "./data/wh-questions.txt",
+        "./data/verb-questions.txt",
+        "./data/statements.txt",
+        "./data/perspective.txt"
+    ]
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
