@@ -8,11 +8,12 @@ Understanding through Grammars natural language textual data and outputs structu
 This package allows extracting structured information, in the form of SPO triples, from natural language textual data.
 It features:
 
-* Upon initialization, an Utterance is parsed with the CFG and analyzed with the help of the Analyzer class.
+* An Utterance is analyzed with the help of the Analyzer class. It extracts structured data in the form of a list of
+  triples, where each triple has a subject, predicate and object.
 * If an Utterance is a statement, it also has a Perspective object which consists of a polarity, certainty, sentiment
   and emotion value.
-* The Analyzer class is the API for triple extractors. At This moment there are two Analyzers implemented: CFGAnalyzer (
-  which uses Context Free Grammar parsing), and OIE Analyzer (which uses Stanford OIE library)
+* The Analyzer class is the API for triple extractors. At this moment there are two Analyzers implemented: CFGAnalyzer
+  (which uses Context Free Grammar parsing), and OIE Analyzer (which uses Stanford OIE library)
 * The CFGAnalyzer consists of a hierarchy of classes, topmost class is the abstract general class Analyzer, which is
   separated into two abstract classes StatementAnalyzer and QuestionAnalyzer, which consist of the concrete classes
   GeneralStatementAnalyzer, WhQuestionAnalyzer and VerbQuestionAnalyzer.
@@ -53,9 +54,8 @@ Basic rules that the CFGAnalyzer follows are:
 * adjectives, determiners and numbers are joined with the noun
     - `“a-dog”, “the-blue-shirt”, etc.`
 
-Below is a short summary of NLP that happens during the utterance analysis:
+Below is a short summary of NLP that happens during the CFG utterance analysis:
 
-1. Removing usual openers such as “excuse me” or “leolani, can you tell me”, etc.
 1. Tokenization and replacing contractions with long variants of aux verbs
 1. POS tagging (NLTK and Stanford + would be good to add an additional tagger to use when the two have a mismatch)
 1. CFG parsing using the grammar which is manually designed
@@ -90,8 +90,7 @@ Here is a sample output for sentence `“I have three white cats”`:
     "text": "three-white-cats",
     "type": [
       "adj.all",
-      "noun.animal",
-      'numeral:3'
+      "noun.animal"
     ]
   },
   "utterance type": "STATEMENT",
@@ -140,14 +139,16 @@ For using this repository as a package different project and on a different virt
 Then you can import it in a python script as:
 
 ```python
-from cltl.triple_extraction.api import Chat, UtteranceHypothesis
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
+from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
 
 chat = Chat("Lenka")
 analyzer = CFGAnalyzer()
 
-chat.add_utterance([UtteranceHypothesis("I have three white cats", 1.0)])
+chat.add_utterance("I have three white cats")
 analyzer.analyze(chat.last_utterance)
+capsules = utterance_to_capsules(chat.last_utterance)
 ```
 
 ## Examples
