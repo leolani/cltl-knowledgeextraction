@@ -3,11 +3,13 @@ import os
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import date
 
 from nltk import pos_tag
 from nltk import tree as ntree
 from nltk.stem import WordNetLemmatizer
 
+from cltl.combot.backend.api.discrete import UtteranceType
 from . import wordnet_utils as wu
 
 wnl = WordNetLemmatizer()
@@ -397,3 +399,43 @@ def utterance_to_capsules(utterance):
         capsules.append(capsule)
 
     return capsules
+
+
+def element_to_json(v):
+    if type(v) in [str, int, float] or v is None:
+        pass
+    elif isinstance(v, date):
+        v = v.isoformat()
+    elif isinstance(v, UtteranceType):
+        v = v.name
+    elif isinstance(v, list):
+        v = [element_to_json(el) for el in v]
+    elif isinstance(v, dict):
+        v = {inner_k: element_to_json(inner_v) for inner_k, inner_v in v.items()}
+    else:
+        v = {inner_k: element_to_json(inner_v) for inner_k, inner_v in v.__dict__.items()}
+
+    return v
+
+
+def triple_to_json(triple):
+    return {k: element_to_json(v) for k, v in triple.items()}
+
+
+def deduplicate_triples(triples):
+    # TODO make more efficient
+    sorted_triples = []
+    for triple in triples:
+        sorted_triple = dict(sorted(triple.items()))
+        sorted_triples.append(sorted_triple)
+
+    json_triples = []
+    for triple in sorted_triples:
+        triple_as_json = json.dumps(triple_to_json(triple))
+        json_triples.append(triple_as_json)
+
+    unique_triples = []
+    for triple in set(json_triples):
+        unique_triples.append(json.loads(triple))
+
+    return unique_triples

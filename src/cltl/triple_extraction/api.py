@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 from random import getrandbits
 from typing import List
@@ -7,6 +6,7 @@ from nltk import pos_tag
 
 from cltl.combot.backend.utils.casefolding import casefold_text
 from cltl.triple_extraction import logger
+from cltl.triple_extraction.utils.helper_functions import deduplicate_triples
 
 
 class Chat(object):
@@ -21,7 +21,7 @@ class Chat(object):
         """
 
         self._id = getrandbits(8)
-        self._speaker = speaker
+        self._speaker = str(speaker)
         self._utterances = []
 
         self._log = self._update_logger()
@@ -210,9 +210,11 @@ class Utterance(object):
         # Add triple
         self._triples.append(triple)
 
-        # Deduplicate the list  # TODO make more efficient
-        self._triples = [json.loads(i) for i in
-                         set([json.dumps(i) for i in [dict(sorted(i.items())) for i in self._triples]])]
+        if len(self._triples) > 1:
+            print('here')
+
+        # Deduplicate the list
+        self._triples = deduplicate_triples(self._triples)
 
     def casefold(self, format='triple'):
         # type (str) -> ()
