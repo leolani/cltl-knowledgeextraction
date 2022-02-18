@@ -210,9 +210,6 @@ class Utterance(object):
         # Add triple
         self._triples.append(triple)
 
-        if len(self._triples) > 1:
-            print('here')
-
         # Deduplicate the list
         self._triples = deduplicate_triples(self._triples)
 
