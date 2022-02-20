@@ -386,7 +386,7 @@ def utterance_to_capsules(utterance):
                    "perspective": triple["perspective"],
                    ###
                    "context_id": None,
-                   "date": utterance.datetime,
+                   "date": utterance.datetime.isoformat(),
                    "place": "",
                    "place_id": None,
                    "country": "",
