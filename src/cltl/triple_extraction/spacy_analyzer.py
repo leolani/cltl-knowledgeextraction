@@ -3,7 +3,7 @@ import spacy
 from cltl.triple_extraction.api import Chat
 from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
-from spacy_triples import dep_to_triple
+from cltl.triple_extraction.spacy_triples import dep_to_triple
 
 class spacyAnalyzer(Analyzer):
 
@@ -17,7 +17,7 @@ class spacyAnalyzer(Analyzer):
 
         super(spacyAnalyzer, self).__init__()
 
-    def analyze(self, utterance):
+    def analyze(self, utterance, speaker, hearer):
         """
         Analyzer factory function
 
@@ -32,25 +32,15 @@ class spacyAnalyzer(Analyzer):
         super(spacyAnalyzer, self).analyze(utterance)
         nlp = spacy.load("en_core_web_sm")
 
-        triples, speaker, hearer, subject, object = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, "speaker", "hearer")
+        triples, speaker, hearer, subject, object = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_amod_triples_with_spacy(nlp,
-                                                                                                      utterance.transcript,
-                                                                                                      "speaker",
-                                                                                                      "hearer")
+            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_amod_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_attr_triples_with_spacy(nlp,
-                                                                                                       utterance.transcript,
-                                                                                                       "speaker",
-                                                                                                       "hearer")
+            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_attr_triples_with_spacy(nlp,  utterance.transcript, speaker,  hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(nlp,
-                                                                                                       utterance.transcript,
-                                                                                                       "speaker",
-                                                                                                       "hearer")
+            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
 
         if triples:
-            print(triples)
             for triple in triples:
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
@@ -84,5 +74,5 @@ if __name__ == "__main__":
     analyzer = spacyAnalyzer()
 
     chat.add_utterance(utterance)
-    analyzer.analyze(chat.last_utterance)
+    analyzer.analyze(chat.last_utterance, "I", "")
     print(chat.last_utterance.triples)
