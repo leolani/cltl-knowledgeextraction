@@ -101,7 +101,7 @@ if __name__ == "__main__":
         "./data/perspective.txt"
     ]
 
-    all_test_files = ["./data/statements.txt"]
+    all_test_files = ["./data/new_statements.txt"]
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
