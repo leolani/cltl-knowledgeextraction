@@ -73,9 +73,9 @@ def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: st
                         subject_tokens.append(token)
                         subject_mentions.append(token.text)
     for pred_token, pred_info in predicates.items():
-        triple = {'predicate': doc[pred_token].lemma_,
-                  'subject': pred_info.get('head', None),
-                  'object': pred_info.get('tail', None)
+        triple = {'predicate':  {'label': doc[pred_token].lemma_, 'type':[]},
+                  'subject': {'label': pred_info.get('head', None), 'type':[]},
+                  'object': {'label': pred_info.get('tail', None), 'type':[]}
                   }
 
         if not triple in triples:
@@ -141,9 +141,9 @@ def get_subj_amod_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
                 if token.dep_ == 'acomp' or token.dep == 'auxpass':
                     predicates[head_id]['tail'] = token.lemma_
     for pred_token, pred_info in predicates.items():
-        triple = {'predicate': doc[pred_token].lemma_,
-                  'subject': pred_info.get('head', None),
-                  'object': pred_info.get('tail', None)
+        triple = {'predicate':  {'label': doc[pred_token].lemma_, 'type':[]},
+                  'subject': {'label': pred_info.get('head', None), 'type':[]},
+                  'object': {'label': pred_info.get('tail', None), 'type':[]}
                   }
         if not triple in triples:
             triples.append(triple)
@@ -218,9 +218,9 @@ def get_subj_attr_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
                         subject_tokens.append(token)
                         subject_mentions.append(token.lemma_)
     for pred_token, pred_info in predicates.items():
-        triple = {'subject': doc[pred_token].lemma_,
-                  'predicate': pred_info.get('head', None),
-                  'object': pred_info.get('tail', None)
+        triple = {'predicate': {'label': doc[pred_token].lemma_, 'type': []},
+                  'subject': {'label': pred_info.get('head', None), 'type': []},
+                  'object': {'label': pred_info.get('tail', None), 'type': []}
                   }
 
         if triple[1] and triple[2]:
@@ -306,9 +306,10 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEAR
                                 subject_mentions.append(token_dep.lemma_)
         for pred_token, pred_info in predicates.items():
             property_string = doc[pred_token].lemma_ + "_" + pred_info.get('prep', str(None))
-            triple = {'subject': property_string,
-                      'predicate': pred_info.get('head', None),
-                      'object': pred_info.get('tail', None)
+
+            triple = {'predicate': {'label': property_string, 'type': []},
+                      'subject': {'label': pred_info.get('head', None), 'type': []},
+                      'object': {'label': pred_info.get('tail', None), 'type': []}
                       }
 
             if not triple in triples:

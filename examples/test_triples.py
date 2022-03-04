@@ -62,18 +62,56 @@ def compare_elementwise(triple, gold):
     for key in triple:
         if key not in gold.keys():
             continue
-
-        elif type(triple[key]) == dict and triple[key]['label'].lower() != gold[key]:
+        if type(triple[key]) == dict and triple[key]['label'].lower() != gold[key]:
             print(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}")
 
         elif type(triple[key]) == float and triple[key] != gold[key]:
             print(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}")
 
-        else:
+        elif type(triple[key]) == dict and triple[key]['label'].lower() == gold[key]:
+            print(f"Match triple {key}: {triple[key]} == {gold[key]}")
             correct += 1
 
     return correct
 
+def compare_elementwise_perspective(triple, gold):
+    """
+    :param triple: triple extracted by the system
+    :param gold: golden triple to compare with
+    :return: number of correct elements in a triple
+    """
+    correct = 0
+
+    for key in triple:
+        if key not in gold.keys():
+            continue
+        if type(triple[key]) == float and triple[key] != gold[key]:
+            print(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}")
+
+        elif type(triple[key]) == float and triple[key]['label'].lower() == gold[key]:
+            print(f"Match triple {key}: {triple[key]} == {gold[key]}")
+            correct += 1
+
+    return correct
+
+def compare_elementwise_triple(triple, gold):
+    """
+    :param triple: triple extracted by the system
+    :param gold: golden triple to compare with
+    :return: number of correct elements in a triple
+    """
+    correct = 0
+    for key in triple:
+        if key not in gold.keys():
+            print("key not in triple", key)
+            continue
+        if type(triple[key]) == dict and triple[key]['label'].lower() != gold[key]:
+            print(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}")
+        elif type(triple[key]) == dict and triple[key]['label'].lower() == gold[key]:
+            print(f"Match triple {key}: {triple[key]} == {gold[key]}")
+            correct += 1
+
+    return correct
 
 def test_triples(item, correct, incorrect, issues):
     chat = Chat("Lenka")
@@ -162,6 +200,7 @@ if __name__ == "__main__":
         "./data/perspective.txt"
     ]
 
+    #all_test_files = ["./data/new_statements.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:

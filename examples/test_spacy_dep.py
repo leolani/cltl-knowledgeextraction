@@ -12,7 +12,7 @@ from collections import defaultdict
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
 from test_triples import load_golden_triples
-from test_triples import compare_elementwise
+from test_triples import compare_elementwise, compare_elementwise_triple, compare_elementwise_perspective
 
 def test_triples(item, correct, incorrect, issues):
     chat = Chat("Lenka")
@@ -31,7 +31,7 @@ def test_triples(item, correct, incorrect, issues):
     # A triple was extracted so we compare it elementwise
     else:
         # Compare all extracted triples, select the one with the most correct elements
-        triples_scores = [compare_elementwise(extracted_triple, item['triple'])
+        triples_scores = [compare_elementwise_triple(extracted_triple, item['triple'])
                           for extracted_triple in chat.last_utterance.triples]
 
         score_best_triple = max(triples_scores)
@@ -50,7 +50,7 @@ def test_triples(item, correct, incorrect, issues):
 
         # Compare perspectives if available
         if 'perspective' in item.keys():
-            score_best_pesp = compare_elementwise(chat.last_utterance.triples[idx_best_triple]['perspective'],
+            score_best_pesp = compare_elementwise_perspective(chat.last_utterance.triples[idx_best_triple]['perspective'],
                                                   item['perspective'])
 
             correct += score_best_pesp
@@ -101,9 +101,7 @@ if __name__ == "__main__":
         "./data/perspective.txt"
     ]
 
-    all_test_files = [
-        "./data/statements.txt",
-    ]
+    all_test_files = ["./data/statements.txt"]
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
