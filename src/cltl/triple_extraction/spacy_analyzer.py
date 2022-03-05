@@ -32,16 +32,17 @@ class spacyAnalyzer(Analyzer):
         super(spacyAnalyzer, self).analyze(utterance)
         nlp = spacy.load("en_core_web_sm")
 
-        triples, speaker, hearer, subject, object = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_amod_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_attr_triples_with_spacy(nlp,  utterance.transcript, speaker,  hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_attr_triples_with_spacy(nlp,  utterance.transcript, speaker,  hearer)
         if not triples:
-            triples, speaker, hearer, subject, object = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
 
         if triples:
             for triple in triples:
+                print("triple", triple)
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             self._log.warning("Couldn't extract triples")

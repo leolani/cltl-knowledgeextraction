@@ -103,12 +103,12 @@ def compare_elementwise_triple(triple, gold):
     correct = 0
     for key in triple:
         if key not in gold.keys():
-            print("key not in triple", key)
+            #print("key not in triple", key)
             continue
         if type(triple[key]) == dict and triple[key]['label'].lower() != gold[key]:
             print(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}")
         elif type(triple[key]) == dict and triple[key]['label'].lower() == gold[key]:
-            print(f"Match triple {key}: {triple[key]} == {gold[key]}")
+            #print(f"Match triple {key}: {triple[key]} == {gold[key]}")
             correct += 1
 
     return correct

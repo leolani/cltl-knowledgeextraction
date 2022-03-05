@@ -233,7 +233,6 @@ def get_subj_attr_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens, subject_mentions), zip(object_tokens, object_mentions)
 
 
-# @TODO
 def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:
@@ -308,9 +307,7 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEAR
                                 subject_tokens.append(token_dep)
                                 subject_mentions.append(token_dep.text)
         for pred_token, pred_info in predicates.items():
-
-            predicate = doc[pred_token].lemma_ + "_" + pred_info.get('prep', str(None))
-            print('predicate', predicate,'pred_info', pred_info)
+            predicate = doc[pred_token].lemma_ + "-" + pred_info.get('prep', str(None))
             triple = predicateInfoToTriple(pred_info, predicate)
             if triple and not triple in triples:
                 triples.append(triple)
