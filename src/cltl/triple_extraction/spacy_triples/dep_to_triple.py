@@ -11,6 +11,83 @@ def predicateInfoToTriple (pred_info:dict, predicate: str):
     return triple
 
 
+# Recursive function that takes the token id of the head to get all tokens that directly or indirectly depend on it given a spaCy sentence object
+# There is an additional parameter exclude_id to indicate which dependent constituent should be excluded.
+# The result is a list of tokens
+
+def get_dependent_tokens(head_id, exclude_id, sent):
+    tokens=[]
+    for token in sent:
+        ### check if this token is not the same as the head token itself nor the excluded token
+        if token.i!=head_id and token.i!=exclude_id:
+            head = token.head
+            ### check of this token is indeed dependent on the head token
+            if (head_id==head.i):
+                ### we want this token and put it in the result list
+                tokens.append(token.i)
+                ### we recursively call the function again with our new token to see if there are other tokens that depend on the new token
+                nested_tokens=get_dependent_tokens(token.i, exclude_id, sent)
+                ### if we have a result, we extend the result list with the deeper tokens
+                if nested_tokens:
+                    tokens.extend(nested_tokens)
+    return tokens
+
+
+# Input prarameter is a spaCy sentence
+def get_predicate_subject_complement_phrases(doc, sent):
+    """
+    extract predicates with:
+    -subject phrase
+    -complement phrase
+
+    :param spacy.tokens.Sent sent: spaCy object after processing text
+
+    :rtype: list
+    :return: list of tuples (predicate, subject, complement)
+    """
+
+    ### result list that is returned
+    output = []
+
+    ### we use a dictionary to collect all predicates and their corresponding subjects if any
+    predicates = {}
+
+    ### We first get the token that has a nsubj dependency with the main verb
+    for token in sent:
+        if (token.dep_ == 'nsubj'):
+            predicates[token.head.i] = token.i
+
+    ### Note that the next loop is not executed if there are no predicates with such a subject.
+    for pred_token, pred_info in predicates.items():
+        ## We get the subject identifier for this predicate
+        subject_id = pred_info
+        ### We get all the tokens that make up the subject phrase
+        subject_tokens = get_dependent_tokens(subject_id, pred_token, sent)
+        subject_tokens.extend([subject_id])
+        ### We sort the tokens to get them in the right order
+        subject_tokens.sort()
+        ### We get the full phrase from the subject tokens
+        subject_phrase = ""
+        for token in subject_tokens:
+            subject_phrase += " " + doc[token].text
+
+        ### We get all the tokens that make up the complement phrase, we exclude the subject
+        complement_tokens = get_dependent_tokens(pred_token, subject_id, sent)
+        ### We sort the phrase to get the tokens in the right order
+        complement_tokens.sort()
+
+        if complement_tokens:
+            complement_phrase = ""
+            for token in complement_tokens:
+                complement_phrase += " " + doc[token].text
+            one_row = (doc[pred_token].lemma_,
+                       subject_phrase,
+                       complement_phrase
+                       )
+            output.append(one_row)
+
+    return output
+
 def get_subclause (nlp, utterance:str):
     doc = nlp(utterance)
     predicates = {}
@@ -26,7 +103,7 @@ def get_subclause (nlp, utterance:str):
             predicates[token.i] = dict()
             predicates[token.i]['head'] = None
             predicates[token.i]['tail'] = None
-        return predicates
+    return predicates
 
 def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
     """
