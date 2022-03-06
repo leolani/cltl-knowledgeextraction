@@ -107,6 +107,7 @@ if __name__ == "__main__":
     ]
 
     all_test_files = ["./data/statements.txt"]
+    #SPACY CORRECT TRIPLE ELEMENTS: 87			INCORRECT TRIPLE ELEMENTS: 177
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 

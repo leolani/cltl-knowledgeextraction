@@ -134,7 +134,8 @@ if __name__ == "__main__":
     '''
 
     test_file = "./data/statements.txt"
-
+    #OIE CORRECT  TRIPLE  ELEMENTS: 58  INCORRECT TRIPLE ELEMENTS: 206
+    #CFG CORRECT TRIPLE ELEMENTS: 237 INCORRECT TRIPLE ELEMENTS: 27
     print(f'\nRUNNING {len(test_file)} STATEMENTS\n\n')
 
     #test_triples_in_file(test_file)
