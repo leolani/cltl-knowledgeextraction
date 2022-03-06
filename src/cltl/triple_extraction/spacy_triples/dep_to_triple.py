@@ -11,6 +11,23 @@ def predicateInfoToTriple (pred_info:dict, predicate: str):
     return triple
 
 
+def get_subclause (nlp, utterance:str):
+    doc = nlp(utterance)
+    predicates = {}
+    for token in doc:
+        if token.dep_=="xcomp":
+            ### subject raising
+            #### this is a root, so we consider it a predicate
+            predicates[token.i] = dict()
+            predicates[token.i]['head'] = None
+            predicates[token.i]['tail'] = None
+        elif token.dep_ == "ccomp":
+            #### full clause
+            predicates[token.i] = dict()
+            predicates[token.i]['head'] = None
+            predicates[token.i]['tail'] = None
+        return predicates
+
 def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:

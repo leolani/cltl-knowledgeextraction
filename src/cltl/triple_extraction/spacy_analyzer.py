@@ -32,6 +32,9 @@ class spacyAnalyzer(Analyzer):
         super(spacyAnalyzer, self).analyze(utterance)
         nlp = spacy.load("en_core_web_sm")
 
+        #@TODO: check if there are embedded clauses:
+        # - ccomp  "I think ccomp that S. likes chees"
+        # - xcomp, subject or object raising  "I like xcomp talking to her"
         triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)

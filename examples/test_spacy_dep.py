@@ -14,7 +14,7 @@ from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
 from test_triples import load_golden_triples
 from test_triples import compare_elementwise, compare_elementwise_triple, compare_elementwise_perspective
 
-def test_triples(item, correct, incorrect, issues):
+def test_triples(item, correct, incorrect, issues, errorf):
     chat = Chat("Lenka")
     analyzer = spacyAnalyzer()
 
@@ -26,6 +26,9 @@ def test_triples(item, correct, incorrect, issues):
         print((chat.last_utterance, 'ERROR'))
         incorrect += 3
         issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
+        error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
+            'predicate'] + " " + item['triple']['object'] + "\n"
+        errorf.write(error_string)
         return correct, incorrect, issues
 
     # A triple was extracted so we compare it elementwise
@@ -42,7 +45,8 @@ def test_triples(item, correct, incorrect, issues):
         incorrect += (3 - score_best_triple)
         if score_best_triple < 3:
             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
-
+            error_string = chat.last_utterance.transcript+": "+item['triple']['subject']+" "+item['triple']['predicate']+" "+item['triple']['object']+"\n"
+            errorf.write(error_string)
         # Report
         print(f"\nUtterance: \t{chat.last_utterance}")
         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
@@ -74,12 +78,13 @@ def test_triples_in_file(path):
     incorrect = 0
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
-
+    errorf = open(path+".error.txt", "w")
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
-        correct, incorrect, issues = test_triples(item, correct, incorrect, issues)
+        correct, incorrect, issues = test_triples(item, correct, incorrect, issues, errorf)
+    errorf.close()
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
@@ -101,7 +106,7 @@ if __name__ == "__main__":
         "./data/perspective.txt"
     ]
 
-    all_test_files = ["./data/new_statements.txt"]
+    all_test_files = ["./data/statements.txt"]
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
