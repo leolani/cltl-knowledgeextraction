@@ -29,7 +29,7 @@ setup(
         'stanford-ner/**/*',
         'stanford-pos/*',
         'stanford-pos/**/*',
-        'data',
+        'data/*',
         'data/**/*'
     ]},
     python_requires='>=3.7',
