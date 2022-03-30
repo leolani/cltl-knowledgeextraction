@@ -1,6 +1,4 @@
-import spacy
-
-def predicateInfoToTriple (pred_info:dict, predicate: str):
+def predicateInfoToTriple(pred_info: dict, predicate: str):
     triple = None
     if pred_info.get('head') and pred_info.get('tail'):
         triple = {'predicate': {'label': predicate, 'type': []},
@@ -16,17 +14,17 @@ def predicateInfoToTriple (pred_info:dict, predicate: str):
 # The result is a list of tokens
 
 def get_dependent_tokens(head_id, exclude_id, sent):
-    tokens=[]
+    tokens = []
     for token in sent:
         ### check if this token is not the same as the head token itself nor the excluded token
-        if token.i!=head_id and token.i!=exclude_id:
+        if token.i != head_id and token.i != exclude_id:
             head = token.head
             ### check of this token is indeed dependent on the head token
-            if (head_id==head.i):
+            if (head_id == head.i):
                 ### we want this token and put it in the result list
                 tokens.append(token.i)
                 ### we recursively call the function again with our new token to see if there are other tokens that depend on the new token
-                nested_tokens=get_dependent_tokens(token.i, exclude_id, sent)
+                nested_tokens = get_dependent_tokens(token.i, exclude_id, sent)
                 ### if we have a result, we extend the result list with the deeper tokens
                 if nested_tokens:
                     tokens.extend(nested_tokens)
@@ -88,11 +86,12 @@ def get_predicate_subject_complement_phrases(doc, sent):
 
     return output
 
-def get_subclause (nlp, utterance:str):
+
+def get_subclause(nlp, utterance: str):
     doc = nlp(utterance)
     predicates = {}
     for token in doc:
-        if token.dep_=="xcomp":
+        if token.dep_ == "xcomp":
             ### subject raising
             #### this is a root, so we consider it a predicate
             predicates[token.i] = dict()
@@ -105,7 +104,8 @@ def get_subclause (nlp, utterance:str):
             predicates[token.i]['tail'] = None
     return predicates
 
-def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
+
+def get_subj_obj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:
     -subject
@@ -135,18 +135,18 @@ def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: st
     hearer_tokens = []
 
     for token in doc:
-        if token.dep_=="ROOT":
+        if token.dep_ == "ROOT":
             #### this is a root, so we consider it a predicate
             predicates[token.i] = dict()
             predicates[token.i]['head'] = None
             predicates[token.i]['tail'] = None
-    #print(predicates)
+    # print(predicates)
     for token in doc:
         if predicates.get(token.head.i):
             head_id = token.head.i
             if head_id not in predicates:
                 predicates[head_id] = dict()
-                predicates[head_id]['head']=None
+                predicates[head_id]['head'] = None
                 predicates[head_id]['tail'] = None
 
             # print(token.pos_)
@@ -182,10 +182,12 @@ def get_subj_obj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: st
         if triple and not triple in triples:
             triples.append(triple)
     print('Triples subj - pred - obj', triples)
-    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens, subject_mentions), zip(object_tokens, object_mentions)
+    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
+                                                                                                    subject_mentions), zip(
+        object_tokens, object_mentions)
 
-def get_subj_amod_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
 
+def get_subj_amod_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:
     -subject
@@ -197,7 +199,7 @@ def get_subj_amod_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
     :return: list of tuples (predicate, subject, object)
     """
     print('get_subj_amod_triples_with_spacy')
-    rels ={'nsubj', 'nsubjpass', 'acomp'}
+    rels = {'nsubj', 'nsubjpass', 'acomp'}
 
     doc = nlp(utterance)
 
@@ -215,7 +217,7 @@ def get_subj_amod_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
     hearer_tokens = []
 
     for token in doc:
-        if token.dep_=="ROOT":
+        if token.dep_ == "ROOT":
             #### this is a root, so we consider it a predicate
             predicates[token.i] = dict()
             predicates[token.i]['head'] = None
@@ -245,10 +247,12 @@ def get_subj_amod_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
         if triple and not triple in triples:
             triples.append(triple)
     print('Triples subj - aux - amod', triples)
-    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens, subject_mentions), zip(object_tokens, object_mentions)
+    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
+                                                                                                    subject_mentions), zip(
+        object_tokens, object_mentions)
 
 
-def get_subj_attr_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
+def get_subj_attr_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:
     -subject
@@ -279,8 +283,8 @@ def get_subj_attr_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
     hearer_tokens = []
 
     for token in doc:
-        #print(token.i, token.text, token.head, token.dep_)
-        if token.dep_=="ROOT":
+        # print(token.i, token.text, token.head, token.dep_)
+        if token.dep_ == "ROOT":
             #### this is a root, so we consider it a predicate
             predicates[token.i] = dict()
             predicates[token.i]['head'] = None
@@ -324,10 +328,12 @@ def get_subj_attr_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: s
             triples.append(triple)
 
     print('Triples subj - pred - attr', triples)
-    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens, subject_mentions), zip(object_tokens, object_mentions)
+    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
+                                                                                                    subject_mentions), zip(
+        object_tokens, object_mentions)
 
 
-def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEARER: str):
+def get_subj_prep_pobj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: str):
     """
     extract predicates with:
     -subject
@@ -359,7 +365,7 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEAR
     hearer_tokens = []
 
     for token in doc:
-        if token.dep_=="ROOT":
+        if token.dep_ == "ROOT":
             #### this is a root, so we consider it a predicate
             predicates[token.i] = dict()
             predicates[token.i]['head'] = None
@@ -405,5 +411,6 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance:str, SPEAKER: str, HEAR
             if triple and not triple in triples:
                 triples.append(triple)
     print('Triples subj - pred - prep-obj', triples)
-    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens, subject_mentions), zip(object_tokens, object_mentions)
-
+    return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
+                                                                                                    subject_mentions), zip(
+        object_tokens, object_mentions)

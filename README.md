@@ -118,6 +118,7 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
     ```bash
     pip install -e .
     python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
+    python -m spacy download en_core_web_sm 
     ```
 2. In case you want to run the OpenIE function from StanfordCoreNLP, you need to download "stanford-corenlp-4.1.0" and unpack it in the folder
 ~/.stanfordnlp_resources.

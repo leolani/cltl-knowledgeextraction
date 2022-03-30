@@ -1,14 +1,15 @@
+import json
+from collections import defaultdict
+
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from cltl.triple_extraction.oie_analyzer import OIEAnalyzer
 from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
-from test_triples import load_golden_triples
 from test_triples import compare_elementwise
-from collections import defaultdict
+from test_triples import load_golden_triples
 
 
 def evaluate_triples(chat, item, correct, incorrect, issues):
-
     # No triple was extracted, so we missed three items (s, p, o)
     if not chat.last_utterance.triples:
         print((chat.last_utterance, 'ERROR'))
@@ -92,8 +93,10 @@ def test_triples_in_file_report(path):
     print(f'\n{a1} CORRECT TRIPLE ELEMENTS: {correct_1}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect_1}')
     print(f'\n{a2} CORRECT TRIPLE ELEMENTS: {correct_2}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect_2}')
 
-    print(f"ISSUES {a1} ({len(issues)} UTTERANCES): {json.dumps(issues_1, indent=4, sort_keys=True, separators=(', ', ': '))}")
-    print(f"ISSUES {a2} ({len(issues)} UTTERANCES): {json.dumps(issues_2, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    print(
+        f"ISSUES {a1} ({len(issues_1)} UTTERANCES): {json.dumps(issues_1, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    print(
+        f"ISSUES {a2} ({len(issues_2)} UTTERANCES): {json.dumps(issues_2, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
 
 def test_triples_in_file(path):
@@ -134,9 +137,9 @@ if __name__ == "__main__":
     '''
 
     test_file = "./data/statements.txt"
-    #OIE CORRECT  TRIPLE  ELEMENTS: 58  INCORRECT TRIPLE ELEMENTS: 206
-    #CFG CORRECT TRIPLE ELEMENTS: 237 INCORRECT TRIPLE ELEMENTS: 27
+    # OIE CORRECT  TRIPLE  ELEMENTS: 58  INCORRECT TRIPLE ELEMENTS: 206
+    # CFG CORRECT TRIPLE ELEMENTS: 237 INCORRECT TRIPLE ELEMENTS: 27
     print(f'\nRUNNING {len(test_file)} STATEMENTS\n\n')
 
-    #test_triples_in_file(test_file)
+    # test_triples_in_file(test_file)
     test_triples_in_file_report(test_file)

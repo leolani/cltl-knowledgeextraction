@@ -11,8 +11,9 @@ from collections import defaultdict
 
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
+from test_triples import compare_elementwise_triple, compare_elementwise_perspective
 from test_triples import load_golden_triples
-from test_triples import compare_elementwise, compare_elementwise_triple, compare_elementwise_perspective
+
 
 def test_triples(item, correct, incorrect, issues, errorf):
     chat = Chat("Lenka")
@@ -45,7 +46,8 @@ def test_triples(item, correct, incorrect, issues, errorf):
         incorrect += (3 - score_best_triple)
         if score_best_triple < 3:
             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
-            error_string = chat.last_utterance.transcript+": "+item['triple']['subject']+" "+item['triple']['predicate']+" "+item['triple']['object']+"\n"
+            error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
+                'predicate'] + " " + item['triple']['object'] + "\n"
             errorf.write(error_string)
         # Report
         print(f"\nUtterance: \t{chat.last_utterance}")
@@ -54,8 +56,9 @@ def test_triples(item, correct, incorrect, issues, errorf):
 
         # Compare perspectives if available
         if 'perspective' in item.keys():
-            score_best_pesp = compare_elementwise_perspective(chat.last_utterance.triples[idx_best_triple]['perspective'],
-                                                  item['perspective'])
+            score_best_pesp = compare_elementwise_perspective(
+                chat.last_utterance.triples[idx_best_triple]['perspective'],
+                item['perspective'])
 
             correct += score_best_pesp
             incorrect += (3 - score_best_pesp)
@@ -78,7 +81,7 @@ def test_triples_in_file(path):
     incorrect = 0
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
-    errorf = open(path+".error.txt", "w")
+    errorf = open(path + ".error.txt", "w")
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
     for item in test_suite:
@@ -107,7 +110,7 @@ if __name__ == "__main__":
     ]
 
     all_test_files = ["./data/statements.txt"]
-    #SPACY CORRECT TRIPLE ELEMENTS: 87			INCORRECT TRIPLE ELEMENTS: 177
+    # SPACY CORRECT TRIPLE ELEMENTS: 87			INCORRECT TRIPLE ELEMENTS: 177
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 

@@ -1,9 +1,10 @@
 import spacy
 
-from cltl.triple_extraction.api import Chat
 from cltl.combot.backend.api.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_triples import dep_to_triple
+
 
 class spacyAnalyzer(Analyzer):
 
@@ -32,16 +33,20 @@ class spacyAnalyzer(Analyzer):
         super(spacyAnalyzer, self).analyze(utterance)
         nlp = spacy.load("en_core_web_sm")
 
-        #@TODO: check if there are embedded clauses:
+        # @TODO: check if there are embedded clauses:
         # - ccomp  "I think ccomp that S. likes chees"
         # - xcomp, subject or object raising  "I like xcomp talking to her"
-        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(
+            nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(
+                nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_attr_triples_with_spacy(nlp,  utterance.transcript, speaker,  hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_attr_triples_with_spacy(
+                nlp, utterance.transcript, speaker, hearer)
         if not triples:
-            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(nlp, utterance.transcript, speaker, hearer)
+            triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(
+                nlp, utterance.transcript, speaker, hearer)
 
         if triples:
             for triple in triples:
@@ -49,8 +54,6 @@ class spacyAnalyzer(Analyzer):
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             self._log.warning("Couldn't extract triples")
-
-
 
     def extract_perspective(self):
         """
@@ -66,6 +69,7 @@ class spacyAnalyzer(Analyzer):
         perspective = {'sentiment': float(sentiment), 'certainty': float(certainty), 'polarity': float(polarity),
                        'emotion': float(emotion)}
         return perspective
+
 
 if __name__ == "__main__":
     '''
