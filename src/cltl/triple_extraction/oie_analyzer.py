@@ -1,6 +1,6 @@
 from openie import StanfordOpenIE
 
-from cltl.combot.backend.api.discrete import UtteranceType
+from cltl.triple_extraction.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 
 

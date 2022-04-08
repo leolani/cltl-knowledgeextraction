@@ -4,7 +4,7 @@ from typing import List
 
 from nltk import pos_tag
 
-from cltl.combot.backend.utils.casefolding import casefold_text
+from cltl.triple_extraction.commons.casefolding import casefold_text
 from cltl.triple_extraction import logger
 from cltl.triple_extraction.utils.helper_functions import deduplicate_triples
 
