@@ -22,7 +22,7 @@ venv: requirements.txt setup.py VERSION
 	source venv/bin/activate; \
 		pip install --upgrade pip; \
 		pip install wheel; \
-		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre \
+		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre --no-cache \
 			 --no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		deactivate
 
@@ -41,7 +41,7 @@ dist: $(sources) venv
 
 	# TODO Is the pip install needed?
 	source venv/bin/activate; \
-		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre \
+		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre --no-cache \
 				--no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		python setup.py sdist; \
 		rm -rf src/*.egg-info; \
