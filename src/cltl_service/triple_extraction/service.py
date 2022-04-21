@@ -1,15 +1,13 @@
 import logging
 
-from cltl.combot.event.emissor import AnnotationEvent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
-from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
+
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
-from cltl_service.backend.schema import TextSignalEvent
 
 logger = logging.getLogger(__name__)
 
@@ -56,19 +54,12 @@ class TripleExtractionService:
         self._topic_worker.await_stop()
         self._topic_worker = None
 
-    def _process(self, event: Event[TextSignalEvent]):
+    def _process(self, event: Event):
         self._chat.add_utterance(event.payload.signal.text)
         self._extractor.analyze(self._chat.last_utterance)
         response = utterance_to_capsules(self._chat.last_utterance)
 
         if response:
             # TODO: transform capsules into proper EMISSOR annotations
-            # extractor_event = self._create_payload(response)
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
 
-    def _create_payload(self, response):
-        # TODO: transform capsules into proper EMISSOR annotations
-        # extract mentions from capsules and put them in the annotation
-        signal = AnnotationEvent.for_scenario(None, timestamp_now(), timestamp_now(), None, response)
-
-        return TextSignalEvent.create(signal)
