@@ -25,7 +25,9 @@ venv: requirements.txt setup.py VERSION
 		pip install -r requirements.txt --upgrade --upgrade-strategy eager --pre --no-cache \
 			 --no-index --find-links="$(project_mirror)" --find-links="$(project_repo)"; \
 		deactivate
+	touch venv
 
+.PHONY: build
 build: py-install
 
 test:
