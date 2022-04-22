@@ -7,7 +7,6 @@ from cltl.combot.infra.topic_worker import TopicWorker
 
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
-from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
 
 logger = logging.getLogger(__name__)
 
@@ -57,9 +56,51 @@ class TripleExtractionService:
     def _process(self, event: Event):
         self._chat.add_utterance(event.payload.signal.text)
         self._extractor.analyze(self._chat.last_utterance)
-        response = utterance_to_capsules(self._chat.last_utterance)
+        response = self._utterance_to_capsules(self._chat.last_utterance, event.payload.signal)
 
         if response:
             # TODO: transform capsules into proper EMISSOR annotations
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
+            logger.debug("Published %s triples for signal %s (%s)", len(response), event.payload.signal.id, event.payload.signal.text)
+        else:
+            logger.debug("No triples for signal %s (%s)", event.payload.signal.id, event.payload.signal.text)
 
+    def _utterance_to_capsules(self, utterance, signal):
+        capsules = []
+
+        for triple in utterance.triples:
+            self._add_uri_to_triple(triple)
+            scenario_id = signal.time.container_id
+
+            capsule = {"chat": scenario_id,
+                       "turn": signal.id,
+                       "author": utterance.chat_speaker,
+                       "utterance": utterance.transcript,
+                       "utterance_type": triple['utterance_type'],
+                       "position": "0-" + str(len(utterance.transcript)),
+                       ###
+                       "subject": triple['subject'],
+                       "predicate": triple['predicate'],
+                       "object": triple['object'],
+                       "perspective": triple["perspective"],
+                       ###
+                       "context_id": None,
+                       "date": utterance.datetime.isoformat(),
+                       "place": "",
+                       "place_id": None,
+                       "country": "",
+                       "region": "",
+                       "city": "",
+                       "objects": [],
+                       "people": []
+                       }
+
+            capsules.append(capsule)
+
+        return capsules
+
+    def _add_uri_to_triple(self, triple: dict):
+        uri = {'uri':None}
+        triple['subject'].update(uri)
+        triple['predicate'].update(uri)
+        triple['object'].update(uri)
