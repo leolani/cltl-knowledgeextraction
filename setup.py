@@ -36,7 +36,8 @@ setup(
     install_requires=[
         'nltk~=3.4.4',
         'stanford_openie~=1.3.0',
-        'spacy~=3.2.3'
+        'spacy~=3.2.3',
+        "cltl.combot"
     ],
     extras_require={
         "service": [

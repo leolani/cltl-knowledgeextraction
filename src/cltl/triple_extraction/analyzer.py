@@ -1,7 +1,7 @@
 import json
 
-from cltl.triple_extraction.commons import discrete
-from cltl.triple_extraction.commons.triple_helpers import continuous_to_enum
+from cltl.commons import discrete
+from cltl.commons.triple_helpers import continuous_to_enum
 from cltl.triple_extraction import logger
 
 

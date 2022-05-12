@@ -9,7 +9,7 @@ from nltk import pos_tag
 from nltk import tree as ntree
 from nltk.stem import WordNetLemmatizer
 
-from cltl.triple_extraction.commons.discrete import UtteranceType
+from cltl.commons.discrete import UtteranceType
 from . import wordnet_utils as wu
 
 wnl = WordNetLemmatizer()

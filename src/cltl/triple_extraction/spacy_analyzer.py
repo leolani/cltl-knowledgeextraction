@@ -1,6 +1,6 @@
 import spacy
 
-from cltl.triple_extraction.commons.discrete import UtteranceType
+from cltl.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_triples import dep_to_triple
