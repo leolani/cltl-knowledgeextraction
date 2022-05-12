@@ -439,3 +439,19 @@ def deduplicate_triples(triples):
         unique_triples.append(json.loads(triple))
 
     return unique_triples
+
+
+def add_deduplicated(triple, list_json_triples):
+    """Adds a triple to a list, only if it is not there. Return list and bool indicating whether an addition was made"""
+    addition = False
+
+    sorted_triple = dict(sorted(triple.items()))
+    triple_as_json = json.dumps(triple_to_json(triple))
+
+    if triple_as_json in list_json_triples:
+        pass
+    else:
+        list_json_triples.append(json.loads(triple_as_json))
+        addition = True
+
+    return list_json_triples, addition

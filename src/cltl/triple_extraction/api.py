@@ -6,7 +6,7 @@ from nltk import pos_tag
 
 from cltl.triple_extraction.commons.casefolding import casefold_text
 from cltl.triple_extraction import logger
-from cltl.triple_extraction.utils.helper_functions import deduplicate_triples
+from cltl.triple_extraction.utils.helper_functions import add_deduplicated
 
 
 class Chat(object):
@@ -134,6 +134,7 @@ class Utterance(object):
         self._tokens = self._clean(self._tokenize(self._transcript))
 
         self._triples = []
+        self._triples_as_json = []  # Convenience for deduplication
 
     @property
     def chat(self):
@@ -205,13 +206,15 @@ class Utterance(object):
         return self._tokens
 
     def add_triple(self, triple):
-        # type: (dict) -> ()
+        # type: (dict) -> (bool)
 
-        # Add triple
-        self._triples.append(triple)
+        self._triples_as_json, triple_is_new = add_deduplicated(triple, self._triples_as_json)
 
-        # Deduplicate the list
-        self._triples = deduplicate_triples(self._triples)
+        if triple_is_new:
+            # Add triple
+            self._triples.append(triple)
+
+        return triple_is_new
 
     def casefold(self, format='triple'):
         # type (str) -> ()

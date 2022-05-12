@@ -42,7 +42,10 @@ class Analyzer(object):
         triple["utterance_type"] = utterance_type
 
         # Set type, and triple
-        self.utterance.add_triple(triple)
+        triple_is_new = self.utterance.add_triple(triple)
+
+        if not triple_is_new:
+            return
 
         if utterance_type:
             self._log.info("Utterance type: {}".format(json.dumps(utterance_type.name,

@@ -38,5 +38,13 @@ setup(
         'stanford_openie~=1.3.0',
         'spacy~=3.2.3'
     ],
+    extras_require={
+        "service": [
+            "cltl.backend",
+            "cltl.combot",
+            "emissor",
+            "requests",
+        ]
+    },
     setup_requires=['flake8']
 )
