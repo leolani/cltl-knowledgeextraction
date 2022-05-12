@@ -28,9 +28,7 @@ setup(
         'stanford-ner/*',
         'stanford-ner/**/*',
         'stanford-pos/*',
-        'stanford-pos/**/*',
-        'data/*',
-        'data/**/*'
+        'stanford-pos/**/*'
     ]},
     python_requires='>=3.7',
     install_requires=[
