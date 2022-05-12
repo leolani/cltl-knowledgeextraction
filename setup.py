@@ -23,7 +23,7 @@ setup(
         "Baier": ("Thomas Baier", "t.baier@vu.nl")
     },
     package_dir={'': 'src'},
-    packages=find_namespace_packages(include=['cltl.*'], where='src'),
+    packages=find_namespace_packages(include=['cltl.*', 'cltl_service.*'], where='src'),
     package_data={'cltl.triple_extraction': [
         'stanford-ner/*',
         'stanford-ner/**/*',
@@ -36,7 +36,12 @@ setup(
     install_requires=[
         'nltk~=3.4.4',
         'stanford_openie~=1.3.0',
-        'spacy==3.2.3'
+        'spacy~=3.2.3'
     ],
+    extras_require={
+        "service": [
+            "cltl.combot",
+        ]
+    },
     setup_requires=['flake8']
 )

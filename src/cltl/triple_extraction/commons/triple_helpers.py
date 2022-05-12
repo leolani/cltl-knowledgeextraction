@@ -1,3 +1,6 @@
+NOT_TO_MENTION_TYPES = ['instance']
+
+
 def continuous_to_enum(enum_class, original_value):
     """
     Transform a continuous value to discrete
@@ -81,3 +84,9 @@ def fix_nlp_types(types):
         fixed_types.append('action')
 
     return fixed_types
+
+
+def filtered_types_names(types):
+    types_names = ' or '.join([t for t in types if t.lower() not in NOT_TO_MENTION_TYPES])
+
+    return types_names

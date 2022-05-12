@@ -1,12 +1,12 @@
 import json
 import os
 
-from cltl.combot.backend.api.discrete import UtteranceType
+from cltl.triple_extraction.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
     lexicon_lookup, get_pos_in_tree
-from cltl.combot.backend.utils.triple_helpers import fix_nlp_types
+from cltl.triple_extraction.commons.triple_helpers import fix_nlp_types
 
 
 class CFGAnalyzer(Analyzer):
