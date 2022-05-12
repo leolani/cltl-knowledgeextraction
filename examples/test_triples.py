@@ -197,10 +197,10 @@ if __name__ == "__main__":
     '''
 
     all_test_files = [
-        "./data/wh-questions.txt",
-        "./data/verb-questions.txt",
         "./data/statements.txt",
         "./data/perspective.txt"
+        "./data/wh-questions.txt",
+        "./data/verb-questions.txt",
     ]
 
     # all_test_files = ["./data/new_statements.txt"]

@@ -1,5 +1,4 @@
-import os
-
+from cltl.commons.language_helpers import cfg
 from nltk import CFG, RecursiveDescentParser
 from nltk import pos_tag
 
@@ -12,7 +11,6 @@ class Parser(object):
     POS_TAGGER = None  # Type: POS
     NER_TAGGER = None
     GRAMMAR = None
-    CFG_GRAMMAR_FILE = os.path.join(os.path.dirname(__file__), '../data', 'cfg.txt')
 
     def __init__(self):
         self._log = logger.getChild(self.__class__.__name__)
@@ -23,11 +21,10 @@ class Parser(object):
         if not Parser.NER_TAGGER:
             Parser.NER_TAGGER = NER()
 
-        with open(Parser.CFG_GRAMMAR_FILE) as cfg_file:
-            if not Parser.GRAMMAR:
-                Parser.GRAMMAR = cfg_file.read()
-                self._log.debug("Loaded grammar")
-            self._cfg = Parser.GRAMMAR
+        if not Parser.GRAMMAR:
+            Parser.GRAMMAR = cfg
+            self._log.debug("Loaded grammar")
+        self._cfg = Parser.GRAMMAR
 
     @property
     def forest(self):
