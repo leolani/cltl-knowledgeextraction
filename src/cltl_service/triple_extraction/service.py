@@ -3,6 +3,7 @@ import logging
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
+from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
 
 from cltl.triple_extraction.analyzer import Analyzer
@@ -74,7 +75,11 @@ class TripleExtractionService:
 
             capsule = {"chat": scenario_id,
                        "turn": signal.id,
-                       "author": utterance.chat_speaker,
+                       "author": {
+                           "label": utterance.chat_speaker,
+                           "type": ["person"],
+                           'uri': None
+                       },
                        "utterance": utterance.transcript,
                        "utterance_type": triple['utterance_type'],
                        "position": "0-" + str(len(utterance.transcript)),
@@ -85,14 +90,7 @@ class TripleExtractionService:
                        "perspective": triple["perspective"],
                        ###
                        "context_id": None,
-                       "date": utterance.datetime.isoformat(),
-                       "place": "",
-                       "place_id": None,
-                       "country": "",
-                       "region": "",
-                       "city": "",
-                       "objects": [],
-                       "people": []
+                       "timestamp": timestamp_now()
                        }
 
             capsules.append(capsule)
