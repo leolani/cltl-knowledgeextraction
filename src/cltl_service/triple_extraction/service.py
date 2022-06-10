@@ -1,5 +1,6 @@
 import logging
 
+from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
@@ -20,29 +21,34 @@ class TripleExtractionService:
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
-        return cls(config.get("topic_input"), config.get("topic_output"), extractor, config.get("speaker"),
-                   event_bus, resource_manager)
+        return cls(config.get("topic_input"), config.get("topic_output"), config.get("topic_scenario"),
+                   extractor, event_bus, resource_manager)
 
-    def __init__(self, input_topic: str, output_topic: str, extractor: Analyzer, speaker: str,
+    def __init__(self, input_topic: str, output_topic: str, scenario_topic: str, extractor: Analyzer,
                  event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
-        self._chat = Chat(speaker)
 
         self._event_bus = event_bus
         self._resource_manager = resource_manager
 
         self._input_topic = input_topic
         self._output_topic = output_topic
+        self._scenario_topic = scenario_topic
 
         self._topic_worker = None
+
+        self._chat = None
+        self._speaker = None
 
     @property
     def app(self):
         return None
 
     def start(self, timeout=30):
-        self._topic_worker = TopicWorker([self._input_topic], self._event_bus, provides=[self._output_topic],
+        self._topic_worker = TopicWorker([self._input_topic, self._scenario_topic],
+                                         self._event_bus, provides=[self._output_topic],
                                          resource_manager=self._resource_manager, processor=self._process,
+                                         buffer_size=256,
                                          name=self.__class__.__name__)
         self._topic_worker.start().wait()
 
@@ -55,6 +61,22 @@ class TripleExtractionService:
         self._topic_worker = None
 
     def _process(self, event: Event):
+        if event.metadata.topic == self._scenario_topic:
+            if event.payload.scenario.context.speaker:
+                self._speaker = event.payload.scenario.context.speaker
+            if event.payload.type == ScenarioStarted.__name__:
+                self._chat = Chat(self._speaker.name if self._speaker and self._speaker.name else "stranger")
+            elif event.payload.type == ScenarioStopped.__name__:
+                self._chat = None
+                self._speaker = None
+            elif event.payload.type == ScenarioEvent.__name__:
+                self._chat.speaker = self._speaker.name if self._speaker.name else self._chat.speaker
+            return
+
+        if not self._chat:
+            logger.warning("Received utterance outside of a chat (%s)", event)
+            return
+
         self._chat.add_utterance(event.payload.signal.text)
         self._extractor.analyze(self._chat.last_utterance)
         response = self._utterance_to_capsules(self._chat.last_utterance, event.payload.signal)
@@ -75,11 +97,7 @@ class TripleExtractionService:
 
             capsule = {"chat": scenario_id,
                        "turn": signal.id,
-                       "author": {
-                           "label": utterance.chat_speaker,
-                           "type": ["person"],
-                           'uri': None
-                       },
+                       "author": self._get_author(),
                        "utterance": utterance.transcript,
                        "utterance_type": triple['utterance_type'],
                        "position": "0-" + str(len(utterance.transcript)),
@@ -102,3 +120,10 @@ class TripleExtractionService:
         triple['subject'].update(uri)
         triple['predicate'].update(uri)
         triple['object'].update(uri)
+
+    def _get_author(self):
+        return {
+            "label": self._speaker.name if self._speaker and self._speaker.name else self._chat.speaker,
+            "type": ["person"],
+            "uri": self._speaker.uri if self._speaker else None
+        }
