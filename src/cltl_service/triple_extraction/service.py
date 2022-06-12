@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent
 from cltl.combot.infra.config import ConfigurationManager
@@ -22,9 +23,11 @@ class TripleExtractionService:
         config = config_manager.get_config("cltl.triple_extraction")
 
         return cls(config.get("topic_input"), config.get("topic_output"), config.get("topic_scenario"),
+                   config.get("topic_intention"), config.get("intentions", multi=True),
                    extractor, event_bus, resource_manager)
 
-    def __init__(self, input_topic: str, output_topic: str, scenario_topic: str, extractor: Analyzer,
+    def __init__(self, input_topic: str, output_topic: str, scenario_topic: str,
+                 intention_topic: str, intentions: List[str], extractor: Analyzer,
                  event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
 
@@ -34,6 +37,10 @@ class TripleExtractionService:
         self._input_topic = input_topic
         self._output_topic = output_topic
         self._scenario_topic = scenario_topic
+
+        self._intention_topic = intention_topic if intention_topic else None
+        self._intentions = set(intentions) if intentions else {}
+        self._active_intentions = {}
 
         self._topic_worker = None
 
@@ -45,10 +52,10 @@ class TripleExtractionService:
         return None
 
     def start(self, timeout=30):
-        self._topic_worker = TopicWorker([self._input_topic, self._scenario_topic],
+        self._topic_worker = TopicWorker([self._input_topic, self._scenario_topic, self._intention_topic],
                                          self._event_bus, provides=[self._output_topic],
                                          resource_manager=self._resource_manager, processor=self._process,
-                                         buffer_size=256,
+                                         buffer_size=64,
                                          name=self.__class__.__name__)
         self._topic_worker.start().wait()
 
@@ -61,16 +68,29 @@ class TripleExtractionService:
         self._topic_worker = None
 
     def _process(self, event: Event):
+        if event.metadata.topic == self._intention_topic:
+            self._active_intentions = set(event.payload.intentions)
+            logger.info("Set active intentions to %s", self._active_intentions)
+            return
+
         if event.metadata.topic == self._scenario_topic:
             if event.payload.scenario.context.speaker:
                 self._speaker = event.payload.scenario.context.speaker
             if event.payload.type == ScenarioStarted.__name__:
                 self._chat = Chat(self._speaker.name if self._speaker and self._speaker.name else "stranger")
+                logger.debug("Started chat with %s", self._chat.speaker)
             elif event.payload.type == ScenarioStopped.__name__:
+                logger.debug("Stopping chat with %s", self._chat.speaker)
                 self._chat = None
                 self._speaker = None
             elif event.payload.type == ScenarioEvent.__name__:
                 self._chat.speaker = self._speaker.name if self._speaker.name else self._chat.speaker
+                logger.debug("Set speaker in chat to %s", self._chat.speaker)
+            return
+
+        if self._intentions and not (self._active_intentions & self._intentions):
+            logger.debug("Skipped event outside intention %s, active: %s (%s)",
+                         self._intentions, self._active_intentions, event)
             return
 
         if not self._chat:
