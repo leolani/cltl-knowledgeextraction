@@ -104,7 +104,8 @@ class TripleExtractionService:
         if response:
             # TODO: transform capsules into proper EMISSOR annotations
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
-            logger.debug("Published %s triples for signal %s (%s)", len(response), event.payload.signal.id, event.payload.signal.text)
+            logger.debug("Published %s triples for signal %s (%s): %s",
+                         len(response), event.payload.signal.id, event.payload.signal.text, response)
         else:
             logger.debug("No triples for signal %s (%s)", event.payload.signal.id, event.payload.signal.text)
 
