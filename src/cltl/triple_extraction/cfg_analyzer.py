@@ -718,7 +718,7 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         constituents = CFGAnalyzer.PARSER.constituents
         if len(constituents) == 3:
             label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, constituents[2]['raw'])
-            if constituents[0]['raw'] == 'who':
+            if constituents[0]['raw'].lower() == 'who':
                 triple['predicate'] = constituents[1]['raw']
                 triple['object'] = constituents[2]['raw']
             elif label.startswith('V') or label == 'MD':  # rotation "(do you know) what a dog is?"s
