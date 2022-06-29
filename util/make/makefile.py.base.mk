@@ -14,6 +14,8 @@ VERSION: $(sources)
 py-clean:
 	$(info Clean $(project_name))
 	@rm -rf venv dist build *.egg-info
+	@rm -rf $(project_repo)/$(artifact_name)-{0..9}*+{0..9}*.tar.gz
+	@pip cache remove $(artifact_name)
 
 venv: requirements.txt setup.py VERSION
 	$(info Create virutal environment for $(project_name))
