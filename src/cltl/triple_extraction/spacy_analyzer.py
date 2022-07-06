@@ -6,6 +6,7 @@ from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_triples import dep_to_triple
 
 
+#TODO Fix class name
 class spacyAnalyzer(Analyzer):
 
     def __init__(self):

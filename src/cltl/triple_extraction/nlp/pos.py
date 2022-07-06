@@ -8,6 +8,9 @@ from cltl.triple_extraction import logger
 class POS(object):
     """Part of Speech tagging using Stanford POSTagger"""
 
+    # TODO use the new nltk.parse.corenlp.CoreNLPParser API
+    # https://github.com/nltk/nltk/wiki/Stanford-CoreNLP-API-in-NLTK
+    # https://stanfordnlp.github.io/CoreNLP/other-languages.html#python
     PACKAGE_ROOT = os.path.dirname(__file__)
     STANFORD_POS = os.path.join(PACKAGE_ROOT, '../stanford-pos')
     STANFORD_POS_JAR = os.path.join(STANFORD_POS, 'stanford-postagger.jar')
