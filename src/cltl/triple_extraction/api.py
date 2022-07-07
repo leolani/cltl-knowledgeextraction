@@ -268,6 +268,10 @@ class Utterance(object):
                     transcript = transcript.replace(i.lower(), '')
 
         # separating typical contractions
+        transcript= transcript.replace("!", "")
+        transcript= transcript.replace("?", "")
+        transcript= transcript.replace(",", "")
+        transcript= transcript.replace(".", "")
         tokens_raw = transcript.replace("'", " ").split()
         dict = {'m': 'am', 're': 'are', 'll': 'will'}
         dict_not = {'won': 'will', 'don': 'do', 'doesn': 'does', 'didn': 'did', 'haven': 'have', 'wouldn': 'would',
