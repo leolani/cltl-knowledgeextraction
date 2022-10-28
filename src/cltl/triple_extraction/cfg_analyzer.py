@@ -1,5 +1,5 @@
 from cltl.commons.discrete import UtteranceType
-from cltl.commons.language_helpers import lexicon_lookup, lexicon
+from cltl.commons.language_helpers import lexicon_lookup, lexicon, lexicon_lookup_subword
 from cltl.commons.triple_helpers import fix_nlp_types
 
 from cltl.triple_extraction.analyzer import Analyzer
@@ -42,7 +42,8 @@ class CFGAnalyzer(Analyzer):
         super(CFGAnalyzer, self).analyze(utterance)
 
         CFGAnalyzer.PARSER.parse(utterance)
-
+        ###PIEK
+        print(CFGAnalyzer.PARSER.constituents)
         if not CFGAnalyzer.PARSER.forest:
             self._log.warning("Couldn't parse input")
 
@@ -130,6 +131,9 @@ class CFGAnalyzer(Analyzer):
         elif predicate == 'bear':  # bear-in
             predicate = 'born'  # lemmatizer issue
 
+        elif predicate == 'bear-in':  # bear-in
+            predicate = 'born'  # lemmatizer issue
+
         return predicate
 
     @staticmethod
@@ -202,6 +206,54 @@ class CFGAnalyzer(Analyzer):
                     triple[el]['type'] = ['deictic']
 
         return triple
+
+    def _get_predicative_reading(self, triple):
+        if triple['predicate']=="be":
+            #my name is
+            if triple['subject']=='name':
+                triple['predicate']= 'label'
+                #print('name', triple)
+
+            predicate, name = lexicon_lookup_subword(triple['subject'], 'kinship')
+            if predicate:
+                triple['predicate']= predicate
+                if name:
+                    triple['object'] = name
+                else:
+                    triple['object'] = 'someone'
+                # print('s-kinship', triple)
+            #my kinship is obj
+            predicate, name = lexicon_lookup_subword(triple['object'], 'kinship')
+            if predicate:
+                triple['predicate']= predicate
+                if name:
+                    triple['object'] = name
+                else:
+                    triple['object'] = 'someone'
+                    # print('o-kinship', triple)
+            predicate, name = lexicon_lookup_subword(triple['object'], 'condition')
+            print
+            if predicate:
+                triple['predicate']= 'condition'
+               # print('o-condition', triple)
+        elif triple['predicate']=="have":
+            # my kinship is obj
+            predicate, name = lexicon_lookup_subword(triple['object'], 'kinship')
+            if predicate:
+                triple['predicate'] = predicate
+                if name:
+                    triple['object'] = name
+                else:
+                    triple['object'] = 'someone'
+              #  print('o-kinship', triple)
+        else:
+            # activity
+            predicate, name = lexicon_lookup_subword(triple['object'], 'activities')
+            if predicate:
+                triple['predicate'] = 'experience'
+                triple['object'] = predicate
+              #  print('o-activity', triple)
+
 
     def analyze_vp(self, triple, utterance_info):
         """
@@ -491,6 +543,8 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         # Initialize
         utterance_info = {'neg': False}
         triple = self.initialize_triple()
+        ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
+        self._get_predicative_reading(triple)
         self._log.debug('initial triple: {}'.format(triple))
 
         # sentences such as "I think (that) ..."

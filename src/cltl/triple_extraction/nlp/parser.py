@@ -59,6 +59,8 @@ class Parser(object):
         for w in tokenized_sentence:
             if w == 'like':
                 pos[ind] = (w, 'VB')
+            elif w== 'born':
+                pos[ind] = (w, 'VD')
             ind += 1
 
         if pos and pos[0][0] == 'Does':
