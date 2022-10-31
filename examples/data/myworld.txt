@@ -20,12 +20,16 @@ Carl is my brother: carl brother lenka
 Carla is my sister: carla sister lenka
 Carl is my father: carl father lenka
 Carla is my mother: carla mother lenka
+Carl is my husband: carl husband lenka
+My husband is called Carl: carl husband lenka
 Carla is married to Carl: carla spouse carl
-Carlas husband is Carl: carla spouse carl
+Carla's husband is Carl: carla spouse carl
 Carla has a husband called Carl: carla spouse carl
 Carla and Carl are married: carla spouse carl
 Carla and Carl are together: carla spouse carl
 #Friends
+Carl is your friend: carl friend leolani
+Carl is my friend: carl friend lenka
 Carl is my friend: carl friend lenka
 I have a friend Carl: carl friend lenka
 My friend is called Carl:  carl friend lenka
@@ -73,10 +77,10 @@ Carl is healthy: carl condition healthy
 #Cats
 I have a cat: lenka own cat
 Carl has a cat: carl own cat
-My cats name is tiger: lenka-cat label tiger
-cats name is tiger: carl-cat label tiger
-The name of myy cat is tiger: lenka-cat label tiger
-The name of Carls cat is tiger: carl-cat label tiger
+My cat's name is tiger: lenka-cat label tiger
+The cat's name is tiger: carl label tiger
+The name of my cat is tiger: lenka-cat label tiger
+The name of Carl's cat is tiger: carl-cat label tiger
 #Dogs
 I have a dog: lenka own dog
 Carl has a dog: carl own dog
@@ -97,6 +101,9 @@ Carl bought a book: carl own book
 Carl found a book: carl own book
 #Make
 #Build
+I develop software: lenka create software
+I build boats: lenka create boat
+
 #Cook
 #Clothing
 #Gardens
