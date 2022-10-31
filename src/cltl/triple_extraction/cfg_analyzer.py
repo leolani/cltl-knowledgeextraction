@@ -155,7 +155,7 @@ class CFGAnalyzer(Analyzer):
 
             # First attempt at typing via forest
             triple[el]['type'] = get_triple_element_type(text, CFGAnalyzer.PARSER.structure_tree)
-
+            print('INITIAL_TYPE', triple[el]['type'])
             # Analyze types
             if type(triple[el]['type']) == dict:
                 # Loop through dictionary for multiword entities
@@ -167,9 +167,11 @@ class CFGAnalyzer(Analyzer):
                         if entry is None:
                             if typ.lower() in ['leolani']:
                                 final_type.append('robot')
-                            elif typ.lower() in ['lenka', 'selene', 'suzana', 'bram',
-                                                 'piek'] or typ.capitalize() == typ:
+                            elif typ.lower() in ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea',
+                                                 'piek']:
                                 final_type.append('person')
+                            elif typ.capitalize() == typ:
+                                final_type.append('None') ## This was person before, now it should trigger the type infenence function in the brain
                             else:
                                 node = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, typ)
                                 if node in ['IN', 'TO']:
@@ -178,7 +180,6 @@ class CFGAnalyzer(Analyzer):
                                     final_type.append('verb')
                                 elif node.startswith('N'):
                                     final_type.append('noun')
-
                         elif 'proximity' in entry:
                             final_type.append('deictic')
                         elif 'person' in entry:
@@ -189,7 +190,6 @@ class CFGAnalyzer(Analyzer):
 
                 final_type = fix_nlp_types(final_type)
                 triple[el]['type'] = final_type
-
             # Patch special types
             elif triple[el]['type'] in [None, '']:
                 entry = lexicon_lookup(triple[el]['text'])
@@ -198,10 +198,11 @@ class CFGAnalyzer(Analyzer):
                     # TODO: Remove Hardcoded Names
                     if triple[el]['text'].lower() in ['leolani']:
                         triple[el]['type'] = ['robot']
-                    elif triple[el]['text'].lower() in ['lenka', 'selene', 'suzana', 'bram', 'piek']:
+                    elif triple[el]['text'].lower() in ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea',
+                                                 'piek']:
                         triple[el]['type'] = ['person']
                     elif triple[el]['text'].capitalize() == triple[el]['text']:
-                        triple[el]['type'] = ['person']
+                        triple[el]['type'] = ['None']  ## This was person before, now it should trigger the type infenence function in the brain
                 elif 'proximity' in entry:
                     triple[el]['type'] = ['deictic']
 
@@ -216,6 +217,7 @@ class CFGAnalyzer(Analyzer):
 
             predicate, name = lexicon_lookup_subword(triple['subject'], 'kinship')
             if predicate:
+
                 triple['predicate']= predicate
                 if name:
                     triple['object'] = name
@@ -232,7 +234,6 @@ class CFGAnalyzer(Analyzer):
                     triple['object'] = 'someone'
                     # print('o-kinship', triple)
             predicate, name = lexicon_lookup_subword(triple['object'], 'condition')
-            print
             if predicate:
                 triple['predicate']= 'condition'
                # print('o-condition', triple)
@@ -245,6 +246,7 @@ class CFGAnalyzer(Analyzer):
                     triple['object'] = name
                 else:
                     triple['object'] = 'someone'
+
               #  print('o-kinship', triple)
         else:
             # activity
@@ -253,6 +255,7 @@ class CFGAnalyzer(Analyzer):
                 triple['predicate'] = 'experience'
                 triple['object'] = predicate
               #  print('o-activity', triple)
+
 
 
     def analyze_vp(self, triple, utterance_info):
@@ -564,6 +567,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
 
     def initialize_triple(self):
+
         """
         This function initializes the triple with assumed word order: NP VP C
         subject is the NP, predicate is VP and object can be NP, VP, PP, another S or nothing
