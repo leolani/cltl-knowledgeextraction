@@ -1,39 +1,41 @@
 #People
 #Kinship
-I have a sister called carla: lenka sister carla
-I have a brother called carl: lenka brother carl
-I have a sister carla:  lenka sister carla
-I have a brother carl: carl brother lenka
-I have a sister:  lenka sister someone
-I have a brother: lenka brother someone
-I have a little sister: lenka sister someone
-I have a little brother: lenka brother someone
-My brother is called Carl: lenka brother carl
-My brothers name is Carl: lenka brother carl
-My sister is called Carla: carla sister lenka
-My sisters name is Carla: carla sister lenka
-My father is called Carl: lenka father carl
-My fathers name is Carl: lenka father carl
-My mother is called Carla: lenka mother carla
-My mothers name is Carla: lenka mother carla
-Carl is my brother: carl brother lenka
-Carla is my sister: carla sister lenka
-Carl is my father: carl father lenka
-Carla is my mother: carla mother lenka
-Carl is my husband: carl husband lenka
-My husband is called Carl: carl husband lenka
-Carla is married to Carl: carla spouse carl
-Carla's husband is Carl: carla spouse carl
+I have a sister called Carla: carla be-sister-of lenka
+I have a brother called Carl: carl be-brother-of lenka
+Carl has a sister called Carla: carla be-sister-of carla
+Carla has a borther called Carl: carl be-borther-of carl
+I have a sister Carla: lenka be-sister-of carla
+I have a brother Carl: carl be-brother-of lenka
+I have a sister: someone be-sister-of lenka
+I have a brother: someone be-brother-of lenka
+I have a little sister: someone be-sister-of lenka
+I have a little brother: someone be-brother-of lenka
+My brother is called Carl: lenka be-brother-of carl
+My brothers name is Carl: lenka be-brother-of carl
+My sister is called Carla: carla be-sister-of lenka
+My sisters name is Carla: carla be-sister-of lenka
+My father is called Carl:carl be-father-of lenka
+My fathers name is Carl: :carl be-father-of lenka
+My mother is called Carla: carla be-mother-of lenka
+My mothers name is Carla: carla be-mother-of lenka
+Carl is my brother: carl be-brother-of lenka
+Carla is my sister: carla be-sister-of lenka
+Carl is my father: carl be-father-of lenka
+Carla is my mother: carla be-mother-of lenka
+Carl is my husband: carl be-husband-of lenka
+My husband is called Carl: carl be-husband-of lenka
+Carla is married to Carl: carla be-spouse-of carl
+Carla's husband is Carl: carl be-husband-of carla
 Carla has a husband called Carl: carla spouse carl
-Carla and Carl are married: carla spouse carl
-Carla and Carl are together: carla spouse carl
+Carla and Carl are married: carla be-spouse-of carl
+Carla and Carl are together: carla be-spouse-of carl
 #Friends
-Carl is your friend: carl friend leolani
-Carl is my friend: carl friend lenka
-Carl is my friend: carl friend lenka
-I have a friend Carl: carl friend lenka
-My friend is called Carl:  carl friend lenka
-My friends name is Carl:  carl friend lenka
+Carl is your friend: carl be-friends-with leolani
+Carl is my friend: carl be-friends-with lenka
+Carl is my friend: carl be-friends-with lenka
+I have a friend Carl: carl be-friends-with lenka
+My friend is called Carl: carl be-friends-with lenka
+My friends name is Carl: carl be-friends-with lenka
 #Gender
 I am a man: lenka gender male
 I am a boy: lenka gender male
@@ -47,10 +49,10 @@ I am 12 years old: lenka age 12
 My age is 12: lenka age 12
 Carl is 12: carl age 12
 #Origin
-I am from Amsterdam: lenka origin amsterdam
-Carl is from Amsterdam: carl origin amsterdam
-I was born in Amsterdam: lenka origin amsterdam
-Carl was born in Amsterdam: carl origin amsterdam
+I am from Amsterdam: lenka be-from amsterdam
+Carl is from Amsterdam: carl be-from amsterdam
+I was born in Amsterdam: lenka born-in amsterdam
+Carl was born in Amsterdam: carl born-in amsterdam
 #Live at
 I live in Amsterdam: lenka live-in amsterdam
 Carl lives in Amsterdam: carl live-in amsterdam
