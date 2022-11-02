@@ -107,6 +107,13 @@ I develop software: lenka create software
 I build boats: lenka create boat
 
 #Cook
+I baked a cake: cake cook-by lenka
+
+#Eat, recipes, drink
+I ate a pizza: lenka eat pizza
+#Book
+I read 1984: 1984 read-by lenka
+
 #Clothing
 #Gardens
 #Trees
@@ -121,8 +128,6 @@ I build boats: lenka create boat
     #Cards
     #Video
     #Board
-#Books
-#Eat, recipes, drink
 #Sports
     #Soccer,#Cycling,#Running, #Tennis,#Squash,#Skating,#Swim
 #Culture
