@@ -441,7 +441,7 @@ class CFGAnalyzer(Analyzer):
                 triple['subject'] = triple['subject'].replace('not-', '')
 
         else:  # one word subject
-            triple['subject'] = fix_pronouns(triple['subject'].lower(), self.utterance.chat_speaker)
+            triple['subject'] = fix_pronouns(triple['subject'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
         return triple
 
     def analyze_possessive(self, triple, element):
@@ -454,7 +454,7 @@ class CFGAnalyzer(Analyzer):
         first_word = triple[element].split('-')[0]
 
         if element == 'object':
-            objct = fix_pronouns(first_word, self.utterance.chat_speaker)
+            objct = fix_pronouns(first_word, self.utterance._chat_speaker, self.utterance._chat_agent)
 
             for word in triple['object'].split('-')[1:]:
                 objct += '-' + word
@@ -463,7 +463,7 @@ class CFGAnalyzer(Analyzer):
 
         else:
 
-            subject = fix_pronouns(first_word, self.utterance.chat_speaker)
+            subject = fix_pronouns(first_word, self.utterance.chat_speaker, self.utterance._chat_agent)
             predicate = ''
             for word in triple[element].split('-')[1:]:
                 # words that express people are grouped together in the subject
@@ -522,7 +522,7 @@ class CFGAnalyzer(Analyzer):
         # TODO
         if lexicon_lookup(triple['subject']) and 'person' in lexicon_lookup(triple['subject']):
             if triple['predicate'] == 'be':
-                subject = fix_pronouns(triple['subject'].lower(), self.utterance.chat_speaker)
+                subject = fix_pronouns(triple['subject'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
                 pred = ''
                 for el in triple['subject'].split('-')[1:]:
                     pred += el + '-'
@@ -530,7 +530,7 @@ class CFGAnalyzer(Analyzer):
                 triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance.chat_speaker)
+                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
         elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['subject']).startswith('V') \
                 and get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate']) == 'MD':
             triple['predicate'] += '-' + triple['subject']
@@ -547,7 +547,7 @@ class CFGAnalyzer(Analyzer):
         # TODO
         if lexicon_lookup(triple['object']) and 'person' in lexicon_lookup(triple['object']):
             if triple['predicate'] == 'be':
-                subject = fix_pronouns(triple['object'].lower(), self.utterance.chat_speaker)
+                subject = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
                 pred = ''
                 for el in triple['subject'].split('-')[1:]:
                     pred += el + '-'
@@ -555,7 +555,7 @@ class CFGAnalyzer(Analyzer):
                 triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance.chat_speaker)
+                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
         elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['object']).startswith('V') \
                 and get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate']) == 'MD':
             triple['predicate'] += '-' + triple['object']
