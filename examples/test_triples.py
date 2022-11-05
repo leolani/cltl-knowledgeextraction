@@ -204,7 +204,7 @@ if __name__ == "__main__":
     ]
 
   #  all_test_files = ["./data/myworld_copy.txt"]
-    all_test_files = ["./data/test.txt"]
+    all_test_files = ["./data/kinship-friends.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
