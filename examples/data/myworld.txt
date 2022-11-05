@@ -2,16 +2,16 @@
 #Kinship
 I have a sister called Carla: carla be-sister-of lenka
 I have a brother called Carl: carl be-brother-of lenka
-Carl has a sister called Carla: carla be-sister-of carla
-Carla has a borther called Carl: carl be-borther-of carl
-I have a sister Carla: lenka be-sister-of carla
+Carl has a sister called Carla: carla be-sister-of carl
+Carla has a brother called Carl: carl be-brother-of carla
+I have a sister Carla: carla be-sister-of lenka
 I have a brother Carl: carl be-brother-of lenka
 I have a sister: someone be-sister-of lenka
 I have a brother: someone be-brother-of lenka
 I have a little sister: someone be-sister-of lenka
 I have a little brother: someone be-brother-of lenka
-My brother is called Carl: lenka be-brother-of carl
-My brothers name is Carl: lenka be-brother-of carl
+My brother is called Carl: carl be-brother-of lenka
+My brothers name is Carl: carl be-brother-of lenka
 My sister is called Carla: carla be-sister-of lenka
 My sisters name is Carla: carla be-sister-of lenka
 My father is called Carl:carl be-father-of lenka

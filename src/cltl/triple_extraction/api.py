@@ -10,7 +10,7 @@ from cltl.triple_extraction.utils.helper_functions import add_deduplicated
 
 
 class Chat(object):
-    def __init__(self, speaker):
+    def __init__(self, agent, speaker):
         """
         Create Chat
 
@@ -22,6 +22,7 @@ class Chat(object):
 
         self._id = getrandbits(8)
         self._speaker = str(speaker)
+        self._agent = str (agent)
         self._utterances = []
 
         self._log = self._update_logger()
@@ -41,6 +42,21 @@ class Chat(object):
     @speaker.setter
     def speaker(self, value):
         self._speaker = value
+
+    @property
+    def agent(self):
+        # type: () -> str
+        """
+        Returns
+        -------
+        speaker: str
+            Name of speaker (a.k.a. Pepper or any other agent)
+        """
+        return self._agent
+
+    @agent.setter
+    def agent(self, value):
+        self.agent = value
 
     @property
     def id(self):
@@ -93,6 +109,8 @@ class Chat(object):
         utterance: Utterance
         """
         utterance = Utterance(self, transcript, len(self._utterances))
+        utterance._chat_speaker = self._speaker
+        utterance._chat_agent = self._agent
         self._utterances.append(utterance)
 
         self._log = self._update_logger()
@@ -126,7 +144,8 @@ class Utterance(object):
         self._log = logger.getChild(self.__class__.__name__)
 
         self._chat = chat
-        self._chat_speaker = self._chat.speaker
+        self._chat_speaker = chat.speaker
+        self._chat_agent = chat.agent
         self._turn = turn
         self._datetime = datetime.now()
 
@@ -156,7 +175,16 @@ class Utterance(object):
         speaker: str
             Name of speaker (a.k.a. the person Pepper has a chat with)
         """
-        return self._chat_speaker
+    @property
+    def chat_agent(self):
+        # type: () -> str
+        """
+        Returns
+        -------
+        speaker: str
+            Name of agent (a.k.a. Pepper or any other agent)
+        """
+        return self.chat_agent
 
     @property
     def transcript(self):

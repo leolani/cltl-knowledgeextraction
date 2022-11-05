@@ -79,7 +79,7 @@ if __name__ == "__main__":
     collocation
     '''
     utterance = "I love cats."
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
     analyzer = spacyAnalyzer()
 
     chat.add_utterance(utterance)

@@ -154,7 +154,7 @@ from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from cltl.triple_extraction.utils.helper_functions import utterance_to_capsules
 
-chat = Chat("Lenka")
+chat = Chat("Leolani", "Lenka")
 analyzer = CFGAnalyzer()
 
 chat.add_utterance("I have three white cats")

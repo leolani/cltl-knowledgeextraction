@@ -44,7 +44,7 @@ def test_scenario(statements, questions, gold):
 
     print(f'\n\n---------------------------------------------------------------')
 
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
     analyzer = CFGAnalyzer()
 
     # one or several statements are added to the brain

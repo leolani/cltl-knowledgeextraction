@@ -16,7 +16,7 @@ from test_triples import load_golden_triples
 
 
 def test_triples(item, correct, incorrect, issues, errorf):
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
     analyzer = spacyAnalyzer()
 
     chat.add_utterance(item['utterance'])

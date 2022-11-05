@@ -117,7 +117,7 @@ def compare_elementwise_triple(triple, gold):
 
 
 def test_triples(item, correct, incorrect, issues):
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
     analyzer = CFGAnalyzer()
 
     chat.add_utterance(item['utterance'])
@@ -203,7 +203,8 @@ if __name__ == "__main__":
         "./data/verb-questions.txt",
     ]
 
-    all_test_files = ["./data/myworld.txt"]
+  #  all_test_files = ["./data/myworld_copy.txt"]
+    all_test_files = ["./data/test.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
