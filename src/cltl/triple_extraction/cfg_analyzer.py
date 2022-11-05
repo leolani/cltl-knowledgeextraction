@@ -42,7 +42,7 @@ class CFGAnalyzer(Analyzer):
         super(CFGAnalyzer, self).analyze(utterance)
 
         CFGAnalyzer.PARSER.parse(utterance)
-        print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
+       # print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
         if not CFGAnalyzer.PARSER.forest:
             self._log.warning("Couldn't parse input")
 
@@ -248,7 +248,7 @@ class CFGAnalyzer(Analyzer):
                 else:
                     triple['object'] = first
 
-                print('s-kinship', triple)
+             #   print('s-kinship', triple)
             else:
                 predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
                 if predicate:
@@ -260,7 +260,7 @@ class CFGAnalyzer(Analyzer):
                         triple['object'] = self.utterance._chat_speaker
                     elif first == 'your':
                         triple['object'] = self.utterance._chat_agent
-                    print('o-kinship', triple)
+                 #   print('o-kinship', triple)
         elif triple['predicate']=="have" or triple['predicate']=="has":
             # my kinship is obj
             predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
@@ -278,7 +278,7 @@ class CFGAnalyzer(Analyzer):
                     triple['subject'] = last
                 else:
                     triple['subject'] = 'someone'
-                print('o-kinship', triple)
+             #   print('o-kinship', triple)
         elif triple['predicate']=="is-named" or triple['predicate']=="is-called" or triple['predicate']=="is-married":
             predicate, kinship_word = lexicon_lookup_subword(triple['subject'], 'kinship')
             if predicate:
@@ -286,7 +286,7 @@ class CFGAnalyzer(Analyzer):
                 triple['predicate'] = predicate
                 first = triple['subject'].split("-")[0].lower()
                 last = triple['subject'].split("-")[-1]
-                print('predicate', predicate, 'first', first, 'last', last)
+             #   print('predicate', predicate, 'first', first, 'last', last)
                 triple['subject'] = triple['object']
                 if first == 'my':
                     triple['object'] = self.utterance._chat_speaker
@@ -294,7 +294,7 @@ class CFGAnalyzer(Analyzer):
                     triple['object'] = self.utterance._chat_agent
                 else:
                     triple['object'] = first
-                print('s-kinship-called', triple)
+              #  print('s-kinship-called', triple)
         print('predicative reading triple', triple)
         return triple, utterance_info, kinship
 
@@ -634,7 +634,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         triple = self.initialize_triple()
         ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
         self._log.debug('initial triple: {}'.format(triple))
-        print('INITIAL TRIPLE', triple)
+      #  print('INITIAL TRIPLE', triple)
         # sentences such as "I think (that) ..."
         entry = lexicon_lookup(lemmatize(triple['predicate'], 'v'), 'lexical')
         if entry and 'certainty' in entry:
@@ -644,20 +644,20 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
 
         preempted = False
         triple, utterance_info, preempted = self.get_kinship(triple, utterance_info)
-        print('Fixed TRIPLE', triple)
+        #print('Fixed TRIPLE', triple)
 
         if preempted:
             triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
-            print('KIN TRIPLE', triple)
+          #  print('KIN TRIPLE', triple)
         else:
             # Fix phrases and multiword information
             triple, utterance_info = self.fix_triple_details(triple, utterance_info)
-            print('Fixed TRIPLE', triple)
+          #  print('Fixed TRIPLE', triple)
 
         # Extract perspective
         perspective = self.extract_perspective(triple['predicate']['label'], utterance_info)
         # Final triple assignment
-        print('FINAL TRIPLE', triple)
+      #  print('FINAL TRIPLE', triple)
         self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
 
     def initialize_triple(self):
