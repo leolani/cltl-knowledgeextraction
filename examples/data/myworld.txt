@@ -62,19 +62,19 @@ Carl speaks Dutch: carl speak dutch
 #Hair
 #Glasses
 #Emotion
-I feel sad: lenka condition sad
-Carl feels sad: carl condition sad
-I am sad: lenka condition sad
-Carl is sad: carl condition sad
+I feel sad: lenka feel sad
+Carl feels sad: carl feel sad
+I am sad: lenka feel sad
+Carl is sad: carl feel sad
 #Health
-I feel sick: lenka condition sick
-I feel great: lenka condition great
-I am sick: lenka  condition sick
-I am healthy: lenka condition healthy
-Carl feels sick: carl condition sick
-Carl feels great: carl condition great
-Carl is sick: carl condition sick
-Carl is healthy: carl condition healthy
+I feel sick: lenka feel sick
+I feel great: lenka feel great
+I am sick: lenka  feel sick
+I am healthy: lenka feel healthy
+Carl feels sick: carl feel sick
+Carl feels great: carl feel great
+Carl is sick: carl feel sick
+Carl is healthy: carl feel healthy
 #Pets
 #Cats
 I have a cat: lenka own cat
@@ -132,19 +132,24 @@ I read 1984: 1984 read-by lenka
     #Soccer,#Cycling,#Running, #Tennis,#Squash,#Skating,#Swim
 #Culture
     #Dance
-I have been dancing: lenka experience dancing
-    #Museum, Exhibition, Festival Concert, #Movies
-I saw an exhibition: lenka experience exhibition
-I saw a show: lenka experience show
-I went to a concert: lenka experience concert
-I went to the movies: lenka experience movie
-I have been to a concert: lenka experience concert
-I have been to the movies: lenka experience movie
-I was at the theater: lenka experience theater
-I went to the museum: lenka experience museum
-Carl saw an exhibition: carl experience exhibition
-Carl saw a show: carl experience show
-Carl went to a concert: carl experience concert
-Carl went to the movies: carl experience movie
-Carl was at the theater: carl experience theater
-Carl went to the museum: carl experience museum
+I have been dancing: lenka activity dancing
+#Museum, Exhibition, Festival Concert, #Movies
+I saw an exhibition: lenka activity exhibition
+I saw a show: lenka activity show
+I went to a concert: lenka activity concert
+I went to the movies: lenka activity movie
+I have been to a concert: lenka activity concert
+I have been to the movies: lenka activity movie
+I was at the theater: lenka activity theater
+I went to the museum: lenka activity museum
+Carl saw an exhibition: carl activity exhibition
+Carl saw a show: carl activity show
+Carl went to a concert: carl activity concert
+Carl went to the movies: carl activity movie
+Carl was at the theater: carl activity theater
+Carl went to the museum: carl activity museum
+I have been running: lenka activity running
+I have been swimming: lenka activity swimming
+Carl has been running: cal activity running
+I was running: lenka activity running
+I ran: lenk activity running

@@ -113,18 +113,21 @@ class CFGAnalyzer(Analyzer):
         triple = self.analyze_np(triple)
         self._log.debug('after NP: {}'.format(triple))
         # Analyze object
-        if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
-            triple = self.analyze_multiword_complement(triple)
-        elif len(triple['object'].split('-')) == 1:
-            triple = self.analyze_one_word_complement(triple)
-        self._log.debug('after object analysis: {}'.format(triple))
+        if not triple['object']==None:
+            print(triple['object'])
+            if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
+                triple = self.analyze_multiword_complement(triple)
+            elif len(triple['object'].split('-')) == 1:
+                triple = self.analyze_one_word_complement(triple)
+            self._log.debug('after object analysis: {}'.format(triple))
 
         # Analyze subject
-        if len(triple['subject'].split('-')) > 1:  # multi-word subject
-            triple = self.analyze_multiword_subject(triple)
-        elif len(triple['subject'].split('-')) == 1:
-            triple = self.analyze_one_word_subject(triple)
-        self._log.debug('after subject analysis: {}'.format(triple))
+        if triple['subject']:
+            if len(triple['subject'].split('-')) > 1:  # multi-word subject
+                triple = self.analyze_multiword_subject(triple)
+            elif len(triple['subject'].split('-')) == 1:
+                triple = self.analyze_one_word_subject(triple)
+            self._log.debug('after subject analysis: {}'.format(triple))
 
         # Get triple types
         triple = self.get_types_in_triple(triple)
@@ -231,11 +234,10 @@ class CFGAnalyzer(Analyzer):
         return triple
 
     def get_kinship(self, triple, utterance_info):
-        kinship = False
+        kinship_word = ""
         if triple['predicate']=="be" or triple['predicate']=="is":
             predicate, kinship_word = lexicon_lookup_subword(triple['subject'], 'kinship')
-            if predicate:
-                kinship = True
+            if predicate and kinship_word:
                 triple['predicate']= predicate
                 first = triple['subject'].split("-")[0].lower()
                 last = triple['subject'].split("-")[-1]
@@ -251,9 +253,8 @@ class CFGAnalyzer(Analyzer):
              #   print('s-kinship', triple)
             else:
                 predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
-                if predicate:
+                if predicate and kinship_word:
                     # my kinship is obj
-                    kinship = True
                     triple['predicate']= predicate
                     first = triple['object'].split("-")[0].lower()
                     if first == 'my':
@@ -264,8 +265,7 @@ class CFGAnalyzer(Analyzer):
         elif triple['predicate']=="have" or triple['predicate']=="has":
             # my kinship is obj
             predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
-            if predicate:
-                kinship = True
+            if  predicate and kinship_word:
                 triple['predicate'] = predicate
                 last = triple['object'].split("-")[-1]
                 if triple['subject'].lower() == 'i':
@@ -281,8 +281,7 @@ class CFGAnalyzer(Analyzer):
              #   print('o-kinship', triple)
         elif triple['predicate']=="is-named" or triple['predicate']=="is-called" or triple['predicate']=="is-married":
             predicate, kinship_word = lexicon_lookup_subword(triple['subject'], 'kinship')
-            if predicate:
-                kinship = True
+            if predicate and kinship_word:
                 triple['predicate'] = predicate
                 first = triple['subject'].split("-")[0].lower()
                 last = triple['subject'].split("-")[-1]
@@ -295,54 +294,38 @@ class CFGAnalyzer(Analyzer):
                 else:
                     triple['object'] = first
               #  print('s-kinship-called', triple)
-        print('predicative reading triple', triple)
-        return triple, utterance_info, kinship
+      #  print('predicative reading triple', triple)
+        return triple, utterance_info, kinship_word
 
     def get_activity(self, triple, utterance_info):
-        activity = False
-        predicate, first, last = lexicon_lookup_subword(triple['object'], 'activities')
-        if predicate:
-            activity = True
-            triple['predicate'] = 'experience'
-            triple['object'] = predicate
+        activity_word = ""
+        predicate, activity_word = lexicon_lookup_subword(triple['object'], 'activities')
+        if predicate and activity_word:
+            triple['predicate'] = predicate
+            triple['object'] =  activity_word
           #  print('o-activity', triple)
-        print('predicative reading triple', triple)
-        return triple, utterance_info, activity
+       # print('predicative reading triple', triple)
 
-    def get_name(self, triple, utterance_info):
-        name = False
-        # my name is
-        predicate, first, last = lexicon_lookup_subword(triple['subject'], 'name')
-        if name:
-            name = True
-            triple['predicate'] = 'label'
-            # print('name', triple)
-        predicate, first, last = lexicon_lookup_subword(triple['predicate'], 'call')
-        if predicate:
-            name = True
-            triple['predicate'] = 'label'
-            triple['object'] = predicate
-            # print('name', triple)
-        print('predicative reading triple', triple)
-        return triple, utterance_info, name
+        return triple, utterance_info, activity_word
+
 
     def get_condition(self, triple, utterance_info):
-        condition = False
-        if triple['predicate']=="be":
-            predicate, first, last = lexicon_lookup_subword(triple['object'], 'condition')
-            if predicate:
-                condition=True
-                triple['predicate']= 'condition'
-               # print('o-condition', triple)
-        elif triple['predicate']=="have":
+        condition_word = ""
+        if triple['predicate']=="be" or triple['predicate']=="am" or triple['predicate']=="is" or triple['predicate']=="was":
+            predicate,  condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
+            if predicate and condition_word:
+                triple['predicate']=  predicate
+                triple['object'] =  condition_word
+            # print('o-condition', triple)
+        elif triple['predicate']=="feel" or triple['predicate']=="feels" or triple['predicate']=="felt":
             # my kinship is obj
-            predicate, first, last = lexicon_lookup_subword(triple['object'], 'condition')
-            if predicate:
-                condition=True
-                triple['predicate'] = 'condition'
+            predicate,  condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
+            if predicate and condition_word:
+                triple['predicate'] =  predicate
+                triple['object'] =  condition_word
                # print('o-condition', triple)
-        print('predicative reading triple', triple)
-        return triple, utterance_info, condition
+        #print('predicative reading triple', triple)
+        return triple, utterance_info, condition_word
 
     def analyze_vp(self, triple, utterance_info):
         """
@@ -634,25 +617,29 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         triple = self.initialize_triple()
         ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
         self._log.debug('initial triple: {}'.format(triple))
-      #  print('INITIAL TRIPLE', triple)
-        # sentences such as "I think (that) ..."
         entry = lexicon_lookup(lemmatize(triple['predicate'], 'v'), 'lexical')
         if entry and 'certainty' in entry:
             if CFGAnalyzer.PARSER.constituents[2]['label'] == 'S':
                 utterance_info['certainty'] = entry['certainty']
                 triple = self.analyze_certainty_statement(triple)
-
-        preempted = False
+        ### We use preempted to catch words that have fixed predicates
+        preempted = ""
         triple, utterance_info, preempted = self.get_kinship(triple, utterance_info)
-        #print('Fixed TRIPLE', triple)
+        #if preempted: print('KINSHIP TRIPLE', triple)
 
+        if not preempted:
+            triple, utterance_info, preempted = self.get_activity(triple, utterance_info)
+            #if preempted: print('ACTIVITY TRIPLE', triple)
+            if not preempted:
+                triple, utterance_info, preempted = self.get_condition(triple, utterance_info)
+                #if preempted: print('CONDITION TRIPLE', triple)
         if preempted:
-            triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
-          #  print('KIN TRIPLE', triple)
+                triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
+                #print('PREEMPTED TRIPLE', triple)
         else:
-            # Fix phrases and multiword information
-            triple, utterance_info = self.fix_triple_details(triple, utterance_info)
-          #  print('Fixed TRIPLE', triple)
+             # Fix phrases and multiword information
+             triple, utterance_info = self.fix_triple_details(triple, utterance_info)
+            # print('Fixed TRIPLE', triple)
 
         # Extract perspective
         perspective = self.extract_perspective(triple['predicate']['label'], utterance_info)

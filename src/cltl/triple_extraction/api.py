@@ -144,8 +144,8 @@ class Utterance(object):
         self._log = logger.getChild(self.__class__.__name__)
 
         self._chat = chat
-        self._chat_speaker = chat.speaker
-        self._chat_agent = chat.agent
+        self._chat_speaker = chat._speaker
+        self._chat_agent = chat._agent
         self._turn = turn
         self._datetime = datetime.now()
 
@@ -175,6 +175,8 @@ class Utterance(object):
         speaker: str
             Name of speaker (a.k.a. the person Pepper has a chat with)
         """
+        return self._chat_speaker
+
     @property
     def chat_agent(self):
         # type: () -> str
@@ -184,7 +186,7 @@ class Utterance(object):
         speaker: str
             Name of agent (a.k.a. Pepper or any other agent)
         """
-        return self.chat_agent
+        return self._chat_agent
 
     @property
     def transcript(self):

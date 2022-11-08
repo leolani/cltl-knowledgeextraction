@@ -199,14 +199,16 @@ if __name__ == "__main__":
     all_test_files = [
         "./data/statements.txt",
         "./data/perspective.txt"
-        "./data/wh-questions.txt",
-        "./data/verb-questions.txt",
-        "./data/kinship-friends.txt",
+       # "./data/wh-questions.txt",
+       # "./data/verb-questions.txt",
+       # "./data/kinship-friends.txt",
+       # "./data/activities.txt",
+       # "./data/feelings.txt",
     ]
 
-  #  all_test_files = ["./data/myworld_copy.txt"]
-  #  all_test_files = ["./data/kinship-friends.txt"]
+   # all_test_files=["./data/statements.txt.error.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
+        print(test_file)
         test_triples_in_file(test_file)
