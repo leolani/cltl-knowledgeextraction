@@ -70,7 +70,7 @@ def test_triples_in_file_report(path):
     test_suite = load_golden_triples(path)
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
 
     a1 = "OIE"
     a2 = "CFG"
@@ -110,7 +110,7 @@ def test_triples_in_file(path):
     test_suite = load_golden_triples(path)
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
-    chat = Chat("Lenka")
+    chat = Chat("Leolani", "Lenka")
 
     analyzer_1 = OIEAnalyzer()
     analyzer_2 = CFGAnalyzer()

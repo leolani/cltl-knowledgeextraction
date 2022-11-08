@@ -1,39 +1,41 @@
 #People
 #Kinship
-I have a sister called carla: lenka sister carla
-I have a brother called carl: lenka brother carl
-I have a sister carla:  lenka sister carla
-I have a brother carl: carl brother lenka
-I have a sister:  lenka sister someone
-I have a brother: lenka brother someone
-I have a little sister: lenka sister someone
-I have a little brother: lenka brother someone
-My brother is called Carl: lenka brother carl
-My brothers name is Carl: lenka brother carl
-My sister is called Carla: carla sister lenka
-My sisters name is Carla: carla sister lenka
-My father is called Carl: lenka father carl
-My fathers name is Carl: lenka father carl
-My mother is called Carla: lenka mother carla
-My mothers name is Carla: lenka mother carla
-Carl is my brother: carl brother lenka
-Carla is my sister: carla sister lenka
-Carl is my father: carl father lenka
-Carla is my mother: carla mother lenka
-Carl is my husband: carl husband lenka
-My husband is called Carl: carl husband lenka
-Carla is married to Carl: carla spouse carl
-Carla's husband is Carl: carla spouse carl
+I have a sister called Carla: carla be-sister-of lenka
+I have a brother called Carl: carl be-brother-of lenka
+Carl has a sister called Carla: carla be-sister-of carl
+Carla has a brother called Carl: carl be-brother-of carla
+I have a sister Carla: carla be-sister-of lenka
+I have a brother Carl: carl be-brother-of lenka
+I have a sister: someone be-sister-of lenka
+I have a brother: someone be-brother-of lenka
+I have a little sister: someone be-sister-of lenka
+I have a little brother: someone be-brother-of lenka
+My brother is called Carl: carl be-brother-of lenka
+My brothers name is Carl: carl be-brother-of lenka
+My sister is called Carla: carla be-sister-of lenka
+My sisters name is Carla: carla be-sister-of lenka
+My father is called Carl:carl be-father-of lenka
+My fathers name is Carl: :carl be-father-of lenka
+My mother is called Carla: carla be-mother-of lenka
+My mothers name is Carla: carla be-mother-of lenka
+Carl is my brother: carl be-brother-of lenka
+Carla is my sister: carla be-sister-of lenka
+Carl is my father: carl be-father-of lenka
+Carla is my mother: carla be-mother-of lenka
+Carl is my husband: carl be-husband-of lenka
+My husband is called Carl: carl be-husband-of lenka
+Carla is married to Carl: carla be-spouse-of carl
+Carla's husband is Carl: carl be-husband-of carla
 Carla has a husband called Carl: carla spouse carl
-Carla and Carl are married: carla spouse carl
-Carla and Carl are together: carla spouse carl
+Carla and Carl are married: carla be-spouse-of carl
+Carla and Carl are together: carla be-spouse-of carl
 #Friends
-Carl is your friend: carl friend leolani
-Carl is my friend: carl friend lenka
-Carl is my friend: carl friend lenka
-I have a friend Carl: carl friend lenka
-My friend is called Carl:  carl friend lenka
-My friends name is Carl:  carl friend lenka
+Carl is your friend: carl be-friends-with leolani
+Carl is my friend: carl be-friends-with lenka
+Carl is my friend: carl be-friends-with lenka
+I have a friend Carl: carl be-friends-with lenka
+My friend is called Carl: carl be-friends-with lenka
+My friends name is Carl: carl be-friends-with lenka
 #Gender
 I am a man: lenka gender male
 I am a boy: lenka gender male
@@ -47,10 +49,10 @@ I am 12 years old: lenka age 12
 My age is 12: lenka age 12
 Carl is 12: carl age 12
 #Origin
-I am from Amsterdam: lenka origin amsterdam
-Carl is from Amsterdam: carl origin amsterdam
-I was born in Amsterdam: lenka origin amsterdam
-Carl was born in Amsterdam: carl origin amsterdam
+I am from Amsterdam: lenka be-from amsterdam
+Carl is from Amsterdam: carl be-from amsterdam
+I was born in Amsterdam: lenka born-in amsterdam
+Carl was born in Amsterdam: carl born-in amsterdam
 #Live at
 I live in Amsterdam: lenka live-in amsterdam
 Carl lives in Amsterdam: carl live-in amsterdam
@@ -60,19 +62,19 @@ Carl speaks Dutch: carl speak dutch
 #Hair
 #Glasses
 #Emotion
-I feel sad: lenka condition sad
-Carl feels sad: carl condition sad
-I am sad: lenka condition sad
-Carl is sad: carl condition sad
+I feel sad: lenka feel sad
+Carl feels sad: carl feel sad
+I am sad: lenka feel sad
+Carl is sad: carl feel sad
 #Health
-I feel sick: lenka condition sick
-I feel great: lenka condition great
-I am sick: lenka  condition sick
-I am healthy: lenka condition healthy
-Carl feels sick: carl condition sick
-Carl feels great: carl condition great
-Carl is sick: carl condition sick
-Carl is healthy: carl condition healthy
+I feel sick: lenka feel sick
+I feel great: lenka feel great
+I am sick: lenka  feel sick
+I am healthy: lenka feel healthy
+Carl feels sick: carl feel sick
+Carl feels great: carl feel great
+Carl is sick: carl feel sick
+Carl is healthy: carl feel healthy
 #Pets
 #Cats
 I have a cat: lenka own cat
@@ -105,6 +107,13 @@ I develop software: lenka create software
 I build boats: lenka create boat
 
 #Cook
+I baked a cake: cake cook-by lenka
+
+#Eat, recipes, drink
+I ate a pizza: lenka eat pizza
+#Book
+I read 1984: 1984 read-by lenka
+
 #Clothing
 #Gardens
 #Trees
@@ -119,25 +128,28 @@ I build boats: lenka create boat
     #Cards
     #Video
     #Board
-#Books
-#Eat, recipes, drink
 #Sports
     #Soccer,#Cycling,#Running, #Tennis,#Squash,#Skating,#Swim
 #Culture
     #Dance
-I have been dancing: lenka experience dancing
-    #Museum, Exhibition, Festival Concert, #Movies
-I saw an exhibition: lenka experience exhibition
-I saw a show: lenka experience show
-I went to a concert: lenka experience concert
-I went to the movies: lenka experience movie
-I have been to a concert: lenka experience concert
-I have been to the movies: lenka experience movie
-I was at the theater: lenka experience theater
-I went to the museum: lenka experience museum
-Carl saw an exhibition: carl experience exhibition
-Carl saw a show: carl experience show
-Carl went to a concert: carl experience concert
-Carl went to the movies: carl experience movie
-Carl was at the theater: carl experience theater
-Carl went to the museum: carl experience museum
+I have been dancing: lenka activity dancing
+#Museum, Exhibition, Festival Concert, #Movies
+I saw an exhibition: lenka activity exhibition
+I saw a show: lenka activity show
+I went to a concert: lenka activity concert
+I went to the movies: lenka activity movie
+I have been to a concert: lenka activity concert
+I have been to the movies: lenka activity movie
+I was at the theater: lenka activity theater
+I went to the museum: lenka activity museum
+Carl saw an exhibition: carl activity exhibition
+Carl saw a show: carl activity show
+Carl went to a concert: carl activity concert
+Carl went to the movies: carl activity movie
+Carl was at the theater: carl activity theater
+Carl went to the museum: carl activity museum
+I have been running: lenka activity running
+I have been swimming: lenka activity swimming
+Carl has been running: cal activity running
+I was running: lenka activity running
+I ran: lenk activity running

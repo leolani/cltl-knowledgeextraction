@@ -13,7 +13,7 @@ from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
 @parameterized_class(('analyzer',), [(CFGAnalyzer(), )])
 class TestCfgAnalyzer(unittest.TestCase):
     def setUp(self) -> None:
-        self.chat = Chat("Piek")
+        self.chat = Chat("Leolani", "Piek")
 
     @parameterized.expand([
         ("statement", "I like pizza", UtteranceType.STATEMENT, "Piek", "like", "pizza"),

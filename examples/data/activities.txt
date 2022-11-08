@@ -1,0 +1,24 @@
+I watch a video: lenka activity video
+I play soccer: lenka activity soccer
+I play cards: lenka activity cards
+I listen to music: lenka activity music
+I have been dancing: lenka activity dancing
+I saw an exhibition: lenka activity exhibition
+I saw a show: lenka activity show
+I went to a concert: lenka activity concert
+I went to the movies: lenka activity movie
+I have been to a concert: lenka activity concert
+I have been to the movies: lenka activity movie
+I was at the theater: lenka activity theater
+I went to the museum: lenka activity museum
+Carl saw an exhibition: carl activity exhibition
+Carl saw a show: carl activity show
+Carl went to a concert: carl activity concert
+Carl went to the movies: carl activity movie
+Carl was at the theater: carl activity theater
+Carl went to the museum: carl activity museum
+I have been running: lenka activity running
+I have been swimming: lenka activity swimming
+Carl has been running: cal activity running
+I was running: lenka activity running
+I ran: lenk activity running

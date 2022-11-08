@@ -1,0 +1,9 @@
+#Health
+I am sick: lenka  feel sick
+I am healthy: lenka feel healthy
+I feel sick: lenka feel sick
+I feel great: lenka feel great
+Carl feels sick: carl feel sick
+Carl feels great: carl feel great
+Carl is sick: carl feel sick
+Carl is healthy: carl feel healthy
