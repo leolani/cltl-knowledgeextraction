@@ -77,7 +77,9 @@ class TripleExtractionService:
             if event.payload.scenario.context.speaker:
                 self._speaker = event.payload.scenario.context.speaker
             if event.payload.type == ScenarioStarted.__name__:
-                self._chat = Chat(self._speaker.name if self._speaker and self._speaker.name else "stranger")
+                agent = event.payload.scenario.context.agent.name
+                speaker = self._speaker.name if self._speaker and self._speaker.name else "stranger"
+                self._chat = Chat(agent, speaker)
                 logger.debug("Started chat with %s", self._chat.speaker)
             elif event.payload.type == ScenarioStopped.__name__:
                 logger.debug("Stopping chat with %s", self._chat.speaker)
