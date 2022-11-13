@@ -16,6 +16,8 @@ class Chat(object):
 
         Parameters
         ----------
+        agent: str
+            Name of the agent (a.k.a. Pepper)
         speaker: str
             Name of speaker (a.k.a. the person Pepper has a chat with)
         """
