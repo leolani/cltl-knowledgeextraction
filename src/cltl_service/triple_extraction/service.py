@@ -46,6 +46,7 @@ class TripleExtractionService:
 
         self._chat = None
         self._speaker = None
+        self._agent = None
 
     @property
     def app(self):
@@ -75,18 +76,19 @@ class TripleExtractionService:
 
         if event.metadata.topic == self._scenario_topic:
             if event.payload.scenario.context.speaker:
+                self._agent = event.payload.scenario.context.agent
                 self._speaker = event.payload.scenario.context.speaker
             if event.payload.type == ScenarioStarted.__name__:
-                agent = event.payload.scenario.context.agent.name
-                speaker = self._speaker.name if self._speaker and self._speaker.name else "stranger"
-                self._chat = Chat(agent, speaker)
+                self._chat = Chat(self._agent if self.agent else "Leolani", self._speaker.name if self._speaker and self._speaker.name else "stranger")
                 logger.debug("Started chat with %s", self._chat.speaker)
             elif event.payload.type == ScenarioStopped.__name__:
                 logger.debug("Stopping chat with %s", self._chat.speaker)
                 self._chat = None
                 self._speaker = None
+                self._agent = None
             elif event.payload.type == ScenarioEvent.__name__:
                 self._chat.speaker = self._speaker.name if self._speaker.name else self._chat.speaker
+                self._chat.agent = self.agent.name if self.agent.name else self._chat.agent
                 logger.debug("Set speaker in chat to %s", self._chat.speaker)
             return
 
@@ -130,7 +132,7 @@ class TripleExtractionService:
                        "object": triple['object'],
                        "perspective": triple["perspective"],
                        ###
-                       "context_id": scenario_id,
+                       "context_id": None,
                        "timestamp": timestamp_now()
                        }
 
