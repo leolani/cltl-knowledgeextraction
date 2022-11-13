@@ -153,3 +153,15 @@ I have been swimming: lenka activity swimming
 Carl has been running: cal activity running
 I was running: lenka activity running
 I ran: lenk activity running
+I am in the library: lenka be-inside library
+I am in my home: lenka be-inside home
+I am at the library: lenka be-at the-library
+I am next to the library: lenka be-next-to library
+Carl is in the library: carl be-inside library
+Carl is in my home: carl be-inside home
+Carl is at the library: carl be-at the-library
+Carl is next to the library: carl be-next-to library
+Carl was in the library: carl be-inside library
+Carl was in my home: carl be-inside home
+Carl was at the library: carl be-at the-library
+Carl was next to the library: carl be-next-to library

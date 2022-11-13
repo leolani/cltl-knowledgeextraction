@@ -1,5 +1,5 @@
 from cltl.commons.discrete import UtteranceType
-from cltl.commons.language_helpers import lexicon_lookup, lexicon, lexicon_lookup_subword
+from cltl.commons.language_helpers import lexicon_lookup, lexicon, lexicon_lookup_subword, lexicon_lookup_subword_class
 from cltl.commons.triple_helpers import fix_nlp_types
 
 from cltl.triple_extraction.analyzer import Analyzer
@@ -114,7 +114,7 @@ class CFGAnalyzer(Analyzer):
         self._log.debug('after NP: {}'.format(triple))
         # Analyze object
         if not triple['object']==None:
-            print(triple['object'])
+           # print(triple['object'])
             if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
                 triple = self.analyze_multiword_complement(triple)
             elif len(triple['object'].split('-')) == 1:
@@ -241,7 +241,7 @@ class CFGAnalyzer(Analyzer):
                 triple['predicate']= predicate
                 first = triple['subject'].split("-")[0].lower()
                 last = triple['subject'].split("-")[-1]
-                print('predicate', predicate, 'first', first, 'last', last)
+              #  print('predicate', predicate, 'first', first, 'last', last)
                 triple['subject'] = triple['object']
                 if first=='my':
                     triple['object'] =self.utterance._chat_speaker
@@ -327,6 +327,23 @@ class CFGAnalyzer(Analyzer):
         #print('predicative reading triple', triple)
         return triple, utterance_info, condition_word
 
+    def get_location(self, triple, utterance_info):
+        container_word = ""
+        if lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("in-"):
+            container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
+            if container_word:
+                triple['predicate']= "be-inside"
+                triple['object'] =  container_word
+            # print('container_word', triple)
+        if lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("next-to-"):
+            container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
+            if container_word:
+                triple['predicate']= "be-next-to"
+                triple['object'] =  container_word
+            # print('container_word', triple)
+        #print('predicative reading triple', triple)
+        return triple, utterance_info, container_word
+
     def analyze_vp(self, triple, utterance_info):
         """
         This function analyzes verb phrases
@@ -370,7 +387,7 @@ class CFGAnalyzer(Analyzer):
                 pred += '-' + lemmatize(el, 'v')
                 for elem in triple['predicate'].split('-')[ind + 1:]:
                     label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, elem)
-                    if label in ['TO', 'IN']:
+                    if label in ['TO', 'IN', 'RB']:
                         pred += '-' + elem
                     else:
                         triple['object'] = elem + '-' + triple['object']
@@ -625,17 +642,20 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         ### We use preempted to catch words that have fixed predicates
         preempted = ""
         triple, utterance_info, preempted = self.get_kinship(triple, utterance_info)
-        #if preempted: print('KINSHIP TRIPLE', triple)
+        #if preempted: print('KINSHIP TRIPLE', preempted, triple)
 
         if not preempted:
             triple, utterance_info, preempted = self.get_activity(triple, utterance_info)
-            #if preempted: print('ACTIVITY TRIPLE', triple)
+            #if preempted: print('ACTIVITY TRIPLE',  preempted,triple)
             if not preempted:
                 triple, utterance_info, preempted = self.get_condition(triple, utterance_info)
-                #if preempted: print('CONDITION TRIPLE', triple)
+                #if preempted: print('CONDITION TRIPLE',  preempted,triple)
+                if not preempted:
+                    triple, utterance_info, preempted = self.get_location(triple, utterance_info)
+                    #if preempted: print('CONTAINER TRIPLE',  preempted,triple)
         if preempted:
                 triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
-                #print('PREEMPTED TRIPLE', triple)
+               # print('PREEMPTED TRIPLE', triple)
         else:
              # Fix phrases and multiword information
              triple, utterance_info = self.fix_triple_details(triple, utterance_info)
