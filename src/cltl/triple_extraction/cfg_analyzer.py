@@ -364,6 +364,7 @@ class CFGAnalyzer(Analyzer):
             # print('container_word', triple)
         if lemmatize(triple['predicate'], 'v')=="work" and triple['object'].startswith("as-"):
             triple['predicate']= "work-as"
+            triple['object'] = profession_word
         #print('predicative reading triple', triple)
         return triple, utterance_info, profession_word
 

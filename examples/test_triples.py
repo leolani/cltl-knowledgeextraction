@@ -165,7 +165,7 @@ def test_triples(item, correct, incorrect, issues):
         return correct, incorrect, issues
 
 
-def test_triples_in_file(path):
+def test_triples_in_file(path, resultfile):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
@@ -177,6 +177,7 @@ def test_triples_in_file(path):
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
 
+    resultfile.write(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
     for item in test_suite:
@@ -185,6 +186,8 @@ def test_triples_in_file(path):
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
+    resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
+    resultfile.write(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}\n")
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
@@ -195,9 +198,9 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-
+    resultfile = open("./data/evaluation.txt", "w")
     all_test_files = [
-       # "./data/statements.txt",
+        "./data/statements.txt",
         "./data/perspective.txt",
         "./data/wh-questions.txt",
         "./data/verb-questions.txt",
@@ -213,4 +216,6 @@ if __name__ == "__main__":
 
     for test_file in all_test_files:
         print(test_file)
-        test_triples_in_file(test_file)
+        test_triples_in_file(test_file, resultfile)
+
+    resultfile.close()
