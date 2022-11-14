@@ -116,6 +116,7 @@ class CFGAnalyzer(Analyzer):
         if not triple['object']==None:
            # print(triple['object'])
             if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
+               # print('multi-word object, consisting of a phrase', triple['object'])
                 triple = self.analyze_multiword_complement(triple)
             elif len(triple['object'].split('-')) == 1:
                 triple = self.analyze_one_word_complement(triple)
@@ -299,13 +300,19 @@ class CFGAnalyzer(Analyzer):
 
     def get_activity(self, triple, utterance_info):
         activity_word = ""
-        predicate, activity_word = lexicon_lookup_subword(triple['object'], 'activities')
-        if predicate and activity_word:
-            triple['predicate'] = predicate
-            triple['object'] =  activity_word
-          #  print('o-activity', triple)
-       # print('predicative reading triple', triple)
-
+        if (lemmatize(triple['predicate'], 'v')=="be" or
+            lemmatize(triple['predicate'], 'v')=="go" or
+            lemmatize(triple['predicate'], 'v')=="attend" or
+            lemmatize(triple['predicate'], 'v')=="watch" or
+            lemmatize(triple['predicate'], 'v')=="see" or
+            lemmatize(triple['predicate'], 'v')=="visit" or
+            lemmatize(triple['predicate'], 'v')=="listen"):
+            predicate, activity_word = lexicon_lookup_subword(triple['object'], 'activities')
+            if predicate and activity_word:
+                triple['predicate'] = predicate
+                triple['object'] =  activity_word
+              #  print('o-activity', triple)
+           # print('predicative reading triple', triple)
         return triple, utterance_info, activity_word
 
 
@@ -329,20 +336,36 @@ class CFGAnalyzer(Analyzer):
 
     def get_location(self, triple, utterance_info):
         container_word = ""
-        if lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("in-"):
+        if lemmatize(triple['predicate'], 'v')=="be" and ( triple['object'].startswith("in-") or triple['object'].startswith("on-")):
             container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
             if container_word:
                 triple['predicate']= "be-inside"
-                triple['object'] =  container_word
+                ### We keep the full object phrase, take out comment to use the container word
+                ##triple['object'] =  container_word
             # print('container_word', triple)
-        if lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("next-to-"):
+        elif lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("next-to-"):
             container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
             if container_word:
                 triple['predicate']= "be-next-to"
-                triple['object'] =  container_word
+                ### We keep the full object phrase, take out comment to use the container word
+                ##triple['object'] =  container_word
+                triple['object'] = triple['object'].split('next-to-')[1]
             # print('container_word', triple)
         #print('predicative reading triple', triple)
         return triple, utterance_info, container_word
+
+    def get_profession(self, triple, utterance_info):
+        profession_word = ""
+        if lemmatize(triple['predicate'], 'v')=="be":
+            profession_word = lexicon_lookup_subword_class(triple['object'], 'professions')
+            if profession_word:
+                triple['predicate']= "work-as"
+                triple['object'] =  profession_word
+            # print('container_word', triple)
+        if lemmatize(triple['predicate'], 'v')=="work" and triple['object'].startswith("as-"):
+            triple['predicate']= "work-as"
+        #print('predicative reading triple', triple)
+        return triple, utterance_info, profession_word
 
     def analyze_vp(self, triple, utterance_info):
         """
@@ -507,7 +530,7 @@ class CFGAnalyzer(Analyzer):
         """
         if lexicon_lookup(triple['predicate'], 'aux') or lexicon_lookup(triple['predicate'], 'modal'):
             triple['predicate'] += '-be-' + triple['object'].split('-')[0]
-        else:
+        elif len(triple['predicate'].split("-")) == 1:  ## this checks prevents that predicate that are already augmented with particles are not extended
             triple['predicate'] += '-' + triple['object'].split('-')[0]
         triple['object'] = triple['object'].replace(triple['object'].split('-')[0], '', 1)[1:]
         return triple
@@ -644,6 +667,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         triple, utterance_info, preempted = self.get_kinship(triple, utterance_info)
         #if preempted: print('KINSHIP TRIPLE', preempted, triple)
 
+        ## This is now a cascade, we could change this to get a list of triples and either vote or take them all
         if not preempted:
             triple, utterance_info, preempted = self.get_activity(triple, utterance_info)
             #if preempted: print('ACTIVITY TRIPLE',  preempted,triple)
@@ -652,7 +676,10 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
                 #if preempted: print('CONDITION TRIPLE',  preempted,triple)
                 if not preempted:
                     triple, utterance_info, preempted = self.get_location(triple, utterance_info)
-                    #if preempted: print('CONTAINER TRIPLE',  preempted,triple)
+                    #if preempted: print('LOCATION TRIPLE',  preempted,triple)
+                    if not preempted:
+                        triple, utterance_info, preempted = self.get_profession(triple, utterance_info)
+                        #if preempted: print('PROFESSION TRIPLE',  preempted,triple)
         if preempted:
                 triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
                # print('PREEMPTED TRIPLE', triple)
@@ -685,7 +712,6 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         :return: updated triple
         """
         first_word = triple['object'].split('-')[0]
-
         if get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, first_word) in ['TO', 'IN']:
             triple = self.analyze_complement_with_preposition(triple)
 
@@ -697,7 +723,6 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
 
             triple['predicate'] += '-' + first_word
             triple['object'] = triple['object'].replace(first_word, '')
-
         return triple
 
     @staticmethod

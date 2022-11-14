@@ -197,16 +197,18 @@ if __name__ == "__main__":
     '''
 
     all_test_files = [
-        "./data/statements.txt",
-        "./data/perspective.txt"
-       # "./data/wh-questions.txt",
-       # "./data/verb-questions.txt",
-       # "./data/kinship-friends.txt",
-       # "./data/activities.txt",
-       # "./data/feelings.txt",
+       # "./data/statements.txt",
+        "./data/perspective.txt",
+        "./data/wh-questions.txt",
+        "./data/verb-questions.txt",
+        "./data/kinship-friends.txt",
+        "./data/activities.txt",
+        "./data/feelings.txt",
+        "./data/locations.txt",
+        "./data/professions.txt"
     ]
 
-    all_test_files=["./data/statements.error.txt"]
+    all_test_files=["./data/locations.txt", "./data/professions.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
