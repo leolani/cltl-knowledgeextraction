@@ -24,7 +24,7 @@ class Chat(object):
 
         self._id = getrandbits(8)
         self._speaker = str(speaker)
-        self._agent = str (agent)
+        self._agent = str(agent)
         self._utterances = []
 
         self._log = self._update_logger()
