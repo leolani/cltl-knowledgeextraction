@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent
+from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
@@ -45,8 +45,8 @@ class TripleExtractionService:
         self._topic_worker = None
 
         self._chat = None
-        self._speaker = None
-        self._agent = None
+        self._speaker = Agent()
+        self._agent = Agent()
 
     @property
     def app(self):
@@ -75,21 +75,7 @@ class TripleExtractionService:
             return
 
         if event.metadata.topic == self._scenario_topic:
-            if event.payload.scenario.context.speaker:
-                self._agent = event.payload.scenario.context.agent
-                self._speaker = event.payload.scenario.context.speaker
-            if event.payload.type == ScenarioStarted.__name__:
-                self._chat = Chat(self._agent if self.agent else "Leolani", self._speaker.name if self._speaker and self._speaker.name else "stranger")
-                logger.debug("Started chat with %s", self._chat.speaker)
-            elif event.payload.type == ScenarioStopped.__name__:
-                logger.debug("Stopping chat with %s", self._chat.speaker)
-                self._chat = None
-                self._speaker = None
-                self._agent = None
-            elif event.payload.type == ScenarioEvent.__name__:
-                self._chat.speaker = self._speaker.name if self._speaker.name else self._chat.speaker
-                self._chat.agent = self.agent.name if self.agent.name else self._chat.agent
-                logger.debug("Set speaker in chat to %s", self._chat.speaker)
+            self._update_chat(event)
             return
 
         if self._intentions and not (self._active_intentions & self._intentions):
@@ -112,6 +98,30 @@ class TripleExtractionService:
                          len(response), event.payload.signal.id, event.payload.signal.text, response)
         else:
             logger.debug("No triples for signal %s (%s)", event.payload.signal.id, event.payload.signal.text)
+
+    def _update_chat(self, event):
+        if event.payload.scenario.context.agent:
+            self._agent = event.payload.scenario.context.agent
+        if event.payload.scenario.context.speaker:
+            self._speaker = event.payload.scenario.context.speaker
+
+        if event.payload.type == ScenarioStarted.__name__:
+            agent_name = self._agent.name if self._agent.name else "Leolani"
+            speaker_name = self._speaker.name if self._speaker and self._speaker.name else "Stranger"
+            self._chat = Chat(agent_name, speaker_name)
+            logger.debug("Started chat with speaker %s, agent %s", self._chat.speaker, self._chat.agent)
+        elif event.payload.type == ScenarioStopped.__name__:
+            logger.debug("Stopping chat with %s, agent %s", self._chat.speaker, self._chat.agent)
+            self._chat = None
+            self._speaker = None
+            self._agent = None
+        elif event.payload.type == ScenarioEvent.__name__:
+            if self._speaker.name and self._speaker.name != self._chat.speaker:
+                self._chat.speaker = self._speaker.name
+                logger.debug("Set speaker in chat to %s", self._chat.speaker)
+            if self._agent.name and self._agent.name != self._chat.agent:
+                self._chat.agent = self._agent.name
+                logger.debug("Set agent in chat to %s", self._chat.agent)
 
     def _utterance_to_capsules(self, utterance, signal):
         capsules = []
