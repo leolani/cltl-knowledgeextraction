@@ -301,17 +301,45 @@ class CFGAnalyzer(Analyzer):
     def get_activity(self, triple, utterance_info):
         activity_word = ""
         if (lemmatize(triple['predicate'], 'v')=="be" or
+            lemmatize(triple['predicate'], 'v')=="be-at" or
+            lemmatize(triple['predicate'], 'v')=="be-to" or
+            lemmatize(triple['predicate'], 'v')=="have-been" or
+            lemmatize(triple['predicate'], 'v')=="has-been" or
+            lemmatize(triple['predicate'], 'v')=="was-at" or
+            lemmatize(triple['predicate'], 'v')=="was-to" or
+            lemmatize(triple['predicate'], 'v')=="were-at" or
+            lemmatize(triple['predicate'], 'v')=="were-to" or
+            lemmatize(triple['predicate'], 'v')=="am-at" or
+            lemmatize(triple['predicate'], 'v')=="am-to" or
             lemmatize(triple['predicate'], 'v')=="go" or
+            lemmatize(triple['predicate'], 'v')=="went" or
+            lemmatize(triple['predicate'], 'v')=="go-to" or
+            lemmatize(triple['predicate'], 'v')=="went-to" or
             lemmatize(triple['predicate'], 'v')=="attend" or
+            lemmatize(triple['predicate'], 'v')=="attended" or
             lemmatize(triple['predicate'], 'v')=="watch" or
+            lemmatize(triple['predicate'], 'v')=="watched" or
+            lemmatize(triple['predicate'], 'v')=="watching" or
             lemmatize(triple['predicate'], 'v')=="see" or
+            lemmatize(triple['predicate'], 'v')=="seeing" or
+            lemmatize(triple['predicate'], 'v')=="saw" or
+            lemmatize(triple['predicate'], 'v')=="play" or
+            lemmatize(triple['predicate'], 'v')=="plays" or
+            lemmatize(triple['predicate'], 'v')=="played" or
             lemmatize(triple['predicate'], 'v')=="visit" or
-            lemmatize(triple['predicate'], 'v')=="listen"):
+            lemmatize(triple['predicate'], 'v')=="visits" or
+            lemmatize(triple['predicate'], 'v')=="visited" or
+            lemmatize(triple['predicate'], 'v')=="listen" or
+            lemmatize(triple['predicate'], 'v')=="listens" or
+            lemmatize(triple['predicate'], 'v')=="listening" or
+            lemmatize(triple['predicate'], 'v')=="listen-to"):
             predicate, activity_word = lexicon_lookup_subword(triple['object'], 'activities')
             if predicate and activity_word:
                 triple['predicate'] = predicate
                 triple['object'] =  activity_word
               #  print('o-activity', triple)
+        #else:
+        #    print('predicate lemmatisation', triple['predicate'], lemmatize(triple['predicate'], "v"))
            # print('predicative reading triple', triple)
         return triple, utterance_info, activity_word
 

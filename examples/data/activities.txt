@@ -21,4 +21,4 @@ I have been running: lenka do-activity running
 I have been swimming: lenka do-activity swimming
 Carl has been running: cal do-activity running
 I was running: lenka do-activity running
-I ran: lenk do-activity running
+I ran a marathon: lenk do-activity marathon
