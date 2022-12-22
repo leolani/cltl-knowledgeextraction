@@ -1,10 +1,10 @@
 import sys
 sys.path.append('predicate_normalization')
 
-from argument_extraction import ArgumentExtraction
-from triple_scoring import TripleScoring
-from post_processing import PostProcessor
-from utils import pronoun_to_speaker_id, speaker_id_to_speaker
+from cltl.triple_extraction.conversational_triples.argument_extraction import ArgumentExtraction
+from cltl.triple_extraction.conversational_triples.triple_scoring import TripleScoring
+from cltl.triple_extraction.conversational_triples.post_processing import PostProcessor
+from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker_id, speaker_id_to_speaker
 
 from itertools import product
 import spacy

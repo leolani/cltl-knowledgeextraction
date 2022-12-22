@@ -2,12 +2,12 @@ import glob
 import torch
 from transformers import AutoTokenizer, AutoModel, AutoConfig
 from tqdm import tqdm
-
+import numpy as np
 # Catch warnings
 from transformers import logging
 logging.set_verbosity(40)
 
-from utils import *
+from cltl.triple_extraction.conversational_triples.utils import *
 
 
 class ArgumentExtraction(torch.nn.Module):

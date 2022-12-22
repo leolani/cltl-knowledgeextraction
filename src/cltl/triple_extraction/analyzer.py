@@ -18,7 +18,7 @@ class Analyzer(object):
         self._log.debug("Booted")
         self._utterance = None
 
-    def analyze_in_context(self, chat, utterance):
+    def analyze_in_context(self, chat):
         """
         Analyzer factory function
 
