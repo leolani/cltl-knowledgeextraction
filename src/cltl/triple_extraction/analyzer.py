@@ -16,8 +16,25 @@ class Analyzer(object):
         """
         self._log = logger.getChild(self.__class__.__name__)
         self._log.debug("Booted")
-
         self._utterance = None
+
+    def analyze_in_context(self, chat, utterance):
+        """
+        Analyzer factory function
+
+        Determines the type of utterance, extracts the RDF triple and perspective attaching them to the last utterance
+
+        Parameters
+        ----------
+        chat: Chat
+            contains the previous utterances and extracted triples if any
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+
+        self._chat = chat
+        NotImplementedError()
 
     def analyze(self, utterance):
         """
