@@ -61,20 +61,8 @@ class conversationalAnalyzer(Analyzer):
         elif len(chat.utterances)==2:
             conversation = "<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
 
-        print("conversation", conversation)
-        # subjects: {'SPEAKER1', 'it', 'SPEAKER2'}
-        # predicates: {'like', 'hate', 'was', 'went to'}
-        # objects: {'studying', 'great', 'learning', 'the new university', 'it'}
+      #  print("conversation", conversation)
 
-        # 0.9995951('HUMAN', 'went to', 'the new university', 'positive')
-        # 0.9994972('it', 'was', 'great', 'positive')
-        # 0.99911314('HUMAN', 'hate', 'the new university', 'positive')
-        # 0.99910575('HUMAN', 'hate', 'it', 'positive')
-        # 0.99836904('LEOLANI', 'like', 'studying', 'positive')
-        # 0.9970577('HUMAN', 'hate', 'studying', 'positive')
-        # 0.9905161('LEOLANI', 'like', 'learning', 'positive')
-        # 0.99003685('LEOLANI', 'hate', 'it', 'positive')
-        # 0.4502159('LEOLANI', 'hate', 'studying', 'positive')
 
         triples = []
         for score, triple_value in self._extractor.extract_triples(conversation):
