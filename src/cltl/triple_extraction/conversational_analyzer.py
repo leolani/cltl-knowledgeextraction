@@ -48,33 +48,31 @@ class conversationalAnalyzer(Analyzer):
 
         """
         super(conversationalAnalyzer, self).analyze_in_context(chat)
-
-        self._chat = chat
-
-        self._utterance = chat.last_utterance
-        self._extractor._speaker1 =chat.speaker
-        self._extractor._speaker2 =chat.agent
-
-        conversation  = "<eos><eos>"+chat.last_utterance.transcript
-        if len(chat.utterances)>2:
-            conversation = chat.utterances[-2].transcript+"<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
-        elif len(chat.utterances)==2:
-            conversation = "<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
-
-      #  print("conversation", conversation)
-
-
         triples = []
-        for score, triple_value in self._extractor.extract_triples(conversation):
-            if score>=THRESHOLD:
-                if len(triple_value)>2:
-                    triple = {"subject" : triple_value[0], "predicate" : triple_value[1], "object" : triple_value[2]}
-                if len(triple_value)==4:
-                    triple["perspective"]={"polarity" : triple_value[3]}
-                if len(triple_value)==5:
-                    triple["perspective"]={"certainty" : triple_value[3]}
+        if chat.last_utterance.chat_speaker == chat.speaker:
+            self._chat = chat
 
-                self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
+            self._utterance = chat.last_utterance
+            self._extractor._speaker1 =chat.speaker
+            self._extractor._speaker2 =chat.agent
+            conversation  = "<eos><eos>"+chat.last_utterance.transcript
+            if len(chat.utterances)>2:
+                conversation = chat.utterances[-2].transcript+"<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
+            elif len(chat.utterances)==2:
+                conversation = "<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
+
+          #  print("conversation", conversation)
+
+            for score, triple_value in self._extractor.extract_triples(conversation):
+                if score>=THRESHOLD:
+                    if len(triple_value)>2:
+                        triple = {"subject" : triple_value[0], "predicate" : triple_value[1], "object" : triple_value[2]}
+                    if len(triple_value)==4:
+                        triple["perspective"]={"polarity" : triple_value[3]}
+                    if len(triple_value)==5:
+                        triple["perspective"]={"certainty" : triple_value[3]}
+
+                    self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         if triples:
             for triple in triples:
                 print("triple", triple)
