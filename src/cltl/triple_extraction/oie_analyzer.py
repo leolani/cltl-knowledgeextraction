@@ -1,7 +1,12 @@
+import logging
+
 from openie import StanfordOpenIE
 
 from cltl.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
+from cltl.triple_extraction.api import Chat
+
+logger = logging.getLogger(__name__)
 
 
 class OIEAnalyzer(Analyzer):
@@ -16,8 +21,14 @@ class OIEAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        self._utterance = None
 
-        super(OIEAnalyzer, self).__init__()
+    @property
+    def utterance(self):
+        return self._utterance
+
+    def analyze_in_context(self, chat: Chat):
+        self.analyze(chat.last_utterance)
 
     def analyze(self, utterance):
         """
@@ -31,7 +42,7 @@ class OIEAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        super(OIEAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         try:
             with StanfordOpenIE(properties=OIEAnalyzer.PROPERTIES) as client:
@@ -39,7 +50,7 @@ class OIEAnalyzer(Analyzer):
 
                 result = client.annotate(text)
                 if result:
-                    self._log.info(f'Found {len(result)} triples')
+                    logger.info(f'Found {len(result)} triples')
                     for triple in result:
                         # Final triple assignment
                         fixed_triple = {
@@ -50,6 +61,5 @@ class OIEAnalyzer(Analyzer):
 
                         self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=fixed_triple)
 
-        except Exception as e:
-            self._log.warning("Couldn't extract triples")
-            self._log.exception(e)
+        except Exception:
+            logger.exception("Couldn't extract triples")

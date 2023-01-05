@@ -88,8 +88,8 @@ class TripleExtractionService:
             return
 
         self._chat.add_utterance(event.payload.signal.text)
-        self._extractor.analyze(self._chat.last_utterance)
-        response = self._utterance_to_capsules(self._chat.last_utterance, event.payload.signal)
+        self._extractor.analyze_in_context(self._chat)
+        response = self._utterance_to_capsules(self._extractor.utterance, event.payload.signal)
 
         if response:
             # TODO: transform capsules into proper EMISSOR annotations

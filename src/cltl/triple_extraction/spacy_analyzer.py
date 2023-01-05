@@ -1,3 +1,5 @@
+import logging
+
 import spacy
 
 from cltl.commons.discrete import UtteranceType
@@ -6,9 +8,11 @@ from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_triples import dep_to_triple
 
 
+logger = logging.getLogger(__name__)
+
+
 #TODO Fix class name
 class spacyAnalyzer(Analyzer):
-
     def __init__(self):
         """
         spaCy Analyzer Object
@@ -16,10 +20,18 @@ class spacyAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        self._nlp = spacy.load("en_core_web_sm")
+        self._utterance = None
 
-        super(spacyAnalyzer, self).__init__()
+    @property
+    def utterance(self):
+        return self._utterance
 
-    def analyze(self, utterance, speaker, hearer):
+    def analyze_in_context(self, chat: Chat):
+        self.analyze(chat.last_utterance, chat.speaker, chat.agent)
+
+    # TODO this doesn't match the Analyzer interface!
+    def analyze(self, utterance, speaker=None, hearer=None):
         """
         Analyzer factory function
 
@@ -31,30 +43,29 @@ class spacyAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        super(spacyAnalyzer, self).analyze(utterance)
-        nlp = spacy.load("en_core_web_sm")
+        self._utterance = utterance
 
         # @TODO: check if there are embedded clauses:
         # - ccomp  "I think ccomp that S. likes chees"
         # - xcomp, subject or object raising  "I like xcomp talking to her"
         triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(
-            nlp, utterance.transcript, speaker, hearer)
+            self._nlp, utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(
-                nlp, utterance.transcript, speaker, hearer)
+                self._nlp, utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_attr_triples_with_spacy(
-                nlp, utterance.transcript, speaker, hearer)
+                self._nlp, utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(
-                nlp, utterance.transcript, speaker, hearer)
+                self._nlp, utterance.transcript, speaker, hearer)
 
         if triples:
             for triple in triples:
                 print("triple", triple)
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
-            self._log.warning("Couldn't extract triples")
+            logger.warning("Couldn't extract triples")
 
     def extract_perspective(self):
         """

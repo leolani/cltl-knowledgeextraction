@@ -1,11 +1,17 @@
+import logging
+
 from cltl.commons.discrete import UtteranceType
 from cltl.commons.language_helpers import lexicon_lookup, lexicon, lexicon_lookup_subword, lexicon_lookup_subword_class
 from cltl.commons.triple_helpers import fix_nlp_types
 
 from cltl.triple_extraction.analyzer import Analyzer
+from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
     get_pos_in_tree
+
+
+logger = logging.getLogger(__name__)
 
 
 class CFGAnalyzer(Analyzer):
@@ -23,8 +29,14 @@ class CFGAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        self._utterance = None
 
-        super(CFGAnalyzer, self).__init__()
+    @property
+    def utterance(self):
+        return self._utterance
+
+    def analyze_in_context(self, chat: Chat):
+        self.analyze(chat.last_utterance)
 
     def analyze(self, utterance):
         """
@@ -38,16 +50,15 @@ class CFGAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         CFGAnalyzer.PARSER.parse(utterance)
        # print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
         if not CFGAnalyzer.PARSER.forest:
-            self._log.warning("Couldn't parse input")
+            logger.warning("Couldn't parse input")
 
         else:
-            self._log.info(f'Found {len(CFGAnalyzer.PARSER.forest)} triples')
+            logger.info(f'Found {len(CFGAnalyzer.PARSER.forest)} triples')
 
             for tree in CFGAnalyzer.PARSER.forest:
                 sentence_type = tree[0].label()
@@ -62,11 +73,11 @@ class CFGAnalyzer(Analyzer):
                         analyzer.analyze(utterance)
 
                     else:
-                        self._log.warning("Error: {}".format(sentence_type))
+                        logger.warning("Error: {}".format(sentence_type))
 
                 except Exception as e:
-                    self._log.warning("Couldn't extract triples")
-                    self._log.exception(e)
+                    logger.warning("Couldn't extract triples")
+                    logger.exception(e)
 
     def initialize_triple(self):
         return NotImplementedError()
@@ -77,41 +88,41 @@ class CFGAnalyzer(Analyzer):
     def fix_triple_details(self, triple, utterance_info):
         # Analyze verb phrase
         triple, utterance_info = self.analyze_vp(triple, utterance_info)
-        self._log.debug('after VP: {}'.format(triple))
+        logger.debug('after VP: {}'.format(triple))
 
         # Analyze noun phrase
         triple = self.analyze_np(triple)
-        self._log.debug('after NP: {}'.format(triple))
+        logger.debug('after NP: {}'.format(triple))
 
         # Analyze object
         if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
             triple = self.analyze_multiword_complement(triple)
         elif len(triple['object'].split('-')) == 1:
             triple = self.analyze_one_word_complement(triple)
-        self._log.debug('after object analysis: {}'.format(triple))
+        logger.debug('after object analysis: {}'.format(triple))
 
         # Analyze subject
         if len(triple['subject'].split('-')) > 1:  # multi-word subject
             triple = self.analyze_multiword_subject(triple)
         elif len(triple['subject'].split('-')) == 1:
             triple = self.analyze_one_word_subject(triple)
-        self._log.debug('after subject analysis: {}'.format(triple))
+        logger.debug('after subject analysis: {}'.format(triple))
 
         # Final fixes to triple
         triple = trim_dash(triple)
         triple['predicate'] = self.fix_predicate(triple['predicate'])
-        self._log.debug('after predicate fix: {}'.format(triple))
+        logger.debug('after predicate fix: {}'.format(triple))
 
         # Get triple types
         triple = self.get_types_in_triple(triple)
-        self._log.debug('final triple: {} {}'.format(triple, utterance_info))
+        logger.debug('final triple: {} {}'.format(triple, utterance_info))
 
         return triple, utterance_info
 
     def fix_triple_details_subject_object(self, triple, utterance_info):
         # Analyze noun phrase
         triple = self.analyze_np(triple)
-        self._log.debug('after NP: {}'.format(triple))
+        logger.debug('after NP: {}'.format(triple))
         # Analyze object
         if not triple['object']==None:
            # print(triple['object'])
@@ -120,7 +131,7 @@ class CFGAnalyzer(Analyzer):
                 triple = self.analyze_multiword_complement(triple)
             elif len(triple['object'].split('-')) == 1:
                 triple = self.analyze_one_word_complement(triple)
-            self._log.debug('after object analysis: {}'.format(triple))
+            logger.debug('after object analysis: {}'.format(triple))
 
         # Analyze subject
         if triple['subject']:
@@ -128,11 +139,11 @@ class CFGAnalyzer(Analyzer):
                 triple = self.analyze_multiword_subject(triple)
             elif len(triple['subject'].split('-')) == 1:
                 triple = self.analyze_one_word_subject(triple)
-            self._log.debug('after subject analysis: {}'.format(triple))
+            logger.debug('after subject analysis: {}'.format(triple))
 
         # Get triple types
         triple = self.get_types_in_triple(triple)
-        self._log.debug('final triple: {} {}'.format(triple, utterance_info))
+        logger.debug('final triple: {} {}'.format(triple, utterance_info))
 
         return triple, utterance_info
 
@@ -466,7 +477,7 @@ class CFGAnalyzer(Analyzer):
                     pred += '-' + lemmatize(el, 'v')
 
             else:
-                self._log.debug('uncaught verb phrase element {}:{}'.format(el, label))
+                logger.debug('uncaught verb phrase element {}:{}'.format(el, label))
 
             ind += 1
 
@@ -637,7 +648,7 @@ class StatementAnalyzer(CFGAnalyzer):
         ----------
         """
 
-        super(StatementAnalyzer, self).__init__()
+        super().__init__()
 
     def analyze(self, utterance):
         """
@@ -651,7 +662,7 @@ class StatementAnalyzer(CFGAnalyzer):
             utterance to be analyzed
         """
 
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         analyzer = GeneralStatementAnalyzer()
         analyzer.analyze(utterance)
@@ -667,7 +678,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         ----------
         """
 
-        super(GeneralStatementAnalyzer, self).__init__()
+        super().__init__()
 
     def analyze(self, utterance):
         """
@@ -679,13 +690,13 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
             utterance to be analyzed
         """
 
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         # Initialize
         utterance_info = {'neg': False}
         triple = self.initialize_triple()
         ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
-        self._log.debug('initial triple: {}'.format(triple))
+        logger.debug('initial triple: {}'.format(triple))
         entry = lexicon_lookup(lemmatize(triple['predicate'], 'v'), 'lexical')
         if entry and 'certainty' in entry:
             if CFGAnalyzer.PARSER.constituents[2]['label'] == 'S':
@@ -817,7 +828,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         """
         for el in ['predicate', 'subject', 'object']:
             if not triple[el] or not len(triple[el]):
-                self._log.warning("Cannot find {} in statement".format(el))
+                logger.warning("Cannot find {} in statement".format(el))
                 return False
         return True
 
@@ -829,7 +840,7 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         """
         for el in ['sentiment', 'certainty', 'polarity', 'emotion']:
             if not perspective[el] or not len(perspective[el]):
-                self._log.warning("Cannot find {} in statement".format(el))
+                logger.warning("Cannot find {} in statement".format(el))
                 return False
         return True
 
@@ -843,7 +854,7 @@ class ObjectStatementAnalyzer(StatementAnalyzer):
         ----------
         """
 
-        super(ObjectStatementAnalyzer, self).__init__()
+        super().__init__()
 
 
 class QuestionAnalyzer(CFGAnalyzer):
@@ -857,7 +868,7 @@ class QuestionAnalyzer(CFGAnalyzer):
         ----------
         """
 
-        super(QuestionAnalyzer, self).__init__()
+        super().__init__()
 
     def analyze(self, utterance):
         """
@@ -871,7 +882,7 @@ class QuestionAnalyzer(CFGAnalyzer):
             utterance to be analyzed
         """
 
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         if utterance.tokens:
             first_word = utterance.tokens[0]
@@ -894,7 +905,7 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         ----------
         """
 
-        super(WhQuestionAnalyzer, self).__init__()
+        super().__init__()
 
     def analyze(self, utterance):
         """
@@ -906,13 +917,13 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
             utterance to be analyzed
         """
 
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         # Initialize
         utterance_info = {'neg': False,
                           'wh_word': lexicon_lookup(CFGAnalyzer.PARSER.constituents[0]['raw'].lower())}
         triple = self.initialize_triple()
-        self._log.debug('initial triple: {}'.format(triple))
+        logger.debug('initial triple: {}'.format(triple))
 
         # Fix phrases and multiword information
         triple, utterance_info = self.fix_triple_details(triple, utterance_info)
@@ -955,7 +966,7 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
             triple['subject'] = constituents[2]['raw']
             triple['object'] = constituents[4]['raw']
         else:
-            self._log.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
+            logger.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
 
         return triple
 
@@ -981,7 +992,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         ----------
         """
 
-        super(VerbQuestionAnalyzer, self).__init__()
+        super().__init__()
 
     def analyze(self, utterance):
         """
@@ -993,12 +1004,12 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
             utterance to be analyzed
         """
 
-        super(CFGAnalyzer, self).analyze(utterance)
+        self._utterance = utterance
 
         # Initialize
         utterance_info = {'neg': False}
         triple = self.initialize_triple()
-        self._log.debug('initial triple: {}'.format(triple))
+        logger.debug('initial triple: {}'.format(triple))
 
         # Fix phrases and multiword information
         triple, utterance_info = self.fix_triple_details(triple, utterance_info)
@@ -1019,7 +1030,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
             triple['predicate'] = constituents[0]['raw']
             triple['object'] = constituents[2]['raw']
         else:
-            self._log.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
+            logger.debug('MORE CONSTITUENTS %s %s'.format(len(constituents), constituents))
         return triple
 
     def analyze_multiword_complement(self, triple):

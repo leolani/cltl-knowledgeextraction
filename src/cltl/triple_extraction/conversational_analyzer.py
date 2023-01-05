@@ -1,12 +1,18 @@
+import logging
+
 from cltl.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
 
+logger = logging.getLogger(__name__)
+
+
 THRESHOLD = 0.8
 MODEL_PATH = "/Users/piek/Desktop/d-Leolani/cltl-knowledgeextraction/src/cltl/triple_extraction/conversational_triples/models/2022-04-27"
-class conversationalAnalyzer(Analyzer):
 
+
+class ConversationalAnalyzer(Analyzer):
     def __init__(self):
         """
         spaCy Analyzer Object
@@ -14,9 +20,8 @@ class conversationalAnalyzer(Analyzer):
         Parameters
         ----------
         """
-
-        super(conversationalAnalyzer, self).__init__()
         self._extractor = AlbertTripleExtractor(path=MODEL_PATH)
+        self._chat = chat
 
     def analyze(self, utterance):
         """
@@ -30,10 +35,7 @@ class conversationalAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-
-        self._utterance = utterance
-
-        NotImplementedError()
+        raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
     def analyze_in_context(self, chat):
         """
@@ -47,7 +49,8 @@ class conversationalAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        super(conversationalAnalyzer, self).analyze_in_context(chat)
+        self._chat = chat
+
         triples = []
         if chat.last_utterance.chat_speaker == chat.speaker:
             self._chat = chat
@@ -75,10 +78,10 @@ class conversationalAnalyzer(Analyzer):
                     self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         if triples:
             for triple in triples:
-                print("triple", triple)
+                logger.debug("triple: %s", triple)
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
-            self._log.warning("Couldn't extract triples")
+            logger.warning("Couldn't extract triples")
 
     def extract_perspective(self):
         """
@@ -95,6 +98,10 @@ class conversationalAnalyzer(Analyzer):
                        'emotion': float(emotion)}
         return perspective
 
+    @property
+    def utterance(self):
+        return self._chat.last_utterance
+
 
 if __name__ == "__main__":
     '''
@@ -102,7 +109,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    analyzer = conversationalAnalyzer()
+    analyzer = ConversationalAnalyzer()
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:

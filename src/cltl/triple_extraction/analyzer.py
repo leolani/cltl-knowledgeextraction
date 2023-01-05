@@ -1,24 +1,17 @@
 import json
+import logging
 
 from cltl.commons import discrete
 from cltl.commons.triple_helpers import continuous_to_enum
-from cltl.triple_extraction import logger
+
+from cltl.triple_extraction.api import Chat
 
 
-class Analyzer(object):
+logger = logging.getLogger(__name__)
 
-    def __init__(self):
-        """
-        Abstract Analyzer Object: call Analyzer.analyze(utterance) factory function
 
-        Parameters
-        ----------
-        """
-        self._log = logger.getChild(self.__class__.__name__)
-        self._log.debug("Booted")
-        self._utterance = None
-
-    def analyze_in_context(self, chat):
+class Analyzer:
+    def analyze_in_context(self, chat: Chat):
         """
         Analyzer factory function
 
@@ -28,15 +21,12 @@ class Analyzer(object):
         ----------
         chat: Chat
             contains the previous utterances and extracted triples if any
-        utterance: Utterance
-            utterance to be analyzed
 
         """
-
-        self._chat = chat
-        NotImplementedError()
+        raise NotImplementedError()
 
     def analyze(self, utterance):
+        """Deprecated, use `analyze_in_context` instead!"""
         raise NotImplementedError()
 
     def set_extracted_values(self, utterance_type=None, triple=None, perspective={}):
@@ -51,18 +41,18 @@ class Analyzer(object):
             return
 
         if utterance_type:
-            self._log.info("Utterance type: {}".format(json.dumps(utterance_type.name,
+            self._log_info("Utterance type: {}".format(json.dumps(utterance_type.name,
                                                                   sort_keys=True, separators=(', ', ': '))))
 
         if triple:
             for el in ["subject", "predicate", "object"]:
-                self._log.info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
+                self._log_info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
                                                                               sort_keys=True, separators=(', ', ': '))))
         if triple["perspective"]:
             for el in ['certainty', 'polarity', 'sentiment', 'emotion']:
                 cls = getattr(discrete, el.title())
                 closest = continuous_to_enum(cls, triple["perspective"][el])
-                self._log.info("Perspective {:>10}: {}".format(el, closest.name))
+                self._log_info("Perspective {:>10}: {}".format(el, closest.name))
 
     @property
     def utterance(self):
@@ -72,7 +62,7 @@ class Analyzer(object):
         utterance: Utterance
             Utterance
         """
-        return self._utterance
+        raise NotImplementedError()
 
     @property
     def triple(self):
@@ -81,4 +71,7 @@ class Analyzer(object):
         -------
         triple: dict or None
         """
-        return self._utterance.triple
+        return self.utterance.triple
+
+    def _log_info(self, message):
+        logger.info("%s: %s", self.__class__.__name__, message)
