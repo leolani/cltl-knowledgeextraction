@@ -1,13 +1,18 @@
 import glob
-import torch
-from transformers import AutoTokenizer, AutoModel, AutoConfig
-from tqdm import tqdm
-import numpy as np
-# Catch warnings
-from transformers import logging
-logging.set_verbosity(40)
+import logging
+import random
 
-from cltl.triple_extraction.conversational_triples.utils import *
+import numpy as np
+import torch
+from tqdm import tqdm
+from transformers import AutoTokenizer, AutoModel, AutoConfig
+# Catch warnings
+from transformers import logging as trans_log
+
+from cltl.triple_extraction.conversational_triples.utils import bio_tags_to_tokens, load_annotations, triple_to_bio_tags
+
+trans_log.set_verbosity(40)
+logger = logging.getLogger(__name__)
 
 
 class ArgumentExtraction(torch.nn.Module):
@@ -19,7 +24,7 @@ class ArgumentExtraction(torch.nn.Module):
             str path:       Path to pretrained model
         """
         super().__init__()
-        print('loading %s for argument extraction' % base_model)
+        logger.info('Loading %s for argument extraction', base_model)
         self._model = AutoModel.from_pretrained(base_model)
         self._base = base_model
         self._sep = sep
@@ -43,12 +48,9 @@ class ArgumentExtraction(torch.nn.Module):
         self.to(self._device)
 
         # Load model / tokenizer if pretrained model is given
-        print('path', path)
-        print('base_model', base_model)
         if path:
-            print('\t- Loading pretrained')
-            model_path = glob.glob(path + '/argument_extraction_' + base_model + '.zip')[0]
-            print('model_path', model_path)
+            model_path = path + '/argument_extraction_' + base_model + '.zip'
+            logger.info('Loading pretrained model %s', model_path)
             self.load_state_dict(torch.load(model_path, map_location=self._device))
 
     def forward(self, input_ids, speaker_ids):
@@ -132,7 +134,7 @@ class ArgumentExtraction(torch.nn.Module):
         class_weights = torch.Tensor([1] + [weight] * 2).to(self._device)
         criterion = torch.nn.CrossEntropyLoss(weight=class_weights)
 
-        print('Training!')
+        logger.info('Training!')
         for epoch in range(epochs):
             losses = []
             random.shuffle(X)
@@ -150,7 +152,7 @@ class ArgumentExtraction(torch.nn.Module):
                 loss.backward()
                 optim.step()
 
-            print("mean loss =", np.mean(losses))
+            logger.info("mean loss = %s", np.mean(losses))
 
         # Save model to file
         torch.save(self.state_dict(), 'argument_extraction_%s' % self._base)

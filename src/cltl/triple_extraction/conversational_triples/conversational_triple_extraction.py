@@ -54,13 +54,13 @@ class AlbertTripleExtractor:
                 tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + ['<eos>']
         return tokens
 
-    def extract_triples(self, dialog, post_process=True, batch_size=32, verbose=True, ):
+    def extract_triples(self, dialog, post_process=True, batch_size=32, verbose=False):
         """
 
         :param dialog:       separator-delimited dialogue
         :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
         :param batch_size:   If a lot of possible triples exist, batch up processing
-        :param verbose:      whether to print messages (True) or be silent (False) (default: True)
+        :param verbose:      whether to print messages (True) or be silent (False) (default: False)
         :return:             A list of confidence-triple pairs of the form (confidence, (subj, pred, obj, polarity))
         """
         # Assign unambiguous tokens to you/I

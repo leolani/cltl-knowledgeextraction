@@ -9,19 +9,17 @@ logger = logging.getLogger(__name__)
 
 
 THRESHOLD = 0.8
-MODEL_PATH = "/Users/piek/Desktop/d-Leolani/cltl-knowledgeextraction/src/cltl/triple_extraction/conversational_triples/models/2022-04-27"
 
 
 class ConversationalAnalyzer(Analyzer):
-    def __init__(self):
+    def __init__(self, model_path: str):
         """
-        spaCy Analyzer Object
-
         Parameters
         ----------
+        model_path: str Path to the model
         """
-        self._extractor = AlbertTripleExtractor(path=MODEL_PATH)
-        self._chat = chat
+        self._extractor = AlbertTripleExtractor(path=model_path)
+        self._chat = None
 
     def analyze(self, utterance):
         """
@@ -64,11 +62,10 @@ class ConversationalAnalyzer(Analyzer):
             elif len(chat.utterances)==2:
                 conversation = "<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
 
-          #  print("conversation", conversation)
-
             for score, triple_value in self._extractor.extract_triples(conversation):
                 if score>=THRESHOLD:
                     if len(triple_value)>2:
+                        # TODO Triples should be dicts with label, type and uri
                         triple = {"subject" : triple_value[0], "predicate" : triple_value[1], "object" : triple_value[2]}
                     if len(triple_value)==4:
                         triple["perspective"]={"polarity" : triple_value[3]}
@@ -109,7 +106,9 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    analyzer = ConversationalAnalyzer()
+    model = "/Users/tkb/automatic/workspaces/robo/leolani-mmai-parent/cltl-leolani-app/py-app/resources/conversational_triples"
+
+    analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:

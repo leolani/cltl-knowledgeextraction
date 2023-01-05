@@ -1,11 +1,11 @@
-import re
 import glob
 import json
 import random
-import numpy as np
-
+import re
 from collections import defaultdict
 from copy import deepcopy
+
+import numpy as np
 
 
 def load_annotations(path, remove_unk=True, keep_skipped=False):

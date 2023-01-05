@@ -62,7 +62,6 @@ class spacyAnalyzer(Analyzer):
 
         if triples:
             for triple in triples:
-                print("triple", triple)
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             logger.warning("Couldn't extract triples")
