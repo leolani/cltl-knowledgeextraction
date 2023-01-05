@@ -37,21 +37,7 @@ class Analyzer(object):
         NotImplementedError()
 
     def analyze(self, utterance):
-        """
-        Analyzer factory function
-
-        Determines the type of utterance, extracts the RDF triple and perspective attaching them to the last utterance
-
-        Parameters
-        ----------
-        utterance: Utterance
-            utterance to be analyzed
-
-        """
-
-        self._utterance = utterance
-
-        NotImplementedError()
+        raise NotImplementedError()
 
     def set_extracted_values(self, utterance_type=None, triple=None, perspective={}):
         # Pack everything together

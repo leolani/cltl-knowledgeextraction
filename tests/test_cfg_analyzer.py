@@ -17,9 +17,9 @@ class TestCfgAnalyzer(unittest.TestCase):
 
     @parameterized.expand([
         ("statement", "I like pizza", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
-        ("statement", "I like pizza.", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
-        ("statement", "I like pizza!", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
-        ("statement", "I like pizza, really!", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
+        ("statement dot", "I like pizza.", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
+        ("statement exclamation", "I like pizza!", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
+        ("statement excited", "I like pizza, really!", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
         ("statement_punctuation", "I like pizza.", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
         ("statement_casing", "i like pizza", UtteranceType.STATEMENT, "Piek", "like", "pizza"),
         ("question_who", "Who likes pizza", UtteranceType.QUESTION, "", "like", "pizza"),
