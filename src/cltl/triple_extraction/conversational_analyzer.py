@@ -65,8 +65,10 @@ class ConversationalAnalyzer(Analyzer):
             for score, triple_value in self._extractor.extract_triples(conversation):
                 if score>=THRESHOLD:
                     if len(triple_value)>2:
-                        # TODO Triples should be dicts with label, type and uri
-                        triple = {"subject" : triple_value[0], "predicate" : triple_value[1], "object" : triple_value[2]}
+                        triple = {"subject" : {"label": triple_value[0], "type": [], "uri": None},
+                                  "predicate" : {"label": triple_value[1], "type": [], "uri": None},
+                                  "object" : {"label": triple_value[2], "type": [], "uri": None}
+                                  }
                     if len(triple_value)==4:
                         triple["perspective"]={"polarity" : triple_value[3]}
                     if len(triple_value)==5:
