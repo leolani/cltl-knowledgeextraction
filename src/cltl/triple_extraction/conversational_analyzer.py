@@ -108,7 +108,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "/Users/tkb/automatic/workspaces/robo/leolani-mmai-parent/cltl-leolani-app/py-app/resources/conversational_triples"
+    model = "resources/conversational_triples"
 
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]

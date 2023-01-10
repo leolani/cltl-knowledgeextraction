@@ -68,6 +68,15 @@ Below is a short summary of NLP that happens during the CFG utterance analysis:
 1. Getting semantic types of each element of the triple, and its subparts, using the manually made lexicon, WordNet
    lexname, Stanford NER
 
+#### ConversationalAnalyzer
+
+Extract triples taking the conversational context into account.
+
+##### Models
+
+Models for the ConversationalAnalyzer can be downloaded from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW).
+
+
 ### Sample output
 
 Here is a sample output for sentence `“I have three white cats”`:
@@ -158,7 +167,7 @@ chat = Chat("Leolani", "Lenka")
 analyzer = CFGAnalyzer()
 
 chat.add_utterance("I have three white cats")
-analyzer.analyze(chat.last_utterance)
+analyzer.analyze_in_context(chat)
 capsules = utterance_to_capsules(chat.last_utterance)
 ```
 
