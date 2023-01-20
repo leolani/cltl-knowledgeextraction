@@ -212,6 +212,7 @@ if __name__ == "__main__":
     ]
 
    # all_test_files=["./data/activities.txt"]
+  #  all_test_files=["./data/statements.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
@@ -219,3 +220,12 @@ if __name__ == "__main__":
         test_triples_in_file(test_file, resultfile)
 
     resultfile.close()
+
+    '''
+    d.d. 20/01/2023
+    CORRECT TRIPLE ELEMENTS: 225			INCORRECT TRIPLE ELEMENTS: 39
+    ISSUES (19 UTTERANCES):
+    
+    CORRECT TRIPLE ELEMENTS: 187			INCORRECT TRIPLE ELEMENTS: 77
+ISSUES (37 UTTERANCES)
+    '''

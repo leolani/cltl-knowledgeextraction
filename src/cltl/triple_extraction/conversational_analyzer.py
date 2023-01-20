@@ -3,6 +3,7 @@ import logging
 from cltl.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ class ConversationalAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
-    def analyze_in_context(self, chat):
+    def analyze_in_context(self, chat, triple_normalizer):
         """
         Analyzer factory function
 
@@ -74,13 +75,24 @@ class ConversationalAnalyzer(Analyzer):
                     if len(triple_value)==5:
                         triple["perspective"]={"certainty" : triple_value[3]}
 
-                    self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
+                    if triple:
+                        triple = triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
+                        triples.append(triple)
+                    # logger.debug("Normalised triple", triple)
+                    # print("Normalised triple", triple)
+                    # self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         if triples:
             for triple in triples:
                 logger.debug("triple: %s", triple)
-                self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
+               # self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             logger.warning("Couldn't extract triples")
+
+    def get_simple_triple(self, triple):
+        simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
+                         'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
+                         'object': triple['object']['label'].replace(" ", "-").replace('---', '-')}
+        return simple_triple
 
     def extract_perspective(self):
         """
@@ -108,8 +120,10 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "resources/conversational_triples"
 
+    model = "/Users/piek/Desktop/d-Leolani/cltl-resources/conversational_triples/22_04_27"
+
+    triple_normalizer = TripleNormalizer()
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
     chat = Chat("Leolani", "Lenka")
