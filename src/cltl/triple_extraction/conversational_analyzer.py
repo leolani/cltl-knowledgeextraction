@@ -1,6 +1,6 @@
 import logging
 
-from cltl.commons.discrete import UtteranceType
+from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
@@ -71,27 +71,28 @@ class ConversationalAnalyzer(Analyzer):
                                   "object" : {"label": triple_value[2], "type": [], "uri": None}
                                   }
                     if len(triple_value)==4:
-                        triple["perspective"]={"polarity" : triple_value[3]}
-                    if len(triple_value)==5:
-                        triple["perspective"]={"certainty" : triple_value[3]}
-
+                        triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
+                    elif len(triple_value)==5:
+                        triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
+                        triple["perspective"]={"certainty" : Certainty.from_str(triple_value[4]).value}
+                    # else:
+                    #     triple["perspective"]={"polarity" : Polarity.POSITIVE}
+                    #     triple["perspective"]={"certainty" : Certainty.CERTAIN}
                     if triple:
                         triple = triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
-                    # logger.debug("Normalised triple", triple)
-                    # print("Normalised triple", triple)
-                    # self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         if triples:
             for triple in triples:
                 logger.debug("triple: %s", triple)
-               # self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
+                self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             logger.warning("Couldn't extract triples")
 
     def get_simple_triple(self, triple):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
                          'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
-                         'object': triple['object']['label'].replace(" ", "-").replace('---', '-')}
+                         'object': triple['object']['label'].replace(" ", "-").replace('---', '-'),
+                         'perspective':triple['perspective']}
         return simple_triple
 
     def extract_perspective(self):

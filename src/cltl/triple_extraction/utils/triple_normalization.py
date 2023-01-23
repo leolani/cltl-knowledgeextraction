@@ -37,7 +37,7 @@ class TripleNormalizer():
         self.utterance = utterance
         normalised_triple = a_triple
         logger.debug('initial triple: {}'.format(normalised_triple))
-        #entry = lexicon_lookup(lemmatize(self._triple['predicate'], 'v'), 'lexical')
+
         ### We use preempted to catch words that have fixed predicates
         preempted = ""
         normalised_triple, utterance_info, preempted = self.get_kinship(normalised_triple, utterance_info)
@@ -56,19 +56,19 @@ class TripleNormalizer():
                     if not preempted:
                         normalised_triple, utterance_info, preempted = self.get_profession(normalised_triple, utterance_info)
                         #if preempted: print('PROFESSION TRIPLE',  preempted,normalised_triple)
+
         if preempted:
-                normalised_triple, utterance_info = self.fix_triple_details_subject_object(normalised_triple, utterance_info)
-               # print('PREEMPTED TRIPLE', normalised_triple)
+            #If preempteed we do not want to change the predicate again so only subject and object details are modified
+            normalised_triple, utterance_info = self.fix_triple_details_subject_object(normalised_triple, utterance_info)
         else:
              # Fix phrases and multiword information
              normalised_triple, utterance_info = self.fix_triple_details(normalised_triple, utterance_info)
-            # print('Fixed TRIPLE', normalised_triple)
 
         # Extract perspective
-        perspective = self.extract_perspective(normalised_triple['predicate']['label'], utterance_info)
+        perspective = self.extract_perspective(normalised_triple, utterance_info)
+        normalised_triple.update({"perspective": perspective})
         # Final triple assignment
-        print('FINAL NORMALISED TRIPLE', normalised_triple)
-        self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=normalised_triple, perspective=perspective)
+        #print('FINAL NORMALISED TRIPLE', normalised_triple)
         return normalised_triple
 
     def initialize_triple(self):
@@ -95,7 +95,7 @@ class TripleNormalizer():
             triple['object'] = triple['object'].replace(first_word, '')
         return triple
 
-    @staticmethod
+    #@staticmethod
     # def analyze_certainty_statement(triple):
     #     """
     #     :param triple:
@@ -118,7 +118,7 @@ class TripleNormalizer():
 
    # @staticmethod
 
-    def extract_perspective(predicate, utterance_info=None):
+    def extract_perspective(self, triple, utterance_info=None):
         """
         This function extracts perspective from statements
         :param predicate: statement predicate
@@ -130,15 +130,23 @@ class TripleNormalizer():
         sentiment = 0  # Underspecified
         emotion = 0  # Underspecified
 
+        ## Adapted since conversational triple extraction already gives values in triple
+        if "perspective" in triple:
+            if "polarity" in triple["perspective"]:
+                polarity = triple["perspective"]["polarity"]
+            if "certainty" in triple["perspective"]:
+                certainty = triple["perspective"]["certainty"]
+
+        predicate = triple['predicate']['label']
         for word in predicate.split('-'):
             word = lemmatize(word)  # with a pos tag ?
-            if word == 'not':
+            if word == 'not' and polarity==1:
                 utterance_info['neg'] = -1
             entry = lexicon_lookup(word, 'verb')
             if entry:
                 if 'sentiment' in entry:
                     sentiment = entry['sentiment']
-                if 'certainty' in entry:
+                if 'certainty' in entry and certainty==1:
                     certainty = entry['certainty']
 
         if 'certainty' in utterance_info:
@@ -301,6 +309,8 @@ class TripleNormalizer():
         """
         # Get type
         for el in triple:
+            if el=="perspective":
+                continue
             text = triple[el]
             final_type = []
             triple[el] = {'label': text, 'type': []}

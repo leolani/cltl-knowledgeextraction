@@ -22,10 +22,11 @@ def trim_dash(triple):
     """
     for el in triple:
         if triple[el]:
-            if triple[el].startswith('-'):
-                triple[el] = triple[el][1:]
-            if triple[el].endswith('-'):
-                triple[el] = triple[el][:-1]
+            if type(triple[el])==str:
+                if triple[el].startswith('-'):
+                    triple[el] = triple[el][1:]
+                if triple[el].endswith('-'):
+                    triple[el] = triple[el][:-1]
     return triple
 
 

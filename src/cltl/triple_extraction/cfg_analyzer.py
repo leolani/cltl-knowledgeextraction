@@ -730,9 +730,11 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
 
         # Extract perspective
         perspective = self.extract_perspective(triple['predicate']['label'], utterance_info)
+        triple.update({'perspective':perspective})
         # Final triple assignment
-      #  print('FINAL TRIPLE', triple)
-        self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
+        print('FINAL TRIPLE', triple)
+        self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
+        #self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
 
     def initialize_triple(self):
 

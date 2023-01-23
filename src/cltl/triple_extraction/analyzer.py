@@ -54,6 +54,33 @@ class Analyzer:
                 closest = continuous_to_enum(cls, triple["perspective"][el])
                 self._log_info("Perspective {:>10}: {}".format(el, closest.name))
 
+    def set_extracted_values_given_perspective(self, utterance_type=None, triple=None):
+        # Pack everything together
+        triple["utterance_type"] = utterance_type
+        # Set type, and triple
+        triple_is_new = self.utterance.add_json_triple(triple)
+
+        if not triple_is_new:
+            return
+
+        if utterance_type:
+            self._log_info("Utterance type: {}".format(json.dumps(utterance_type.name,
+                                                                  sort_keys=True, separators=(', ', ': '))))
+
+        if triple:
+            for el in ["subject", "predicate", "object"]:
+                self._log_info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
+                                                                              sort_keys=True, separators=(', ', ': '))))
+        if triple["perspective"]:
+            for el in ['certainty', 'polarity', 'sentiment', 'emotion']:
+                if el in triple["perspective"]:
+                    cls = getattr(discrete, el.title())
+                    closest = continuous_to_enum(cls, triple["perspective"][el])
+                    self._log_info("Perspective {:>10}: {}".format(el, closest.name))
+                # else:
+                #     print ('Missing element', el, triple["perspective"])
+
+
     @property
     def utterance(self):
         """

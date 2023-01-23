@@ -248,6 +248,13 @@ class Utterance(object):
 
         return triple_is_new
 
+    def add_json_triple(self, triple):
+        # type: (dict) -> (bool)
+
+        self._triples.append(triple)
+
+        return True
+
     def casefold(self, format='triple'):
         # type (str) -> ()
         """

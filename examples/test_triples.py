@@ -89,9 +89,11 @@ def compare_elementwise_perspective(triple, gold):
         if type(triple[key]) == float and triple[key] != gold[key]:
             print(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}")
 
-        elif type(triple[key]) == float and triple[key]['label'].lower() == gold[key]:
-            print(f"Match triple {key}: {triple[key]} == {gold[key]}")
-            correct += 1
+        ##elif type(triple[key]) == float and triple[key]['label'].lower() == gold[key]:
+        elif not type(triple[key])== float:
+            if triple[key]['label'].lower() == gold[key]:
+                print(f"Match triple {key}: {triple[key]} == {gold[key]}")
+                correct += 1
 
     return correct
 
@@ -212,7 +214,7 @@ if __name__ == "__main__":
     ]
 
    # all_test_files=["./data/activities.txt"]
-  #  all_test_files=["./data/statements.txt"]
+    all_test_files=["./data/perspective.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:

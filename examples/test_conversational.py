@@ -115,7 +115,7 @@ if __name__ == "__main__":
         "./data/perspective.txt"
     ]
 
-    all_test_files = ["./data/statements.txt"]
+    all_test_files = ["./data/perspective.txt"]
     '''
     LAST RESULTS: 19/01/2023
 
@@ -140,28 +140,3 @@ ISSUES (36 UTTERANCES):
     for test_file in all_test_files:
         test_triples_in_file(test_file, analyzer, normalizer)
 
-
-#@TODO
-'''
-possessive pronouns:
-Utterance: 	Lenka      000: "my best friend is he"
-Triple:            	{'subject': {'label': "Lenka 's best friend"}, 'predicate': {'label': 'is'}, 'object': {'label': 'he'}}
-Expected triple:   	{'subject': 'lenka', 'predicate': 'best-friend-is', 'object': 'he'}
-
-dashes in multiwords
-Utterance: 	Lenka      000: "I have three white cats"
-Triple:            	{'subject': {'label': 'Lenka'}, 'predicate': {'label': 'have'}, 'object': {'label': 'three white cats'}}
-Expected triple:   	{'subject': 'lenka', 'predicate': 'have', 'object': 'three-white-cats'}
-
-lemmatise predicates:
-Utterance: 	Lenka      000: "I think Selene hates cheese"
-Triple:            	{'subject': {'label': 'selene'}, 'predicate': {'label': 'hates'}, 'object': {'label': 'cheese'}}
-Expected triple:   	{'subject': 'selene', 'predicate': 'hate', 'object': 'cheese'}
-
-lowercase names:
-Utterance: 	Lenka      000: "I think Selene hates cheese"
-Triple:            	{'subject': {'label': 'selene'}, 'predicate': {'label': 'hates'}, 'object': {'label': 'cheese'}}
-Expected triple:   	{'subject': 'selene', 'predicate': 'hate', 'object': 'cheese'}
-
-
-'''
