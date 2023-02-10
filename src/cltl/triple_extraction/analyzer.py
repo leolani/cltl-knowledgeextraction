@@ -33,7 +33,7 @@ class Analyzer:
         # Pack everything together
         triple["perspective"] = perspective
         triple["utterance_type"] = utterance_type
-        triple["subject"] = triple
+
         # Set type, and triple
         triple_is_new = self.utterance.add_triple(triple)
 
