@@ -19,11 +19,11 @@ from cltl.triple_extraction.conversational_analyzer import ConversationalAnalyze
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 
-def test_triples(item, correct, incorrect, issues, errorf, analyzer:ConversationalAnalyzer, normalizer:TripleNormalizer):
+def test_triples(item, correct, incorrect, issues, errorf, analyzer:ConversationalAnalyzer):
     chat = Chat("leolani", "lenka")
 
     chat.add_utterance(item['utterance'])
-    analyzer.analyze_in_context(chat, normalizer)
+    analyzer.analyze_in_context(chat)
 
     # No triple was extracted, so we missed three items (s, p, o)
     if not chat.last_utterance.triples:
@@ -74,7 +74,7 @@ def test_triples(item, correct, incorrect, issues, errorf, analyzer:Conversation
         return correct, incorrect, issues
 
 
-def test_triples_in_file(path, analyzer, normalizer):
+def test_triples_in_file(path, analyzer):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
@@ -90,7 +90,7 @@ def test_triples_in_file(path, analyzer, normalizer):
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
-        correct, incorrect, issues = test_triples(item, correct, incorrect, issues, errorf, analyzer, normalizer)
+        correct, incorrect, issues = test_triples(item, correct, incorrect, issues, errorf, analyzer)
     errorf.close()
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
@@ -105,9 +105,8 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "/Users/piek/Desktop/d-Leolani/cltl-resources/conversational_triples/22_04_27"
+    model = "../resources/conversational_triples"
     analyzer = ConversationalAnalyzer(model)
-    normalizer = TripleNormalizer()
     all_test_files = [
         "./data/wh-questions.txt",
         "./data/verb-questions.txt",
@@ -138,5 +137,5 @@ ISSUES (36 UTTERANCES):
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer, normalizer)
+        test_triples_in_file(test_file, analyzer)
 
