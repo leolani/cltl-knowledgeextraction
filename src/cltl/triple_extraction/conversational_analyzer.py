@@ -20,6 +20,7 @@ class ConversationalAnalyzer(Analyzer):
         model_path: str Path to the model
         """
         self._extractor = AlbertTripleExtractor(path=model_path)
+        self._triple_normalizer = TripleNormalizer()
         self._chat = None
 
     def analyze(self, utterance):
@@ -36,7 +37,7 @@ class ConversationalAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
-    def analyze_in_context(self, chat, triple_normalizer):
+    def analyze_in_context(self, chat):
         """
         Analyzer factory function
 
@@ -79,7 +80,7 @@ class ConversationalAnalyzer(Analyzer):
                     #     triple["perspective"]={"polarity" : Polarity.POSITIVE}
                     #     triple["perspective"]={"certainty" : Certainty.CERTAIN}
                     if triple:
-                        triple = triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
+                        triple = self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
         if triples:
             for triple in triples:
@@ -124,7 +125,6 @@ if __name__ == "__main__":
 
     model = "/Users/piek/Desktop/d-Leolani/cltl-resources/conversational_triples/22_04_27"
 
-    triple_normalizer = TripleNormalizer()
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
     chat = Chat("Leolani", "Lenka")
