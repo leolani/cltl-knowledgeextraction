@@ -22,11 +22,11 @@ class TripleExtractionService:
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
-        return cls(config.get("topic_input"), config.get("topic_output"), config.get("topic_scenario"),
-                   config.get("topic_intention"), config.get("intentions", multi=True),
+        return cls(config.get("topic_input"), config.get("topic_agent"), config.get("topic_output"),
+                   config.get("topic_scenario"), config.get("topic_intention"), config.get("intentions", multi=True),
                    extractor, event_bus, resource_manager)
 
-    def __init__(self, input_topic: str, output_topic: str, scenario_topic: str,
+    def __init__(self, input_topic: str, agent_topic: str, output_topic: str, scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
                  event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
@@ -35,6 +35,7 @@ class TripleExtractionService:
         self._resource_manager = resource_manager
 
         self._input_topic = input_topic
+        self._agent_topic = agent_topic
         self._output_topic = output_topic
         self._scenario_topic = scenario_topic
 
@@ -88,6 +89,11 @@ class TripleExtractionService:
             return
 
         self._chat.add_utterance(event.payload.signal.text)
+
+        if event.metadata.topic == self._agent_topic:
+            # Don robot utterances to the chat
+            return
+
         self._extractor.analyze_in_context(self._chat)
         response = self._utterance_to_capsules(self._extractor.utterance, event.payload.signal)
 
