@@ -1,0 +1,504 @@
+circa-valid-002414
+i do not have friends because they think i'm too smart<eos>have you visited other friends recently ?<eos>no
+speaker1,have,friends,negative
+
+circa-train-010889
+that kind of work does take creativity . i am not that fortunate .<eos>does your work require creativity ?<eos>it's mostly busywork .
+speaker1,am,that fortunate,negative
+
+personachat-valid-000114
+ow wow now that will be hard task<eos>yeah do you have kids ?<eos>no i sadly do not . i never been one to hold a steady relationship
+speaker1,been,one to hold a steady relationship,negative
+
+personachat-train-010737
+that's cool . what state do you live in ?<eos>i live on the west coast what about you ?<eos>i live in north carolina . i never been to the west coast .
+speaker1,been to,the west coast,negative
+
+personachat-train-000767
+its going good just playing some video games before bed<eos>sounds like fun ! you play often ?<eos>yes i play every day . i have never had a job and in school
+speaker1,had,a job,negative
+
+personachat-train-004379
+she buys me what i want when i want . i do not want to work .<eos>that's not a good attitude to have . you do not want your own money ?<eos>i'm ease dropping on my neighbors they are fighting lol
+speaker1,want to,work,negative
+that,is,a good attitude to have,negative
+
+daily_dialogs-valid-006909
+If you ask me , I don't think it's guilty .<eos>What do you mean by saying so ?<eos>I mean it's not his fault .
+it,is,his fault,negative
+
+circa-valid-006129
+i don't have a job . i am a college student .<eos>do you need a college degree for the job ?<eos>yes
+speaker1,have,a job,negative
+
+circa-valid-016015
+i do not have friends because they think i'm too smart<eos>do you see any of our old friends ?<eos>i see a couple of them
+speaker1,have,friends,negative
+
+circa-train-030135
+i spend all my money on shopping concerts are out of budget<eos>do you have a high budget ?<eos>no , due to loss of income i can't spend much .
+speaker1,can spend,much,negative
+
+daily_dialogs-train-005316
+We can hold them until one day before the show .<eos>How do we cancel , just in case ?<eos>Just telephone us , and let us know in advance . We don't charge for cancellation .
+speaker1,charge for,cancellation,negative
+
+daily_dialogs-train-003650
+I believe we are all out of food .<eos>Do you know what to get ?<eos>I don't know what we need .
+speaker1,know,what speaker1 need,negative
+
+circa-valid-024302
+wow ! that many kids wouldn't fit in my honda civic .<eos>have any kids yet ?<eos>i decided to not have any .
+many kids,fit in,speaker1 's honda civic,negative
+speaker1,decided to,have any,negative
+
+daily_dialogs-train-008671
+I think it's either one or two gigs . I can't remember .<eos>how much do they cost ?<eos>not much at all . I think it's about 100 dollars .
+speaker1,can,remember,negative
+
+personachat-train-005143
+karma is real , do you agree ?<eos>i do agree . ever notice in scary movies how the bad guy always gets killed ?<eos>i don't believe in dating and have never been
+speaker1,believe in,dating,negative
+speaker1,have,been,negative
+
+daily_dialogs-valid-001050
+Over there .<eos>That's a lot . What did you bring with you ?<eos>They're just gifts I bought . Don't worry . They are not heavy .
+they,are,heavy,negative
+
+circa-train-023122
+we use a lot of public transportation here in canada . you probably wouldn't like that .<eos>did you find that you often used public transportation ?<eos>i used it every day .
+speaker1,like,that,negative
+
+daily_dialogs-train-011664
+I'm sorry , sir . I can not interrupt her . I'm sure she won't be very long .<eos>How long do you think she'll be ?<eos>I really can't say how long she'll be .
+speaker1,can interrupt,her,negative
+she,will be,very long,negative
+
+daily_dialogs-valid-010060
+Hi . I'm calling from Room 209 . I couldn't find the TV Guide . Can you send me one , please ?<eos>Sure . Anything else ?<eos>Yes . There is one more thing .
+speaker1,could find,the TV guide,negative
+
+daily_dialogs-train-004209
+David , I'm going to China .<eos>Really ? How did you get the chance ?<eos>You know . I took part in the Chinese contest . I was the best and they gave me this reward . I don't have to pay for my trip .
+speaker1,have to,pay for speaker1 's trip,negative
+
+daily_dialogs-valid-011165
+My pen name is'Dark Blue'.<eos>How do you like your name ?<eos>I like it very much . My name has became part of me . I don't want to change it .
+speaker1,want to,change it,negative
+
+circa-train-010351
+we could put on some christian edm and party once your taller to celebrate<eos>do you like edm ?<eos>no , i don't know them
+speaker1,know,them,negative
+
+circa-train-017965
+i don't have any children .<eos>you have any children ?<eos>not yet .
+speaker1,have,children,negative
+
+daily_dialogs-valid-002278
+Well , my car won't start . I don't know what's the matter with it .<eos>Could it be the battery ?<eos>No , I don't think it could be . I checked the battery two days ago . It must be other problems .
+speaker1 's car,will,start,negative
+speaker1,know,what's the matter with it,negative
+
+daily_dialogs-train-008807
+That's right . I grew a beard during the trip , but I shaved it off when I came home .<eos>Why did you shave it off ?<eos>My wife didn't like it !
+speaker1 's wife,like,it,negative
+
+daily_dialogs-train-001932
+What size do you wear ? These shoes are on sale .<eos>I wear size 36 . This pair looks nice . Can I try them on ?<eos>Of course , yes . They look nice . And they're not expensive .
+they,are,expensive,negative
+
+circa-train-029875
+no . i am close to my mom the hiker but not my dad who rides motorcycles .<eos>are you a hiker ?<eos>haha no, i prefer trail running over walking
+speaker1,close to,speaker1 's dad,negative
+
+personachat-train-011654
+ever heard of e . l james<eos>no i have not . what has he written ?<eos>well , i'm not her ahahah .
+speaker1,am,her,negative
+
+circa-valid-016015
+i do not have friends because they think i'm too smart<eos>do you see any of our old friends ?<eos>i see a couple of them
+speaker1,have,friends,negative
+
+personachat-train-010875
+i wish i could i'm older now have not ran in years<eos>oh how old are you ?<eos>in my 50s became a granny last week
+speaker1,ran in,years,negative
+
+daily_dialogs-train-012670
+I'm going back to college .<eos>What are you going to major in ?<eos>I haven't thought about it yet .
+speaker1,thought about,it,negative
+
+daily_dialogs-train-004526
+Well , I must apologize , madam . We have new computers here , you know .<eos>Don't you think it's about time you got them working properly ?<eos>I agree entirely . I assure you it won't happen again .
+it,will happen,again,negative
+
+circa-valid-027528
+i'm watching my fave movie .<eos>have you seen the new star wars movie yet ?<eos>i'm not a fan of star wars
+speaker1,am,a fan of star wars,negative
+
+personachat-valid-000145
+my name is john . i am in my early thirties<eos>hi john . i like chocolate . do you ?<eos>no . i don't have money to spend on chocolate . my wife takes it all
+speaker1,have,money to spend on chocolate,negative
+
+daily_dialogs-train-002204
+No .<eos>Why not ?<eos>My English isn't very good . I didn't know what to say to them .
+speaker1 's english,is,very good,negative
+speaker1,know,what to say to them,negative
+
+personachat-train-001093
+no , i don't usually listen to music , although i collected a musical pen .<eos>that is interesting . is being a vegan hard ?<eos>not really as i spend so much time writing i forget to eat .
+speaker1,listen to,music,negative
+
+daily_dialogs-valid-002024
+Yes . I'll have a room free next week .<eos>What do you charge ?<eos>25 . 00 dollars a week , but you can't have visitors .
+speaker1,can have,visitors,negative
+
+personachat-train-004915
+yes , i've 3 cats and they are so adorable<eos>i bet . are you married ? do you have kids ?<eos>sorry not married and of course do not have kids
+speaker1,are,married,negative
+speaker1,have,kids,negative
+
+personachat-valid-000518
+i go use my tanning bed to get tanned<eos>i have a book on the dangers of skin cancer , do you want to try reading that ?<eos>oh really but i have no implications
+speaker1,have,implications,negative
+
+personachat-valid-000156
+hi , how are you doing ?<eos>hi , i am doing well , how are you ?<eos>can't complain . i had a wonderful afternoon in the park .
+speaker1,can,complain,negative
+
+circa-valid-012646
+i do not have friends because they think i'm too smart<eos>do you see any of our old friends ?<eos>yes
+speaker1,have,friends,negative
+
+daily_dialogs-train-001774
+It's not what I asked for .<eos>What's wrong with it ?<eos>It's not the right material . Or the right color . I can't possibly accept it .
+it,is,the right material,negative
+it,is,the right color,negative
+it,is,what speaker1 asked for,negative
+speaker1,can,accept it,negative
+
+personachat-train-005031
+that's great . i love nature but one time i started a fire in a forest<eos>oh , that stinks . what is your favorite food ?<eos>anything at all . i am not picky
+speaker1,am,picky,negative
+
+daily_dialogs-train-010008
+No , it's just the two of us .<eos>Would you like to pay for the room in cash or with a credit card ?<eos>Credit card . We don't like to carry much cash with us on our trips .
+speaker1,like to,carry much cash
+
+circa-train-030848
+i like to go out on the town but i am not that social<eos>are you heading out on the town ?<eos>i'm on my way home .
+speaker1,am,that social
+
+circa-train-004398
+congratulations ! ! i'm sure you are not getting much sleep . i read biographies to pass out . .<eos>are you into biographies ?<eos>no
+speaker1,getting,much sleep
+
+daily_dialogs-valid-008745
+One thing's certain . If I had a lot of money , I wouldn't work anymore .<eos>Wouldn't you ? What would you do with all that spare time ?<eos>As I said , I'd go round the world .
+speaker1,would,work anymore
+
+circa-valid-022862
+i do work ! i waitress during the day , then i do side jobs during the evening .<eos>will you be watching that new drama this evening ?<eos>i do not have any time to start a new series today
+speaker1,have,time to start a new series
+
+daily_dialogs-valid-003254
+she's on the M40 , near Reading .<eos>is she alright ?<eos>I don't know , she didn't say . I'm so sorry about this .
+she,did,say,negative
+
+circa-valid-023934
+that is cool what kind of food do you like<eos>have you ever had allergies to food ?<eos>i can't eat nuts .
+speaker1,eat, nuts,negative
+
+circa-valid-001573
+i work at the bank of america . i like the work .<eos>are you going to the work get together saturday ?<eos>no , i wasn't invited .
+speaker1,was,invited,negative
+
+circa-train-020247
+awesome , dieing before skydiving isn't an option for me<eos>is renting a flat still an option ?<eos>yes
+dieting before skydiving,is,an option for speaker1,negative
+
+circa-valid-028899
+i get to see him every year at disney world !<eos>will you be going to the big new year's eve party this year ?<eos>no , i couldn't get a sitter .
+speaker1,could get,a sitter,negative
+speaker1,could get,a sitter,negative
+
+circa-train-033094
+i can help watch them ! i'm in oregon though<eos>did you know there's no sales tax in oregon ?<eos>i read that somewhere .
+there,is,sales tax in oregon,negative
+
+personachat-train-002360
+good evening , how was your day ?<eos>hey , good , how was yours ? ready for the weekend ? what plans do you have ?<eos>my day was awful . i really don't like the school i go to .
+speaker1,like,the school speaker1 go to,negative
+
+personachat-train-013884
+it is kind of a struggle for me sometimes as a woman .<eos>yeah ? i am sorry to hear that , do you have any kids ?<eos>no kids . i hope my kids will be as tall as me though .
+speaker1,have,kids,negative
+
+daily_dialogs-train-004610
+It's very nice . I haven't heard live music in a while . This is fun .<eos>Well , then , may I invite you for the next dance ?<eos>Of course . But I'm afraid I'm not much of a dancer ...
+speaker1,heard,live music,negative
+speaker1,am,much of a dancer,negative
+
+daily_dialogs-valid-012859
+Oh , it's a service charge .<eos>But I only have 900 in cash here . Can you let it go for 900 yuan ?<eos>Sorry , but we can't do that . It's store's rule .
+speaker1,can do,that,negative
+
+daily_dialogs-train-006028
+A ETV ? Are you serious ? ETV ?<eos>Yes , why not ? Don ' t you like ETV ?<eos>I don't know . I never went to one .
+speaker1,went to,one,negative
+
+personachat-train-002458
+what kind of hobbies do you like ?<eos>i'm taking swimming lessons . . . didn't learn as a kid . how about you ?<eos>i love music . especially prince , i am also bi lingual i speak english and spanish
+speaker2,learn as,a kid,negative
+
+daily_dialogs-valid-000319
+Then , why didn't you do that ?<eos>I don't know how much we can trust them . Do you have any ideas ?<eos>Some of them , I think , are not good .
+speaker2,know,how much we can trust them,negative
+some of them,are,good,negative
+
+circa-train-002159
+nice ! i'm not good with numbers . i'm good with words and have been published .<eos>want to exchange numbers and stay in touch ?<eos>yes , i would love that .
+speaker1,good with,numbers,negative
+
+personachat-valid-000431
+good for you i wished i was in my thirties .<eos>what type of work do you do ?<eos>i don't work anymore i'm disabled .
+speaker1,do,work,negative
+
+daily_dialogs-train-011676
+Not at all . Go ahead .<eos>Well , you see . I don't like the office . I don't like the staff . and I'm afraid you and I don't get on . So may I put in for a transfer ?<eos>Yes . I'd delighted if you did .
+speaker2,like,the office,negative
+speaker2,like,the staff,negative
+speaker2,get,on,negative
+
+daily_dialogs-train-009169
+not always . i don't always like the person i am on the date with .<eos>why not ?<eos>my date may not be my type .
+speaker1,like,the person speaker1 am on the date with,negative
+speaker1 date,may be,speaker1 's type,negative
+
+daily_dialogs-train-004327
+That sucks .<eos>If he wasn't so lazy , I think I wouldn't have any complaints . He mows the lawn , but can you believe he tried to convince me to do it ?<eos>That's crossing the line .
+speaker2,have,complaints,negative
+he,was,so lazy,negative
+
+daily_dialogs-valid-011146
+Yes , I prefer a more contemporary design .<eos>What kind of color tones do you like ?<eos>Blue , green or earth tone colors . I do not like the colors that are too bright .
+speaker1,like,the colors that are too bright,negative
+
+daily_dialogs-valid-010839
+I quit work whenever I get finished , usually about six o'clock .<eos>Does your work involve a lot of paper filling and typing ?<eos>No , the secretary does this . It's not part of my job .
+it,is,part of speaker1 's job,negative
+
+personachat-train-007062
+that's so cool . i have never been there myself .<eos>i definitely recommend it . what do you like to do for fun ?<eos>i like to play music . it is a passion of mine .
+speaker,been,there,negative
+
+personachat-train-013038
+that's true , these days i feel like i've to compete with every woman .<eos>why ? do you have self esteem issues ?<eos>i never feel good enough , and always feel like everyone is watching me .
+speaker1,feel,good enough,negative
+
+circa-train-014663
+i do too . i try not to spill it on used books at work though<eos>do you ever read books with illustrations ?<eos>yes
+speaker1,try to,spill it on used books,negative
+
+daily_dialogs-valid-004494
+Not much , except that my mother in law is driving me up the wall .<eos>What's the problem ?<eos>She loves to nit pick and criticizes everything that I do . I can never do anything right when she's around .
+speaker1,can do,anything right,negative
+
+personachat-valid-000382
+i broke my arm so i can not drink coffee<eos>oh no . how did you break your arm ? ! ?<eos>i fell off of my skateboard
+speaker1,can,drink coffee,negative
+
+circa-train-033513
+fair enough . i will sometimes stay at a sitdown restaurant<eos>would you prefer a locally owned restaurant ?<eos>it's not important to me .
+it,important to,speaker1,negative
+
+personachat-train-009911
+i do not mind it what are your hobbies<eos>playing d and d . dragons are real , you know . what do you like ?<eos>that is cool i've never played that
+speaker1,played,that,negative
+
+personachat-valid-000162
+i've a weakness for cats and vanilla ice cream .<eos>pretty cool , i love mexican food , can not get enough ! what do you do for fun ?<eos>i collect hats ! i have a collection of 1000 hats !
+speaker2,can get,enough,negative
+
+personachat-valid-000638
+i don't know 2 maybe ?<eos>wow , does it have shell fish in it though ?<eos>no it does not have any fish in it
+it,have,fish,negative
+
+circa-valid-021086
+i'm not the biggest fan of sports but i'm a musician .<eos>are you a fan of live music ?<eos>concerts are too noisy .
+speaker1,am,the biggest fan of sports,negative
+
+personachat-valid-000343
+very well , now that the wife and kiddos are in bed .<eos>do you have a big family ?<eos>we have three kiddos , so there is never any ice cream in the house .
+there,is,ice cream in the house,negative
+
+circa-valid-028929
+i would rather read and write poetry these days though<eos>are you very busy these days ?<eos>yes , i never have enough time .
+speaker1,have,enough time,negative
+
+personachat-train-011396
+i totally mean fish . crap<eos>i lover russian rock and roll . you ?<eos>i've never heard of it .
+speaker1,heard of,it,negative
+
+daily_dialogs-valid-002950
+OK .<eos>I'm sorry but I ordered sole , not the same as the others . Will you change it ?<eos>I'm afraid we have no more sole .
+speaker1,have,sole,negative
+
+circa-train-019265
+neat ! if your company needs interior designing i'm tall and blonde<eos>do you like your company ?<eos>i've never liked working for this company .
+speaker1,liked,working for this company,negative
+
+circa-train-032272
+i would if i were you . if not you can come start a juicing bar<eos>do you ever go hanging out at the local bar ?<eos>drinking is not my cup of tea .
+drinking,is,speaker1 's cup of tea,negative
+
+daily_dialogs-valid-000970
+I'd like to speak to Michael Baker , please .<eos>I'm sorry , Mr . Baker is not in . May I take a message ?<eos>Yes . Tell him Mr . Cook called and ask him to return my call soon as he gets back .
+mr . baker,is,in,negative
+
+circa-train-004691
+really great . just glad that i do not have to work at del taco today<eos>did you drive to work today ?<eos>no , i took the bus .
+speaker1,have to,work at del taco,negative
+
+circa-train-028842
+i am not a club type . i am very wealthy , country clubs are my thing .<eos>do you like clubs ?<eos>they give me a headache .
+speaker1,am,a club type,negative
+
+personachat-train-016229
+i love kevin spacey . my mother and grandmother do too !<eos>i've never heard of him what does he do ?<eos>he's the lead character who plays potus . he's so cool .
+speaker2,heard of,him,negative
+
+daily_dialogs-train-005971
+Do you like surfing ?<eos>I've actually never tried . Do you have a surfboard ?<eos>We've got a few . I can teach you how to surf on Sunday . It'll be fun !
+speaker2,tried,surfing,negative
+
+personachat-train-002332
+yeah that's hard with language barriers . my husbands mother is from spain . .<eos>does she speak english well ?<eos>no she does not speak well .
+she,speak,well,negative
+
+daily_dialogs-valid-005396
+I usually play chess with my friends . But I like playing basketball best .<eos>Do you play basketball well ?<eos>No , I'm not very good at it . I play just for the fun of it .
+speaker1,am,very good at it,negative
+
+personachat-valid-000887
+oh , i just had surgery recently , that was rough<eos>that's not good are you doing ok ?<eos>yes i am doing ok but do feel weird
+that,is,good,negative
+
+personachat-valid-000711
+i am saddened because my career choices are not supported by my family .<eos>i'm sorry to hear that . what do you do for a living ?<eos>i deal watches as my current work .
+speaker1 's career choices,supported by,speaker1 's family
+
+daily_dialogs-train-010611
+Good morning , Doctor !<eos>Good morning , Miss Mandy . How are you today ?<eos>I am not feeling very well . I've got a bad cold .
+speaker1,feeling,very well,negative
+
+personachat-valid-000083
+ugh . i do not think i could live with them .<eos>only when we visit dad they come out . what do you do ?<eos>i am in law school , but i also train horses
+speaker1,could,live with them,negative
+
+personachat-valid-000759
+i like jazz but my best friend and now roommate plays rock all the time<eos>i was born and raised in ohio and have never left . what about you ?<eos>just another blonde hair blue eyed malibu beach kid here !
+speaker2,left,ohio,negative
+
+daily_dialogs-valid-012217
+What do you do ?<eos>I work in a publishing house . How about you ?<eos>Mine isn't hard , but it's not interesting .
+it,is,interesting
+speaker1 's,is,hard
+
+personachat-valid-000299
+i am not saying it was aliens , but it was aliens<eos>the aliens did what to you ?<eos>ask not what your country can do for you , but what you can do for africa
+speaker1,saying,it was aliens,negative
+
+daily_dialogs-train-004981
+Not so bad , but Kevin does have problems with his wife .<eos>What ?<eos>His wife always complained that Kevin's salary was too low and got no promotion .
+kevin,got,promotion,negative
+
+personachat-valid-000937
+my sister pole dances to rock music , but not me !<eos>what do you like to do ?<eos>i liked going to church and riding my tractor , the simple life !
+speaker1,pole dances to,rock music,negative
+
+circa-train-025546
+i am looking for a good horror book<eos>have you been to a book reading lately ?<eos>i've never been to one actually .
+speaker1,been to,one,negative
+
+personachat-train-008295
+wow ! how old are you ? i am seven ! i am short for now .<eos>seven ? ! you must be in first grade then ?<eos>my teacher says i'm not smart . i cannot be in the gifted classes . i like gifts .
+speaker1,am,smart
+speaker1,can be in,the gifted classes,negative
+
+circa-train-002338
+my life revolves around stockpiles , i like to donate to the needy too<eos>have you lived there your whole life ?<eos>i've never seen a reason to leave .
+speaker1,seen,a reason to leave,negative
+
+personachat-train-000577
+his name is sam and he is black<eos>how about we switch with the pets ?<eos>we could do that i do not care
+speaker1,do,care,negative
+
+personachat-train-001079
+not really , i don't hate much .<eos>what do you do for a living ?<eos>i work on a rail road , i let trains do their thing
+speaker1,hate,much,negative
+
+circa-valid-032188
+that's awesome ! ! i've a dog who competes and takes dog agility classes<eos>do you listen to classes musical ?<eos>no , i've never heard of it .
+speaker1,heard of,it,negative
+
+circa-train-023840
+only a few minutes to chat while the red sauce simmers . dinner for 17 !<eos>would you like to have dinner ?<eos>no , i'm not very hungry .
+speaker1,am,very hungry,negative
+
+daily_dialogs-train-002411
+Oh , you can rest assured that they'll be no problem .<eos>Why is that ?<eos>Your upstairs neighbors live in Canada and rarely come back to Taiwan . When they do , they're never home .
+they,are,home,negative
+they,will be,problem,negative
+
+personachat-valid-000550
+hello , do you have any vegan lunch recipes ?<eos>i am too old to cook . what is this vegan you speak of ?<eos>i do not eat anything that has a face , i love animals , especially horses .
+speaker1,eat,anything that has a face,negative
+
+circa-valid-030226
+i like all music . i'm not too fond of really strange jazz , though .<eos>do you like jazz music ?<eos>no
+speaker1,fond of,really strange jazz,negative
+
+personachat-valid-000236
+later this evening , i am sneaking away to catch up in concert . my fav !<eos>never heard of up . is that a musical group ?<eos>a band . semi vacation . my favorite way to spend vacation is at the beach .
+speaker2,heard of,up,negative
+
+personachat-valid-000733
+i am trying . i do a lot of training . four hours every day . are you active ?<eos>i like using superpowers like flying . can you fly ?<eos>that's so cool ! you are a special girl . i can not fly .
+speaker1,can,fly,negative
+
+daily_dialogs-train-012197
+No , I've tried them . But I'm not really a smoker .<eos>Well , what would you like to talk to me about ?<eos>I wanted to set up this meeting with you to discuss a little proposal .
+speaker1,am,a smoker,negative
+
+personachat-train-007528
+no i do not . i'm just a lifeguard .<eos>oh ok ! do you enjoy your job ? being by the water ?<eos>yes . i'm not good at swimming which is a problem sometimes .
+speaker1,good at,swimming,negative
+
+personachat-valid-000396
+where are you from ? not knowing the hula and all .<eos>i am from macedonia but i am living in usa for over 10 years . what about you ?<eos>i have always lived in the us . kind of boring story .
+speaker2,knowing,the hula,negative
+
+daily_dialogs-train-003995
+Professor , I will not be here for our next class meeting .<eos>Is this absolutely necessary ?<eos>I tried to work something out , but I really do have to miss one class .
+speaker1,be here for,speaker1 's next class meeting,negative
+
+circa-valid-026874
+we never had a television in my youth . keep you focused on your studies .<eos>are your studies going well ?<eos>yes
+speaker1,had,a television in speaker1 's youth,negative
+
+personachat-valid-000144
+do you like the movie frozen ?<eos>i have never seen it before . what is it about ?<eos>2 girls . there is a lot of singing and i know all the words .
+speaker2,seen,it,negative
+
+circa-valid-005050
+fish ! that sounds like a pet , do you have any pets , i've a dog , a weimaraner<eos>do you have any pet ?<eos>no , i am not responsible enough .
+speaker1,am,responsible enough,negative
+
+daily_dialogs-train-002215
+Promise you are not going to be angry ?<eos>Yes , all right . So why ? Go on then . Say it . Oh , really , Mark . I promise I'm not going to be angry . Now why were you late ?<eos>I forgot .
+speaker2,going to be,angry,negative
+
+personachat-train-008835
+over all my health is excellent though<eos>wonderful . do you have any pets ?<eos>no i do not have any pets , i'd not have time with all these grand kids
+speaker1,have,pets,negative
+speaker1,have,time,negative

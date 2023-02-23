@@ -12,7 +12,6 @@ from collections import defaultdict
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
-
 def load_golden_triples(filepath):
     """
     :param filepath: path to the test file with gold standard

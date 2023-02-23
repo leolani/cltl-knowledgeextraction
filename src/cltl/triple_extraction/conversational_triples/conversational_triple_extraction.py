@@ -107,7 +107,7 @@ class AlbertTripleExtractor:
 
 
 if __name__ == '__main__':
-    model = AlbertTripleExtractor(path='models/2022-04-27', speaker1="HUMAN", speaker2="LEOLANI")
+    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27', speaker1="HUMAN", speaker2="LEOLANI")
 
     # Test!
     example = "I went to the new university. It was great! <eos> I like studying too and learning. You? <eos> No, hate it!"

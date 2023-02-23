@@ -1,0 +1,411 @@
+circa-valid-022862
+i do work ! i waitress during the day , then i do side jobs during the evening .<eos>will you be watching that new drama this evening ?<eos>i do not have any time to start a new series today
+speaker1,watching,that new drama,negative
+
+circa-valid-025978
+hey ! ! so i have a house warming party for my new apartment with my buddy tomorrow !<eos>are you ok with party noises ?<eos>i hate them .
+speaker1,ok with,party noises,negative
+
+circa-train-022004
+drawing is cool but i prefer the guitar<eos>did you ever play the guitar ?<eos>not my thing .
+speaker1,play,the guitar,negative
+
+circa-valid-029428
+ok . since alabama , my home team , won saturday night .<eos>want to go out on saturday night for a meal ?<eos>i already made plans .
+speaker1,want to,go out,negative
+
+circa-train-003843
+nah don't have time for much , my job wife and kids keep me busy ! that's cool though<eos>did you enjoy your time as a bus driver before your current job ?<eos>that job was awful .
+speaker1,enjoy,speaker1 's time as a bus driver,negative
+
+circa-train-004820
+yeah i do . i ride to starbucks and hang there . then antique stores<eos>do you want a ride home ?<eos>i'm good .
+speaker1,want,a ride home,negative
+
+circa-valid-022793
+i am currently a cleaning lady and do alot of work in the city .<eos>are you new to the city ?<eos>i've lived here all my life .
+speaker1,new to,the city,negative
+
+circa-train-002074
+yup been to new york city 3 times this year<eos>do you want to live in new york city ?<eos>the city is too busy and loud
+speaker1,want to,live in new york city,negative
+
+circa-train-017602
+weekends to do homework i am sure whilst i listen to muse . my favorite<eos>do you like to spend your weekends at home ?<eos>i prefer my home over any other place .
+speaker1,like to,spend speaker1 's weekends at home,negative
+
+circa-train-010889
+that kind of work does take creativity . i am not that fortunate .<eos>does your work require creativity ?<eos>it's mostly busywork .
+speaker1 's work,require,creativity,negative
+
+circa-train-021708
+thanks . i'll try to check it out . i hope you have a good day<eos>did you have a good day ?<eos>my day was annoying .
+speaker1,have,a good day,negative
+
+circa-train-023090
+i try to avoid sugar and eat a somewhat balanced diet . that sounds good !<eos>do you have any special diet ?<eos>i can eat anything .
+speaker1,have,special diet,negative
+
+circa-valid-024302
+wow ! that many kids wouldn't fit in my honda civic .<eos>have any kids yet ?<eos>i decided to not have any .
+speaker1,have,kids,negative
+
+circa-valid-005540
+oh okay well that is good you open about it some people are not<eos>do you like working with a large number of people ?<eos>i'm quite an introvert so it's very difficult .
+speaker1,like,working with a large number of people,negative
+
+circa-train-017699
+i had so much fun at the debutante ball this last weekend<eos>can i join you this weekend ?<eos>unfortunately i am busy
+speaker2,can join,speaker1,negative
+
+circa-train-023464
+sorry to hear that ! i like festivals and music !<eos>have you ever been a big music festival ?<eos>only in my dreams .
+speaker1,been,a big music festival,negative
+
+circa-train-017965
+i don't have any children .<eos>you have any children ?<eos>not yet .
+speaker1,have,children,negative
+
+circa-valid-021242
+maybe next weekend will have better movies<eos>are you watching a movie this weekend ?<eos>i have too much extra work to do .
+speaker1,watching,a movie,negative
+
+circa-valid-027528
+i'm watching my fave movie star wars .<eos>have you seen the new star wars movie yet ?<eos>i'm not a fan of star wars
+speaker1,seen,the new star wars movie,negative
+
+circa-train-014432
+nice the only cardio i get is my nerdy sci fi space games though .<eos>do you need space to park a car ?<eos>i'll be selling my car before i move .
+speaker1,need,space to park a car,negative
+
+circa-train-006962
+cool . i just returned from nyc . i spent a whole day at the met .<eos>did you see the last exhibit at the met ?<eos>i often wish i had .
+speaker1,see,the last exhibit at the met,negative
+
+circa-train-019236
+i work at a doctors office . it is so boring .<eos>did you get your new office ?<eos>i'm still in the same spot .
+speaker1,get,speaker1 's new office
+
+circa-train-030088
+nice i only eat vegan foods .<eos>have you tried different ethnic foods ?<eos>i stick with my same two foods .
+speaker1,tried,different ethnic foods,negative
+
+annotated_circa-003421
+i might , but my bad math skills won't help me in this city .<eos>are you from this city ?<eos>am from another state
+speaker1,am from,this city,negative
+
+annotated_circa-000246
+i might , but my bad math skills won't help me in this city .<eos>were you born in this city ?<eos>sorry , canada .
+speaker1,born in,this city,negative
+
+annotated_circa-000250
+that is nice how mant kids do you have<eos>do you have kids ?<eos>a dog .
+speaker1,have,kids,negative
+
+annotated_circa-003860
+i am listening to heavy metal with my fiancee , who i met in high school .<eos>do you like heavy metal ?<eos>other styles .
+speaker1,like,heavy metal,negative
+
+annotated_circa-000957
+i like to paint walls , working on a blue room now<eos>do you have a laundry room ?<eos>i wish , will have to use a laundromat .
+speaker1,have,a laundry room,negative
+
+annotated_circa-003647
+i like a crime novels through stories<eos>do you prefer short stories over novels ?<eos>i like the longer story .
+speaker1,prefer,short stories,negative
+
+annotated_circa-003202
+nice i have a car that's super lame but it was free<eos>do you have a car ?<eos>only a bike .
+speaker1,have,a car,negative
+
+annotated_circa-000037
+jazz is nice , i like all music except country .<eos>are you into jazz ?<eos>nope , i'm not not into jazz music .
+speaker1,are into,jazz,negative
+
+annotated_circa-003659
+oh nice ! my favorite musician is a banjo player from there . . i love weird music haha<eos>are you a musician ?<eos>i'm a painter .
+speaker1,are,a musician,negative
+
+annotated_circa-001796
+you sound adventurous . i like adventure , especially traveling to new place .<eos>do you like adventure ?<eos>sedate activities .
+speaker1,like,adventure,negative
+
+annotated_circa-003258
+good , i am pet sitting a dog right now for my neighbor .<eos>do you have a dog ?<eos>three cats .
+speaker1,have,a dog,negative
+
+annotated_circa-001758
+yea football . but i am not good at it<eos>do you like to watch football ?<eos>nah , do n't football
+speaker1,like to,watch football,negative
+
+annotated_circa-002296
+i feel you . you should join me then for the journey .<eos>are you tired from your journey ?<eos>ready to go dancing .
+speaker1,tired from,speaker1 's journey,negative
+
+annotated_circa-003841
+i like country music the most but jazz and hip hop are cool too<eos>do you like hip hop r&b music ?<eos>prefer classical .
+speaker1,like,hip hop r b music,negative
+
+annotated_circa-001438
+i do enjoy music , i'm a film maker . i use a lot of music .<eos>do you listen to a lot of music ?<eos>nah , the same two albums .
+speaker1,listen to,a lot of music,negative
+
+annotated_circa-001417
+its hard for us to watch tv because of the area we stay in .<eos>do you have a favorite restaurant in the area ?<eos>have n't had a chance to try any yet .
+speaker1,have,a favorite restaurant in the area,negative
+
+annotated_circa-001275
+i am an only child , my husband works late .<eos>is this your child ?<eos>is my niece .
+this,is,speaker1 's child,negative
+
+annotated_circa-003355
+i love harry potter ! my last dog was sirius .<eos>do you like harry potter ?<eos>nope , prefer the chronicles of narnia .
+speaker1,like,harry potter,negative
+
+annotated_circa-002002
+nah , lots of tough short people . i'm 5 2 and have won every fight<eos>do you like a place with lots of people and activity ?<eos>silence .
+speaker1,like,a place with lots of people and activity,negative
+
+annotated_circa-001964
+hey there ! i just got back from my favorite sushi bar<eos>did you enjoy the sushi bar ?<eos>i don't eat the raw fish .
+speaker1,enjoy,the sushi bar,negative
+
+annotated_circa-002780
+good , i am pet sitting a dog right now for my neighbor .<eos>do you have a dog<eos>two cats .
+speaker1,have,a dog,negative
+
+annotated_circa-002196
+hello ! i've been eating sushi today . i love it !<eos>are you interested in sushi today ?<eos>not a big fan of it
+speaker1,interested in,sushi,negative
+
+annotated_circa-002353
+i work at a party store in town .<eos>is it in a good part of town ?<eos>it's in a bad area .
+it,is in,a good part of town,negative
+
+annotated_circa-002930
+i'm sorry to hear that , i live in a pretty hipster neighborhood .<eos>have you seen anyone else from the old neighborhood ?<eos>haven't seen anyone
+speaker1,seen,anyone else from the old neighborhood,negative
+
+annotated_circa-002571
+i might , but my bad math skills won't help me in this city .<eos>were you born in this city ?<eos>was born in the countryside
+speaker1,born in,this city,negative
+
+annotated_circa-001496
+yea football . but i am not good at it<eos>do you like football ?<eos>honestly more a baseball fan.
+speaker1,like,football,negative
+
+annotated_circa-002412
+hi , just relaxing . pondering my diet . i want to switch to vegetarian<eos>are you a vegetarian ?<eos>the opposite of a vegetarian .
+speaker1,are,a vegetarian,negative
+
+annotated_circa-003757
+i am listening to heavy metal with my fiancee , who i met in high school .<eos>do you enjoy heavy metal ?<eos>prefer something lighter .
+speaker1,enjoy,heavy metal,negative
+
+annotated_circa-001533
+every weekend he has to watch a movie for harry potter<eos>hey are you seeing that new movie this weekend ?<eos>saw it last weekend .
+speaker1,seeing,that new movie,negative
+
+annotated_circa-003634
+she's sick a lot , i think the neighborhood we live in doesn't help her mood either .<eos>does the neighborhood have a good reputation ?<eos>a rough reputation .
+the neighborhood,have,a good reputation,negative
+
+annotated_circa-003187
+i ride everywhere . to the factory , to jazz concerts . . .<eos>do you like jazz concerts ?<eos>prefer rock concerts .
+speaker1,like,jazz concerts,negative
+
+annotated_circa-002345
+lizards are awesome . i have only three good friends and my lizard .<eos>do you still see our old friends ?<eos>don't see anyone anymore
+speaker1,see,speaker2 's old friends,negative
+
+annotated_circa-002328
+yeah i try to go fishing on the weekend to wind down<eos>are you interested in fishing this weekend ?<eos>not a fisherman .
+speaker1,interested in,fishing,negative
+
+annotated_circa-002601
+i like science fiction and mystery<eos>do you prefer fiction ?<eos>prefer non fiction
+speaker1,prefer,fiction,negative
+
+annotated_circa-003377
+not all fish is bad tuna steaks are good eats !<eos>do you enjoy eating steaks ?<eos>prefer chicken
+speaker1,enjoy,eating steaks,negative
+
+annotated_circa-002425
+a travel agent best friend is serious business for the traveler . best deals !<eos>are you a traveler ?<eos>i'm a homebody .
+speaker1,am,a traveler,negative
+
+annotated_circa-001590
+i bet they are a lot of work ! i don't have any children yet , maybe one day !<eos>do you have any children ?<eos>haven't had time .
+speaker1,have,children,negative
+
+annotated_circa-002245
+oh , politics . some days i love them others i hate them .<eos>are you interested in politics ?<eos>i'm not a political person .
+speaker1,interested in,politics,negative
+
+annotated_circa-003844
+i actually lived in austin for two years . i was a plumber . made good money .<eos>are you from austin ?<eos>california .
+speaker1,are from,austin,negative
+
+annotated_circa-003987
+i might , but my bad math skills won't help me in this city .<eos>were you born in this city ?<eos>was born in another state .
+speaker1,born in,this city,negative
+
+annotated_circa-003602
+i work at holocaust history museums .<eos>would you like to learn more about history ?<eos>would like another subject
+speaker1,like to,learn more about history,negative
+
+annotated_circa-002962
+hi , just relaxing . pondering my diet . i want to switch to vegetarian<eos>are you a vegetarian ?<eos>actually , a pescatarian .
+speaker1,are,a vegetarian,negative
+
+annotated_circa-001228
+not yet but in time i will be<eos>is it time to relax ?<eos>nah , time to party .
+it,is,time to relax,negative
+
+annotated_circa-002391
+i am all country . the music , the farm , pigs , horses , hens and i am a vegan .<eos>are you vegan ?<eos>never was one
+speaker1,are,vegan,negative
+
+annotated_circa-003237
+i have problems at concerts as i forget to eat , which is bad for my diabetes .<eos>do you like concerts ?<eos>prefer other activities .
+speaker1,like,concerts,negative
+
+annotated_circa-003783
+that's okay , i wish i went to a better school . this neighborhood is bad<eos>did you grow up in this neighborhood ?<eos>grew up in a different part of town .
+speaker1,grow up in,this neighborhood,negative
+
+annotated_circa-000400
+ll , i like romance novels .<eos>are you a big fan of romance novels ?<eos>more into science fiction .
+speaker1,are,a big fan of romance novels,negative
+
+annotated_circa-002605
+cool , i like live music , especially the story so far , my favorite band .<eos>do you like to see live music ?<eos>prefer a record player .
+speaker1,like to,see live music,negative
+
+annotated_circa-002030
+i love watching disney movies !<eos>have you watched disney movies ?<eos>don't like kids films .
+speaker1,watched,disney movies,negative
+
+annotated_circa-000715
+hello ! i just got done taking my daily blood sugar level . yuck !<eos>would you like a lower level flat ?<eos>nah , prefer upper level
+speaker1,like,a lower level flat,negative
+
+annotated_circa-000555
+awesome ! , for continued living i only need food and water !<eos>are you any good at water volleyball ?<eos>nope , am terrible at treading water .
+speaker1,are,good at water volleyball,negative
+
+annotated_circa-000094
+that must be hard , i work with vets as a tech<eos>do you work in tech ?<eos>the publishing industry .
+speaker1,work in,tech,negative
+
+annotated_circa-000167
+that must be hard , i work with vets as a tech<eos>are you happy at work ?<eos>nope , i'm very unhappy in my job .
+speaker1,are,happy at work,negative
+
+annotated_circa-002101
+we just cut out most of the meat in our diet . it is good<eos>are you a fan of meat ?<eos>i'm a vegan .
+speaker1,are,a fan of meat,negative
+
+annotated_circa-003445
+electric guitars rock . it keeps my mind right<eos>do you like electric guitars ?<eos>prefer acoustic .
+speaker1,like,electric guitars,negative
+
+annotated_circa-002805
+i am all country . the music , the farm , pigs , horses , hens and i am a vegan .<eos>are you vegan ?<eos>'m a devoted meat eater .
+speaker1,are,vegan,negative
+
+annotated_circa-000742
+i actually lived in austin for two years . i was a plumber . made good money .<eos>are you from austin ?<eos>houston actually .
+speaker1,are from,austin,negative
+
+annotated_circa-002057
+i enjoy taking care of my children .<eos>do you have children ?<eos>only have dogs .
+speaker1,have,children,negative
+
+annotated_circa-002308
+i love classical music but will listen to anything i even love the voice<eos>do you like classical music ?<eos>country music .
+speaker1,like,classical music,negative
+
+annotated_circa-001929
+i really love ponies , though . i draw them all the time , all over my books !<eos>would you prefer hardback books ?<eos>nope , prefer paperbacks .
+speaker1,prefer,hardback books,negative
+
+annotated_circa-003335
+that's okay , i wish i went to a better school . this neighborhood is bad<eos>did you grow up in this neighborhood ?<eos>nope , grew up in cleveland .
+speaker1,grow up in,this neighborhood,negative
+
+annotated_circa-001539
+yea football . but i am not good at it<eos>do you like football ?<eos>prefer soccer .
+speaker1,like,football,negative
+
+annotated_circa-003966
+i love pizza ! it goes great with imported beers .<eos>do you like beer with your pizza ?<eos>cola .
+speaker1,like,beer with speaker1 's pizza,negative
+
+annotated_circa-003418
+that is nice how mant kids do you have<eos>do you have kids ?<eos>a daughter but she died .
+speaker1,have,kids,negative
+
+annotated_circa-002206
+i mainly write fiction novels .<eos>do you like science fiction novels ?<eos>nah , everyday settings .
+speaker1,like,science fiction novels,negative
+
+annotated_circa-003370
+heck yeah ! part of why i planned the trip ! saved up<eos>was the trip okay ?<eos>it was an absolute nightmare .
+the trip,was,okay,negative
+
+annotated_circa-002341
+i live in providence and work at a publishing building downtown .<eos>do you like downtown ?<eos>prefer the country .
+speaker1,like,downtown,negative
+
+annotated_circa-001754
+at my job . i fell off the top floor and dislodged two disc<eos>is it on the top floor ?<eos>the first floor .
+it,is on,the top floor,negative
+
+annotated_circa-000694
+new york is a good place to run 2 miles every day i run<eos>did you grow up in new york ?<eos>maine .
+speaker1,grow up in,new york,negative
+
+annotated_circa-000472
+i prefer american food living on the east coast of the us .<eos>did you move from the east coast ?<eos>the west
+speaker1,move from,the east coast,negative
+
+annotated_circa-002025
+i live in providence and work at a publishing building downtown .<eos>would you like a large building ?<eos>prefer smaller buildings .
+speaker1,like,a large building,negative
+
+annotated_circa-001401
+well my mom was a music teacher .<eos>did you become a teacher ?<eos>became a lawyer .
+speaker1,become,a teacher,negative
+
+annotated_circa-003921
+nice i have a car that's super lame but it was free<eos>do you have a car ?<eos>don't have a car .
+speaker1,have,a car,negative
+
+annotated_circa-002095
+good , i am pet sitting a dog right now for my neighbor .<eos>do you have a dog ?<eos>only have a cat
+speaker1,have,a dog,negative
+
+annotated_circa-002720
+oh i am too scared to read horror books !<eos>are you a fan of horror books ?<eos>too scared to read horror .
+speaker1,are,a fan of horror books,negative
+
+annotated_circa-002679
+jazz is nice , i like all music except country .<eos>are you a jazz buff ?<eos>i'm not a fan of jazz
+speaker1,are,a jazz buff,negative
+
+annotated_circa-003478
+i like playing stringed instruments a lot !<eos>do you play any wind or string instruments ?<eos>only drums .
+speaker1,play,string instruments,negative
+
+annotated_circa-002582
+i like fantasy but it can limit your friendships . i also like dr . pepper !<eos>are you a fantasy fan ?<eos>too realistic .
+speaker1,are,a fantasy fan,negative
+
+annotated_circa-000188
+jazz is nice , i like all music except country .<eos>do you listen to jazz ?<eos>only pop music .
+speaker1,listen to,jazz,negative
+
+annotated_circa-001507
+good , just got back from a run<eos>would you like to join me for a run sometime ?<eos>i only go solo .
+speaker1,like to,join speaker2 for a run,negative
