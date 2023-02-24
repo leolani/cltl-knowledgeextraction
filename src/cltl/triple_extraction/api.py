@@ -23,8 +23,8 @@ class Chat(object):
         """
 
         self._id = getrandbits(8)
-        self._speaker = str(speaker)
-        self._agent = str(agent)
+        self._speaker = str(speaker) # self._agent1
+        self._agent = str(agent)     #self._agent2
         self._utterances = []
 
         self._log = self._update_logger()
@@ -97,7 +97,7 @@ class Chat(object):
         """
         return self._utterances[-1]
 
-    def add_utterance(self, transcript):
+    def add_utterance(self, transcript, utterance_speaker=None):
         # type: (str) -> Utterance
         """
         Add Utterance to Conversation
@@ -110,9 +110,11 @@ class Chat(object):
         -------
         utterance: Utterance
         """
-        utterance = Utterance(self, transcript, len(self._utterances))
-        utterance._chat_speaker = self._speaker
-        utterance._chat_agent = self._agent
+        utterance = Utterance(self, transcript, len(self._utterances), utterance_speaker)
+
+        #@TODO we do not know who the speaker is
+        #utterance._chat_speaker = self._speaker
+        #utterance._chat_agent = self._agent
         self._utterances.append(utterance)
 
         self._log = self._update_logger()
@@ -126,9 +128,8 @@ class Chat(object):
     def __repr__(self):
         return "\n".join([str(utterance) for utterance in self._utterances])
 
-
 class Utterance(object):
-    def __init__(self, chat, transcript, turn):
+    def __init__(self, chat, transcript, turn, utterance_speaker = None):
         # type: (Chat, str, int) -> Utterance
         """
         Construct Utterance Object
@@ -146,7 +147,10 @@ class Utterance(object):
         self._log = logger.getChild(self.__class__.__name__)
 
         self._chat = chat
-        self._chat_speaker = chat._speaker
+        self._utterance_speaker  = utterance_speaker
+        #@WARNING This information duplicate the chat information and _chat_speaker is not necesarily the speaker of the utterance.
+        # Use _utterance_speaker to store the speaker or source of the utterance
+        self._chat_speaker = chat._speaker #superfluous with information with chat
         self._chat_agent = chat._agent
         self._turn = turn
         self._datetime = datetime.now()
@@ -167,6 +171,17 @@ class Utterance(object):
             Utterance Chat
         """
         return self._chat
+
+    @property
+    def utterance_speaker(self):
+        # type () -> str
+        """
+        Returns
+        --------
+        speaker: str
+            Name of the speaker of the utterance (not to confuse with the chat_speaker)
+        """
+        return self.utterance_speaker
 
     @property
     def chat_speaker(self):

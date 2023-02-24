@@ -88,10 +88,16 @@ class TripleExtractionService:
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
-        self._chat.add_utterance(event.payload.signal.text)
+        source = None
+        for mention in event.payload.signal.mentions:
+            for annotation in mention.annotations:
+                if annotation.type == "ConversationalAgent":
+                    source = annotation.value
+
+        self._chat.add_utterance(event.payload.signal.text, source)
 
         if event.metadata.topic == self._agent_topic:
-            # Don robot utterances to the chat
+            # Done robot utterances to the chat
             return
 
         self._extractor.analyze_in_context(self._chat)
@@ -162,6 +168,7 @@ class TripleExtractionService:
         triple['predicate'].update(uri)
         triple['object'].update(uri)
 
+    #@TODO check if this needs to be the TextSignal source
     def _get_author(self):
         return {
             "label": self._speaker.name if self._speaker and self._speaker.name else self._chat.speaker,

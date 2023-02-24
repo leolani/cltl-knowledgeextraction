@@ -172,7 +172,7 @@ if __name__ == "__main__":
     model = "/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27"
     analyzer = ConversationalAnalyzer(model)
     all_test_files = [
-        "./data/conversation_test_examples/test_answer_ellipsis.txt",
+        "./data/conversation_test_examples/test_answer_ellipsis.txt.error.txt",
         # "./data/conversation_test_examples/test_coordination.txt",
         # "./data/conversation_test_examples/test_coreference.txt",
         # "./data/conversation_test_examples/test_declarative_statements.txt",
