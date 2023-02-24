@@ -1,0 +1,332 @@
+accepts,I,get,your photo
+accepts,you,receive,the invitation
+accepts,he,accepted,your request
+accepts,Alice,got,the memo
+accepts,I,got,a gift from Peter
+
+appears,I,appear,angry
+appears,he,looks,out of place
+appears,you,seem to,enjoy that
+appears,Allison,seemed to,learn fast
+appears,I,seem,interested
+
+is_easier_than,geography,is much easier than,maths
+is_easier_than,walking,is easier than,running
+is_easier_than,dogs,are easier than,kids
+
+become,I,am getting,tired
+become,he,getting,older
+become,Mike,gets,frustrated
+become,I,become,agitated
+become,you,became,a monster
+
+buys,I,bought,a new car
+buys,you,will get,stocks
+buys,she,will buy herself,an expensive dress
+buys,he,buys,a pair of shoes
+buys,Miranda,bought for,her dog
+buys,I,will get,some snacks
+
+costs,it,costs,100 euros
+costs,it,is,ten pesos
+costs,the car,costs,a lot of money
+costs,it,is,pricey
+costs,that,costs,2 dollars
+costs,our product,is,10 dollars
+costs,that,will be,1 euro and 40 cents
+
+completed,I,finished,my homework
+completed,he,is done,cleaning his desk
+completed,Mike,completed,all tasks
+completed,I,will complete,everything
+completed,you,did,tasks
+
+cuddles,I,hug,my dog
+cuddles,you,cuddle,your wife
+cuddles,she,hugs,her blanket
+cuddles,Mike,cuddles up with,his kid
+cuddles,I,snuggle with,my pillow
+
+dislikes,I,dislike,Mike
+dislikes,he,despises,his mother in law
+dislikes,Mike,hates,cooking
+dislikes,I,dislike,crowded parties
+dislikes,I,hate,those
+
+does,I,do,my chores
+does,he,does,Pilates
+does,she,is up to,watching a movie
+does,Allison,is up to,planning a sleepover
+does,he,can do,the dishes
+does,I,can do,belly dancing
+does,I,go,hiking
+does,I,have been,studying
+does,I,been,partying at night
+does,you,went,climbing
+does,Mark,went,shopping
+
+entertains,I,entertain,myself
+entertains,he,entertains,his cousin
+entertains,the dancer,entertains,the visitors
+entertains,the robot,engages,its users
+entertains,the clown,amuses,the children
+
+feels,I,feel,amazing
+feels,I,am,great
+feels,he,feels,horribly bad
+feels,I,feel like,a king
+feels,Jessica,is doing,alright
+feels,you,are,nauseous
+feels,you,are feeling,fantastic
+
+gives,I,gave,a gift
+gives,I,offered,my condolences
+gives,you,give away,it
+gives,I,gifted,my new car
+gives,I,give,kisses
+
+happens,it,happens on,the 2nd of the month
+happens,the holiday,is on,the 5th
+happens,the parade,occurs on,the street
+happens,it,happens,next week
+happens,the event,takes place,son
+
+# possession / ownership (have.v.04)
+has,I,have,a new car
+has,I,own,a pony
+has,I,got,a sweet new speaker
+has,Mike,has,a brand-new desk
+has,you,have,a large house
+has,she,owns,a cat
+has,I,can have,another coffee
+has,you,have,a lot of money
+has,Alice,has got,a laptop
+has,I,have,two dogs
+
+# does not designate possession (have.v.01; a more abstract 'have')
+has_abstract,he,has,a great idea
+has_abstract,I,have,two kids
+has_abstract,you,have,a son
+has_abstract,she,got,a baby
+has_abstract,I,have,many friends
+has_abstract,I,can have,the day off
+has_abstract,Mike,has,a headache
+has_abstract,I,got,a surprise
+has_abstract,she,have,some time off
+has_abstract,you,got,a lot of time
+has_abstract,we,have,time left
+
+hears,I,heard,the album
+hears,you,heard,the story
+hears,she,heard about,the break-up
+hears,I,listen to,music
+hears,Mike,heard,the chirping of birds
+hears,I,hear,a barking dog
+
+helps,I,help,my neighbor
+helps,you,help,yourself
+helps,he,helps,the woman cross the street
+helps,she,helps out,her mom
+helps,Mike,helps,his children
+helps,you,helping to,move those boxes
+helps,I,can help,you
+
+impresses,he,impresses,Mike
+impresses,she,impressed,me
+impressed,I,impressed,my employer
+
+# (be.v.01; the quality of being)
+is,I,am,tired
+is,I,am,very fast
+is,he,is,a vegan
+is,the man,is,married
+is,I,am,divorced
+is,she,is,very talented
+is,I,am,a person
+is,Leo,is,very wealthy
+is,my dog,is,hairy
+is,I,am,sweet
+is,it,going to be,a rough day
+is,you,are,saddened by the news
+is,you,are,beautiful
+is,Arnold,stays,calm
+is,it,is,a real game changer
+is,this,is,fantastic
+is,my house,is,large
+is,I,am,24
+is,Jessica,is,a sweet person
+
+# location or abstract area (be.v.04)
+is_at,I,am at,the studio
+is_at,I,am at,home
+is_at,I,am at,the university
+is_at,he,'s close to,the store
+is_at,we,stay at,a hotel
+is_at,I,stays in,the house
+is_at,Michael,is over at, the supermarket
+is_at,we,are on,the corner of the street
+is_at,Johnny,is on,sixth avenue
+is_at,we,are at,the train station
+is_at,Kayleigh,is,there
+
+is_identical_to,he,is,the president of the USA
+is_identical_to,I,am,the ceo of a big company
+is_identical_to,I,am,Thomas
+is_identical_to,you,are,Jessica
+is_identical_to,the song,is,my favorite
+is_identical_to,my favorite,is,that movie
+is_identical_to,that,is,my child
+is_identical_to,pop songs,are,my favorite genre
+
+is_part_of,I,am part of,a band
+is_part_of,a wheel,is part of, a car
+is_part_of,he,is in,a volleyball team
+is_part_of,that,is part of,the plan
+is_part_of,she,is in,the debate club
+
+is_from,I,am from,Amsterdam
+is_from,you,come from,Paris
+is_from,he,is from,Philadelphia
+is_from,I,grew up in,the big city
+is_from,we,are from,central America
+is_from,james,came from,illinois
+is_from,I,originate from,Asia
+
+knows,I,know,Michael
+knows,Michael,knows,me
+knows,I,met,the singer
+knows,I,am aware of,that fact
+knows,she,knows,that song
+knows,you,know,my best friend
+knows,you,have met,my cousin
+
+learns,I,learn to,play the piano
+learns,I,am learning,maths
+learns,I,am studying for,Spanish
+learns,he,studies,Chinese
+learns,I,learn,the salsa
+
+likes,I,like,football
+likes,I,enjoy,watching a movie
+likes,I,am fond of,horses
+likes,we,are into,documentaries
+likes,I,like to,get some food
+likes,he,likes to,play games
+likes,I,like to,travel to other cities
+likes,she,enjoys,horse riding
+likes,Jim,likes,animals
+likes,I,love,dancing to music
+likes,I,am into,swimming
+likes,you,love,fluffy things
+
+lives_in,I,am in,Colorado
+lives_in,I,live in,Germany
+lives_in,I,stay in,Amsterdam
+lives_in,Mike,lives in,Austria
+lives_in,he,lives at,his parent's house
+lives_in,I,'m in,New York
+lives_in,she,lives on,Antarctica
+lives_in,you,reside in,Paris
+
+plays,I,play,the violin
+plays,I,do,soccer
+plays,Selene,is playing,sports
+plays,I,can play,the piano
+plays,he,often plays,games
+plays,Jim,often plays,arcade games
+
+says,I,said,the earth is round
+says,Mike,said,stop
+says,you,said,that
+says,She,said,hello
+
+goes_to,I,went to,Las Vegas
+goes_to,I,visited,Germany
+goes_to,I,went to,that city
+goes_to,I,get to,the train station
+goes_to,Eliza,drives to,her appointment
+goes_to,Mike,travelled to,a lot of places
+goes_to,she,travels to,an uninhabited island
+goes_to,you,went,Canada
+goes_to,I,go to,the store
+goes_to,I,will go to,the theatre
+goes_to,I,went_to,a dance event
+goes_to,we,go to,Ibiza
+
+tries,I,tried,that
+tries,he,tried,chilli peppers
+tries,she,tried,skydiving
+tries,we,tried to,make it work
+tries,I,tried to,help
+tries,I,attempted to,play the piano
+
+used_to,I,used to,work for this company
+used_to,I,used to, play video games
+used_to,he,used to,have cats
+used_to,she,was,playing cards
+
+wants,I,want,a cat
+wants,I,want to,play video games
+wants,you,desire,a new career
+wants,he,wants,a girlfriend
+wants,Jimmy,wishes,a new chair
+wants,I,want to,do the dishes
+wants,she,would like,some time off
+wants,Mike,would love,a friend
+wants,Erica,wants to,go to the zoo
+
+watches,I,watch,my favorite movie
+watches,you,are watching,a documentary
+watches,I,am looking after,my children
+watches,she,sees,people
+watches,you,look at,the screen
+
+wears,I,am wearing,a new dress
+wears,you,wear,green pants
+wears,she,was dressed in,a gown
+wears,he,is wearing,a new watch
+wears,she,wears,a skirt
+wears,I,put on,pyjamas
+
+# (work.v.01; exert oneself by doing mental or physical work for a purpose or out of necessity)
+works,I,work,part-time
+works,I,work,so much
+works,I,work,hard
+works,he,works,the land
+works,she,works,her butt off
+
+works_in,I,work in,archaeology
+works_in,he,works in,the industry
+works_in,she,works in,customer service
+works_in,you,work in,the field of artificial intelligence
+
+works_as,I,am,a gardener
+works_as,I,am,a servant
+works_as,I,work as,an engineer
+works_as,she,works as,a hostess
+works_as,he,is,a farmer
+works_as,Mike,is,a salesperson
+works_as,Andrea,is,a pilot
+
+works_with,I,work with,animals
+works_with,I,work with,my cousin
+works_with,you,work with,Microsoft
+works_with,she,works with,heavy machinery
+works_with,Jimmy,works_with,his hands
+
+makes,I,make,pasta
+makes,I,create,art
+makes,he,designs,architecture
+makes,she,constructs,a system
+makes,he,makes,food
+
+teaches,I,teach,English
+teaches,I,teach at,a school
+teaches,I,educate,children
+teaches,he,does teach,languages
+teaches,she,teaches,astronomy
+
+sells,I,sell,a great product
+sells,I,will sell,my soul
+sells,he,sold,his car
+sells,we,sell,many products
