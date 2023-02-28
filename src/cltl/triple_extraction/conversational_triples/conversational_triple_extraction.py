@@ -11,7 +11,7 @@ import spacy
 
 
 class AlbertTripleExtractor:
-    def __init__(self, path, base_model='albert-base-v2', sep='<eos>', speaker1='speaker1', speaker2='speaker2'):
+    def __init__(self, path, base_model='albert-base-v2', sep='<eos>'):
         """ Constructor of the Albert-based Triple Extraction Pipeline.
 
         :param path:       path to savefile
@@ -26,10 +26,6 @@ class AlbertTripleExtractor:
         self._post_processor = PostProcessor()
         self._nlp = spacy.load('en_core_web_sm')
         self._sep = sep
-
-        # Assign identities to speakers
-        self._speaker1 = speaker1
-        self._speaker2 = speaker2
 
     @property
     def name(self):
@@ -54,10 +50,11 @@ class AlbertTripleExtractor:
                 tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + ['<eos>']
         return tokens
 
-    def extract_triples(self, dialog, post_process=True, batch_size=32, verbose=False):
+    def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
         """
-
         :param dialog:       separator-delimited dialogue
+        :param speaker1:       speaker of odd turns
+        :param speaker2:       speaker of even turns
         :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
         :param batch_size:   If a lot of possible triples exist, batch up processing
         :param verbose:      whether to print messages (True) or be silent (False) (default: False)
@@ -93,9 +90,9 @@ class AlbertTripleExtractor:
             ent = max(y_hat[1], y_hat[2])
 
             # Replace SPEAKER* with speaker
-            subj = speaker_id_to_speaker(subj, self._speaker1, self._speaker2)
-            pred = speaker_id_to_speaker(pred, self._speaker1, self._speaker2)
-            obj = speaker_id_to_speaker(obj, self._speaker1, self._speaker2)
+            subj = speaker_id_to_speaker(subj, speaker1, speaker2)
+            pred = speaker_id_to_speaker(pred, speaker1, speaker2)
+            obj = speaker_id_to_speaker(obj, speaker1, speaker2)
 
             # Fix mistakes, expand contractions
             if post_process:

@@ -1,3 +1,4 @@
+import itertools
 import logging
 
 from cltl.commons.discrete import UtteranceType, Polarity, Certainty
@@ -52,33 +53,31 @@ class ConversationalAnalyzer(Analyzer):
         self._chat = chat
 
         triples = []
-        if chat.last_utterance.chat_speaker == chat.speaker:
+        if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
 
             self._utterance = chat.last_utterance
-            self._extractor._speaker1 =chat.speaker
-            self._extractor._speaker2 =chat.agent
-            conversation  = "<eos><eos>"+chat.last_utterance.transcript
-            if len(chat.utterances)>2:
-                conversation = chat.utterances[-2].transcript+"<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
-            elif len(chat.utterances)==2:
-                conversation = "<eos>"+ chat.utterances[-1].transcript+"<eos>" + chat.last_utterance.transcript
+            conversation, speaker1, speaker2 = self._chat_to_converstation(chat)
 
-            for score, triple_value in self._extractor.extract_triples(conversation):
+            for score, triple_value in self._extractor.extract_triples(conversation, speaker1, speaker2):
                 if score>=THRESHOLD:
-                    if len(triple_value)>2:
+                    triple = None
+
+                    if len(triple_value) > 2:
                         triple = {"subject" : {"label": triple_value[0], "type": [], "uri": None},
                                   "predicate" : {"label": triple_value[1], "type": [], "uri": None},
                                   "object" : {"label": triple_value[2], "type": [], "uri": None}
                                   }
-                    if len(triple_value)==4:
+
+                    if len(triple_value) == 4:
                         triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
-                    elif len(triple_value)==5:
+                    elif len(triple_value) == 5:
                         triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
                         triple["perspective"]={"certainty" : Certainty.from_str(triple_value[4]).value}
                     # else:
                     #     triple["perspective"]={"polarity" : Polarity.POSITIVE}
                     #     triple["perspective"]={"certainty" : Certainty.CERTAIN}
+
                     if triple:
                         triple = self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
@@ -88,6 +87,23 @@ class ConversationalAnalyzer(Analyzer):
                 self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             logger.warning("Couldn't extract triples")
+
+    def _chat_to_converstation(self, chat):
+        utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
+                                 in itertools.groupby(chat.utterances, lambda utt: utt.utterance_speaker)]
+        utterances_by_speaker = utterances_by_speaker[-3:]
+
+        speakers = list(zip(*utterances_by_speaker))[0]
+        turns = list(zip(*utterances_by_speaker))[1]
+        conversation = ("<eos>" * min(2, (3 - len(utterances_by_speaker)))) + "<eos>".join(turns)
+
+        speaker1 = speakers[-1] if speakers else None
+        if len(speakers) > 1:
+            speaker2 = speakers[-2]
+        else:
+            speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
+
+        return conversation, speaker1, speaker2
 
     def get_simple_triple(self, triple):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
