@@ -104,7 +104,7 @@ class AlbertTripleExtractor:
 
 
 if __name__ == '__main__':
-    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27', speaker1="HUMAN", speaker2="LEOLANI")
+    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27')
 
     # Test!
     example = "I went to the new university. It was great! <eos> I like studying too and learning. You? <eos> No, hate it!"
@@ -112,5 +112,5 @@ if __name__ == '__main__':
     example = "<eos> I like studying too and learning. You? <eos> No, hate it!"
 
     print('example', example)
-    for score, triple in model.extract_triples(example):
+    for score, triple in model.extract_triples(example, speaker1="HUMAN", speaker2="LEOLANI"):
         print(score, triple)
