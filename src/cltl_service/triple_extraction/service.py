@@ -1,7 +1,7 @@
 import logging
 from typing import List
 
-from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent
+from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent, ConversationalAgent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.resource import ResourceManager
@@ -22,7 +22,9 @@ class TripleExtractionService:
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
-        return cls(config.get("topic_input"), config.get("topic_agent"), config.get("topic_output"),
+        agent_topic = config.get("topic_agent") if "topic_agent" in config else None
+
+        return cls(config.get("topic_input"), agent_topic, config.get("topic_output"),
                    config.get("topic_scenario"), config.get("topic_intention"), config.get("intentions", multi=True),
                    extractor, event_bus, resource_manager)
 
@@ -54,8 +56,11 @@ class TripleExtractionService:
         return None
 
     def start(self, timeout=30):
-        self._topic_worker = TopicWorker([self._input_topic, self._scenario_topic, self._intention_topic],
-                                         self._event_bus, provides=[self._output_topic],
+        topics = [self._input_topic, self._scenario_topic, self._intention_topic]
+        if self._agent_topic:
+            topics += [self._agent_topic]
+
+        self._topic_worker = TopicWorker(topics, self._event_bus, provides=[self._output_topic],
                                          resource_manager=self._resource_manager, processor=self._process,
                                          buffer_size=64,
                                          name=self.__class__.__name__)
@@ -88,16 +93,15 @@ class TripleExtractionService:
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
-        source = None
-        for mention in event.payload.signal.mentions:
-            for annotation in mention.annotations:
-                if annotation.type == "ConversationalAgent":
-                    source = annotation.value
+        is_agent = any(annotation.value.lower() == ConversationalAgent.LEOLANI.name.lower()
+                       for mention in event.payload.signal.mentions
+                       for annotation in mention.annotations
+                       if annotation.type == ConversationalAgent.__name__)
 
-        self._chat.add_utterance(event.payload.signal.text, source)
+        self._chat.add_utterance(event.payload.signal.text, self._chat.agent if is_agent else self._chat.speaker)
 
-        if event.metadata.topic == self._agent_topic:
-            # Done robot utterances to the chat
+        if is_agent:
+            # Only add robot utterances to the chat
             return
 
         self._extractor.analyze_in_context(self._chat)

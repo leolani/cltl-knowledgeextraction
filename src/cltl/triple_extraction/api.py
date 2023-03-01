@@ -181,7 +181,7 @@ class Utterance(object):
         speaker: str
             Name of the speaker of the utterance (not to confuse with the chat_speaker)
         """
-        return self.utterance_speaker
+        return self._utterance_speaker
 
     @property
     def chat_speaker(self):
@@ -384,5 +384,5 @@ class Utterance(object):
         return tokens
 
     def __repr__(self):
-        author = self.chat.speaker
+        author = self.utterance_speaker
         return '{:10s} {:03d}: "{}"'.format(author, self.turn, self.transcript)
