@@ -20,16 +20,18 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 
 def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer:ConversationalAnalyzer):
-    chat = Chat(speaker1, speaker2)
+    chat = Chat(agent=speaker2, speaker=speaker1)
 
 #for sure . what else do you like ?<eos>school keeps me pretty busy , what about you ?<eos>spending a lot of time running and getting resources for my new job
 
-    chat.add_utterance(item['utterance'])
+    ### We need to add the speaker
+    #print('Utterance', item['utterance'])
+    chat.add_utterance(item['utterance'], speaker1)
     analyzer.analyze_in_context(chat)
 
     # No triple was extracted, so we missed three items (s, p, o)
     if not chat.last_utterance.triples:
-        print((chat.last_utterance, 'ERROR'))
+        print(chat.last_utterance.transcript, 'ERROR')
         incorrect += 3
         issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
         error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
@@ -104,7 +106,7 @@ def load_golden_conversation_triples(filepath):
                 conversation = ""
                 triple = ""
                 continue
-            elif sample.startswith("personachat"):
+            elif sample.startswith("personachat") or sample.startswith("daily_dialogs"):
                 personachat_id = sample
             elif personachat_id and not conversation:
                 conversation = sample
@@ -172,23 +174,24 @@ if __name__ == "__main__":
     model = "/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27"
     analyzer = ConversationalAnalyzer(model)
     all_test_files = [
-        "./data/conversation_test_examples/test_answer_ellipsis.txt.error.txt",
-        # "./data/conversation_test_examples/test_coordination.txt",
-        # "./data/conversation_test_examples/test_coreference.txt",
-        # "./data/conversation_test_examples/test_declarative_statements.txt",
-        # "./data/conversation_test_examples/test_declarative_statements+negated.txt",
-        # "./data/conversation_test_examples/test_no_answers.txt",
-        # "./data/conversation_test_examples/test_yes_answers.txt",
-        # "./data/conversation_test_examples/test_full.txt",
-        # "./data/conversation_test_examples/test_implicit_negation.txt",
-        # "./data/conversation_test_examples/test_single_utterances.txt"
+        "./data/conversation_test_examples/test_answer_ellipsis.txt",
+         "./data/conversation_test_examples/test_coordination.txt",
+         "./data/conversation_test_examples/test_coreference.txt",
+         "./data/conversation_test_examples/test_declarative_statements.txt",
+         "./data/conversation_test_examples/test_declarative_statements+negated.txt",
+         "./data/conversation_test_examples/test_no_answers.txt",
+         "./data/conversation_test_examples/test_yes_answers.txt",
+         "./data/conversation_test_examples/test_full.txt",
+         "./data/conversation_test_examples/test_implicit_negation.txt",
+         "./data/conversation_test_examples/test_single_utterances.txt"
     ]
+    all_test_files = ["./data/conversation_test_examples/test_single_utterances.txt"]
 
     '''
     '''
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
-    speaker1 = "HUMAN"
-    speaker2 = "LEOLANI"
+    speaker1 = "speaker1"   ### this is supposed to be the human that gives the first and third response
+    speaker2 = "speaker2"  ### this is supposed to be the agent that gives the second response
     analyzer._extractor._speaker1 = speaker1
     analyzer._extractor._speaker2 = speaker2
 

@@ -53,11 +53,17 @@ class ConversationalAnalyzer(Analyzer):
         self._chat = chat
 
         triples = []
+        #print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
+        #print('chat.speaker', chat.speaker)
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
 
             self._utterance = chat.last_utterance
             conversation, speaker1, speaker2 = self._chat_to_converstation(chat)
+
+            #print('speaker1', speaker1)
+            #print('speaker2', speaker2)
+            #print(conversation)
 
             for score, triple_value in self._extractor.extract_triples(conversation, speaker1, speaker2):
                 if score>=THRESHOLD:
@@ -81,6 +87,8 @@ class ConversationalAnalyzer(Analyzer):
                     if triple:
                         triple = self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
+        else:
+            print('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
         if triples:
             for triple in triples:
                 logger.debug("triple: %s", triple)
