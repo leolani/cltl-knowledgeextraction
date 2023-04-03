@@ -93,7 +93,7 @@ class TripleExtractionService:
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
-        is_agent = any(annotation.value.lower() == ConversationalAgent.LEOLANI.name.lower()
+        is_agent = any(self._get_name(annotation).lower() == ConversationalAgent.LEOLANI.name.lower()
                        for mention in event.payload.signal.mentions
                        for annotation in mention.annotations
                        if annotation.type == ConversationalAgent.__name__)
@@ -114,6 +114,14 @@ class TripleExtractionService:
                          len(response), event.payload.signal.id, event.payload.signal.text, response)
         else:
             logger.debug("No triples for signal %s (%s)", event.payload.signal.id, event.payload.signal.text)
+
+    def _get_name(self, agent_annotation):
+        if isinstance(agent_annotation.value, str):
+            return agent_annotation.value
+        if isinstance(agent_annotation.value, ConversationalAgent):
+            return agent_annotation.value.name
+
+        raise ValueError("Cannot parse annotation value " + str(agent_annotation))
 
     def _update_chat(self, event):
         if event.payload.scenario.context.agent:
