@@ -384,7 +384,7 @@ class Utterance(object):
         return tokens
 
     def __repr__(self):
-        author = self.utterance_speaker
+        author = self.utterance_speaker if self.utterance_speaker else ""
         if not author:
             author = "No author"
         return '{:10s} {:03d}: "{}"'.format(author, self.turn, self.transcript)
