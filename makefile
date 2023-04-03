@@ -15,8 +15,9 @@ include util/make/makefile.git.mk
 .PHONY: download
 download:
 	mkdir -p resources/conversational_triples
-	wget -qO- "https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW/download" \
-	    | tar xvz -C resources/conversational_triples --strip-components=1
+	wget "https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW/download" -O resources/conversational_triples/models.zip
+	unzip -j -d resources/conversational_triples resources/conversational_triples/models.zip
+	rm resources/conversational_triples/models.zip
 
 docker:
 	$(info "No docker build for $(project_name)")
