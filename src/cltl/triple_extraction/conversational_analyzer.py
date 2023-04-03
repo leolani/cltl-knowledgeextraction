@@ -147,7 +147,7 @@ if __name__ == "__main__":
     collocation
     '''
 
-    model = "/Users/piek/Desktop/d-Leolani/cltl-resources/conversational_triples/22_04_27"
+    model = "resources/conversational_triples"
 
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
