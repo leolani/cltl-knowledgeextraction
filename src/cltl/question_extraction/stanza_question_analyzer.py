@@ -1,5 +1,5 @@
 import stanza
-from cltl.question_extraction.question_to_statement import POSTree
+from cltl.question_extraction.question_to_statement.POSTree import POSTree
 from cltl.question_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
@@ -45,7 +45,7 @@ class StanzaQuestionAnalyzer(Analyzer):
         statements = []
         for sentence in doc.sentences:
             tree = POSTree(str(sentence.constituency))
-            statement = tree.adjust_order().replace("**blank**", "DUMMY")
+            statement = tree.adjust_order()  #.replace("**blank**", "DUMMY")
             statements.append(statement)
         for statement in statements:
             #### Extract the triples
@@ -55,14 +55,14 @@ class StanzaQuestionAnalyzer(Analyzer):
             triple_extractor.analyze(chat.last_utterance)
             for triple in chat.last_utterance.triples:
                 DUMMY = False
-                if triple["subject"]=="DUMMY":
-                    triple["subject"]=="?"
+                if triple["subject"]['label']=="**blank**":
+                    triple["subject"]['label']="?"
                     DUMMY = True
-                if triple["predicate"]=="DUMMY":
-                    triple["predicate"]=="?"
+                if triple["predicate"]['label']=="**blank**":
+                    triple["predicate"]['label']="?"
                     DUMMY = True
-                if triple["object"]=="DUMMY":
-                    triple["object"]=="?"
+                if triple["object"]['label']=="**blank**":
+                    triple["object"]['label']="?"
                     DUMMY = True
                 if DUMMY:
                     self._triples.append(triple)
