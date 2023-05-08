@@ -40,39 +40,51 @@ class StanzaQuestionAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        self._utterance = utterance
-        doc = self._parser(self._utterance)
-        statements = []
-        for sentence in doc.sentences:
-            tree = POSTree(str(sentence.constituency))
-            statement = tree.adjust_order()  #.replace("**blank**", "DUMMY")
-            statements.append(statement)
-        for statement in statements:
-            #### Extract the triples
-            chat = Chat("Leolani", "Lenka")
-            triple_extractor = CFGAnalyzer()
-            chat.add_utterance(statement)
-            triple_extractor.analyze(chat.last_utterance)
-            for triple in chat.last_utterance.triples:
-                DUMMY = False
-                if triple["subject"]['label']=="**blank**":
-                    triple["subject"]['label']="?"
-                    DUMMY = True
-                if triple["predicate"]['label']=="**blank**":
-                    triple["predicate"]['label']="?"
-                    DUMMY = True
-                if triple["object"]['label']=="**blank**":
-                    triple["object"]['label']="?"
-                    DUMMY = True
-                if DUMMY:
-                    self._triples.append(triple)
+        try:
+            self._utterance = utterance
+            if not utterance[-1]=="." and  not utterance[-1]=="?":
+                self._utterance +="?"
+            doc = self._parser(self._utterance)
+            statements = []
+            for sentence in doc.sentences:
+                tree = POSTree(str(sentence.constituency))
+                statement = tree.adjust_order()  #.replace("**blank**", "DUMMY")
+                statements.append(statement)
+            for statement in statements:
+                #### Extract the triples
+                chat = Chat("Leolani", "Lenka")
+                triple_extractor = CFGAnalyzer()
+                chat.add_utterance(statement)
+                triple_extractor.analyze(chat.last_utterance)
+                for triple in chat.last_utterance.triples:
+                    DUMMY = False
+                    if triple["subject"]['label']=="**blank**":
+                        triple["subject"]['label']="?"
+                        DUMMY = True
+                    if triple["predicate"]['label']=="**blank**":
+                        triple["predicate"]['label']="?"
+                        DUMMY = True
+                    if triple["object"]['label']=="**blank**":
+                        triple["object"]['label']="?"
+                        DUMMY = True
+                    if DUMMY:
+                        self._triples.append(triple)
+        except Exception as e:
+            print("Exception:", utterance)
+            raise e
 
 
 
 if __name__ == "__main__":
     analyzer = StanzaQuestionAnalyzer()
-    text = 'What tracks users?'
-    analyzer.analyze(text)
-    print(analyzer.utterance)
-    print(analyzer.triples)
+
+    texts = ["What tracks users?", "who can sing", "what can sing"]
+    for text in texts:
+        try:
+            analyzer.analyze(text)
+            print(analyzer.utterance)
+            print(analyzer.triples)
+        except Exception as e:
+            print("Exception:", text)
+            raise e
 
