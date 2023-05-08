@@ -70,7 +70,6 @@ class StanzaQuestionAnalyzer(Analyzer):
 
 
 if __name__ == "__main__":
-
     analyzer = StanzaQuestionAnalyzer()
     text = 'What tracks users?'
     analyzer.analyze(text)
