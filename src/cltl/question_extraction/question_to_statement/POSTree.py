@@ -138,7 +138,7 @@ class POSTree(object):
                 second = first.next_sibling
                 if first.token == 'SQ' and second == None:
                     self.__adjust_SQ_question(first)
-                elif (first.token in ('WHADJP', 'WHNP', 'WHADVP', 'WHPP')
+                elif (first.token in ('WHADJP', 'WHNP', 'WHNP', 'WHADVP', 'WHPP')
                         and second.token == 'SQ'):
                     WH = self.__delete_tree(prefirst, first)
                     self.__adjust_SBARQ_question(WH, second)
@@ -181,6 +181,9 @@ class POSTree(object):
         if node.first_child.token in self.VB_WORD:
             node.token = 'VB'
             return True
+        if node.first_child.token in self.VB_TAG:
+            return True
+        #print("NO MATCH", node.token, node.first_child.token)
         return False
 
     def __adjust_SQ_question(self, SQ):

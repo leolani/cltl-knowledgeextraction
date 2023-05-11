@@ -48,8 +48,11 @@ class StanzaQuestionAnalyzer(Analyzer):
             statements = []
             for sentence in doc.sentences:
                 tree = POSTree(str(sentence.constituency))
-                statement = tree.adjust_order()  #.replace("**blank**", "DUMMY")
-                statements.append(statement)
+                try:
+                    statement = tree.adjust_order()  #.replace("**blank**", "DUMMY")
+                    statements.append(statement)
+                except:
+                    print("Cammot process:", sentence)
             for statement in statements:
                 #### Extract the triples
                 chat = Chat("Leolani", "Lenka")
@@ -78,7 +81,8 @@ class StanzaQuestionAnalyzer(Analyzer):
 if __name__ == "__main__":
     analyzer = StanzaQuestionAnalyzer()
 
-    texts = ["What tracks users?", "who can sing", "what can sing"]
+    texts = ["What tracks users?", "Who can sing", "what can sing", "where is selene from"]
+    texts = ["where is selene from"]
     for text in texts:
         try:
             analyzer.analyze(text)
