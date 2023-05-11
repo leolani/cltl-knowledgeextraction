@@ -41,6 +41,7 @@ class StanzaQuestionAnalyzer(Analyzer):
 
         """
         try:
+            self._triples = []
             self._utterance = utterance
             if not utterance[-1]=="." and  not utterance[-1]=="?":
                 self._utterance +="?"
