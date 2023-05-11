@@ -63,13 +63,13 @@ class StanzaQuestionAnalyzer(Analyzer):
                 for triple in chat.last_utterance.triples:
                     DUMMY = False
                     if triple["subject"]['label']=="**blank**":
-                        triple["subject"]['label']="?"
+                        triple["subject"]['label']=""
                         DUMMY = True
                     if triple["predicate"]['label']=="**blank**":
-                        triple["predicate"]['label']="?"
+                        triple["predicate"]['label']=""
                         DUMMY = True
                     if triple["object"]['label']=="**blank**":
-                        triple["object"]['label']="?"
+                        triple["object"]['label']=""
                         DUMMY = True
                     if DUMMY:
                         self._triples.append(triple)
