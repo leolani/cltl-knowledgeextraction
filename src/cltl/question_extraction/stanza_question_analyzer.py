@@ -58,7 +58,7 @@ class StanzaQuestionAnalyzer(Analyzer):
                     #print("Can process:", sentence)
                 except Exception as e:
                     logger.warning("Cannot process:", sentence)
-                    logger.warning("Exception", e)
+                    logger.warning("Exception", e.__str__())
             for statement in statements:
                 #### Extract the triples
                 chat = Chat("Leolani", "Lenka")
@@ -68,10 +68,13 @@ class StanzaQuestionAnalyzer(Analyzer):
                 for triple in chat.last_utterance.triples:
                     if triple["subject"]['label']=="**blank**":
                         triple["subject"]['label']=""
-                    if triple["predicate"]['label']=="**blank**":
-                        triple["predicate"]['label']=""
                     if triple["object"]['label']=="**blank**":
                         triple["object"]['label']=""
+                    if triple["predicate"]['label']=="**blank**":
+                        triple["predicate"]['label']=""
+                    elif triple["predicate"]['label'].startswith("**blank**-"):
+                        triple["predicate"]['label'] = triple["predicate"]['label'][10:]
+
                     self._triples.append(triple)
         except Exception as e:
             print("Exception:", utterance)
