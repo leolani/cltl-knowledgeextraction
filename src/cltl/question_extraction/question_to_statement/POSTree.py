@@ -136,6 +136,7 @@ class POSTree(object):
                 prefirst = child
                 first = child.first_child
                 second = first.next_sibling
+
                 if first.token == 'SQ' and second == None:
                     self.__adjust_SQ_question(first)
                 elif (first.token in ('WHADJP', 'WHNP', 'WHNP', 'WHADVP', 'WHPP')
@@ -342,7 +343,6 @@ class POSTree(object):
 
         if not self.__check_VB(first):
             raise ValueError('First child of SQ in SBARQ is not VB*/MD')
-
         # process 's 're 've
         if first.first_child.token == "'s":
             first.first_child.token = 'is'
@@ -623,8 +623,11 @@ class POSTree(object):
         #WH = self.root.first_child.first_child
         #SQ = WH.next_sibling
 
-        WH = self.__convert_WH_to_answer(WH)
-        SQ = self.__adjust_SQ_in_SBARQ(SQ, WH)
-        SQ = self.__insert_WH_into_SQ(WH, SQ)
-
-        self.root.first_child.first_child = SQ
+        try:
+            WH = self.__convert_WH_to_answer(WH)
+            SQ = self.__adjust_SQ_in_SBARQ(SQ, WH)
+            SQ = self.__insert_WH_into_SQ(WH, SQ)
+            self.root.first_child.first_child = SQ
+        except Exception as e:
+            if DEBUG: print(e)
+            raise e

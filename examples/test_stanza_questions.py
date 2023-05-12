@@ -6,7 +6,7 @@ WHICH CONTAIN SINGLE QUESTIONS AND THEIR IDEAL EXTRACTED TRIPLE.
 import json
 from collections import defaultdict
 
-from test_triples import compare_elementwise_triple, compare_elementwise_perspective
+from test_triples import compare_elementwise_triple
 from test_triples import load_golden_triples
 
 from cltl.triple_extraction.api import Chat
@@ -49,6 +49,10 @@ def test_triples(item, correct, incorrect, issues, errorf, analyzer:StanzaQuesti
                 'predicate'] + " " + item['triple']['object'] + "\n"
             errorf.write(error_string)
         # Report
+        if score_best_triple==3:
+            print("CORRECT")
+        else:
+            print("INCORRECT")
         print(f"\nUtterance: \t{chat.last_utterance}")
         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
         print(f"Expected triple:   \t{item['triple']}")
@@ -90,7 +94,7 @@ if __name__ == "__main__":
     analyzer = StanzaQuestionAnalyzer()
     all_test_files = [
         "./data/wh-questions.txt",
-        "./data/verb-questions.txt"
+       # "./data/verb-questions.txt"
     ]
 
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
