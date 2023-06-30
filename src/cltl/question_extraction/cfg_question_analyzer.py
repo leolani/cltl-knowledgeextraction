@@ -4,7 +4,7 @@ from cltl.commons.discrete import UtteranceType
 from cltl.commons.language_helpers import lexicon_lookup, lexicon
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, Utterance, DialogueAct
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_pos_in_tree
 
@@ -32,7 +32,7 @@ class CFGQuestionAnalyzer(Analyzer):
     def utterance(self):
         return self._utterance
 
-    def analyze(self, utterance):
+    def analyze(self, utterance: Utterance):
         """
         CFGAnalyzer factory function
 
@@ -45,6 +45,9 @@ class CFGQuestionAnalyzer(Analyzer):
 
         """
         self._utterance = utterance
+        if not DialogueAct.QUESTION in utterance.dialogue_acts:
+            return
+
         self.cfgAnalyzer._utterance = utterance
         self.cfgAnalyzer.PARSER.parse(utterance)
         if not self.cfgAnalyzer.PARSER.forest:

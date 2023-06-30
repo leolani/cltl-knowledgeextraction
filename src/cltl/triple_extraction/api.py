@@ -1,15 +1,21 @@
+import enum
 from datetime import datetime
 from random import getrandbits
 from typing import List
 
+from cltl.commons.casefolding import casefold_text
 from nltk import pos_tag
 
-from cltl.commons.casefolding import casefold_text
 from cltl.triple_extraction import logger
 from cltl.triple_extraction.utils.helper_functions import add_deduplicated
 
 
-class Chat(object):
+class DialogueAct(enum.Enum):
+    STATEMENT = enum.auto()
+    QUESTION = enum.auto()
+
+
+class Chat:
     def __init__(self, agent, speaker):
         """
         Create Chat
@@ -128,9 +134,9 @@ class Chat(object):
     def __repr__(self):
         return "\n".join([str(utterance) for utterance in self._utterances])
 
-class Utterance(object):
-    def __init__(self, chat, transcript, turn, utterance_speaker = None):
-        # type: (Chat, str, int) -> Utterance
+
+class Utterance:
+    def __init__(self, chat: Chat, transcript: str, turn: int, utterance_speaker = None, dialogue_acts: List[DialogueAct] = None):
         """
         Construct Utterance Object
 
@@ -158,12 +164,13 @@ class Utterance(object):
         self._transcript = transcript
         self._tokens = self._clean(self._tokenize(self._transcript))
 
+        self._dialogue_acts = dialogue_acts if dialogue_acts else []
+
         self._triples = []
         self._triples_as_json = []  # Convenience for deduplication
 
     @property
-    def chat(self):
-        # type: () -> Chat
+    def chat(self) -> Chat:
         """
         Returns
         -------
@@ -173,8 +180,7 @@ class Utterance(object):
         return self._chat
 
     @property
-    def utterance_speaker(self):
-        # type () -> str
+    def utterance_speaker(self) -> str:
         """
         Returns
         --------
@@ -184,8 +190,7 @@ class Utterance(object):
         return self._utterance_speaker
 
     @property
-    def chat_speaker(self):
-        # type: () -> str
+    def chat_speaker(self) -> str:
         """
         Returns
         -------
@@ -195,8 +200,7 @@ class Utterance(object):
         return self._chat_speaker
 
     @property
-    def chat_agent(self):
-        # type: () -> str
+    def chat_agent(self) -> str:
         """
         Returns
         -------
@@ -206,8 +210,7 @@ class Utterance(object):
         return self._chat_agent
 
     @property
-    def transcript(self):
-        # type: () -> str
+    def transcript(self) -> str:
         """
         Returns
         -------
@@ -217,8 +220,7 @@ class Utterance(object):
         return self._transcript
 
     @property
-    def turn(self):
-        # type: () -> int
+    def turn(self) -> int:
         """
         Returns
         -------
@@ -226,6 +228,14 @@ class Utterance(object):
             Utterance Turn
         """
         return self._turn
+
+    @property
+    def dialogue_acts(self) -> List[DialogueAct]:
+        return self._dialogue_acts
+
+    @dialogue_acts.setter
+    def dialogue_acts(self, dialogue_acts):
+        self._speech_acts = dialogue_acts
 
     @property
     def triples(self):

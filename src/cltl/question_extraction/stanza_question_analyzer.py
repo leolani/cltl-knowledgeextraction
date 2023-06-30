@@ -3,7 +3,7 @@ import logging
 
 from cltl.question_extraction.question_to_statement.POSTree import POSTree
 from cltl.question_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 # 1. Call stanza to parse a text: https://stanfordnlp.github.io/stanza/data_conversion.html#document-to-python-object
@@ -46,6 +46,9 @@ class StanzaQuestionAnalyzer(Analyzer):
         try:
             self._triples = []
             self._utterance = utterance
+            if not DialogueAct.QUESTION in utterance.dialogue_acts:
+                return
+
             if not utterance[-1]=="." and  not utterance[-1]=="?":
                 self._utterance +="?"
             doc = self._parser(self._utterance)

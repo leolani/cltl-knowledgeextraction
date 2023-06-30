@@ -5,7 +5,7 @@ from cltl.commons.language_helpers import lexicon_lookup, lexicon, lexicon_looku
 from cltl.commons.triple_helpers import fix_nlp_types
 
 from cltl.triple_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, Utterance, DialogueAct
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
     get_pos_in_tree
@@ -997,7 +997,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
 
         super().__init__()
 
-    def analyze(self, utterance):
+    def analyze(self, utterance: Utterance):
         """
         VerbQuestionAnalyzer factory function
 
@@ -1008,6 +1008,8 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         """
 
         self._utterance = utterance
+        if not utterance.dialogue_acts or not DialogueAct.STATEMENT in utterance.dialogue_acts:
+            return
 
         # Initialize
         utterance_info = {'neg': False}
