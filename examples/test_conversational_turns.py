@@ -159,10 +159,10 @@ def test_triples_in_file(path, analyzer, speaker1, speaker2):
         correct, incorrect, issues = test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer)
     errorf.close()
 
-    print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
-    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
-    print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
-    print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n',  file=open('output.txt', 'a'))
+    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n',  file=open('output.txt', 'a'))
+    print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}',  file=open('output.txt', 'a'))
+    print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}",  file=open('output.txt', 'a'))
 
 
 if __name__ == "__main__":
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "../resources/conversational_triples"
+    model = "/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27"
     analyzer = ConversationalAnalyzer(model)
     all_test_files = [
         "./data/conversation_test_examples/test_answer_ellipsis.txt",
@@ -179,13 +179,13 @@ if __name__ == "__main__":
          "./data/conversation_test_examples/test_coreference.txt",
          "./data/conversation_test_examples/test_declarative_statements.txt",
          "./data/conversation_test_examples/test_declarative_statements+negated.txt",
-         "./data/conversation_test_examples/test_no_answers.txt",
-         "./data/conversation_test_examples/test_yes_answers.txt",
+         "./data/conversation_test_examples/test_explicit_no_answers.txt",
+         "./data/conversation_test_examples/test_explicit_yes_answers.txt",
          "./data/conversation_test_examples/test_full.txt",
          "./data/conversation_test_examples/test_implicit_negation.txt",
          "./data/conversation_test_examples/test_single_utterances.txt"
     ]
-    all_test_files = ["./data/conversation_test_examples/test_single_utterances.txt"]
+    all_test_files = ["./data/conversation_test_examples/test_explicit_no_answers.txt"]
 
     '''
     '''
