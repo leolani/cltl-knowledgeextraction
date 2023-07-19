@@ -7,6 +7,7 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 """
 
 import json
+import os
 from collections import defaultdict
 
 from test_triples import compare_elementwise_triple, compare_elementwise_perspective
@@ -61,6 +62,8 @@ def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, a
         print(f"\nUtterance: \t{chat.last_utterance}")
         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
         print(f"Expected triple:   \t{item['triple']}")
+        issues[chat.last_utterance.transcript]['generated_triple'] = chat.last_utterance.triples[idx_best_triple]
+        issues[chat.last_utterance.transcript]['expected_triple'] = item['triple']
 
         # Compare perspectives if available
         if 'perspective' in item.keys():
@@ -74,6 +77,8 @@ def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, a
                 issues[chat.last_utterance.transcript]['perspective'] = (3 - score_best_pesp)
 
             print(f"Expected perspective:   \t{item['perspective']}")
+            issues[chat.last_utterance.transcript]['generated_perspective'] = chat.last_utterance.triples[idx_best_triple]['perspective']
+            issues[chat.last_utterance.transcript]['expected_perspective'] = item['perspective']
 
         return correct, incorrect, issues
 
@@ -159,11 +164,12 @@ def test_triples_in_file(path, analyzer, speaker1, speaker2):
         correct, incorrect, issues = test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer)
     errorf.close()
 
-    print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n',  file=open('output.txt', 'a'))
-    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n',  file=open('output.txt', 'a'))
-    print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}',  file=open('output.txt', 'a'))
-    print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}",  file=open('output.txt', 'a'))
-
+    summary_file = open(path + ".summary.txt", "w")
+    summary_file.write(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
+    summary_file.write(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
+    summary_file.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
+    summary_file.write(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    summary_file.close()
 
 if __name__ == "__main__":
     '''
