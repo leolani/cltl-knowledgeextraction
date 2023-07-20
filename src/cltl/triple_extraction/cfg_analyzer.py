@@ -70,9 +70,8 @@ class CFGAnalyzer(Analyzer):
                         analyzer.analyze(utterance)
 
                     elif sentence_type == 'Q' and self._process_questions:
-                        # analyzer = QuestionAnalyzer()
-                        # analyzer.analyze(utterance)
-                        pass
+                        analyzer = QuestionAnalyzer()
+                        analyzer.analyze(utterance)
                     else:
                         logger.warning("Error: {}".format(sentence_type))
 

@@ -1,11 +1,11 @@
 import logging
-from abc import ABC
 
 from cltl.commons.discrete import UtteranceType
 from cltl.commons.language_helpers import lexicon_lookup, lexicon
+
 from cltl.triple_extraction.analyzer import Analyzer
-from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from cltl.triple_extraction.api import Chat, Utterance, DialogueAct
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_pos_in_tree
 
@@ -60,8 +60,6 @@ class CFGQuestionAnalyzer(Analyzer):
                     if sentence_type == 'Q':
                         analyzer = QuestionAnalyzer()
                         analyzer._cfgAnalyzer.analyze(utterance)
-                        self.set_extracted_values()
-
                     else:
                         logger.warning("Error: {}".format(sentence_type))
 
