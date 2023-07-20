@@ -9,16 +9,16 @@ from collections import defaultdict
 from test_triples import compare_elementwise_triple
 from test_triples import load_golden_triples
 
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.question_extraction.stanza_question_analyzer import StanzaQuestionAnalyzer
 
 
 def test_triples(item, correct, incorrect, issues, errorf, analyzer:StanzaQuestionAnalyzer):
     chat = Chat("leolani", "lenka")
 
-    chat.add_utterance(item['utterance'])
-    analyzer.analyze(item['utterance'])
-    chat.last_utterance._triples = analyzer.triples
+    utterance_ = item['utterance']
+    chat.add_utterance(utterance_, "lenka", [DialogueAct.QUESTION])
+    analyzer.analyze_in_context(chat)
 
     # No triple was extracted, so we missed three items (s, p, o)
     if not chat.last_utterance.triples:

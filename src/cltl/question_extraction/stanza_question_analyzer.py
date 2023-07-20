@@ -1,9 +1,11 @@
 import stanza
 import logging
 
+from cltl.commons.discrete import UtteranceType
+
 from cltl.question_extraction.question_to_statement.POSTree import POSTree
 from cltl.question_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat, DialogueAct
+from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 # 1. Call stanza to parse a text: https://stanfordnlp.github.io/stanza/data_conversion.html#document-to-python-object
@@ -32,9 +34,12 @@ class StanzaQuestionAnalyzer(Analyzer):
 
     @property
     def triples(self):
-        return self._triples
+        return self.utterance.triples
 
-    def analyze(self, utterance):
+    def analyze_in_context(self, chat: Chat):
+        self.analyze(chat.last_utterance)
+
+    def analyze(self, utterance: Utterance):
         """
 
         Parameters
@@ -49,9 +54,10 @@ class StanzaQuestionAnalyzer(Analyzer):
             if not DialogueAct.QUESTION in utterance.dialogue_acts:
                 return
 
-            if not utterance[-1]=="." and  not utterance[-1]=="?":
-                self._utterance +="?"
-            doc = self._parser(self._utterance)
+            transcript = utterance.transcript
+            if not transcript[-1]=="." and  not transcript[-1]=="?":
+                transcript +="?"
+            doc = self._parser(transcript)
             statements = []
             for sentence in doc.sentences:
                 tree = POSTree(str(sentence.constituency))
@@ -80,13 +86,12 @@ class StanzaQuestionAnalyzer(Analyzer):
                     elif "-**blank**" in triple["predicate"]['label']:
                         triple["predicate"]['label'] = triple["predicate"]['label'].replace("-**blank**", "")
 
+                    triple["utterance_type"] = UtteranceType.QUESTION
                         # must-**blank**-go
 
-                    self._triples.append(triple)
+                    self.utterance.add_triple(triple)
         except Exception as e:
-            print("Exception:", utterance)
-            raise e
-
+            logger.exception("Exception while analyzing %s", utterance)
 
 
 if __name__ == "__main__":
