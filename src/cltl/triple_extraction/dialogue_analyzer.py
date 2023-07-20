@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 class DialogueAnalyzer(Analyzer):
     def __init__(self, analyzers: List[Analyzer]):
         self._analyzers = analyzers
-        # TODO
         self._chat = None
 
     def analyze_in_context(self, chat: Chat):
@@ -23,7 +22,6 @@ class DialogueAnalyzer(Analyzer):
         for analyzer in self._analyzers:
             analyzer.analyze(utterance)
 
-    # TODO where is this used?
     @property
     def utterance(self):
         """

@@ -10,7 +10,6 @@ from cltl.triple_extraction.nlp.parser import Parser
 from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
     get_pos_in_tree
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -22,13 +21,14 @@ class CFGAnalyzer(Analyzer):
     # TODO: Optimize: takes 2.6 seconds now! Should be < 1 second!?
     PARSER = Parser()
 
-    def __init__(self):
+    def __init__(self, process_questions: bool = True):
         """
         Abstract Analyzer Object
 
         Parameters
         ----------
         """
+        self._process_questions = process_questions
         self._utterance = None
 
     @property
@@ -51,12 +51,13 @@ class CFGAnalyzer(Analyzer):
 
         """
         self._utterance = utterance
+        if not self._process_questions and DialogueAct.QUESTION not in utterance.dialogue_acts:
+            return
 
         CFGAnalyzer.PARSER.parse(utterance)
-       # print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
+        # print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
         if not CFGAnalyzer.PARSER.forest:
             logger.warning("Couldn't parse input")
-
         else:
             logger.info(f'Found {len(CFGAnalyzer.PARSER.forest)} triples')
 
@@ -68,10 +69,10 @@ class CFGAnalyzer(Analyzer):
                         analyzer = StatementAnalyzer()
                         analyzer.analyze(utterance)
 
-                    elif sentence_type == 'Q':
-                        analyzer = QuestionAnalyzer()
-                        analyzer.analyze(utterance)
-
+                    elif sentence_type == 'Q' and self._process_questions:
+                        # analyzer = QuestionAnalyzer()
+                        # analyzer.analyze(utterance)
+                        pass
                     else:
                         logger.warning("Error: {}".format(sentence_type))
 
@@ -858,7 +859,6 @@ class ObjectStatementAnalyzer(StatementAnalyzer):
         """
 
         super().__init__()
-
 
 class QuestionAnalyzer(CFGAnalyzer):
     """Abstract QuestionAnalyzer Object: call QuestionAnalyzer.analyze(utterance) factory function"""

@@ -103,20 +103,21 @@ class Chat:
         """
         return self._utterances[-1]
 
-    def add_utterance(self, transcript, utterance_speaker=None):
-        # type: (str) -> Utterance
+    def add_utterance(self, transcript: str, utterance_speaker: str = None, dialogue_acts: List[DialogueAct] = None):
         """
         Add Utterance to Conversation
 
         Parameters
         ----------
         transcript: str
+        utterance_speaker: str
+        dialogue_acts: List[DialogueAct]
 
         Returns
         -------
         utterance: Utterance
         """
-        utterance = Utterance(self, transcript, len(self._utterances), utterance_speaker)
+        utterance = Utterance(self, transcript, len(self._utterances), utterance_speaker, dialogue_acts)
 
         #@TODO we do not know who the speaker is
         #utterance._chat_speaker = self._speaker
