@@ -35,6 +35,7 @@ setup(
         'nltk~=3.4.4',
         'stanford_openie~=1.3.0',
         'spacy~=3.2.3',
+        'stanza~=1.5',
         "cltl.combot"
     ],
     extras_require={
