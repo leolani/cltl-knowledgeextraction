@@ -4,31 +4,82 @@ from typing import List
 from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent, ConversationalAgent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
+from cltl.combot.infra.groupby_processor import GroupProcessor, Group, GroupByProcessor
 from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
+from emissor.representation.scenario import TextSignal, Mention
 
 from cltl.triple_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, DialogueAct
 
 logger = logging.getLogger(__name__)
 
-CONTENT_TYPE_SEPARATOR = ';'
+
+class UtteranceGroup(Group):
+    def __init__(self, utterance_id: str, input_topic: str, dialogue_act_topic: str):
+        super().__init__()
+        self._input_topic = input_topic
+        self._dialogue_act_topic = dialogue_act_topic
+
+        self._signal_id = utterance_id
+        self._text_signal = None
+        self._dialogue_acts = None
+
+    @property
+    def text_signal(self):
+        return self._text_signal
+
+    @property
+    def dialogue_acts(self):
+        return self._dialogue_acts
+
+    @property
+    def key(self) -> str:
+        return self._signal_id
+
+    @property
+    def complete(self) -> bool:
+        return self._text_signal is not None and self._dialogue_acts is not None
+
+    def add(self, event: Event):
+        if event.metadata.topic == self._input_topic:
+            self._text_signal = event.payload.signal
+        elif event.metadata.topic == self._dialogue_act_topic:
+            self._set_dialogue_acts(event.payload.mentions)
+
+    def _set_dialogue_acts(self, mentions: List[Mention]):
+        has_dialogue_acts = len(mentions) == 1 and mentions[0].annotations and mentions[0].annotations[0].value
+        logger.debug("Received %s dialog acts for utterance %s", "" if has_dialogue_acts else "no ", self._signal_id)
+
+        if not has_dialogue_acts:
+            self._dialogue_acts = []
+        else:
+            dialogue_acts = [mention.annotations[0] for mention in mentions]
+            self._dialogue_acts = [self._extract_dialogue_act(act) for act in dialogue_acts]
+
+    def _extract_dialogue_act(self, dialogue_act):
+        if (dialogue_act.value.type.lower() == 'midas' and dialogue_act.value.value.lower().startswith('open_question')
+            or dialogue_act.value.type.lower() == 'silicone' and dialogue_act.value.value.lower() == 'ask'):
+            return  DialogueAct.QUESTION
+        else:
+            return  DialogueAct.STATEMENT
 
 
-class TripleExtractionService:
+class TripleExtractionService(GroupProcessor):
     @classmethod
     def from_config(cls, extractor: Analyzer, event_bus: EventBus, resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
         agent_topic = config.get("topic_agent") if "topic_agent" in config else None
+        dialogue_act_topic = config.get("topic_dialogue_act") if "topic_dialogue_act" in config else None
 
-        return cls(config.get("topic_input"), agent_topic, config.get("topic_output"),
+        return cls(config.get("topic_input"), agent_topic, dialogue_act_topic, config.get("topic_output"),
                    config.get("topic_scenario"), config.get("topic_intention"), config.get("intentions", multi=True),
                    extractor, event_bus, resource_manager)
 
-    def __init__(self, input_topic: str, agent_topic: str, output_topic: str, scenario_topic: str,
+    def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str, scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
                  event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
@@ -37,8 +88,9 @@ class TripleExtractionService:
         self._resource_manager = resource_manager
 
         self._input_topic = input_topic
-        self._agent_topic = agent_topic
+        self._dialogue_act_topic = dialogue_act_topic
         self._output_topic = output_topic
+        self._agent_topic = agent_topic
         self._scenario_topic = scenario_topic
 
         self._intention_topic = intention_topic if intention_topic else None
@@ -51,12 +103,16 @@ class TripleExtractionService:
         self._speaker = Agent()
         self._agent = Agent()
 
+        self._dialog_aware_processor = GroupByProcessor(self, max_size=4, buffer_size=16)
+
     @property
     def app(self):
         return None
 
     def start(self, timeout=30):
         topics = [self._input_topic, self._scenario_topic, self._intention_topic]
+        if self._dialogue_act_topic:
+            topics += [self._dialogue_act_topic]
         if self._agent_topic:
             topics += [self._agent_topic]
 
@@ -84,7 +140,7 @@ class TripleExtractionService:
             self._update_chat(event)
             return
 
-        if self._intentions and not (self._active_intentions & self._intentions):
+        if self._intentions and not (self._active_intentions and self._intentions):
             logger.debug("Skipped event outside intention %s, active: %s (%s)",
                          self._intentions, self._active_intentions, event)
             return
@@ -93,27 +149,50 @@ class TripleExtractionService:
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
+        if self._dialogue_act_topic and event.metadata.topic in [self._input_topic, self._dialogue_act_topic]:
+            self._dialog_aware_processor.process(event)
+            return
+
+        self._process_last_utterance(event.payload.signal)
+
+    def _process_last_utterance(self, text_signal: TextSignal, dialogue_act: DialogueAct = None):
         is_agent = any(self._get_name(annotation).lower() == ConversationalAgent.LEOLANI.name.lower()
-                       for mention in event.payload.signal.mentions
+                       for mention in text_signal.mentions
                        for annotation in mention.annotations
                        if annotation.type == ConversationalAgent.__name__)
 
-        self._chat.add_utterance(event.payload.signal.text, self._chat.agent if is_agent else self._chat.speaker)
+        self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_act)
 
         if is_agent:
             # Only add robot utterances to the chat
             return
 
         self._extractor.analyze_in_context(self._chat)
-        response = self._utterance_to_capsules(self._extractor.utterance, event.payload.signal)
+        response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
 
         if response:
             # TODO: transform capsules into proper EMISSOR annotations
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
             logger.debug("Published %s triples for signal %s (%s): %s",
-                         len(response), event.payload.signal.id, event.payload.signal.text, response)
+                         len(response), text_signal.id, text_signal.text, response)
         else:
-            logger.debug("No triples for signal %s (%s)", event.payload.signal.id, event.payload.signal.text)
+            logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+
+    def get_key(self, event: Event):
+        if event.metadata.topic in [self._input_topic, self._agent_topic]:
+            return event.payload.signal.id
+        elif event.metadata.topic == self._dialogue_act_topic:
+            return next(segment.container_id
+                    for mention in event.payload.mentions
+                    for segment in mention.segment)
+        else:
+            raise ValueError("Could not extract key from event: " + event.id)
+
+    def new_group(self, key: str) -> Group:
+        return UtteranceGroup(key, self._input_topic, self._dialogue_act_topic)
+
+    def process_group(self, group: UtteranceGroup):
+        self._process_last_utterance(group.text_signal, group.dialogue_acts)
 
     def _get_name(self, agent_annotation):
         if isinstance(agent_annotation.value, str):
