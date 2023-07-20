@@ -7,7 +7,7 @@ from cltl.triple_extraction.api import Chat
 logger = logging.getLogger(__name__)
 
 
-class DialogueAnalyzer(Analyzer):
+class ChatAnalyzer(Analyzer):
     def __init__(self, analyzers: List[Analyzer]):
         self._analyzers = analyzers
         self._chat = None
