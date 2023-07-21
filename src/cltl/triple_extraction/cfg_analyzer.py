@@ -1007,7 +1007,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         """
 
         self._utterance = utterance
-        if not utterance.dialogue_acts or not DialogueAct.STATEMENT in utterance.dialogue_acts:
+        if utterance.dialogue_acts and not DialogueAct.STATEMENT in utterance.dialogue_acts:
             return
 
         # Initialize
