@@ -1005,10 +1005,7 @@ class VerbQuestionAnalyzer(QuestionAnalyzer):
         utterance: Utterance
             utterance to be analyzed
         """
-
         self._utterance = utterance
-        if utterance.dialogue_acts and not DialogueAct.STATEMENT in utterance.dialogue_acts:
-            return
 
         # Initialize
         utterance_info = {'neg': False}
