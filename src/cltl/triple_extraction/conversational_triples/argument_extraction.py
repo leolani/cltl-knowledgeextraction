@@ -1,4 +1,3 @@
-import glob
 import logging
 import random
 
@@ -6,8 +5,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModel, AutoConfig
-# Catch warnings
-from transformers import logging as trans_log
+from transformers import logging as trans_log  # Catch warnings
 
 from cltl.triple_extraction.conversational_triples.utils import bio_tags_to_tokens, load_annotations, triple_to_bio_tags
 
@@ -196,4 +194,3 @@ if __name__ == '__main__':
     model = ArgumentExtraction()
     model.fit(tokens, labels)
     torch.save(model.state_dict(), 'models/argument_extraction_albert-v2_31_03_2022')
-

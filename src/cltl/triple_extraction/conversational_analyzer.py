@@ -2,13 +2,13 @@ import itertools
 import logging
 
 from cltl.commons.discrete import UtteranceType, Polarity, Certainty
+
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
-from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
+from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)
-
 
 THRESHOLD = 0.8
 
@@ -53,33 +53,33 @@ class ConversationalAnalyzer(Analyzer):
         self._chat = chat
 
         triples = []
-        #print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
-        #print('chat.speaker', chat.speaker)
+        # print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
+        # print('chat.speaker', chat.speaker)
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
 
             self._utterance = chat.last_utterance
             conversation, speaker1, speaker2 = self._chat_to_converstation(chat)
 
-            #print('speaker1', speaker1)
-            #print('speaker2', speaker2)
-            #print(conversation)
+            # print('speaker1', speaker1)
+            # print('speaker2', speaker2)
+            # print(conversation)
 
             for score, triple_value in self._extractor.extract_triples(conversation, speaker1, speaker2):
-                if score>=THRESHOLD:
+                if score >= THRESHOLD:
                     triple = None
 
                     if len(triple_value) > 2:
-                        triple = {"subject" : {"label": triple_value[0], "type": [], "uri": None},
-                                  "predicate" : {"label": triple_value[1], "type": [], "uri": None},
-                                  "object" : {"label": triple_value[2], "type": [], "uri": None}
+                        triple = {"subject": {"label": triple_value[0], "type": [], "uri": None},
+                                  "predicate": {"label": triple_value[1], "type": [], "uri": None},
+                                  "object": {"label": triple_value[2], "type": [], "uri": None}
                                   }
 
                     if len(triple_value) == 4:
-                        triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
+                        triple["perspective"] = {"polarity": Polarity.from_str(triple_value[3]).value}
                     elif len(triple_value) == 5:
-                        triple["perspective"]={"polarity" : Polarity.from_str(triple_value[3]).value}
-                        triple["perspective"]={"certainty" : Certainty.from_str(triple_value[4]).value}
+                        triple["perspective"] = {"polarity": Polarity.from_str(triple_value[3]).value}
+                        triple["perspective"] = {"certainty": Certainty.from_str(triple_value[4]).value}
                     # else:
                     #     triple["perspective"]={"polarity" : Polarity.POSITIVE}
                     #     triple["perspective"]={"certainty" : Certainty.CERTAIN}
@@ -88,7 +88,8 @@ class ConversationalAnalyzer(Analyzer):
                         triple = self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
         else:
-            print('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
+            print('This is not from the human speaker', chat.speaker, ' but from:',
+                  chat.last_utterance.utterance_speaker)
         if triples:
             for triple in triples:
                 logger.debug("triple: %s", triple)
@@ -117,7 +118,7 @@ class ConversationalAnalyzer(Analyzer):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
                          'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
                          'object': triple['object']['label'].replace(" ", "-").replace('---', '-'),
-                         'perspective':triple['perspective']}
+                         'perspective': triple['perspective']}
         return simple_triple
 
     def extract_perspective(self):

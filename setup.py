@@ -36,7 +36,9 @@ setup(
         'stanford_openie~=1.3.0',
         'spacy~=3.2.3',
         'stanza~=1.5',
-        "cltl.combot"
+        "cltl.combot",
+        "openai~=0.27.8",
+        "transformers~=4.31.0"
     ],
     extras_require={
         "service": [
