@@ -38,7 +38,8 @@ setup(
         'stanza~=1.5',
         "cltl.combot",
         "openai~=0.27.8",
-        "transformers~=4.31.0"
+        "transformers~=4.31.0",
+        "python-dotenv~=1.0.0"
     ],
     extras_require={
         "service": [

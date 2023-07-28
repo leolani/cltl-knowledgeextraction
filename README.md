@@ -18,7 +18,7 @@ It features:
   separated into two abstract classes StatementAnalyzer and QuestionAnalyzer, which consist of the concrete classes
   GeneralStatementAnalyzer, WhQuestionAnalyzer and VerbQuestionAnalyzer.
 
-### Triple extraction implementations
+### Triple elements
 
 The triples consist of subject, predicate and object alongside with their semantic types. In case of a statement, the
 triple is accompanied by a perspective. In the case of a question the triple is incomplete. Below are a few examples of
@@ -31,7 +31,16 @@ the triples which are the output of analyzers:
 The elements of the triple are separated with underscore; while dash is used to separate elements of multiword
 expressions. When a multiword expression is actually a collocation, the multiword expression is marked with apostrophes
 during the analysis (e.g. ”mexico-city”)to ensure that subparts of collocations are not analyzed separately.
-implementations
+
+### Implementations
+
+We provide 5 triple extraction implementations for statements:
+
+* CFG
+* Dependency parsing (with Spacy)
+* Open Information Extraction (with StanfordOpenIO)
+* LLM extraction (with ChatGPT by OpenAI)
+* In-context extraction (with Albert, works on three utterances at the time)
 
 #### CFGAnalyzer
 
@@ -68,14 +77,26 @@ Below is a short summary of NLP that happens during the CFG utterance analysis:
 1. Getting semantic types of each element of the triple, and its subparts, using the manually made lexicon, WordNet
    lexname, Stanford NER
 
+#### SpacyAnalyzer
+
+#### OIEAnalyzer
+
+Uses the Standford tool for open information extraction. This analyzer does not extract perspective values. This
+analyzer extracts triples as the exact mentions in text thus
+leads to the most sparse graph.
+
+#### LlmAnalyzer
+
+Prompts ChatGPT, with few-shot learning techniques, to extract triple elements from an utterance.
+
 #### ConversationalAnalyzer
 
 Extract triples taking the conversational context into account.
 
 ##### Models
 
-Models for the ConversationalAnalyzer can be downloaded from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW).
-
+Models for the ConversationalAnalyzer can be downloaded
+from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW).
 
 ### Sample output
 
@@ -129,7 +150,7 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
     python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
     python -m spacy download en_core_web_sm 
     ```
-   
+
 2. In case you want to use this package in the EventBus infrastructure, then install using:
     ```bash
     pip install -e .[service]
@@ -137,8 +158,9 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
     python -m spacy download en_core_web_sm 
     ```
 
-3. In case you want to run the OpenIE function from StanfordCoreNLP, you need to download "stanford-corenlp-4.1.0" and unpack it in the folder
-~/.stanfordnlp_resources.
+3. In case you want to run the OpenIE function from StanfordCoreNLP, you need to download "stanford-corenlp-4.1.0" and
+   unpack it in the folder
+   ~/.stanfordnlp_resources.
 
 ### Usage
 

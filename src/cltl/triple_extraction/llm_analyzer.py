@@ -1,8 +1,10 @@
 import itertools
 import logging
+import os
 
 import openai
 from cltl.commons.discrete import UtteranceType
+from dotenv import load_dotenv
 
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
@@ -28,7 +30,7 @@ def chatgpt(utterances, model="gpt-3.5-turbo"):
     }
 
 
-class llmAnalyzer(Analyzer):
+class LlmAnalyzer(Analyzer):
     def __init__(self):
         """
         LLM (GPT3.5) Analyzer Object
@@ -36,6 +38,9 @@ class llmAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        load_dotenv()
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+
         self._utterance = None
         self._pre_prompt = """
 This is a triple extraction task over snippets of dialogue. 
@@ -48,7 +53,7 @@ Dialogue:
     John: I did not know that!
     Lola: I am still a 17 year old girl
 Triples: 
-    ["Person", "Lola"]->["birthday"]->["Date", "October 24"] 
+    ["Person", "Lola"]->"birthday"->["October 24", "Date"]
     ["Person", "John"]->["know"]->["Event", "Lola's birthday"]
     ["Person", "Lola"]->["age"]->["Age", "17 years old"]
     ["Person", "Lola"]->["gender"]->["Gender", "female"] 
@@ -97,12 +102,20 @@ Dialogue:
 
         """
         self._chat = chat
+        self._utterance = chat.last_utterance
 
+        # Extract triples
         dialogue_history = self._format_dialogue_history(chat)
         triples = self._prompt_for_triples(dialogue_history)
 
+        # Extract perspective
+        # perspective = self.extract_perspective()
+        # triples = [triple.update({'perspective': perspective}) for triple in triples]
+
+        # Final triple assignment
         if triples:
             for triple in triples:
+                logger.info('final triple: {}'.format(triple))
                 self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple)
         else:
             logger.warning("Couldn't extract triples")
@@ -141,12 +154,25 @@ Dialogue:
 
         prediction = chatgpt(prompt)
 
-        triples = self._clean_prediction(prediction)
+        triples = self._clean_prediction(prediction['text'])
 
         return triples
 
     def _clean_prediction(self, txt):
-        triples = txt
+        candidates = txt.split('\n')
+
+        triples = []
+        for candidate in candidates:
+            elements = candidate.split('->')
+            elements = [e.strip('[]"') for e in elements]
+
+            triple = {
+                "subject": {"label": elements[0].split('", "')[1], "type": [elements[0].split('", "')[0]], "uri": None},
+                "predicate": {"label": elements[1], "type": [], "uri": None},
+                "object": {"label": elements[2].split('", "')[1], "type": [elements[2].split('", "')[0]], "uri": None}
+            }
+
+            triples.append(triple)
 
         return triples
 
@@ -161,7 +187,7 @@ if __name__ == "__main__":
     utterances = [("Thomas", "I like animals."), ("Thomas", "I love cats."),
                   ("Jaap", "Do you also love dogs?"),
                   ("Thomas", "No I do not.")]
-    analyzer = llmAnalyzer()
+    analyzer = LlmAnalyzer()
 
     for speaker, utterance in utterances:
         chat.add_utterance(utterance, speaker)
