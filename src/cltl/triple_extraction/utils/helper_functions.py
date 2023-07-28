@@ -39,7 +39,7 @@ def fix_pronouns(pronoun, speaker, agent):
     * plural *
     """
 
-    entry = lexicon_lookup(pronoun, lexicon)
+    entry = lexicon_lookup(pronoun.lower(), lexicon)
 
     if entry and 'person' in entry:
         if entry['person'] == 'first':
