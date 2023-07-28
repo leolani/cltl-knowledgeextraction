@@ -8,56 +8,57 @@ from collections import defaultdict
 
 from test_triples import compare_elementwise_triple
 from test_triples import load_golden_triples
+from test_utils import test_triples
 
 from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.question_extraction.stanza_question_analyzer import StanzaQuestionAnalyzer
 
 
-def test_triples(item, correct, incorrect, issues, errorf, analyzer:StanzaQuestionAnalyzer):
-    chat = Chat("leolani", "lenka")
-
-    utterance_ = item['utterance']
-    chat.add_utterance(utterance_, "lenka", [DialogueAct.QUESTION])
-    analyzer.analyze_in_context(chat)
-
-    # No triple was extracted, so we missed three items (s, p, o)
-    if not chat.last_utterance.triples:
-        print((chat.last_utterance, 'ERROR'))
-        incorrect += 3
-        issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
-        error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-            'predicate'] + " " + item['triple']['object'] + "\n"
-        errorf.write(error_string)
-        issues[chat.last_utterance.transcript]['triple'] = error_string
-        return correct, incorrect, issues
-
-    # A triple was extracted so we compare it elementwise
-    else:
-        # Compare all extracted triples, select the one with the most correct elements
-        triples_scores = [compare_elementwise_triple(extracted_triple, item['triple'])
-                          for extracted_triple in chat.last_utterance.triples]
-
-        score_best_triple = max(triples_scores)
-        idx_best_triple = triples_scores.index(score_best_triple)
-
-        # add to statistics
-        correct += score_best_triple
-        incorrect += (3 - score_best_triple)
-        if score_best_triple < 3:
-            issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
-            error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-                'predicate'] + " " + item['triple']['object'] + "\n"
-            errorf.write(error_string)
-        # Report
-        if score_best_triple==3:
-            print("CORRECT")
-        else:
-            print("INCORRECT")
-        print(f"\nUtterance: \t{chat.last_utterance}")
-        print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
-        print(f"Expected triple:   \t{item['triple']}")
-
-        return correct, incorrect, issues
+# def test_triples(item, correct, incorrect, issues, errorf, analyzer:StanzaQuestionAnalyzer):
+#     chat = Chat("leolani", "lenka")
+#
+#     utterance_ = item['utterance']
+#     chat.add_utterance(utterance_, "lenka", [DialogueAct.QUESTION])
+#     analyzer.analyze_in_context(chat)
+#
+#     # No triple was extracted, so we missed three items (s, p, o)
+#     if not chat.last_utterance.triples:
+#         print((chat.last_utterance, 'ERROR'))
+#         incorrect += 3
+#         issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
+#         error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
+#             'predicate'] + " " + item['triple']['object'] + "\n"
+#         errorf.write(error_string)
+#         issues[chat.last_utterance.transcript]['triple'] = error_string
+#         return correct, incorrect, issues
+#
+#     # A triple was extracted so we compare it elementwise
+#     else:
+#         # Compare all extracted triples, select the one with the most correct elements
+#         triples_scores = [compare_elementwise_triple(extracted_triple, item['triple'])
+#                           for extracted_triple in chat.last_utterance.triples]
+#
+#         score_best_triple = max(triples_scores)
+#         idx_best_triple = triples_scores.index(score_best_triple)
+#
+#         # add to statistics
+#         correct += score_best_triple
+#         incorrect += (3 - score_best_triple)
+#         if score_best_triple < 3:
+#             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
+#             error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
+#                 'predicate'] + " " + item['triple']['object'] + "\n"
+#             errorf.write(error_string)
+#         # Report
+#         if score_best_triple==3:
+#             print("CORRECT")
+#         else:
+#             print("INCORRECT")
+#         print(f"\nUtterance: \t{chat.last_utterance}")
+#         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
+#         print(f"Expected triple:   \t{item['triple']}")
+#
+#         return correct, incorrect, issues
 
 
 def test_triples_in_file(path, analyzer):

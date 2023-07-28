@@ -11,6 +11,7 @@ from collections import defaultdict
 
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
+from test_utils import test_triples
 
 def load_golden_triples(filepath):
     """
