@@ -497,15 +497,15 @@ class CFGAnalyzer(Analyzer):
 
         # multi-word subject (possessive phrase)
         if len(triple['subject'].split('-')) > 1:
-            first_word = triple['subject'].split('-')[0].lower()
-            if lexicon_lookup(first_word) and 'person' in lexicon_lookup(first_word):
+            first_word = triple['subject'].split('-')[0]
+            if lexicon_lookup(first_word.lower()) and 'person' in lexicon_lookup(first_word.lower()):
                 triple = self.analyze_possessive(triple, 'subject')
 
             if 'not-' in triple['subject']:  # for sentences that start with negation "haven't you been to London?"
                 triple['subject'] = triple['subject'].replace('not-', '')
 
         else:  # one word subject
-            triple['subject'] = fix_pronouns(triple['subject'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
+            triple['subject'] = fix_pronouns(triple['subject'], self.utterance._chat_speaker, self.utterance._chat_agent)
         return triple
 
     def analyze_possessive(self, triple, element):
@@ -584,9 +584,9 @@ class CFGAnalyzer(Analyzer):
         """
 
         # TODO
-        if lexicon_lookup(triple['subject']) and 'person' in lexicon_lookup(triple['subject']):
+        if lexicon_lookup(triple['subject'].lower()) and 'person' in lexicon_lookup(triple['subject'].lower()):
             if triple['predicate'] == 'be':
-                subject = fix_pronouns(triple['subject'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
+                subject = fix_pronouns(triple['subject'], self.utterance._chat_speaker, self.utterance._chat_agent)
                 pred = ''
                 for el in triple['subject'].split('-')[1:]:
                     pred += el + '-'
@@ -594,7 +594,7 @@ class CFGAnalyzer(Analyzer):
                 triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
+                triple['object'] = fix_pronouns(triple['object'], self.utterance._chat_speaker, self.utterance._chat_agent)
         elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['subject']).startswith('V') \
                 and get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate']) == 'MD':
             triple['predicate'] += '-' + triple['subject']
@@ -696,8 +696,9 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         # Initialize
         utterance_info = {'neg': False}
         triple = self.initialize_triple()
-        ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
         logger.debug('initial triple: {}'.format(triple))
+
+        ### This fixes clauses in which the main verb is a copula or auxilairy and the predicate/property is actually the complement
         entry = lexicon_lookup(lemmatize(triple['predicate'], 'v'), 'lexical')
         if entry and 'certainty' in entry:
             if CFGAnalyzer.PARSER.constituents[2]['label'] == 'S':
@@ -985,7 +986,6 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
 
 
 class VerbQuestionAnalyzer(QuestionAnalyzer):
-
     def __init__(self, ):
         """
         Verb Question Analyzer

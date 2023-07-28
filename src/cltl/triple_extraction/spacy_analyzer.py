@@ -28,10 +28,10 @@ class spacyAnalyzer(Analyzer):
         return self._utterance
 
     def analyze_in_context(self, chat: Chat):
-        self.analyze(chat.last_utterance, chat.speaker, chat.agent)
+        self.analyze(chat.last_utterance)
 
     # TODO this doesn't match the Analyzer interface!
-    def analyze(self, utterance, speaker=None, hearer=None):
+    def analyze(self, utterance):
         """
         Analyzer factory function
 
@@ -44,6 +44,8 @@ class spacyAnalyzer(Analyzer):
 
         """
         self._utterance = utterance
+        speaker = self._utterance.chat.speaker
+        hearer = self._utterance.chat.agent
 
         # @TODO: check if there are embedded clauses:
         # - ccomp  "I think ccomp that S. likes chees"
