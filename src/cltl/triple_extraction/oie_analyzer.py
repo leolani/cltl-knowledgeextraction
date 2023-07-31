@@ -5,6 +5,7 @@ from openie import StanfordOpenIE
 from cltl.commons.discrete import UtteranceType
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.utils.helper_functions import fix_pronouns
 
 logger = logging.getLogger(__name__)
 
@@ -54,9 +55,11 @@ class OIEAnalyzer(Analyzer):
                     for triple in result:
                         # Final triple assignment
                         fixed_triple = {
-                            "subject": {'label': triple['subject'], 'type': []},
+                            "subject": {'label': fix_pronouns(triple['subject'], self._utterance.chat.speaker, self._utterance.chat.agent),
+                                        'type': []},
                             "predicate": {'label': triple['relation'], 'type': []},
-                            "object": {'label': triple['object'], 'type': []},
+                            "object": {'label': fix_pronouns(triple['object'], self._utterance.chat.speaker, self._utterance.chat.agent),
+                                       'type': []},
                         }
 
                         self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=fixed_triple)
