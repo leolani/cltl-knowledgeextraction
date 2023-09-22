@@ -245,7 +245,7 @@ class TripleExtractionService(GroupProcessor):
                        "object": triple['object'],
                        "perspective": triple["perspective"],
                        ###
-                       "context_id": None,
+                       "context_id": scenario_id,
                        "timestamp": timestamp_now()
                        }
 
