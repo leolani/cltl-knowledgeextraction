@@ -10,7 +10,7 @@ from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
 
 
 @parameterized_class(('analyzer',), [(CFGAnalyzer(), ), (OIEAnalyzer(), ), (spacyAnalyzer(), ),])
-class TestCfgAnalyzer(unittest.TestCase):
+class TestStatementAnalyzers(unittest.TestCase):
     def setUp(self) -> None:
         self.chat = Chat("Leolani", "Piek")
 

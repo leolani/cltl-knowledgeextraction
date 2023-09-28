@@ -51,7 +51,7 @@ class CFGAnalyzer(Analyzer):
 
         """
         self._utterance = utterance
-        if not self._process_questions and DialogueAct.QUESTION not in utterance.dialogue_acts:
+        if not self._process_questions and DialogueAct.QUESTION in utterance.dialogue_acts:
             return
 
         CFGAnalyzer.PARSER.parse(utterance)
@@ -68,13 +68,11 @@ class CFGAnalyzer(Analyzer):
                     if sentence_type == 'S':
                         analyzer = StatementAnalyzer()
                         analyzer.analyze(utterance)
-
                     elif sentence_type == 'Q' and self._process_questions:
                         analyzer = QuestionAnalyzer()
                         analyzer.analyze(utterance)
-                    else:
-                        logger.warning("Error: {}".format(sentence_type))
-
+                    elif self._process_questions:
+                        logger.warning("Unsupported sentence type: %s", sentence_type)
                 except Exception as e:
                     logger.warning("Couldn't extract triples")
                     logger.exception(e)

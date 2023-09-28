@@ -8,7 +8,7 @@ from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 
 
 @parameterized_class(('analyzer',), [(CFGAnalyzer(), )])
-class TestCfgAnalyzer(unittest.TestCase):
+class TestQuestionAnalyzers(unittest.TestCase):
     def setUp(self) -> None:
         self.chat = Chat("Leolani", "Piek")
 
