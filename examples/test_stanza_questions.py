@@ -8,7 +8,7 @@ from collections import defaultdict
 
 from test_triples import compare_elementwise_triple
 from test_triples import load_golden_triples
-from test_utils import test_triples
+from test_utils import test_triples, recall
 
 from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.question_extraction.stanza_question_analyzer import StanzaQuestionAnalyzer
@@ -68,8 +68,9 @@ def test_triples_in_file(path, analyzer):
     triple elements
     :param path: filepath of test file
     """
-    correct = 0
-    incorrect = 0
+    results = {'correct': 0, 'incorrect': 0, 'correct_subjects': 0, 'incorrect_subjects': 0, 'correct_predicates': 0,
+               'incorrect_predicates': 0, 'correct_objects': 0, 'incorrect_objects': 0, 'correct_perspective': 0,
+               'incorrect_perspective': 0}
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
     errorf = open(path + ".error.txt", "w")
@@ -77,12 +78,36 @@ def test_triples_in_file(path, analyzer):
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
-        correct, incorrect, issues = test_triples(item, correct, incorrect, issues, errorf, analyzer)
+        results, issues = test_triples(item, results, issues, errorf, analyzer)
     errorf.close()
+
+    correct = results['correct']
+    incorrect = results['incorrect']
+    correct_subjects = results['correct_subjects']
+    incorrect_subjects = results['incorrect_subjects']
+    correct_predicates = results['correct_predicates']
+    incorrect_predicates = results['incorrect_predicates']
+    correct_objects = results['correct_objects']
+    incorrect_objects = results['incorrect_objects']
+    correct_perspective = results['correct_perspective']
+    incorrect_perspective = results['incorrect_perspective']
+    triple_recall = recall(len(test_suite), correct)
+    subject_recall = recall(len(test_suite), correct_subjects)
+    predicate_recall = recall(len(test_suite), correct_predicates)
+    objects_recall = recall(len(test_suite), correct_objects)
+    perspective_recall = recall(len(test_suite) * 3, incorrect_perspective)
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
-    print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
+    print(f'\nCORRECT TRIPLES: {correct}\t\t\tINCORRECT TRIPLES: {incorrect}\t\t\tRECALL: {triple_recall:.2f}%')
+    print(f'\nCORRECT SUBJECTS: {correct_subjects}\t\t\tINCORRECT SUBJECTS: {incorrect_subjects}\t\t\tRECALL: '
+          f'{subject_recall:.2f}%')
+    print(f'\nCORRECT PREDICATES: {correct_predicates}\t\t\tINCORRECT PREDICATES: {incorrect_predicates}\t\t\tRECALL: '
+          f'{predicate_recall:.2f}%')
+    print(f'\nCORRECT OBJECTS: {correct_objects}\t\t\tINCORRECT OBJECTS: {incorrect_objects}\t\t\tRECALL: '
+          f'{objects_recall:.2f}%')
+    print(f'\nCORRECT PERSPECTIVES: {correct_perspective}\t\t\tINCORRECT PERSPECTIVES: {incorrect_perspective}\t\t\t'
+          f'RECALL: {perspective_recall:.2f}%')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
 
@@ -94,7 +119,7 @@ if __name__ == "__main__":
     '''
     analyzer = StanzaQuestionAnalyzer()
     all_test_files = [
-       # "./data/wh-questions.txt",
+        # "./data/wh-questions.txt",
         "./data/verb-questions.txt"
     ]
 
@@ -102,8 +127,6 @@ if __name__ == "__main__":
 
     for test_file in all_test_files:
         test_triples_in_file(test_file, analyzer)
-
-
 
 # RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
 #

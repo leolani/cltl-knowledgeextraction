@@ -33,10 +33,11 @@ def compare_elementwise(triple, gold):
 
 
 def recall(total, observed):
-    recall = observed/total*100
+    recall = observed / total * 100
     # accuracy = 100-error_rate
 
     return recall
+
 
 def test_triples(item, results, issues, error_file, analyzer):
     chat = Chat("Leolani", "Lenka")
@@ -75,11 +76,11 @@ def test_triples(item, results, issues, error_file, analyzer):
         # add to statistics
         # correct += score_best_triple
         results['correct_subjects'] += triples_matches[idx_best_triple]['triple']['subject']
-        results['incorrect_subjects'] += 1-triples_matches[idx_best_triple]['triple']['subject']
+        results['incorrect_subjects'] += 1 - triples_matches[idx_best_triple]['triple']['subject']
         results['correct_predicates'] += triples_matches[idx_best_triple]['triple']['predicate']
-        results['incorrect_predicates'] += 1-(triples_matches[idx_best_triple]['triple']['predicate'])
+        results['incorrect_predicates'] += 1 - (triples_matches[idx_best_triple]['triple']['predicate'])
         results['correct_objects'] += triples_matches[idx_best_triple]['triple']['object']
-        results['incorrect_objects'] += 1-(triples_matches[idx_best_triple]['triple']['object'])
+        results['incorrect_objects'] += 1 - (triples_matches[idx_best_triple]['triple']['object'])
         # incorrect += (3 - score_best_triple)
         if score_best_triple < 3:
             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
@@ -88,7 +89,7 @@ def test_triples(item, results, issues, error_file, analyzer):
             error_file.write(error_string)
 
         # Report
-        if score_best_triple==3:
+        if score_best_triple == 3:
             print("CORRECT")
             results['correct'] += 1
         else:
@@ -101,13 +102,13 @@ def test_triples(item, results, issues, error_file, analyzer):
         # Compare perspectives if available
         if 'perspective' in item.keys():
             best_persp = compare_elementwise(chat.last_utterance.triples[idx_best_triple]['perspective'],
-                                                  item['perspective'])
+                                             item['perspective'])
             score_best_pesp = sum(best_persp['perspective'].values())
 
             # correct += score_best_pesp
             # incorrect += (3 - score_best_pesp[''])
             results['correct_perspective'] += score_best_pesp
-            results['incorrect_perspective'] += 3-score_best_pesp
+            results['incorrect_perspective'] += 3 - score_best_pesp
             if score_best_pesp < 3:
                 issues[chat.last_utterance.transcript]['perspective'] = (3 - score_best_pesp)
 

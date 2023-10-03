@@ -29,8 +29,8 @@ class Chat:
         """
 
         self._id = getrandbits(8)
-        self._speaker = str(speaker) # self._agent1
-        self._agent = str(agent)     #self._agent2
+        self._speaker = str(speaker)  # self._agent1
+        self._agent = str(agent)  # self._agent2
         self._utterances = []
 
         self._log = self._update_logger()
@@ -119,9 +119,9 @@ class Chat:
         """
         utterance = Utterance(self, transcript, len(self._utterances), utterance_speaker, dialogue_acts)
 
-        #@TODO we do not know who the speaker is
-        #utterance._chat_speaker = self._speaker
-        #utterance._chat_agent = self._agent
+        # @TODO we do not know who the speaker is
+        # utterance._chat_speaker = self._speaker
+        # utterance._chat_agent = self._agent
         self._utterances.append(utterance)
 
         self._log = self._update_logger()
@@ -137,7 +137,8 @@ class Chat:
 
 
 class Utterance:
-    def __init__(self, chat: Chat, transcript: str, turn: int, utterance_speaker = None, dialogue_acts: List[DialogueAct] = None):
+    def __init__(self, chat: Chat, transcript: str, turn: int, utterance_speaker=None,
+                 dialogue_acts: List[DialogueAct] = None):
         """
         Construct Utterance Object
 
@@ -154,10 +155,10 @@ class Utterance:
         self._log = logger.getChild(self.__class__.__name__)
 
         self._chat = chat
-        self._utterance_speaker  = utterance_speaker
-        #@WARNING This information duplicate the chat information and _chat_speaker is not necesarily the speaker of the utterance.
+        self._utterance_speaker = utterance_speaker
+        # @WARNING This information duplicate the chat information and _chat_speaker is not necesarily the speaker of the utterance.
         # Use _utterance_speaker to store the speaker or source of the utterance
-        self._chat_speaker = chat._speaker #superfluous with information with chat
+        self._chat_speaker = chat._speaker  # superfluous with information with chat
         self._chat_agent = chat._agent
         self._turn = turn
         self._datetime = datetime.now()
@@ -333,10 +334,10 @@ class Utterance:
                     transcript = transcript.replace(i.lower(), '')
 
         # separating typical contractions
-        transcript= transcript.replace("!", "")
-        transcript= transcript.replace("?", "")
-        transcript= transcript.replace(",", "")
-        transcript= transcript.replace(".", "")
+        transcript = transcript.replace("!", "")
+        transcript = transcript.replace("?", "")
+        transcript = transcript.replace(",", "")
+        transcript = transcript.replace(".", "")
         tokens_raw = transcript.replace("'", " ").split()
         dict = {'m': 'am', 're': 'are', 'll': 'will'}
         dict_not = {'won': 'will', 'don': 'do', 'doesn': 'does', 'didn': 'did', 'haven': 'have', 'wouldn': 'would',

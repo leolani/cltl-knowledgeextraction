@@ -74,8 +74,9 @@ Extract triples taking the conversational context into account.
 
 ##### Models
 
-Models for the ConversationalAnalyzer can be downloaded from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW).
-
+Models for the ConversationalAnalyzer can be downloaded
+from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW). These files must be under the
+folder `resources/conversational_triples/`
 
 ### Sample output
 
@@ -129,7 +130,7 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
     python -c "import nltk; nltk.download('wordnet'); nltk.download('punkt'); nltk.download('averaged_perceptron_tagger')"
     python -m spacy download en_core_web_sm 
     ```
-   
+
 2. In case you want to use this package in the EventBus infrastructure, then install using:
     ```bash
     pip install -e .[service]
@@ -137,8 +138,9 @@ Be sure to run in a virtual python environment (e.g. conda, venv, mkvirtualenv, 
     python -m spacy download en_core_web_sm 
     ```
 
-3. In case you want to run the OpenIE function from StanfordCoreNLP, you need to download "stanford-corenlp-4.1.0" and unpack it in the folder
-~/.stanfordnlp_resources.
+3. In case you want to run the OpenIE function from StanfordCoreNLP, you need to download "stanford-corenlp-4.1.0" and
+   unpack it in the folder
+   ~/.stanfordnlp_resources.
 
 ### Usage
 
@@ -184,7 +186,7 @@ For these example scripts, you need
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
 contributions you make are **greatly appreciated**.
 
 1. Fork the Project

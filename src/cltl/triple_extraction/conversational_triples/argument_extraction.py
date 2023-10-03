@@ -51,7 +51,8 @@ class ArgumentExtraction(torch.nn.Module):
         if path:
             model_path = path + '/argument_extraction_' + base_model + '.zip'
             logger.info('Loading pretrained model %s', model_path)
-            self.load_state_dict(torch.load(model_path, map_location=self._device))
+            state_dict = torch.load(model_path, map_location=self._device)
+            self.load_state_dict(state_dict, strict=False)
 
     def forward(self, input_ids, speaker_ids):
         """ Computes BIO label probabilities for each token
@@ -196,4 +197,3 @@ if __name__ == '__main__':
     model = ArgumentExtraction()
     model.fit(tokens, labels)
     torch.save(model.state_dict(), 'models/argument_extraction_albert-v2_31_03_2022')
-

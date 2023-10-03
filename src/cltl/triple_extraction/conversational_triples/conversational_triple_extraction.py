@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append('predicate_normalization')
 
 from cltl.triple_extraction.conversational_triples.argument_extraction import ArgumentExtraction
@@ -79,7 +80,7 @@ class AlbertTripleExtractor:
         # Score candidate triples
         predictions = []
         for i in range(0, len(candidates), batch_size):
-            batch = candidates[i:i+batch_size]
+            batch = candidates[i:i + batch_size]
             for y_hat in self._scoring_module.predict(tokens, batch):
                 predictions.append(y_hat)
 

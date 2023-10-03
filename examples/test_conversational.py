@@ -22,7 +22,7 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 def test_triples(item, correct, incorrect, issues, errorf, analyzer:ConversationalAnalyzer):
     chat = Chat("leolani", "lenka")
 
-    chat.add_utterance(item['utterance'])
+    chat.add_utterance(item['utterance'], 'lenka')
     analyzer.analyze_in_context(chat)
 
     # No triple was extracted, so we missed three items (s, p, o)

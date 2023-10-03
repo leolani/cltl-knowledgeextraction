@@ -17,7 +17,7 @@ class TripleScoring(torch.nn.Module):
     def __init__(self, base_model='albert-base-v2', path=None, max_len=80, sep='<eos>'):
         super().__init__()
         # Base model
-        print('loading %s for triple scoring' % base_model)
+        print('Loading %s for triple scoring' % base_model)
         # Load base model
         self._model = AutoModel.from_pretrained(base_model)
         self._max_len = max_len
@@ -41,9 +41,10 @@ class TripleScoring(torch.nn.Module):
 
         # Load model / tokenizer if pretrained model is given
         if path:
-            print('\t- Loading pretrained')
             model_path = glob.glob(path + '/candidate_scorer_' + base_model + '.zip')[0]
-            self.load_state_dict(torch.load(model_path, map_location=self._device))
+            print('\t- Loading pretrained model %s', model_path)
+            state_dict = torch.load(model_path, map_location=self._device)
+            self.load_state_dict(state_dict, strict=False)
 
     def forward(self, input_ids, speaker_ids, attn_mask):
         """ Computes the forward pass through the model

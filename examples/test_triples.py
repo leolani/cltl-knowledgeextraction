@@ -13,6 +13,7 @@ from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from test_utils import test_triples
 
+
 def load_golden_triples(filepath):
     """
     :param filepath: path to the test file with gold standard
@@ -90,7 +91,7 @@ def compare_elementwise_perspective(triple, gold):
             print(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}")
 
         ##elif type(triple[key]) == float and triple[key]['label'].lower() == gold[key]:
-        elif not type(triple[key])== float:
+        elif not type(triple[key]) == float:
             if triple[key]['label'].lower() == gold[key]:
                 print(f"Match triple {key}: {triple[key]} == {gold[key]}")
                 correct += 1
@@ -189,7 +190,8 @@ def test_triples_in_file(path, resultfile):
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
-    resultfile.write(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}\n")
+    resultfile.write(
+        f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}\n")
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
 
@@ -200,7 +202,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    resultfile = open("./data/evaluation.txt", "w")
+    resultfile = open("data/evaluation_CFG_03102023.txt", "w")
     all_test_files = [
         "./data/statements.txt",
         "./data/perspective.txt",
@@ -213,8 +215,8 @@ if __name__ == "__main__":
         "./data/professions.txt"
     ]
 
-   # all_test_files=["./data/activities.txt"]
-    all_test_files=["./data/verb-questions.txt"]
+    # all_test_files=["./data/activities.txt"]
+    # all_test_files = ["./data/verb-questions.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:

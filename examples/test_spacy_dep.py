@@ -9,9 +9,7 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 import json
 from collections import defaultdict
 
-from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
-from test_triples import compare_elementwise_triple, compare_elementwise_perspective
 from test_triples import load_golden_triples
 from test_utils import test_triples, recall
 
@@ -107,8 +105,7 @@ def test_triples_in_file(path):
     subject_recall = recall(len(test_suite), correct_subjects)
     predicate_recall = recall(len(test_suite), correct_predicates)
     objects_recall = recall(len(test_suite), correct_objects)
-    perspective_recall = recall(len(test_suite)*3, incorrect_perspective)
-
+    perspective_recall = recall(len(test_suite) * 3, incorrect_perspective)
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')

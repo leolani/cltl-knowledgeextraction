@@ -116,7 +116,7 @@ def get_subj_obj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: s
     :rtype: list
     :return: list of tuples (predicate, subject, object)
     """
-    print('get_subj_obj_triples_with_spacy')
+    # print('get_subj_obj_triples_with_spacy')
     rels = {'nsubj', 'dobj', 'xcomp'}
     doc = nlp(utterance)
 
@@ -181,7 +181,7 @@ def get_subj_obj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: s
         triple = predicateInfoToTriple(pred_info, predicate)
         if triple and not triple in triples:
             triples.append(triple)
-    print('Triples subj - pred - obj', triples)
+    # print('Triples subj - pred - obj', triples)
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
                                                                                                     subject_mentions), zip(
         object_tokens, object_mentions)
@@ -198,7 +198,7 @@ def get_subj_amod_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: 
     :rtype: list
     :return: list of tuples (predicate, subject, object)
     """
-    print('get_subj_amod_triples_with_spacy')
+    # print('get_subj_amod_triples_with_spacy')
     rels = {'nsubj', 'nsubjpass', 'acomp'}
 
     doc = nlp(utterance)
@@ -246,7 +246,7 @@ def get_subj_amod_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: 
         triple = predicateInfoToTriple(pred_info, predicate)
         if triple and not triple in triples:
             triples.append(triple)
-    print('Triples subj - aux - amod', triples)
+    # print('Triples subj - aux - amod', triples)
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
                                                                                                     subject_mentions), zip(
         object_tokens, object_mentions)
@@ -263,7 +263,7 @@ def get_subj_attr_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: 
     :rtype: list
     :return: list of tuples (predicate, subject, object)
     """
-    print('get_subj_attr_triples_with_spacy')
+    # print('get_subj_attr_triples_with_spacy')
     rels = {'nsubj', 'intj', 'appos' 'attr'}
 
     doc = nlp(utterance)
@@ -322,12 +322,12 @@ def get_subj_attr_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEARER: 
 
     for pred_token, pred_info in predicates.items():
         predicate = doc[pred_token].lemma_
-        print(predicate, pred_info)
+        # print(predicate, pred_info)
         triple = predicateInfoToTriple(pred_info, predicate)
         if triple and not triple in triples:
             triples.append(triple)
 
-    print('Triples subj - pred - attr', triples)
+    # print('Triples subj - pred - attr', triples)
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
                                                                                                     subject_mentions), zip(
         object_tokens, object_mentions)
@@ -344,7 +344,7 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEA
     :rtype: list
     :return: list of tuples (predicate, subject, object)
     """
-    print('get_subj_prep_pobj_triples_with_spacy')
+    # print('get_subj_prep_pobj_triples_with_spacy')
     rels = {'nsubj', 'nsubjpass', 'prep', 'pobj'}
 
     doc = nlp(utterance)
@@ -410,7 +410,7 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEA
             triple = predicateInfoToTriple(pred_info, predicate)
             if triple and not triple in triples:
                 triples.append(triple)
-    print('Triples subj - pred - prep-obj', triples)
+    # print('Triples subj - pred - prep-obj', triples)
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
                                                                                                     subject_mentions), zip(
         object_tokens, object_mentions)

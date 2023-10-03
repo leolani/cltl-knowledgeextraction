@@ -7,26 +7,22 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 """
 
 import json
-import os
 from collections import defaultdict
 
-from test_triples import compare_elementwise_triple, compare_elementwise_perspective
-from test_triples import load_golden_triples
-
-#from cltl.commons.discrete import UtteranceType
-#from cltl.triple_extraction.analyzer import Analyzer
+# from cltl.commons.discrete import UtteranceType
+# from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.conversational_analyzer import ConversationalAnalyzer
-from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
+from test_triples import compare_elementwise_triple, compare_elementwise_perspective
 
 
-def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer:ConversationalAnalyzer):
+def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer: ConversationalAnalyzer):
     chat = Chat(agent=speaker2, speaker=speaker1)
 
-#for sure . what else do you like ?<eos>school keeps me pretty busy , what about you ?<eos>spending a lot of time running and getting resources for my new job
+    # for sure . what else do you like ?<eos>school keeps me pretty busy , what about you ?<eos>spending a lot of time running and getting resources for my new job
 
     ### We need to add the speaker
-    #print('Utterance', item['utterance'])
+    # print('Utterance', item['utterance'])
     chat.add_utterance(item['utterance'], speaker1)
     analyzer.analyze_in_context(chat)
 
@@ -77,7 +73,8 @@ def test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, a
                 issues[chat.last_utterance.transcript]['perspective'] = (3 - score_best_pesp)
 
             print(f"Expected perspective:   \t{item['perspective']}")
-            issues[chat.last_utterance.transcript]['generated_perspective'] = chat.last_utterance.triples[idx_best_triple]['perspective']
+            issues[chat.last_utterance.transcript]['generated_perspective'] = \
+            chat.last_utterance.triples[idx_best_triple]['perspective']
             issues[chat.last_utterance.transcript]['expected_perspective'] = item['perspective']
 
         return correct, incorrect, issues
@@ -92,6 +89,8 @@ personachat-valid-000556
 i donate to locks of love if that counts<eos>that is great ! ok , now another random question what is your biggest fear ?<eos>spiders . . . i absolutely hate and fear them
 speaker1 's biggest fear,is,spiders,positive
 '''
+
+
 def load_golden_conversation_triples(filepath):
     """
     :param filepath: path to the test file with gold standard
@@ -126,7 +125,7 @@ def load_golden_conversation_triples(filepath):
                     polarity = 1.0
                     certainty = 1.0
                     sentiment = 1.0
-                    if perspective=="negative":
+                    if perspective == "negative":
                         polarity = 0.0
                     elif perspective == "uncertain":
                         certainty = 0.75
@@ -145,6 +144,7 @@ def load_golden_conversation_triples(filepath):
 
     return test_suite
 
+
 def test_triples_in_file(path, analyzer, speaker1, speaker2):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
@@ -161,15 +161,18 @@ def test_triples_in_file(path, analyzer, speaker1, speaker2):
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
-        correct, incorrect, issues = test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf, analyzer)
+        correct, incorrect, issues = test_triples(speaker1, speaker2, item, correct, incorrect, issues, errorf,
+                                                  analyzer)
     errorf.close()
 
     summary_file = open(path + ".summary.txt", "w")
     summary_file.write(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     summary_file.write(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     summary_file.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
-    summary_file.write(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    summary_file.write(
+        f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
     summary_file.close()
+
 
 if __name__ == "__main__":
     '''
@@ -177,30 +180,29 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27"
+    model = "../resources/conversational_triples"
     analyzer = ConversationalAnalyzer(model)
     all_test_files = [
         "./data/conversation_test_examples/test_answer_ellipsis.txt",
-         "./data/conversation_test_examples/test_coordination.txt",
-         "./data/conversation_test_examples/test_coreference.txt",
-         "./data/conversation_test_examples/test_declarative_statements.txt",
-         "./data/conversation_test_examples/test_declarative_statements+negated.txt",
-         "./data/conversation_test_examples/test_explicit_no_answers.txt",
-         "./data/conversation_test_examples/test_explicit_yes_answers.txt",
-         "./data/conversation_test_examples/test_full.txt",
-         "./data/conversation_test_examples/test_implicit_negation.txt",
-         "./data/conversation_test_examples/test_single_utterances.txt"
+        "./data/conversation_test_examples/test_coordination.txt",
+        "./data/conversation_test_examples/test_coreference.txt",
+        "./data/conversation_test_examples/test_declarative_statements.txt",
+        "./data/conversation_test_examples/test_declarative_statements+negated.txt",
+        "./data/conversation_test_examples/test_explicit_no_answers.txt",
+        "./data/conversation_test_examples/test_explicit_yes_answers.txt",
+        "./data/conversation_test_examples/test_full.txt",
+        "./data/conversation_test_examples/test_implicit_negation.txt",
+        "./data/conversation_test_examples/test_single_utterances.txt"
     ]
     all_test_files = ["./data/conversation_test_examples/test_explicit_no_answers.txt"]
 
     '''
     '''
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
-    speaker1 = "speaker1"   ### this is supposed to be the human that gives the first and third response
+    speaker1 = "speaker1"  ### this is supposed to be the human that gives the first and third response
     speaker2 = "speaker2"  ### this is supposed to be the agent that gives the second response
     analyzer._extractor._speaker1 = speaker1
     analyzer._extractor._speaker2 = speaker2
 
     for test_file in all_test_files:
         test_triples_in_file(test_file, analyzer, speaker1, speaker2)
-
