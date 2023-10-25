@@ -41,6 +41,11 @@ setup(
     extras_require={
         "service": [
             "cltl.combot",
+        ],
+        "conversational": [
+            "torch",
+            "transformers",
+            "tqdm"
         ]
     },
     setup_requires=['flake8']

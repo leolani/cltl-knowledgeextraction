@@ -16,8 +16,11 @@ include util/make/makefile.git.mk
 download:
 	mkdir -p resources/conversational_triples
 	wget "https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW/download" -O resources/conversational_triples/models.zip
-	unzip -j -d resources/conversational_triples resources/conversational_triples/models.zip
+	unzip -o -j -d resources/conversational_triples resources/conversational_triples/models.zip
 	rm resources/conversational_triples/models.zip
+
+	source venv/bin/activate; python -m spacy download en
+	source venv/bin/activate; python -m nltk.downloader -d ~/nltk_data all
 
 docker:
 	$(info "No docker build for $(project_name)")
