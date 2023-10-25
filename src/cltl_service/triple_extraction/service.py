@@ -18,9 +18,9 @@ logger = logging.getLogger(__name__)
 
 
 class UtteranceGroup(Group):
-    def __init__(self, utterance_id: str, input_topic: str, dialogue_act_topic: str):
+    def __init__(self, utterance_id: str, input_topics: List[str], dialogue_act_topic: str):
         super().__init__()
-        self._input_topic = input_topic
+        self._input_topics = set(input_topics)
         self._dialogue_act_topic = dialogue_act_topic
 
         self._signal_id = utterance_id
@@ -44,7 +44,7 @@ class UtteranceGroup(Group):
         return self._text_signal is not None and self._dialogue_acts is not None
 
     def add(self, event: Event):
-        if event.metadata.topic == self._input_topic:
+        if event.metadata.topic in self._input_topics:
             self._text_signal = event.payload.signal
         elif event.metadata.topic == self._dialogue_act_topic:
             self._set_dialogue_acts(event.payload.mentions)
@@ -96,7 +96,7 @@ class TripleExtractionService(GroupProcessor):
 
         self._intention_topic = intention_topic if intention_topic else None
         self._intentions = set(intentions) if intentions else {}
-        self._active_intentions = {}
+        self._active_intentions = set()
 
         self._topic_worker = None
         self._emissor_client = emissor_client
@@ -141,7 +141,7 @@ class TripleExtractionService(GroupProcessor):
             self._update_chat(event)
             return
 
-        if self._intentions and not (self._active_intentions and self._intentions):
+        if self._intentions and not (self._active_intentions.intersection(self._intentions)):
             logger.debug("Skipped event outside intention %s, active: %s (%s)",
                          self._intentions, self._active_intentions, event)
             return
@@ -150,11 +150,10 @@ class TripleExtractionService(GroupProcessor):
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
-        if self._dialogue_act_topic and event.metadata.topic in [self._input_topic, self._dialogue_act_topic]:
+        if self._dialogue_act_topic:
             self._dialog_aware_processor.process(event)
-            return
-
-        self._process_last_utterance(event.payload.signal)
+        else:
+            self._process_last_utterance(event.payload.signal)
 
     def _process_last_utterance(self, text_signal: TextSignal, dialogue_act: DialogueAct = None):
         is_agent = any(self._get_name(annotation).lower() == ConversationalAgent.LEOLANI.name.lower()
@@ -165,7 +164,7 @@ class TripleExtractionService(GroupProcessor):
         self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_act)
 
         if is_agent:
-            # Only add robot utterances to the chat
+            # Add robot utterances to the chat without triple extraction
             return
 
         self._extractor.analyze_in_context(self._chat)
@@ -206,17 +205,21 @@ class TripleExtractionService(GroupProcessor):
 
 
     def get_key(self, event: Event):
+        key = None
         if event.metadata.topic in [self._input_topic, self._agent_topic]:
-            return event.payload.signal.id
+            key = event.payload.signal.id
         elif event.metadata.topic == self._dialogue_act_topic:
-            return next(segment.container_id
+            key = next(segment.container_id
                     for mention in event.payload.mentions
                     for segment in mention.segment)
-        else:
+
+        if not key:
             raise ValueError("Could not extract key from event: " + event.id)
 
+        return key
+
     def new_group(self, key: str) -> Group:
-        return UtteranceGroup(key, self._input_topic, self._dialogue_act_topic)
+        return UtteranceGroup(key, [self._input_topic, self._agent_topic], self._dialogue_act_topic)
 
     def process_group(self, group: UtteranceGroup):
         self._process_last_utterance(group.text_signal, group.dialogue_acts)

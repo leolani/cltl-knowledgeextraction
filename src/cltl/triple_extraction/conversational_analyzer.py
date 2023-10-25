@@ -11,11 +11,8 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)
 
-THRESHOLD = 0.8
-
-
 class ConversationalAnalyzer(Analyzer):
-    def __init__(self, model_path: str, dialogue_acts: List[DialogueAct] = None):
+    def __init__(self, model_path: str, threshold: float = 0.8, dialogue_acts: List[DialogueAct] = None):
         """
         Parameters
         ----------
@@ -28,7 +25,9 @@ class ConversationalAnalyzer(Analyzer):
 
         self._extractor = AlbertTripleExtractor(path=model_path)
         self._triple_normalizer = TripleNormalizer()
-        self._dialogue_acts = dialogue_acts
+        self._threshold = threshold
+        self._dialogue_acts = set(dialogue_acts)
+
         self._chat = None
 
     def analyze(self, utterance):
@@ -60,7 +59,7 @@ class ConversationalAnalyzer(Analyzer):
         self._chat = chat
 
         if (self._dialogue_acts and self.utterance.dialogue_acts
-                and not set.intersection(self._dialogue_acts, self.utterance.dialogue_acts)):
+                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
             logger.debug("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
             return
 
@@ -78,7 +77,7 @@ class ConversationalAnalyzer(Analyzer):
             # print(conversation)
 
             for score, triple_value in self._extractor.extract_triples(conversation, speaker1, speaker2):
-                if score >= THRESHOLD:
+                if score >= self._threshold:
                     triple = None
 
                     if len(triple_value) > 2:

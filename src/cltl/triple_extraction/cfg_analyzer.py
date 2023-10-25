@@ -918,7 +918,6 @@ class WhQuestionAnalyzer(QuestionAnalyzer):
         utterance: Utterance
             utterance to be analyzed
         """
-
         self._utterance = utterance
 
         # Initialize
