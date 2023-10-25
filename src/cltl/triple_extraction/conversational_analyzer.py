@@ -1,10 +1,11 @@
 import itertools
 import logging
+from typing import List
 
 from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 
 from cltl.triple_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
 from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
@@ -14,14 +15,20 @@ THRESHOLD = 0.8
 
 
 class ConversationalAnalyzer(Analyzer):
-    def __init__(self, model_path: str):
+    def __init__(self, model_path: str, dialogue_acts: List[DialogueAct] = None):
         """
         Parameters
         ----------
-        model_path: str Path to the model
+        model_path: str
+            Path to the model
+        dialogue_acts: List[DialogueAct]
+            Dialogue acts for which triple extraction should be performed
         """
+        super().__init__()
+
         self._extractor = AlbertTripleExtractor(path=model_path)
         self._triple_normalizer = TripleNormalizer()
+        self._dialogue_acts = dialogue_acts
         self._chat = None
 
     def analyze(self, utterance):
@@ -51,6 +58,11 @@ class ConversationalAnalyzer(Analyzer):
 
         """
         self._chat = chat
+
+        if (self._dialogue_acts and self.utterance.dialogue_acts
+                and not set.intersection(self._dialogue_acts, self.utterance.dialogue_acts)):
+            logger.debug("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+            return
 
         triples = []
         # print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
@@ -88,8 +100,7 @@ class ConversationalAnalyzer(Analyzer):
                         triple = self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
                         triples.append(triple)
         else:
-            print('This is not from the human speaker', chat.speaker, ' but from:',
-                  chat.last_utterance.utterance_speaker)
+            logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
         if triples:
             for triple in triples:
                 logger.debug("triple: %s", triple)
@@ -137,7 +148,7 @@ class ConversationalAnalyzer(Analyzer):
         return perspective
 
     @property
-    def utterance(self):
+    def utterance(self) -> Utterance:
         return self._chat.last_utterance
 
 
