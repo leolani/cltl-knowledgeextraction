@@ -28,6 +28,7 @@ class CFGAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        super().__init__()
         self._process_questions = process_questions
         self._utterance = None
 

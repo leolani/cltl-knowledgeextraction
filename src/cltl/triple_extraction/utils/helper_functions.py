@@ -1,18 +1,30 @@
 import json
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
 from datetime import date
 
+import nltk
 from cltl.commons.discrete import UtteranceType
 from cltl.commons.language_helpers import lexicon_lookup, lexicon
 from nltk import pos_tag
 from nltk import tree as ntree
-from nltk.stem import WordNetLemmatizer
+from nltk.data import find
 
 from . import wordnet_utils as wu
 
-wnl = WordNetLemmatizer()
+thread_local = threading.local()
+
+
+def load_wnl():
+    if not hasattr(thread_local, "wnl"):
+        # Set the data path for NLTK and load the lemmatizer in each thread
+        nltk.data.path.append(find('corpora/wordnet2022'))
+
+        thread_local.wnl = nltk.WordNetLemmatizer()
+
+    return thread_local.wnl
 
 
 def trim_dash(triple):
@@ -60,14 +72,15 @@ def lemmatize(word, tag=''):
     :param tag: POS tag of word
     :return: word lemma
     """
+    # Create and use the WordNetLemmatizer in each thread
     lem = ''
     if len(word.split()) > 1:
         for el in word.split():
-            lem += wnl.lemmatize(el) + ' '
+            lem += load_wnl().lemmatize(el) + ' '
         return lem.strip()
     if tag != '':
-        return wnl.lemmatize(word, tag)
-    return wnl.lemmatize(word)
+        return load_wnl().lemmatize(word, tag)
+    return load_wnl().lemmatize(word)
 
 
 def get_triple_element_type(element, forest):

@@ -5,34 +5,37 @@ Created on Fri Mar 22 09:37:31 2019
 
 @author: andrasaponyi
 """
+import threading
 
 from nltk.corpus import wordnet as wn
 
+wn.ensure_loaded()
+wordnet_lock = threading.Lock()
 
 # Synset types: n, v, a, r (adverb), s (adjective satellite).
 def get_synsets(word, tag):
     """ Look up and return all possible synset of an input word. """
+    with wordnet_lock:
+        if tag.startswith('N'):
+            POS = "n"
+        elif tag.startswith('V'):
+            POS = "v"
+        elif "J" in tag:
+            POS = "a"
+        elif "RB" in tag:
+            POS = "r"
+        else:
+            POS = None
 
-    if tag.startswith('N'):
-        POS = "n"
-    elif tag.startswith('V'):
-        POS = "v"
-    elif "J" in tag:
-        POS = "a"
-    elif "RB" in tag:
-        POS = "r"
-    else:
-        POS = None
+        synsets = []
+        s_sets = wn.synsets(word)
+        for s_set in s_sets:
+            if s_set.pos() == POS:
+                synsets.append(s_set)
+            elif s_set.pos() == "s" and POS == "a":
+                synsets.append(s_set)
 
-    synsets = []
-    s_sets = wn.synsets(word)
-    for s_set in s_sets:
-        if s_set.pos() == POS:
-            synsets.append(s_set)
-        elif s_set.pos() == "s" and POS == "a":
-            synsets.append(s_set)
-
-    return synsets
+        return synsets
 
 
 # Get a collection of synonymous words.

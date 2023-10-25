@@ -1,5 +1,6 @@
 import json
 import logging
+import threading
 
 from cltl.triple_extraction.api import Chat
 
@@ -8,6 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 class Analyzer:
+    def __init__(self):
+        self._analyzer_lock = threading.Lock()
+
     def analyze_in_context(self, chat: Chat):
         """
         Analyzer factory function
@@ -26,25 +30,26 @@ class Analyzer:
         """Deprecated, use `analyze_in_context` instead!"""
         raise NotImplementedError()
 
-    def set_extracted_values(self, utterance_type=None, triple=None, perspective={}):
-        # Pack everything together
-        triple["perspective"] = perspective
-        triple["utterance_type"] = utterance_type
+    def set_extracted_values(self, utterance_type=None, triple=None, perspective=None):
+        with self._analyzer_lock:
+            # Pack everything together
+            triple["perspective"] = perspective if perspective else {}
+            triple["utterance_type"] = utterance_type
 
-        # Set type, and triple
-        triple_is_new = self.utterance.add_triple(triple)
+            # Set type, and triple
+            triple_is_new = self.utterance.add_triple(triple)
 
-        if not triple_is_new:
-            return
+            if not triple_is_new:
+                return
 
-        if utterance_type:
-            self._log_info("Utterance type: {}".format(json.dumps(utterance_type.name,
-                                                                  sort_keys=True, separators=(', ', ': '))))
+            if utterance_type:
+                self._log_info("Utterance type: {}".format(json.dumps(utterance_type.name,
+                                                                      sort_keys=True, separators=(', ', ': '))))
 
-        if triple:
-            for el in ["subject", "predicate", "object"]:
-                self._log_info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
-                                                                              sort_keys=True, separators=(', ', ': '))))
+            if triple:
+                for el in ["subject", "predicate", "object"]:
+                    self._log_info("RDF triplet {:>10}: {}".format(el, json.dumps(triple[el],
+                                                                                  sort_keys=True, separators=(', ', ': '))))
 
     @property
     def utterance(self):

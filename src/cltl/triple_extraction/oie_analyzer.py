@@ -22,6 +22,7 @@ class OIEAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        super().__init__()
         self._utterance = None
 
     @property

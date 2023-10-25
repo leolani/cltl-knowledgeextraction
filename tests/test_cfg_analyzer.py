@@ -1,12 +1,9 @@
 import unittest
 
 from cltl.commons.discrete import UtteranceType
-from parameterized import parameterized, parameterized_class
 
 from cltl.triple_extraction.api import Chat, Utterance, DialogueAct
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
-from cltl.triple_extraction.oie_analyzer import OIEAnalyzer
-from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
 
 
 class TestCfgAnalyzers(unittest.TestCase):

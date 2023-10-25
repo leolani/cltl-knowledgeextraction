@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 class CFGQuestionAnalyzer(Analyzer):
     def __init__(self):
+        super().__init__()
+
         self._cfgAnalyzer = CFGAnalyzer()
         # Load Grammar Json
         self._cfgAnalyzer.LEXICON = lexicon

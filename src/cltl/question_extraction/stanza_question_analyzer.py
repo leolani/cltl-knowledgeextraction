@@ -24,6 +24,7 @@ class StanzaQuestionAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        super().__init__()
         self._parser = stanza.Pipeline(lang='en', processors='tokenize,mwt,pos,lemma,constituency')
         self._utterance = None
         self._triples = []

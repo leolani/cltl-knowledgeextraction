@@ -20,6 +20,7 @@ class spacyAnalyzer(Analyzer):
         Parameters
         ----------
         """
+        super().__init__()
         self._nlp = spacy.load("en_core_web_sm")
         self._utterance = None
 
