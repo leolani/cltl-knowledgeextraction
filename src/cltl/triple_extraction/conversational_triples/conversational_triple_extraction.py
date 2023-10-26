@@ -10,6 +10,10 @@ from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speak
 from itertools import product
 import spacy
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class AlbertTripleExtractor:
     def __init__(self, path, base_model='albert-base-v2', sep='<eos>'):
@@ -67,10 +71,9 @@ class AlbertTripleExtractor:
         # Extract SPO arguments from token sequence
         subjs, preds, objs = self._argument_module.predict(tokens)
 
-        if verbose:
-            print('subjects:   %s' % subjs)
-            print('predicates: %s' % preds)
-            print('objects:    %s\n' % objs)
+        logger.debug('subjects:   %s' % subjs)
+        logger.debug('predicates: %s' % preds)
+        logger.debug('objects:    %s\n' % objs)
 
         # List all possible combinations of arguments
         candidates = [list(triple) for triple in product(subjs, preds, objs)]
