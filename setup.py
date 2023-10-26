@@ -36,15 +36,16 @@ setup(
         'stanford_openie~=1.3',
         'spacy~=3.2',
         'stanza~=1.5',
-        "cltl.combot~=1.0.dev0"
+        "cltl.combot~=1.0"
     ],
     extras_require={
         "service": [
             "cltl.combot",
+            "cltl.emissor-data[client]"
         ],
         "conversational": [
-            "torch",
-            "transformers",
+            "torch~=1.12",
+            "transformers~=4.10",
             "tqdm"
         ]
     },
