@@ -49,7 +49,7 @@ class ChatAnalyzer(Analyzer):
             for task, future in [(i, executor.submit(i)) for i in tasks]:
                 try:
                     elapsed = time.time() - start
-                    future.result(timeout=max(0.001, self._timeout - elapsed))
+                    future.result(timeout=max(0.001, self._timeout - elapsed) if self._timeout else None)
                     logger.debug("Extracted triples for %s", task._analyzer.__class__.__name__)
                 except TimeoutError:
                     logger.warning("Timeout during triple extraction for %s", task._analyzer.__class__.__name__)
