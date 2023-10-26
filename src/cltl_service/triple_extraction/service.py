@@ -9,6 +9,7 @@ from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
 from emissor.representation.scenario import TextSignal, Mention
+from cltl_service.emissordata.client import EmissorDataClient
 
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct
@@ -68,7 +69,7 @@ class UtteranceGroup(Group):
 
 class TripleExtractionService(GroupProcessor):
     @classmethod
-    def from_config(cls, extractor: Analyzer, event_bus: EventBus, resource_manager: ResourceManager,
+    def from_config(cls, extractor: Analyzer, emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
@@ -77,11 +78,11 @@ class TripleExtractionService(GroupProcessor):
 
         return cls(config.get("topic_input"), agent_topic, dialogue_act_topic, config.get("topic_output"),
                    config.get("topic_scenario"), config.get("topic_intention"), config.get("intentions", multi=True),
-                   extractor, event_bus, resource_manager)
+                   extractor, emissor_client, event_bus, resource_manager)
 
     def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str, scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
-                 event_bus: EventBus, resource_manager: ResourceManager):
+                 emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
 
         self._event_bus = event_bus
@@ -98,7 +99,7 @@ class TripleExtractionService(GroupProcessor):
         self._active_intentions = {}
 
         self._topic_worker = None
-
+        self._emissor_client = emissor_client
         self._chat = None
         self._speaker = Agent()
         self._agent = Agent()
@@ -177,6 +178,32 @@ class TripleExtractionService(GroupProcessor):
                          len(response), text_signal.id, text_signal.text, response)
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+
+        scenario_id = self._emissor_client.get_current_scenario_id()
+
+        ### The next code gives feedback on processing the conversation.
+        from random import choice
+        from cltl.combot.infra.time_util import timestamp_now
+        from cltl.combot.event.emissor import TextSignalEvent
+        from emissor.representation.scenario import TextSignal
+        if response:
+            self._event_bus.publish(self._output_topic, Event.for_payload(response))
+            logger.debug("Published %s triples for signal %s (%s): %s",
+                         len(response), text_signal.id, text_signal.text, response)
+            triple = ""
+            for ch in response:
+            	triple+= "("+ch['subject']['label']+", "+ch['predicate']['label']+", "+ch['object']['label']+') '
+            I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ", "So interesting what you said. It boils down to: "]
+            utterance =  f"{choice(I_SEE)} {triple}"
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+        else:
+            logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+            I_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.", "Ok, interesting but too much for me. What else?", "What are you trying to say? I am just a humble AI, please try again.", "Sorry, I did not get that."]
+            utterance =  f"{choice(I_SEE)}"
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+
 
     def get_key(self, event: Event):
         if event.metadata.topic in [self._input_topic, self._agent_topic]:
