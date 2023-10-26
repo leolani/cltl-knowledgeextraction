@@ -71,7 +71,7 @@ class ConversationalAnalyzer(Analyzer):
             self._chat = chat
 
             self._utterance = chat.last_utterance
-            conversation, speaker1, speaker2 = self._chat_to_converstation(chat)
+            conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
 
             # print('speaker1', speaker1)
             # print('speaker2', speaker2)
@@ -114,7 +114,7 @@ class ConversationalAnalyzer(Analyzer):
 
         return self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
 
-    def _chat_to_converstation(self, chat):
+    def _chat_to_conversation(self, chat):
         utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
                                  in itertools.groupby(chat.utterances, lambda utt: utt.utterance_speaker)]
         utterances_by_speaker = utterances_by_speaker[-3:]
