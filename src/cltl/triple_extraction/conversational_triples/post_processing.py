@@ -1,5 +1,7 @@
 import spacy
 import re
+import json
+import importlib.resources
 
 # Rules to map different OIE outputs to the same standard
 PRED_RULES = {'VERB PART VERB': [0, 1],           # "want to go"
@@ -27,6 +29,10 @@ AUXILIARIES = ["am", "'m", "' m", "are", "is", "was", "do", "does", "did", "'ll"
 class PostProcessor:
     def __init__(self):
         self._nlp = spacy.load('en_core_web_sm')
+
+        with importlib.resources.open_text("cltl.triple_extraction.conversational_triples", "predicate_norm.json") as file:
+            print(file.name)
+            self._predicate_norm_lex= json.load(file)
 
     @staticmethod
     def _decontract(phrase, is_predicate=False):
@@ -100,6 +106,8 @@ class PostProcessor:
         if pred.startswith('do like'):
             pred = pred[3:]
 
+        if pred in self._predicate_norm_lex:
+            pred = self._predicate_norm_lex[pred]
         return subj, pred, obj
 
 

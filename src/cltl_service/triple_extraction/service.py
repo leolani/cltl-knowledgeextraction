@@ -185,23 +185,52 @@ class TripleExtractionService(GroupProcessor):
         from cltl.combot.infra.time_util import timestamp_now
         from cltl.combot.event.emissor import TextSignalEvent
         from emissor.representation.scenario import TextSignal
+
+        I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ",
+                 "So interesting what you said. It boils down to: "]
+        I_DONT_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.",
+                      "Ok, interesting but too much for me. What else?",
+                      "What are you trying to say? I am just a humble AI, please try again.",
+                      "Sorry, I did not get that."]
+        YOU_ASK = ["I see. This is what I got from what you ask: ", "I got it. So you are asking: ", "Ok, so: ",
+                   "So interesting, so you want to know "]
         if response:
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             triple = ""
             for ch in response:
-                triple+= "("+ch['subject']['label']+", "+ch['predicate']['label']+", "+ch['object']['label']+') '
-            I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ", "So interesting what you said. It boils down to: "]
-            utterance =  f"{choice(I_SEE)} {triple}"
+                triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
+                    'label'] + ') '
+            if dialogue_act == DialogueAct.QUESTION:
+                utterance = f"{choice(YOU_ASK)} {triple}"
+            else:
+                utterance = f"{choice(I_SEE)} {triple}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
-            I_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.", "Ok, interesting but too much for me. What else?", "What are you trying to say? I am just a humble AI, please try again.", "Sorry, I did not get that."]
-            utterance =  f"{choice(I_SEE)}"
+            utterance = f"{choice(I_DONT_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+
+        # if response:
+        #     self._event_bus.publish(self._output_topic, Event.for_payload(response))
+        #     logger.debug("Published %s triples for signal %s (%s): %s",
+        #                  len(response), text_signal.id, text_signal.text, response)
+        #     triple = ""
+        #     for ch in response:
+        #         triple+= "("+ch['subject']['label']+", "+ch['predicate']['label']+", "+ch['object']['label']+') '
+        #     I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ", "So interesting what you said. It boils down to: "]
+        #     utterance =  f"{choice(I_SEE)} {triple}"
+        #     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+        #     self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+        # else:
+        #     logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+        #     I_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.", "Ok, interesting but too much for me. What else?", "What are you trying to say? I am just a humble AI, please try again.", "Sorry, I did not get that."]
+        #     utterance =  f"{choice(I_SEE)}"
+        #     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+        #     self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
 
 
     def get_key(self, event: Event):
