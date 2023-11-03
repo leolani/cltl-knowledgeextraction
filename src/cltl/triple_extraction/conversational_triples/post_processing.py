@@ -31,7 +31,7 @@ class PostProcessor:
         self._nlp = spacy.load('en_core_web_sm')
 
         with importlib.resources.open_text("cltl.triple_extraction.conversational_triples", "predicate_norm.json") as file:
-            print(file.name)
+           # print(file.name)
             self._predicate_norm_lex= json.load(file)
 
     @staticmethod
