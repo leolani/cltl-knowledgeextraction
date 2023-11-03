@@ -195,7 +195,7 @@ class TripleExtractionService(GroupProcessor):
             I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ", "So interesting what you said. It boils down to: "]
             utterance =  f"{choice(I_SEE)} {triple}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             I_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.", "Ok, interesting but too much for me. What else?", "What are you trying to say? I am just a humble AI, please try again.", "Sorry, I did not get that."]
