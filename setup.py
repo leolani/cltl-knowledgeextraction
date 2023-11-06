@@ -24,12 +24,17 @@ setup(
     },
     package_dir={'': 'src'},
     packages=find_namespace_packages(include=['cltl.*', 'cltl_service.*'], where='src'),
-    package_data={'cltl.triple_extraction': [
-        'stanford-ner/*',
-        'stanford-ner/**/*',
-        'stanford-pos/*',
-        'stanford-pos/**/*'
-    ]},
+    package_data={
+        'cltl.triple_extraction': [
+            'stanford-ner/*',
+            'stanford-ner/**/*',
+            'stanford-pos/*',
+            'stanford-pos/**/*'
+        ],
+        'cltl.triple_extraction.conversational_triples': [
+            'predicate_norm.json'
+        ]
+    },
     python_requires='>=3.7',
     install_requires=[
         'nltk~=3.4',
