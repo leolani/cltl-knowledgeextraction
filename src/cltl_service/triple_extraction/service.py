@@ -155,13 +155,13 @@ class TripleExtractionService(GroupProcessor):
         else:
             self._process_last_utterance(event.payload.signal)
 
-    def _process_last_utterance(self, text_signal: TextSignal, dialogue_act: DialogueAct = None):
+    def _process_last_utterance(self, text_signal: TextSignal, dialogue_acts: List[DialogueAct] = None):
         is_agent = any(self._get_name(annotation).lower() == ConversationalAgent.LEOLANI.name.lower()
                        for mention in text_signal.mentions
                        for annotation in mention.annotations
                        if annotation.type == ConversationalAgent.__name__)
 
-        self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_act)
+        self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_acts)
 
         if is_agent:
             # Add robot utterances to the chat without triple extraction
@@ -202,7 +202,7 @@ class TripleExtractionService(GroupProcessor):
             for ch in response:
                 triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
                     'label'] + ') '
-            if dialogue_act == DialogueAct.QUESTION:
+            if DialogueAct.QUESTION in dialogue_acts:
                 utterance = f"{choice(YOU_ASK)} {triple}"
             else:
                 utterance = f"{choice(I_SEE)} {triple}"
