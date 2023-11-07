@@ -166,6 +166,7 @@ if __name__ == "__main__":
     '''
 
     model = "resources/conversational_triples"
+    model = '/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
 
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
@@ -176,3 +177,4 @@ if __name__ == "__main__":
     for utterance in chat.utterances:
         print(utterance)
         print('Final triples', utterance.triples)
+        #triples = [model._convert_triple(triple)

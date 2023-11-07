@@ -115,5 +115,6 @@ if __name__ == '__main__':
    # example = "<eos> I like studying too and learning. You? <eos> No, can afford it!"
 
     print('example', example)
-    for score, triple in model.extract_triples(example, speaker1="HUMAN", speaker2="LEOLANI"):
+    for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
         print(score, triple)
+

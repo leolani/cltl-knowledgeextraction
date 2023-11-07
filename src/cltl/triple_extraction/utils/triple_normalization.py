@@ -19,7 +19,8 @@ class TripleNormalizer():
         self.utterance = None
         self.prepositions = ["in", "of", "to", "for", "on", "at", "under", "above", "next", "after", "before"]
         self.modals = ["will", "can", "shall", "could", "would", "should", "may", "must", "might"]
-
+        self.names= ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea', 'annika', 'luis', 'lucia', 'piek']
+        self.combot=["joe", "kerem", "carl", "anna", "lidia" , "carla", "jimmy", "estelle", "arthur", "zula", "angus", "frederique", "suzy", "marie", "yannis", "hermann"]
 
 
     def normalize(self, utterance, a_triple):
@@ -69,7 +70,8 @@ class TripleNormalizer():
         normalised_triple.update({"perspective": perspective})
         # Final triple assignment
         #print('FINAL NORMALISED TRIPLE', normalised_triple)
-        return normalised_triple
+
+        return self.get_types_in_triple(normalised_triple)
 
     def initialize_triple(self):
         return NotImplementedError()
@@ -300,8 +302,7 @@ class TripleNormalizer():
         return predicate
 
 
-    @staticmethod
-    def get_types_in_triple(triple):
+    def get_types_in_triple(self, triple):
         """
         This function gets types for all the elements of the triple
         :param triple: S,P,C triple
@@ -320,7 +321,6 @@ class TripleNormalizer():
                 continue
 
             # First attempt at typing via forest
-            #CFG#triple[el]['type'] = get_triple_element_type(text, CFGAnalyzer.PARSER.structure_tree)
             # Analyze types
             if type(triple[el]['type']) == dict:
                 # Loop through dictionary for multiword entities
@@ -328,26 +328,17 @@ class TripleNormalizer():
                     # If type is None or empty, look it up
                     if triple[el]['type'][typ] in [None, '']:
                         entry = lexicon_lookup(typ)
-
                         if entry is None:
                             if typ.lower() in ['leolani']:
                                 final_type.append('robot')
-                            elif typ.lower() in ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea',
-                                                 'piek']:
+                            elif typ.lower() in self.names:
+                                final_type.append('person')
+                            elif typ.lower() in self.combot:
                                 final_type.append('person')
                             elif typ.capitalize() == typ:
-                                final_type.append(
-                                    'None')  ## This was person before, now it should trigger the type infenence function in the brain
+                                final_type.append('None')  ## This was person before, now it should trigger the type infenence function in the brain
                             else:
                                 final_type.append('None')
-                                #CFG#
-                                # node = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, typ)
-                                # if node in ['IN', 'TO']:
-                                #     final_type.append('preposition')
-                                # elif node.startswith('V'):
-                                #     final_type.append('verb')
-                                # elif node.startswith('N'):
-                                #     final_type.append('noun')
                         elif 'proximity' in entry:
                             final_type.append('deictic')
                         elif 'person' in entry:
@@ -359,15 +350,16 @@ class TripleNormalizer():
                 final_type = fix_nlp_types(final_type)
                 triple[el]['type'] = final_type
             # Patch special types
-            elif triple[el]['type'] in [None, '']:
+            elif triple[el]['type'] in [None, ''] or triple[el]['type']==[]:
                 entry = lexicon_lookup(triple[el]['text'])
                 if entry is None:
 
                     # TODO: Remove Hardcoded Names
                     if triple[el]['text'].lower() in ['leolani']:
                         triple[el]['type'] = ['robot']
-                    elif triple[el]['text'].lower() in ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea',
-                                                        'piek']:
+                    elif triple[el]['text'].lower() in self.names:
+                        triple[el]['type'] = ['person']
+                    elif triple[el]['text'].lower() in self.combot:
                         triple[el]['type'] = ['person']
                     elif triple[el]['text'].capitalize() == triple[el]['text']:
                         triple[el]['type'] = [

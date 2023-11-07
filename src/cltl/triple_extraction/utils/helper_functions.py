@@ -119,6 +119,40 @@ def get_triple_element_type(element, forest):
     return types
 
 
+def get_triple_element_type_without_pos(element):
+    """
+    :param element: text of one element from the triple
+    :return: dictionary with semantic types of the element or sub-elements
+    """
+
+    types = {}
+
+    # Multiword element
+    if '-' in element:
+        text = element.replace(" ", "-")
+
+        # Try to get type from DBpedia
+        uris = get_uris(text.strip())
+        if len(uris) > 1:
+            # entities with more than 1 uri from DBpedia are NE and collocations
+            return 'NE-col'
+
+        # Try to get types from wordnet
+        lexname = get_lexname_in_tree(text)
+        if lexname:
+            # collocations which exist in WordNet
+            return lexname + '-col'
+
+        # if entity does not exist in DBP or WN it is considered composite. Get type per word
+        for el in element.split('-'):
+            types[el] = get_word_type(el)
+
+    # Single word
+    else:
+        types[element] = get_word_type(element)
+
+    return types
+
 def get_word_type(word, forest):
     """
     :param word: one word from triple element
@@ -154,6 +188,35 @@ def get_word_type(word, forest):
     if pos in types:
         return types[pos]
 
+def get_word_type(word):
+    """
+    :param word: one word from triple element
+    :return: semantic type of word
+    """
+
+    if word == '':
+        return ''
+
+    lexname = get_lexname_in_tree(word)
+    if lexname is not None:
+        return lexname
+
+    # words which don't have a lexname are looked up in the lexicon
+    entry = lexicon_lookup(word)
+    if entry is not None:
+        if 'proximity' in entry:
+            return 'deictic:' + entry['proximity'] + ',' + entry['number']
+        if 'person' in entry:
+            return 'pronoun:' + entry['person']
+        if 'root' in entry:
+            return 'modal:' + str(entry['root'])
+        if 'definite' in entry:
+            return 'article:' + entry
+        if 'integer' in entry:
+            return 'numeral:' + entry['integer']
+    return None
+
+
 
 def get_lexname_in_tree(word, forest):
     """
@@ -174,6 +237,21 @@ def get_lexname_in_tree(word, forest):
         type = wu.get_lexname(synset[0])
         return type
 
+def get_lexname_in_tree(word):
+    """
+    :param word: word for which we want a WordNe lexname
+    :param forest: parsed forest of the sentence, to extract the POS tag
+    :return: lexname of the word
+    https://wordnet.princeton.edu/documentation/lexnames5wn
+    """
+    if word == '':
+        return None
+
+    # Try to get types from wordnet
+    synset = wu.get_synsets(word, 'N')
+    if synset:
+        type = wu.get_lexname(synset[0])
+        return type
 
 def get_pos_in_tree(tree, word):
     """
