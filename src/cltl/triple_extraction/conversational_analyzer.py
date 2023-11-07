@@ -27,7 +27,7 @@ class ConversationalAnalyzer(Analyzer):
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
-        self._dialogue_acts = set(dialogue_acts)
+        self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
 
         self._chat = None
 
