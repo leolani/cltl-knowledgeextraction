@@ -418,6 +418,9 @@ class CFGAnalyzer(Analyzer):
 
         # one word predicate is just lemmatized
         if 'predicate' in triple:
+            pred = triple['predicate']
+            if pred.startswith("do-"):
+                pred = pred[3:]
             if len(triple['predicate'].split('-')) == 1:
                 # prepositions are joined to the predicate and removed from the object
                 label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate'])
