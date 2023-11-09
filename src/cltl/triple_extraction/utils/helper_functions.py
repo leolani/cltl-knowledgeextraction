@@ -145,11 +145,11 @@ def get_triple_element_type_without_pos(element):
 
         # if entity does not exist in DBP or WN it is considered composite. Get type per word
         for el in element.split('-'):
-            types[el] = get_word_type(el)
+            types[el] = get_word_type_without_forest(el)
 
     # Single word
     else:
-        types[element] = get_word_type(element)
+        types[element] = get_word_type_without_forest(element)
 
     return types
 
@@ -188,7 +188,7 @@ def get_word_type(word, forest):
     if pos in types:
         return types[pos]
 
-def get_word_type(word):
+def get_word_type_without_forest(word):
     """
     :param word: one word from triple element
     :return: semantic type of word
@@ -237,7 +237,7 @@ def get_lexname_in_tree(word, forest):
         type = wu.get_lexname(synset[0])
         return type
 
-def get_lexname_in_tree(word):
+def get_lexname_in_tree_without_forest(word):
     """
     :param word: word for which we want a WordNe lexname
     :param forest: parsed forest of the sentence, to extract the POS tag

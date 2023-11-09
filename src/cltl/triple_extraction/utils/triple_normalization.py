@@ -310,6 +310,8 @@ class TripleNormalizer():
         """
         # Get type
         for el in triple:
+            if type(triple[el])==dict:
+                continue
             if el=="perspective":
                 continue
             text = triple[el]
@@ -351,17 +353,24 @@ class TripleNormalizer():
                 triple[el]['type'] = final_type
             # Patch special types
             elif triple[el]['type'] in [None, ''] or triple[el]['type']==[]:
-                entry = lexicon_lookup(triple[el]['text'])
+                entry = ''
+                token = ''
+                if 'text' in triple[el]:
+                    token = triple[el]['text']
+                elif 'label' in triple[el]:
+                    token = triple[el]['label']
+
+                entry = lexicon_lookup(token)
                 if entry is None:
 
                     # TODO: Remove Hardcoded Names
-                    if triple[el]['text'].lower() in ['leolani']:
+                    if token.lower() in ['leolani']:
                         triple[el]['type'] = ['robot']
-                    elif triple[el]['text'].lower() in self.names:
+                    elif token.lower() in self.names:
                         triple[el]['type'] = ['person']
-                    elif triple[el]['text'].lower() in self.combot:
+                    elif token.lower() in self.combot:
                         triple[el]['type'] = ['person']
-                    elif triple[el]['text'].capitalize() == triple[el]['text']:
+                    elif token.capitalize() == token:
                         triple[el]['type'] = [
                             'None']  ## This was person before, now it should trigger the type infenence function in the brain
                 elif 'proximity' in entry:
