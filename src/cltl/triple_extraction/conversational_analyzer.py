@@ -27,8 +27,8 @@ class ConversationalAnalyzer(Analyzer):
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
-     #   self._dialogue_acts = set(dialogue_acts)
-        self._dialogue_acts =[DialogueAct.STATEMENT, DialogueAct.QUESTION]
+        self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
+
         self._chat = None
 
     def analyze(self, utterance):
@@ -166,7 +166,6 @@ if __name__ == "__main__":
     '''
 
     model = "resources/conversational_triples"
-    model = '/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
 
     analyzer = ConversationalAnalyzer(model)
     utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
@@ -177,4 +176,3 @@ if __name__ == "__main__":
     for utterance in chat.utterances:
         print(utterance)
         print('Final triples', utterance.triples)
-        #triples = [model._convert_triple(triple)

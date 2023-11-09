@@ -86,10 +86,8 @@ class CFGAnalyzer(Analyzer):
 
     def fix_triple_details(self, triple, utterance_info):
         # Analyze verb phrase
-        print("HERE", triple)
         triple, utterance_info = self.analyze_vp(triple, utterance_info)
         logger.debug('after VP: {}'.format(triple))
-        print("NOW", triple)
 
         # Analyze noun phrase
         triple = self.analyze_np(triple)
@@ -425,87 +423,7 @@ class CFGAnalyzer(Analyzer):
                 triple['predicate'] = triple['predicate'][5:]
             elif triple['predicate'].startswith("do-"):
                 triple['predicate']= triple['predicate'][3:]
-            if len(triple['predicate'].split('-')) == 1:
-                # prepositions are joined to the predicate and removed from the object
-                label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate'])
-
-                triple['predicate'] = lemmatize(triple['predicate'], 'v')
-
-                if triple['predicate'] == 'cannot':  # special case with no space between not and verb
-                    triple['predicate'] = 'can'
-                    utterance_info['neg'] = True
-                ####
-
-                if label in ['IN', 'TO']:
-                    pred += '-' + triple['predicate']
-                    for elem in triple['predicate'].split('-')[ind + 1:]:
-                        triple['object'] = elem + '-' + triple['object']
-                    triple['predicate'] = pred
-                ####
-                return triple, utterance_info
-
-            # complex predicate
-            for el in triple['predicate'].split('-'):
-                label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, el)
-                # negation
-                if label == 'RB':
-                    if el in ['not', 'never', 'no']:
-                        utterance_info['neg'] = True
-
-                # verbs that carry sentiment or certainty are considered followed by their object
-                elif lexicon_lookup(lemmatize(el, 'v'), 'lexical'):
-                    pred += '-' + lemmatize(el, 'v')
-                    for elem in triple['predicate'].split('-')[ind + 1:]:
-                        label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, elem)
-                        if label in ['TO', 'IN', 'RB']:
-                            pred += '-' + elem
-                        else:
-                            triple['object'] = elem + '-' + triple['object']
-                    triple['predicate'] = pred
-                    break
-
-                # prepositions are joined to the predicate and removed from the object
-                elif label in ['IN', 'TO']:
-                    pred += '-' + el
-                    for elem in triple['predicate'].split('-')[ind + 1:]:
-                        triple['object'] = elem + '-' + triple['object']
-                    triple['predicate'] = pred
-                    break
-
-                # auxiliary verb
-                elif lexicon_lookup(el, 'aux'):  # and not triple['predicate'].endswith('-is'):
-                    utterance_info['aux'] = lexicon_lookup(el, 'aux')
-
-                # verb or modal verb
-                elif label.startswith('V') or label in ['MD']:
-                    if pred == '':
-                        pred = lemmatize(el, 'v')
-                    else:
-                        pred += '-' + lemmatize(el, 'v')
-
-                else:
-                    logger.debug('uncaught verb phrase element {}:{}'.format(el, label))
-
-                ind += 1
-
-        if pred == '':
-            pred = 'be'
-
-        triple['predicate'] = pred
-        return triple, utterance_info
-
-    def analyze_vp_bu(self, triple, utterance_info):
-        """
-        This function analyzes verb phrases
-        :param triple: triple (subject, predicate, object)
-        :param utterance_info: the result of analysis thus far
-        :return: triple and utterance info, updated with the results of VP analysis
-        """
-        pred = ''
-        ind = 0
-
-        # one word predicate is just lemmatized
-        if 'predicate' in triple:
+                
             if len(triple['predicate'].split('-')) == 1:
                 # prepositions are joined to the predicate and removed from the object
                 label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate'])
