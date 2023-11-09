@@ -42,30 +42,20 @@ class ChatAnalyzer(Analyzer):
         """Deprecated, use `analyze_in_context` instead!"""
         self._parallel(_AnalyzerUtteranceTask(analyzer, utterance) for analyzer in self._analyzers)
 
-    executor = ThreadPoolExecutor(max_workers=1)
     def _parallel(self, tasks):
-        # start = time.time()
-        # try:
-        #     for task, future in [(i, executor.submit(i)) for i in tasks]:
-        #         try:
-        #             elapsed = time.time() - start
-        #             future.result(timeout=max(0.001, self._timeout - elapsed) if self._timeout else None)
-        #             logger.debug("Extracted triples for %s", task._analyzer.__class__.__name__)
-        #         except TimeoutError:
-        #             logger.warning("Timeout during triple extraction for %s", task._analyzer.__class__.__name__)
-        # finally:
-        #     executor.shutdown(wait=False, cancel_futures=True)
         start = time.time()
+        executor = ThreadPoolExecutor(max_workers=4)
         try:
-            for task in tasks:
+            for task, future in [(i, executor.submit(i)) for i in tasks]:
                 try:
                     elapsed = time.time() - start
-                    task()
+                    future.result(timeout=max(0.001, self._timeout - elapsed) if self._timeout else None)
                     logger.debug("Extracted triples for %s", task._analyzer.__class__.__name__)
                 except TimeoutError:
                     logger.warning("Timeout during triple extraction for %s", task._analyzer.__class__.__name__)
+                    pass
         finally:
-            pass
+            executor.shutdown(wait=False, cancel_futures=True)
 
     @property
     def utterance(self):
