@@ -14,7 +14,7 @@ from test_triples import load_golden_triples
 
 #from cltl.commons.discrete import UtteranceType
 #from cltl.triple_extraction.analyzer import Analyzer
-from cltl.triple_extraction.api import Chat
+from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.triple_extraction.conversational_analyzer import ConversationalAnalyzer
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
@@ -74,7 +74,7 @@ def test_triples(item, correct, incorrect, issues, errorf, analyzer:Conversation
         return correct, incorrect, issues
 
 
-def test_triples_in_file(path, analyzer):
+def test_triples_in_file(path, analyzer, resultfile):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
@@ -86,6 +86,8 @@ def test_triples_in_file(path, analyzer):
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
     errorf = open(path + ".error.txt", "w")
+    resultfile.write(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
+
     print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
 
     for item in test_suite:
@@ -97,6 +99,9 @@ def test_triples_in_file(path, analyzer):
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
+    resultfile.write(
+        f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}\n")
 
 
 if __name__ == "__main__":
@@ -105,16 +110,26 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
+    resultfile = open("data/evaluation_CONV_03102023.txt", "w")
+
     model = "../resources/conversational_triples"
+    model ='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
+
     analyzer = ConversationalAnalyzer(model)
+    analyzer.__init__(model)
     all_test_files = [
+        "./data/statements.txt",
+        "./data/perspective.txt",
         "./data/wh-questions.txt",
         "./data/verb-questions.txt",
-        "./data/statements.txt",
-        "./data/perspective.txt"
+        "./data/kinship-friends.txt",
+        "./data/activities.txt",
+        "./data/feelings.txt",
+        "./data/locations.txt",
+        "./data/professions.txt"
     ]
 
-    all_test_files = ["./data/perspective.txt"]
+   # all_test_files = ["./data/perspective.txt"]
     '''
     LAST RESULTS: 19/01/2023
 
@@ -137,5 +152,6 @@ ISSUES (36 UTTERANCES):
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer)
+        test_triples_in_file(test_file, analyzer, resultfile)
 
+    resultfile.close()

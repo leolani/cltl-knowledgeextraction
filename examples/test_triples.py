@@ -206,8 +206,8 @@ if __name__ == "__main__":
     all_test_files = [
         "./data/statements.txt",
         "./data/perspective.txt",
-        "./data/wh-questions.txt",
-        "./data/verb-questions.txt",
+   #     "./data/wh-questions.txt",
+   #     "./data/verb-questions.txt",
         "./data/kinship-friends.txt",
         "./data/activities.txt",
         "./data/feelings.txt",
@@ -215,8 +215,8 @@ if __name__ == "__main__":
         "./data/professions.txt"
     ]
 
-    # all_test_files=["./data/activities.txt"]
-    # all_test_files = ["./data/verb-questions.txt"]
+    all_test_files=["./data/statements.txt"]
+    #all_test_files = ["./data/q_debug.txt"]
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
     for test_file in all_test_files:

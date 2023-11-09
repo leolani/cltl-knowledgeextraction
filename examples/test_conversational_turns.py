@@ -180,7 +180,9 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    model = "../resources/conversational_triples"
+  #  model = "../resources/conversational_triples"
+    model ='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
+
     analyzer = ConversationalAnalyzer(model)
     all_test_files = [
         "./data/conversation_test_examples/test_answer_ellipsis.txt",

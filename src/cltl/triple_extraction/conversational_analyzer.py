@@ -27,8 +27,8 @@ class ConversationalAnalyzer(Analyzer):
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
-        self._dialogue_acts = set(dialogue_acts)
-
+     #   self._dialogue_acts = set(dialogue_acts)
+        self._dialogue_acts =[DialogueAct.STATEMENT, DialogueAct.QUESTION]
         self._chat = None
 
     def analyze(self, utterance):
