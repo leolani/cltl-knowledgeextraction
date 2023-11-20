@@ -43,19 +43,13 @@ class ChatAnalyzer(Analyzer):
         self._parallel(_AnalyzerUtteranceTask(analyzer, utterance) for analyzer in self._analyzers)
 
     def _parallel(self, tasks):
-        start = time.time()
-        executor = ThreadPoolExecutor(max_workers=4)
-        try:
-            for task, future in [(i, executor.submit(i)) for i in tasks]:
-                try:
-                    elapsed = time.time() - start
-                    future.result(timeout=max(0.001, self._timeout - elapsed) if self._timeout else None)
-                    logger.debug("Extracted triples for %s", task._analyzer.__class__.__name__)
-                except TimeoutError:
-                    logger.warning("Timeout during triple extraction for %s", task._analyzer.__class__.__name__)
-                    pass
-        finally:
-            executor.shutdown(wait=False, cancel_futures=True)
+        for task in tasks:
+            try:
+                start = time.time()
+                task()
+                logger.debug("Extracted triples for %s in %s", task._analyzer.__class__.__name__, time.time() - start)
+            except:
+                logger.exception("Exception during triple extraction for %s", task._analyzer.__class__.__name__)
 
     @property
     def utterance(self):

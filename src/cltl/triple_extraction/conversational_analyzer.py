@@ -23,7 +23,7 @@ class ConversationalAnalyzer(Analyzer):
         """
         super().__init__()
 
-        self._extractor = AlbertTripleExtractor(path=model_path)
+        self._extractor = AlbertTripleExtractor(path=model_path, max_triples=max_triples)
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples

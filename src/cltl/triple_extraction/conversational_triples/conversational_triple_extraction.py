@@ -1,3 +1,5 @@
+import math
+
 import sys
 
 sys.path.append('predicate_normalization')
@@ -16,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class AlbertTripleExtractor:
-    def __init__(self, path, base_model='albert-base-v2', sep='<eos>'):
+    def __init__(self, path, max_triples: int = 0, base_model='albert-base-v2', sep='<eos>'):
         """ Constructor of the Albert-based Triple Extraction Pipeline.
 
         :param path:       path to savefile
@@ -25,12 +27,16 @@ class AlbertTripleExtractor:
         :param speaker1:   name of user (default: speaker1)
         :param speaker2:   name of system (default: speaker2)
         """
+        logger.debug("Loading model %s", path)
+
         self._argument_module = ArgumentExtraction(base_model, path=path)
         self._scoring_module = TripleScoring(base_model, path=path)
 
         self._post_processor = PostProcessor()
         self._nlp = spacy.load('en_core_web_sm')
         self._sep = sep
+
+        self._max_triples = max_triples
 
     @property
     def name(self):
@@ -79,6 +85,9 @@ class AlbertTripleExtractor:
         candidates = [list(triple) for triple in product(subjs, preds, objs)]
         if not candidates:
             return []
+
+        if self._max_triples > 0:
+            candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
 
         # Score candidate triples
         predictions = []
