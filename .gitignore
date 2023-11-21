@@ -141,3 +141,6 @@ dmypy.json
 .DS_Store
 
 *.props
+
+
+**/.DS_Store
