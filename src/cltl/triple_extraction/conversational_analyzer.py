@@ -12,7 +12,8 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 logger = logging.getLogger(__name__)
 
 class ConversationalAnalyzer(Analyzer):
-    def __init__(self, model_path: str, threshold: float = 0.8, max_triples: int = 0, dialogue_acts: List[DialogueAct] = None):
+    def __init__(self, model_path: str, threshold: float = 0.8, max_triples: int = 0,
+                 batch_size: int = 8, dialogue_acts: List[DialogueAct] = None):
         """
         Parameters
         ----------
@@ -27,6 +28,7 @@ class ConversationalAnalyzer(Analyzer):
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
+        self._batch_size = batch_size
         self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
 
         self._chat = None
@@ -77,7 +79,7 @@ class ConversationalAnalyzer(Analyzer):
             # print('speaker2', speaker2)
             # print(conversation)
 
-            extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2)
+            extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2, batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)
                        for score, triple_value
                        in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
