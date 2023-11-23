@@ -207,12 +207,12 @@ class TripleExtractionService(GroupProcessor):
             else:
                 utterance = f"{choice(I_SEE)} {triple}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             utterance = f"{choice(I_DONT_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
 
         # if response:
         #     self._event_bus.publish(self._output_topic, Event.for_payload(response))
