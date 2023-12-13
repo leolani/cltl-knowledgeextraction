@@ -79,7 +79,7 @@ class ConversationalQuestionAnalyzer(Analyzer):
             #print('chat.speaker', chat.speaker)
             #print('chat.agent', chat.agent)
             #print(conversation)
-            print('Conversation input', conversation)
+            #print('Conversation input', conversation)
 
             extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)

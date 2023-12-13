@@ -16,10 +16,9 @@ from test_triples import load_golden_triples
 #from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.question_extraction.conversational_question_analyzer import ConversationalQuestionAnalyzer
-from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 
-def test_triples(item, correct, incorrect, issues, errorf, analyzer:ConversationalQuestionAnalyzer):
+def test_triples(item, correct, nr_tripled_utt, incorrect, issues, errorf, analyzer:ConversationalQuestionAnalyzer):
     chat = Chat(agent="leolani", speaker="lenka")
 
     chat.add_utterance(item['utterance'], 'lenka', DialogueAct.QUESTION)
@@ -34,10 +33,11 @@ def test_triples(item, correct, incorrect, issues, errorf, analyzer:Conversation
             'predicate'] + " " + item['triple']['object'] + "\n"
         errorf.write(error_string)
         issues[chat.last_utterance.transcript]['triple'] = error_string
-        return correct, incorrect, issues
+        return correct, incorrect, nr_tripled_utt, issues
 
     # A triple was extracted so we compare it elementwise
     else:
+        nr_tripled_utt +=1
         # Compare all extracted triples, select the one with the most correct elements
         triples_scores = [compare_elementwise_triple(extracted_triple, item['triple'])
                           for extracted_triple in chat.last_utterance.triples]
@@ -71,8 +71,7 @@ def test_triples(item, correct, incorrect, issues, errorf, analyzer:Conversation
 
             print(f"Expected perspective:   \t{item['perspective']}")
 
-        return correct, incorrect, issues
-
+    return correct, incorrect, nr_tripled_utt, issues
 
 def test_triples_in_file(path, analyzer, resultfile):
     """
@@ -83,6 +82,7 @@ def test_triples_in_file(path, analyzer, resultfile):
     """
     correct = 0
     incorrect = 0
+    nr_tripled_utt = 0
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
     errorf = open(path + ".error.txt", "w")
@@ -92,12 +92,13 @@ def test_triples_in_file(path, analyzer, resultfile):
 
     for item in test_suite:
         print(f'\n---------------------------------------------------------------\n')
-        correct, incorrect, issues = test_triples(item, correct, incorrect, issues, errorf, analyzer)
+        correct, incorrect, nr_tripled_utt, issues = test_triples(item, correct, nr_tripled_utt, incorrect, issues, errorf, analyzer)
     errorf.close()
 
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
+    print(f'\nUTTERANCES WITH TRIPLES: {nr_tripled_utt}\t\t\tUTT~ERANCE WITHOUT TRIPLES: {len(test_suite)-nr_tripled_utt}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
     resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
     resultfile.write(
