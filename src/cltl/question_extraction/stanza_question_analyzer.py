@@ -7,6 +7,8 @@ from cltl.question_extraction.question_to_statement.POSTree import POSTree
 from cltl.question_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
+from cltl.triple_extraction.conversational_analyzer import ConversationalAnalyzer
+
 
 # 1. Call stanza to parse a text: https://stanfordnlp.github.io/stanza/data_conversion.html#document-to-python-object
 # 2. If question, use POSTree to convert it to a statement
@@ -40,7 +42,7 @@ class StanzaQuestionAnalyzer(Analyzer):
     def analyze_in_context(self, chat: Chat):
         self.analyze(chat.last_utterance)
 
-    def analyze(self, utterance: Utterance):
+    def analyze(self, utterance: Utterance, triple_extractor = CFGAnalyzer() ):
         """
 
         Parameters
@@ -52,7 +54,7 @@ class StanzaQuestionAnalyzer(Analyzer):
         try:
             self._triples = []
             self._utterance = utterance
-            if not DialogueAct.QUESTION in utterance.dialogue_acts:
+            if not DialogueAct.QUESTION in utterance._dialogue_acts:
                 return
 
             transcript = utterance.transcript
@@ -72,24 +74,49 @@ class StanzaQuestionAnalyzer(Analyzer):
             for statement in statements:
                 #### Extract the triples
                 chat = Chat("Leolani", "Lenka")
-                triple_extractor = CFGAnalyzer()
-                chat.add_utterance(statement)
-                triple_extractor.analyze(chat.last_utterance)
+
+                chat.add_utterance(statement, "Lenka", DialogueAct.QUESTION)
+                if type(triple_extractor=='ConversationalAnalyzer'):
+                    triple_extractor.analyze_in_context(chat)
+                elif type(triple_extractor=='CfgAnalyzer'):
+                    triple_extractor.analyze(chat.last_utterance)
                 for triple in chat.last_utterance.triples:
-                    if triple["subject"]['label']=="**blank**":
+                    if triple["subject"]['label']=="**blank**" or triple["subject"]['label']=="blank":
                         triple["subject"]['label']=""
-                    if triple["object"]['label']=="**blank**":
+                    elif "**blank**-" in triple["subject"]['label']:
+                        triple["subject"]['label'] = triple["subject"]['label'].replace("**blank**-", "")
+                    elif "-**blank**" in triple["subject"]['label']:
+                        triple["subject"]['label'] = triple["subject"]['label'].replace("-**blank**", "")
+                    elif "blank-" in triple["subject"]['label']:
+                        triple["subject"]['label'] = triple["subject"]['label'].replace("blank-", "")
+                    elif "-blank" in triple["subject"]['label']:
+                        triple["subject"]['label'] = triple["subject"]['label'].replace("-blank", "")
+
+                    if triple["object"]['label']=="**blank**" or triple["object"]['label']=="blank":
                         triple["object"]['label']=""
-                    if triple["predicate"]['label']=="**blank**":
+                    elif "**blank**-" in triple["object"]['label']:
+                        triple["object"]['label'] = triple["object"]['label'].replace("**blank**-", "")
+                    elif "-**blank**" in triple["object"]['label']:
+                        triple["object"]['label'] = triple["object"]['label'].replace("-**blank**", "")
+                    elif "blank-" in triple["object"]['label']:
+                        triple["object"]['label'] = triple["object"]['label'].replace("blank-", "")
+                    elif "-blank" in triple["object"]['label']:
+                        triple["object"]['label'] = triple["object"]['label'].replace("-blank", "")
+
+                    if triple["predicate"]['label']=="**blank**" or triple["predicate"]['label']=="blank":
                         triple["predicate"]['label']=""
                     elif "**blank**-" in triple["predicate"]['label']:
                         triple["predicate"]['label'] = triple["predicate"]['label'].replace("**blank**-", "")
                     elif "-**blank**" in triple["predicate"]['label']:
                         triple["predicate"]['label'] = triple["predicate"]['label'].replace("-**blank**", "")
+                    elif "blank-" in triple["predicate"]['label']:
+                        triple["predicate"]['label'] = triple["predicate"]['label'].replace("blank-", "")
+                    elif "-blank" in triple["predicate"]['label']:
+                        triple["predicate"]['label'] = triple["predicate"]['label'].replace("-blank", "")
+
 
                     triple["utterance_type"] = UtteranceType.QUESTION
                         # must-**blank**-go
-
                     self.utterance.add_triple(triple)
         except Exception as e:
             logger.exception("Exception while analyzing %s", utterance)
@@ -98,14 +125,36 @@ class StanzaQuestionAnalyzer(Analyzer):
 if __name__ == "__main__":
     analyzer = StanzaQuestionAnalyzer()
 
-    #texts = ["What tracks users?", "Who can sing", "what can sing", "where is Selene from", "are your parents from the Netherlands"]
-    texts = ["where is Selene", "where is Selene from"]
-    texts = ["is purple your favorite color"]
+    model = "/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27"
+
+    statement_analyzer = ConversationalAnalyzer(model)
+
+    texts = ["who are your friends?",
+             "What tracks users?",
+             "Who can sing",
+             "Who sings?",
+             "what can sing",
+             "What things can sing?",
+             "where is Selene?",
+             "where is Selene from",
+             "are your parents from the Netherlands",
+             "Is your name Piek?",
+             "Do you own a dog?",
+             "Are you a robot?",
+             "What is your name?",
+             "Who are your friends?",
+             "Can you sing?",
+             "Can you dance?",
+             "Are your happy?"]
+    speaker1="Leolani"
+    speaker2="Lenka"
+    chat = Chat(speaker1, speaker2)
     for text in texts:
         try:
-            analyzer.analyze(text)
-            print(analyzer.utterance)
-            print(analyzer.triples)
+            chat.add_utterance(text, speaker1, [DialogueAct.QUESTION])
+            analyzer.analyze(chat.last_utterance, statement_analyzer)
+            print(analyzer._utterance)
+            print(analyzer._utterance._triples)
         except Exception as e:
             print("Exception:", text)
             raise e

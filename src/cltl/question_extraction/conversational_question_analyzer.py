@@ -63,21 +63,23 @@ class ConversationalQuestionAnalyzer(Analyzer):
 
         if (self._dialogue_acts and self.utterance.dialogue_acts
                 and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
-            logger.debug("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+            logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
             return
         triples = []
         # print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
         # print('chat.speaker', chat.speaker)
         if chat.last_utterance.utterance_speaker == chat.speaker:
-            logger.debug('This is  from the human speaker', chat.speaker)
-
             self._chat = chat
 
             self._utterance = chat.last_utterance
             conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
+
+            if not conversation.endswith("?"):
+                conversation+="?"
             #print('chat.speaker', chat.speaker)
             #print('chat.agent', chat.agent)
             #print(conversation)
+            print('Conversation input', conversation)
 
             extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)
@@ -85,6 +87,7 @@ class ConversationalQuestionAnalyzer(Analyzer):
                        in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
                        if score >= self._threshold]
             triples = list(filter(None, triples))
+            print('Triples', triples)
         else:
             logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
 
@@ -98,6 +101,7 @@ class ConversationalQuestionAnalyzer(Analyzer):
         for triple in triples:
             logger.debug("triple: %s", triple)
             self._remove_blank(triple)
+            chat.last_utterance.triples.append(triple)
             self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
 
     def _remove_blank(self, triple):
