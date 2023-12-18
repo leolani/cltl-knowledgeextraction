@@ -28,9 +28,9 @@ def test_triples(item, correct, nr_tripled_utt, incorrect, issues, errorf, analy
     if not chat.last_utterance.triples:
         print((chat.last_utterance, 'ERROR'))
         incorrect += 3
-        issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
-        error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-            'predicate'] + " " + item['triple']['object'] + "\n"
+        issues[chat.last_utterance.transcript]['parsing'] = 'NO TRIPLES EXTRACTED'
+        error_string = item['triple']['subject'] + " " + item['triple'][
+            'predicate'] + " " + item['triple']['object']
         errorf.write(error_string)
         issues[chat.last_utterance.transcript]['triple'] = error_string
         return correct, incorrect, nr_tripled_utt, issues
@@ -50,9 +50,14 @@ def test_triples(item, correct, nr_tripled_utt, incorrect, issues, errorf, analy
         incorrect += (3 - score_best_triple)
         if score_best_triple < 3:
             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
-            error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-                'predicate'] + " " + item['triple']['object'] + "\n"
+            error_string =  item['triple']['subject'] + " " + item['triple'][
+                'predicate'] + " " + item['triple']['object']
+            for extracted_triple in chat.last_utterance.triples:
+                error_string += ", extracted_triple"+ ": " + str(extracted_triple['subject']["label"]) + " " \
+                                + str(extracted_triple['predicate']["label"]) + " " \
+                                + str(extracted_triple['object']["label"])
             errorf.write(error_string)
+            issues[chat.last_utterance.transcript]['triple'] = error_string
         # Report
         print(f"\nUtterance: \t{chat.last_utterance}")
         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
@@ -98,7 +103,7 @@ def test_triples_in_file(path, analyzer, resultfile):
     print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
     print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
-    print(f'\nUTTERANCES WITH TRIPLES: {nr_tripled_utt}\t\t\tUTT~ERANCE WITHOUT TRIPLES: {len(test_suite)-nr_tripled_utt}')
+    print(f'\nUTTERANCES WITH TRIPLES: {nr_tripled_utt}\t\t\tUTTERANCE WITHOUT TRIPLES: {len(test_suite)-nr_tripled_utt}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
     resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
     resultfile.write(
@@ -119,28 +124,28 @@ if __name__ == "__main__":
     analyzer = ConversationalQuestionAnalyzer(model)
     analyzer.__init__(model)
     all_test_files = [
-        "./data/wh-questions.txt",
-      #  "./data/verb-questions.txt",
+       # "./data/wh-questions.txt",
+         "./data/verb-questions.txt",
     ]
 
    # all_test_files = ["./data/perspective.txt"]
     '''
-    LAST RESULTS: 19/01/2023
+
+RAN 63 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+CORRECT TRIPLE ELEMENTS: 115			INCORRECT TRIPLE ELEMENTS: 74
+
+UTTERANCES WITH TRIPLES: 50			UTTERANCE WITHOUT TRIPLES: 13
+ISSUES (28 UTTERANCES):
 
     RAN 88 UTTERANCES FROM FILE ./data/statements.txt
 
+RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
 
-CORRECT TRIPLE ELEMENTS: 107			INCORRECT TRIPLE ELEMENTS: 157
-ISSUES (70 UTTERANCES)
+CORRECT TRIPLE ELEMENTS: 53			INCORRECT TRIPLE ELEMENTS: 145
 
-CORRECT TRIPLE ELEMENTS: 133			INCORRECT TRIPLE ELEMENTS: 131
-ISSUES (66 UTTERANCES)
-
-CORRECT TRIPLE ELEMENTS: 187			INCORRECT TRIPLE ELEMENTS: 77
-ISSUES (37 UTTERANCES)
-
-CORRECT TRIPLE ELEMENTS: 188			INCORRECT TRIPLE ELEMENTS: 76
-ISSUES (36 UTTERANCES):
+UTTERANCES WITH TRIPLES: 37			UTTERANCE WITHOUT TRIPLES: 29
+ISSUES (40 UTTERANCES):
 
     '''
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')

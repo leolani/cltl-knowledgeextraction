@@ -72,10 +72,17 @@ class ConversationalQuestionAnalyzer(Analyzer):
             self._chat = chat
 
             self._utterance = chat.last_utterance
-            conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
+            conversation =""
+            if chat.last_utterance.transcript.casefold().startswith("who "):
+                conversation = "<eos>" + "**blank**" + "<eos>" + "Someone" + chat.last_utterance.transcript[3:] + "<eos>##blank##"
+            else:
+                conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
+                conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript +"<eos>##blank##"
 
             if not conversation.endswith("?"):
                 conversation+="?"
+
+
             #print('chat.speaker', chat.speaker)
             #print('chat.agent', chat.agent)
             #print(conversation)
@@ -105,7 +112,7 @@ class ConversationalQuestionAnalyzer(Analyzer):
             self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
 
     def _remove_blank(self, triple):
-        if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank":
+        if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" or triple["subject"]['label'] == "someone":
             triple["subject"]['label'] = ""
         elif "**blank**-" in triple["subject"]['label']:
             triple["subject"]['label'] = triple["subject"]['label'].replace("**blank**-", "")
@@ -231,11 +238,42 @@ if __name__ == "__main__":
                   {"speaker": "Lenka", "utterance": "What is my name?", "dialog_act": DialogueAct.QUESTION}
                   ]
 
+    utterances = [{"speaker": "Lenka", "utterance": "when are you coming", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where are you going", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where can I go", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where did Bram come from", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where did you go yesterday", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where is Selene from", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where is selene from", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where was Selene born", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "where were you born", "dialog_act": DialogueAct.QUESTION}]
+
+    utterances = [{"speaker": "Lenka", "utterance": "Who can sing", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who hates cleaning", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who is from Mexico", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who likes singing", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who likes talking to people", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who likes watching movies", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "Who lives in Amsterdam", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who lives in New York", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who will come to school", "dialog_act": DialogueAct.QUESTION},
+{"speaker": "Lenka", "utterance": "who works at the university", "dialog_act": DialogueAct.QUESTION}]
+
+
     speaker1="Leolani"
     speaker2="Lenka"
+    cnt = 0
+    unsolved = []
     for utt in utterances:
         if utt.get('speaker')==speaker2 and utt.get('dialog_act')==DialogueAct.QUESTION:
             chat = Chat(speaker1, speaker2)
             chat.add_utterance(utt.get('utterance'), utt.get('speaker'), utt.get('dialog_act'))
             analyzer.analyze_question_in_context(chat)
-            print('Final triples', chat.last_utterance.triples)
+            if len(chat.last_utterance.triples)>0:
+                cnt+=1
+                print('Final triples', chat.last_utterance.triples)
+            else:
+                unsolved.append(utt.get('utterance'))
+
+    print("Solved:", str(cnt), " out of:" + str(len(utterances)))
+    print("Unsolved:", unsolved)
