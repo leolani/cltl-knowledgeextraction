@@ -115,15 +115,114 @@ class AlbertTripleExtractor:
         return sorted(triples, key=lambda x: -x[0])
 
 
+class MultiLingualBertTripleExtractor:
+    def __init__(self, path, max_triples: int = 0, base_model='bert-base-multilingual-cased', sep='[SEP]'):
+        """ Constructor of the Multilingual Bert Triple Extraction Pipeline.
+
+        :param path:       path to savefile
+        :param base_model: base model (default: google-bert/bert-base-multilingual-cased)
+        :param sep:        separator token used to delimit dialogue turns (default: [SEP])
+        :param speaker1:   name of user (default: speaker1)
+        :param speaker2:   name of system (default: speaker2)
+        """
+        logger.debug("Loading model %s", path)
+
+        self._argument_module = ArgumentExtraction(base_model=base_model, path=path, sep=sep)
+        self._scoring_module = TripleScoring(base_model=base_model, path=path, sep=sep)
+
+        self._post_processor = PostProcessor()
+        self._nlp = spacy.load('en_core_web_sm')
+        self._sep = sep
+
+        self._max_triples = max_triples
+
+    @property
+    def name(self):
+        return "BERT"
+
+    def _tokenize(self, dialog):
+        """ Divides up the dialogue into separate turns and dereferences
+            personal pronouns 'I' and 'you'.
+
+        :param dialog: separator-delimited dialogue
+        :return:       list of tokenized dialogue turns
+        """
+        # Split dialogue into turns
+        turns = [turn.lower().strip() for turn in dialog.split(self._sep)]
+
+        # Tokenize each turn separately (and splitting "n't" off)
+        tokens = []
+        for turn_id, turn in enumerate(turns):
+            # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
+            speaker_id = (len(turns) - turn_id + 1) % 2
+            if turn:
+                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + ['<eos>']
+        return tokens
+
+    def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
+        """
+        :param dialog:       separator-delimited dialogue
+        :param speaker1:       speaker of odd turns
+        :param speaker2:       speaker of even turns
+        :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
+        :param batch_size:   If a lot of possible triples exist, batch up processing
+        :param verbose:      whether to print messages (True) or be silent (False) (default: False)
+        :return:             A list of confidence-triple pairs of the form (confidence, (subj, pred, obj, polarity))
+        """
+        # Assign unambiguous tokens to you/I
+        tokens = self._tokenize(dialog)
+
+        # Extract SPO arguments from token sequence
+        subjs, preds, objs = self._argument_module.predict(tokens)
+
+        logger.debug('subjects:   %s' % subjs)
+        logger.debug('predicates: %s' % preds)
+        logger.debug('objects:    %s\n' % objs)
+
+        # List all possible combinations of arguments
+        candidates = [list(triple) for triple in product(subjs, preds, objs)]
+        if not candidates:
+            return []
+
+        if self._max_triples > 0:
+            candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
+
+        # Score candidate triples
+        predictions = []
+        for i in range(0, len(candidates), batch_size):
+            batch = candidates[i:i + batch_size]
+            for y_hat in self._scoring_module.predict(tokens, batch):
+                predictions.append(y_hat)
+
+        # Rank candidates according to entailment predictions
+        triples = []
+        for y_hat, (subj, pred, obj) in zip(predictions, candidates):
+            pol = 'negative' if y_hat[2] > y_hat[1] else 'positive'
+            ent = max(y_hat[1], y_hat[2])
+
+            # Replace SPEAKER* with speaker
+            subj = speaker_id_to_speaker(subj, speaker1, speaker2)
+            pred = speaker_id_to_speaker(pred, speaker1, speaker2)
+            obj = speaker_id_to_speaker(obj, speaker1, speaker2)
+
+            # Fix mistakes, expand contractions
+            if post_process:
+                subj, pred, obj = self._post_processor.format((subj, pred, obj))
+            triples.append((ent, (subj, pred, obj, pol)))
+
+        return sorted(triples, key=lambda x: -x[0])
+
 if __name__ == '__main__':
-    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27')
+  #  model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2022-04-27')
+    model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11')
 
     # Test!
-    example = "I went to the new university. It was great! <eos> I like studying too and learning. You? <eos> No, can afford it!"
-   # example = "<eos> I like studying too and learning. You? <eos> No, hate it!"
+    examples = ["I went to the new university. It was great! <eos> I like studying too and learning. You? <eos> No, can afford it!",
+               "Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! <eos> Ik hou ook van studeren en leren. Jij? <eos> Nee, ik heb het niet nodig!"]
+# example = "<eos> I like studying too and learning. You? <eos> No, hate it!"
    # example = "<eos> I like studying too and learning. You? <eos> No, can afford it!"
-
-    print('example', example)
-    for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
-        print(score, triple)
+    for example in examples:
+        print('example', example)
+        for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
+            print(score, triple)
 

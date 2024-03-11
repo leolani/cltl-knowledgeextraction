@@ -41,7 +41,8 @@ class TripleScoring(torch.nn.Module):
 
         # Load model / tokenizer if pretrained model is given
         if path:
-            model_path = glob.glob(path + '/candidate_scorer_' + base_model + '.zip')[0]
+           # model_path = glob.glob(path + '/candidate_scorer_' + base_model + '.zip')[0]
+            model_path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/tripleranker_bert-base-multilingual-cased.pt'
             print('\t- Loading pretrained model %s', model_path)
             state_dict = torch.load(model_path, map_location=self._device)
             self.load_state_dict(state_dict, strict=False)

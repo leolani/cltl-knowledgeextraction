@@ -51,6 +51,7 @@ class ArgumentExtraction(torch.nn.Module):
         if path:
             model_path = path + '/argument_extraction_' + base_model + '.zip'
             logger.info('Loading pretrained model %s', model_path)
+            model_path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/argument_extraction_bert-base-multilingual-cased.pt'
             state_dict = torch.load(model_path, map_location=self._device)
             self.load_state_dict(state_dict, strict=False)
 
@@ -78,7 +79,7 @@ class ArgumentExtraction(torch.nn.Module):
         # Tokenize each token individually (keeping track of subwords)
         input_ids = [[self._tokenizer.cls_token_id]]
         for t in tokens:
-            if t != '<eos>':
+            if t != self._sep:
                 input_ids.append(self._tokenizer.encode(t, add_special_tokens=False))
             else:
                 input_ids.append([self._tokenizer.eos_token_id])
