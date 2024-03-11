@@ -57,8 +57,11 @@ class AlbertTripleExtractor:
         for turn_id, turn in enumerate(turns):
             # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
             speaker_id = (len(turns) - turn_id + 1) % 2
+            print('turn', turn)
+            print('turn_id', turn_id)
+            print('speaker_id', speaker_id)
             if turn:
-                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + ['<eos>']
+                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
         return tokens
 
     def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
@@ -214,15 +217,18 @@ class MultiLingualBertTripleExtractor:
         return sorted(triples, key=lambda x: -x[0])
 
 if __name__ == '__main__':
-    #sep = '<eos>'
-    #model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', sep=sep)
-    sep = '[SEP]'
-    model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11',
-                                            base_model='google-bert/bert-base-multilingual-cased',
-                                            sep=sep)
+    sep = '<eos>'
+    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', sep=sep)
+    # sep = '[SEP]'
+    # model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11',
+    #                                         base_model='google-bert/bert-base-multilingual-cased',
+    #                                         sep=sep)
     # Test!
-    examples = ['I went to the new university. It was great! '+sep+' I like studying too and learning. You? ' + sep+ ' No, can afford it!',
-               'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+sep+' Ik hou ook van studeren en leren. Jij? ' +sep +' Nee, ik heb het niet nodig!']
+    examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + sep +
+                " Do you have any kids of your's own now ? " + sep + " no " +sep]
+
+  #  examples = ['I went to the new university. It was great! '+sep+' I like studying too and learning. You? ' + sep+ ' No, can afford it!',
+  #             'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+sep+' Ik hou ook van studeren en leren. Jij? ' +sep +' Nee, ik heb het niet nodig!']
     for example in examples:
         print('example', example)
         for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):

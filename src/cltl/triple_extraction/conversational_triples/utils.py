@@ -172,7 +172,47 @@ def extract_triples(annotation, neg_oversampling=7, contr_oversampling=0.7, elli
     return turns, triples, labels
 
 
-def pronoun_to_speaker_id(token, turn_idx):
+def pronoun_to_speaker_id(token, speaker_id):
+    # Even turns -> speaker1
+    if speaker_id == 1:
+        if token in ['i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return 'SPEAKER1'
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return "SPEAKER1's"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return 'SPEAKER2'
+        elif token in ['your', 'yours']:
+            return "SPEAKER2's"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return 'SPEAKER1'
+        elif token in ['mijn', 'mijne', 'onze']:
+            return "SPEAKER1's"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return 'SPEAKER2'
+        elif token in ['jouw']:
+            return "SPEAKER2's"
+    else:
+        if token in ['i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return "SPEAKER2"
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return "SPEAKER2's"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return 'SPEAKER1'
+        elif token in ['your', 'yours']:
+            return "SPEAKER1's"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return 'SPEAKER2'
+        elif token in ['mijn', 'mijne', 'onze']:
+            return "SPEAKER2's"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return 'SPEAKER1'
+        elif token in ['jouw']:
+            return "SPEAKER1's"
+    return token
+
+def pronoun_to_speaker_id_turn(token, turn_idx):
     # Even turns -> speaker1
     if turn_idx % 2 == 0:
         if token in ['i', 'me', 'myself', 'we', 'us', 'ourselves']:
