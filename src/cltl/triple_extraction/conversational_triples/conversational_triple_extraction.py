@@ -116,7 +116,7 @@ class AlbertTripleExtractor:
 
 
 class MultiLingualBertTripleExtractor:
-    def __init__(self, path, max_triples: int = 0, base_model='bert-base-multilingual-cased', sep='[SEP]'):
+    def __init__(self, path, max_triples: int = 0, base_model='google-bert/bert-base-multilingual-cased', sep='[SEP]'):
         """ Constructor of the Multilingual Bert Triple Extraction Pipeline.
 
         :param path:       path to savefile
@@ -132,6 +132,7 @@ class MultiLingualBertTripleExtractor:
 
         self._post_processor = PostProcessor()
         self._nlp = spacy.load('en_core_web_sm')
+      #  self._nlp = spacy.load('nl_core_news_sm')
         self._sep = sep
 
         self._max_triples = max_triples
@@ -156,7 +157,7 @@ class MultiLingualBertTripleExtractor:
             # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
             speaker_id = (len(turns) - turn_id + 1) % 2
             if turn:
-                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + ['<eos>']
+                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
         return tokens
 
     def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
@@ -171,7 +172,6 @@ class MultiLingualBertTripleExtractor:
         """
         # Assign unambiguous tokens to you/I
         tokens = self._tokenize(dialog)
-
         # Extract SPO arguments from token sequence
         subjs, preds, objs = self._argument_module.predict(tokens)
 
@@ -187,6 +187,7 @@ class MultiLingualBertTripleExtractor:
         if self._max_triples > 0:
             candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
 
+        #print('candidates', candidates)
         # Score candidate triples
         predictions = []
         for i in range(0, len(candidates), batch_size):
@@ -213,16 +214,83 @@ class MultiLingualBertTripleExtractor:
         return sorted(triples, key=lambda x: -x[0])
 
 if __name__ == '__main__':
-  #  model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2022-04-27')
-    model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11')
-
+    #sep = '<eos>'
+    #model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', sep=sep)
+    sep = '[SEP]'
+    model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11',
+                                            base_model='google-bert/bert-base-multilingual-cased',
+                                            sep=sep)
     # Test!
-    examples = ["I went to the new university. It was great! <eos> I like studying too and learning. You? <eos> No, can afford it!",
-               "Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! <eos> Ik hou ook van studeren en leren. Jij? <eos> Nee, ik heb het niet nodig!"]
-# example = "<eos> I like studying too and learning. You? <eos> No, hate it!"
-   # example = "<eos> I like studying too and learning. You? <eos> No, can afford it!"
+    examples = ['I went to the new university. It was great! '+sep+' I like studying too and learning. You? ' + sep+ ' No, can afford it!',
+               'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+sep+' Ik hou ook van studeren en leren. Jij? ' +sep +' Nee, ik heb het niet nodig!']
     for example in examples:
         print('example', example)
         for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
             print(score, triple)
 
+### Albert:
+# 0.99959534 ('Thomas', 'visit', 'the new university', 'positive')
+# 0.9995055 ('it', 'be', 'great', 'positive')
+# 0.9986526 ('LEOLANI', 'like', 'studying', 'positive')
+# 0.9986406 ('Thomas', 'possible', 'it', 'positive')
+# 0.99787045 ('Thomas', 'possible', 'the new university', 'positive')
+# 0.9932249 ('LEOLANI', 'like', 'learning', 'positive')
+# 0.96144116 ('Thomas', 'possible', 'studying', 'positive')
+# 0.011400834 ('Thomas', 'like', 'studying', 'negative')
+# 0.006049461 ('Thomas', 'like', 'learning', 'positive')
+# 0.0032076072 ('LEOLANI', 'possible', 'it', 'positive')
+# 0.0013780214 ('Thomas', 'like', 'the new university', 'positive')
+# 0.0010418103 ('LEOLANI', 'like', 'the new university', 'positive')
+# 0.0008511438 ('it', 'possible', 'it', 'positive')
+# 0.00079880405 ('it', 'possible', 'studying', 'positive')
+# 0.0007219936 ('it', 'possible', 'the new university', 'positive')
+# 0.00072045357 ('Thomas', 'possible', 'learning', 'positive')
+# 0.0007036675 ('LEOLANI', 'possible', 'the new university', 'positive')
+# 0.0007000112 ('Thomas', 'visit', 'it', 'positive')
+# 0.00068866526 ('Thomas', 'like', 'it', 'positive')
+# 0.00068758824 ('LEOLANI', 'possible', 'studying', 'positive')
+# 0.00066923944 ('it', 'possible', 'great', 'positive')
+# 0.0006125862 ('it', 'possible', 'learning', 'positive')
+# 0.0005751967 ('it', 'visit', 'studying', 'positive')
+# 0.00054846046 ('Thomas', 'possible', 'great', 'positive')
+# 0.00051013735 ('LEOLANI', 'like', 'it', 'positive')
+# 0.0005035872 ('it', 'visit', 'the new university', 'positive')
+# 0.00049910566 ('Thomas', 'be', 'it', 'positive')
+# 0.00049432553 ('it', 'be', 'it', 'positive')
+# 0.000473403 ('it', 'visit', 'great', 'positive')
+# 0.00046508387 ('it', 'visit', 'it', 'positive')
+# 0.00044310055 ('it', 'visit', 'learning', 'positive')
+# 0.00044172764 ('Thomas', 'be', 'the new university', 'positive')
+# 0.00044077839 ('LEOLANI', 'possible', 'great', 'positive')
+# 0.00044015673 ('LEOLANI', 'be', 'it', 'positive')
+# 0.0004345927 ('Thomas', 'like', 'great', 'positive')
+# 0.0004202819 ('Thomas', 'visit', 'learning', 'positive')
+# 0.00041443948 ('it', 'like', 'it', 'positive')
+# 0.00039777264 ('Thomas', 'be', 'great', 'positive')
+# 0.00039474334 ('it', 'like', 'studying', 'positive')
+# 0.00039182068 ('Thomas', 'be', 'studying', 'positive')
+# 0.00038896903 ('it', 'like', 'great', 'positive')
+# 0.00038604366 ('it', 'like', 'learning', 'positive')
+# 0.0003824353 ('it', 'be', 'the new university', 'positive')
+# 0.0003821528 ('LEOLANI', 'visit', 'it', 'positive')
+# 0.0003818124 ('LEOLANI', 'possible', 'learning', 'positive')
+# 0.00037740736 ('it', 'like', 'the new university', 'positive')
+# 0.0003731111 ('LEOLANI', 'be', 'the new university', 'positive')
+# 0.00036376243 ('Thomas', 'visit', 'studying', 'positive')
+# 0.00036373927 ('Thomas', 'visit', 'great', 'positive')
+# 0.00036202974 ('LEOLANI', 'visit', 'the new university', 'positive')
+# 0.0003549336 ('LEOLANI', 'be', 'studying', 'positive')
+# 0.00034140534 ('Thomas', 'be', 'learning', 'positive')
+# 0.00033830604 ('it', 'be', 'studying', 'positive')
+# 0.00033441288 ('LEOLANI', 'visit', 'great', 'positive')
+# 0.00032569116 ('LEOLANI', 'visit', 'studying', 'positive')
+# 0.00032366754 ('LEOLANI', 'like', 'great', 'positive')
+# 0.0003202108 ('it', 'be', 'learning', 'positive')
+# 0.00030509668 ('LEOLANI', 'be', 'great', 'positive')
+# 0.0002984874 ('LEOLANI', 'visit', 'learning', 'positive')
+# 0.00025656258 ('LEOLANI', 'be', 'learning', 'positive')
+# example Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! <eos> Ik hou ook van studeren en leren. Jij? <eos> Nee, ik heb het niet nodig!
+# 0.99862194 ('he', 'be', 'geweldig', 'positive')
+# 0.2825692 ('Thomas', 'heb', 'geweldig', 'negative')
+# 0.12623471 ('Thomas', 'be', 'geweldig', 'negative')
+# 0.0031245297 ('he', 'heb', 'geweldig', 'positive')

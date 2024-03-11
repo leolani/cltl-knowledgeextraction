@@ -33,6 +33,8 @@ class ArgumentExtraction(torch.nn.Module):
         self._tokenizer = AutoTokenizer.from_pretrained(base_model)
         self._tokenizer.add_tokens(['SPEAKER1', 'SPEAKER2'], special_tokens=True)
         self._model.resize_token_embeddings(len(self._tokenizer))
+        print('Tokenizer sep token', self._tokenizer.decode(self._tokenizer.sep_token_id))
+        print('Tokenizer cls token', self._tokenizer.decode(self._tokenizer.cls_token_id))
 
         # Add token classification heads
         hidden_size = AutoConfig.from_pretrained(base_model).hidden_size
@@ -49,9 +51,12 @@ class ArgumentExtraction(torch.nn.Module):
 
         # Load model / tokenizer if pretrained model is given
         if path:
-            model_path = path + '/argument_extraction_' + base_model + '.zip'
+            if base_model=='albert-base-v2':
+                model_path = path + '/argument_extraction_' + base_model + '.zip'
+            else:
+                name = base_model[base_model.rindex("/") + 1:]
+                model_path = path + '/argument_extraction_' + name + '.pt'
             logger.info('Loading pretrained model %s', model_path)
-            model_path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/argument_extraction_bert-base-multilingual-cased.pt'
             state_dict = torch.load(model_path, map_location=self._device)
             self.load_state_dict(state_dict, strict=False)
 
@@ -82,8 +87,8 @@ class ArgumentExtraction(torch.nn.Module):
             if t != self._sep:
                 input_ids.append(self._tokenizer.encode(t, add_special_tokens=False))
             else:
-                input_ids.append([self._tokenizer.eos_token_id])
-
+                input_ids.append([self._tokenizer.sep_token_id])
+        #print(self._sep, self._tokenizer.eos_token_id, 'input_ids', input_ids)
         # Flatten input_ids
         f_input_ids = torch.LongTensor([[i for ids in input_ids for i in ids]]).to(self._device)
 
