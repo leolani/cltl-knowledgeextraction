@@ -104,8 +104,8 @@ class ArgumentExtraction(torch.nn.Module):
     def _repeat_speaker_ids(self, speaker_ids, repeats):
         """ Repeats speaker IDs for oov tokens.
         """
-        rep_speaker_ids = np.repeat([0] + list(speaker_ids), repeats=repeats)
-        return torch.LongTensor([rep_speaker_ids]).to(self._device)
+        rep_speaker_ids = np.array(np.repeat([0] + list(speaker_ids), repeats=repeats))
+        return torch.LongTensor(rep_speaker_ids).to(self._device)
 
     def _repeat_labels(self, labels, repeats):
         """ Repeats BIO labels for OOV tokens. Ensure B-labeled tokens are repeated
@@ -171,17 +171,28 @@ class ArgumentExtraction(torch.nn.Module):
 
         # Invert tokenization for viewing
         subwords = self._tokenizer.convert_ids_to_tokens(input_ids[0])
-
+        #print('subwords', subwords)
         # Forward-pass
         predictions = self(input_ids, speaker_ids)
         subjs = predictions[0].cpu().detach().numpy()[0]
         preds = predictions[1].cpu().detach().numpy()[0]
         objs = predictions[2].cpu().detach().numpy()[0]
 
+        # show results
+        # for arg, y in [('Subject', subjs), ('Predicate', preds), ('Object', objs)]:
+        #     print('\n', arg)
+        #     print('O\tB\tI')
+        #     for score, token in zip(y.T, subwords):
+        #         score_str = '\t'.join(
+        #             ["[" + str(s)[:5] + "]" if s == max(score) else " " + str(round(s, 4))[:5] + " " for s in score])
+        #         token_str = token.replace('▁', '')
+        #         print(score_str, token_str)
+
         # Decode predictions into strings
         subj_args = bio_tags_to_tokens(subwords, subjs.T, one_hot=True)
         pred_args = bio_tags_to_tokens(subwords, preds.T, one_hot=True)
         obj_args = bio_tags_to_tokens(subwords, objs.T, one_hot=True)
+
         return subj_args, pred_args, obj_args
 
 

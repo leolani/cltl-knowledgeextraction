@@ -115,7 +115,7 @@ class PostProcessorNL:
     def __init__(self):
         self._nlp = spacy.load('nl_core_news_sm')
 
-        with importlib.resources.open_text("cltl.triple_extraction.conversational_triples", "predicate_norm.json") as file:
+        with importlib.resources.open_text("cltl.triple_extraction.conversational_triples", "predicate_norm_nl.json") as file:
            # print(file.name)
             self._predicate_norm_lex= json.load(file)
 

@@ -47,8 +47,8 @@ class TripleScoring(torch.nn.Module):
                 model_path = glob.glob(path + '/candidate_scorer_' + base_model + '.zip')[0]
             else:
                 name = base_model[base_model.rindex("/") + 1:]
-                model_path = path + '/argument_extraction_' + name + '.pt'
-                print('\t- Loading pretrained model %s', model_path)
+                model_path = path + '/candidate_scorer_' + name + '.pt'
+            print('\t- Loading pretrained model %s', model_path)
             state_dict = torch.load(model_path, map_location=self._device)
             self.load_state_dict(state_dict, strict=False)
 
@@ -176,19 +176,34 @@ class TripleScoring(torch.nn.Module):
 
 
 if __name__ == '__main__':
-    annotations = load_annotations('<path_to_annotations')
-
-    # Extract annotation triples and compute negative triples
-    tokens, triples, labels = [], [], []
-    for ann in annotations:
-        ann_tokens, ann_triples, triple_labels = extract_triples(ann)
-        triples.append(ann_triples)
-        labels.append(triple_labels)
-        tokens.append([t for ts in ann_tokens for t in ts + ['<eos>']])
-
-    # Fit model
+    # annotations = load_annotations('<path_to_annotations')
+    #
+    # # Extract annotation triples and compute negative triples
+    # tokens, triples, labels = [], [], []
+    # for ann in annotations:
+    #     ann_tokens, ann_triples, triple_labels = extract_triples(ann)
+    #     triples.append(ann_triples)
+    #     labels.append(triple_labels)
+    #     tokens.append([t for ts in ann_tokens for t in ts + ['<eos>']])
+    #
+    # # Fit model
+    # scorer = TripleScoring()
+    # scorer.fit(tokens, triples, labels)
+    # torch.save(scorer.state_dict(), 'models/scorer_albert-v2_31_03_2022')
+    SEP = '[SEP]'
     scorer = TripleScoring()
-    scorer.fit(tokens, triples, labels)
-    torch.save(scorer.state_dict(), 'models/scorer_albert-v2_31_03_2022')
+    inputs = 'SPEAKER1 adore unicorns but not photography ' + SEP + ' What do SPEAKER1 like ? ' + SEP + ' dogs and gaming, but not cats or elephants . ' +SEP
+    inputs = inputs.split()
+    triple_examples = [['SPEAKER1', 'adore', 'unicorns'],
+                       ['SPEAKER1', 'like', 'dogs'],
+                       ['SPEAKER1', 'like', 'gaming'],
+                       ['SPEAKER1', 'adore', 'photography'],
+                       ['SPEAKER1', 'like', 'cats'],
+                       ['SPEAKER1', 'like', 'elephants'],
+                       ['SPEAKER1', 'adore', 'elephants'],
+                       ['SPEAKER1', 'like', 'photography'],
+                       ['SPEAKER1', 'like', 'unicorns']]
 
+    result = np.round(scorer.predict(inputs, triple_examples), 3)
+    print(result)
 

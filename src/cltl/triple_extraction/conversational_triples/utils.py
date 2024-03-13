@@ -92,8 +92,10 @@ def bio_tags_to_tokens(tokens, mask, one_hot=False):
             elif token.startswith('_'):
                 span[-1]=span[-1]+token[1:]
             else:
-                span[-1]=span[-1]+" "+token
-                #span.append(token)
+                if len(span) > 0:
+                    span[-1]=span[-1]+" "+token
+                else:
+                    span.append(token)
 
     if span:
         if len(span) < 2:

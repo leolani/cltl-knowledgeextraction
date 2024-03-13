@@ -7,8 +7,7 @@ sys.path.append('predicate_normalization')
 from cltl.triple_extraction.conversational_triples.argument_extraction import ArgumentExtraction
 from cltl.triple_extraction.conversational_triples.triple_scoring import TripleScoring
 from cltl.triple_extraction.conversational_triples.post_processing import PostProcessor
-from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker_id, speaker_id_to_speaker
-
+from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker_id, speaker_id_to_speaker, bio_tags_to_tokens
 from itertools import product
 import spacy
 
@@ -18,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class AlbertTripleExtractor:
-    def __init__(self, path, max_triples: int = 0, base_model='albert-base-v2', sep='<eos>'):
+    def __init__(self, path: object, max_triples: int = 0, base_model: object = 'albert-base-v2', lang: object = "en") -> object:
         """ Constructor of the Albert-based Triple Extraction Pipeline.
 
         :param path:       path to savefile
@@ -33,8 +32,12 @@ class AlbertTripleExtractor:
         self._scoring_module = TripleScoring(base_model, path=path)
 
         self._post_processor = PostProcessor()
-        self._nlp = spacy.load('en_core_web_sm')
-        self._sep = sep
+        if lang=="nl":
+            self._nlp = spacy.load('nl_core_web_sm')
+        else:
+            self._nlp = spacy.load('en_core_web_sm')
+
+        self._sep = self._argument_module._tokenizer.decode(self._argument_module._tokenizer.sep_token_id)
 
         self._max_triples = max_triples
 
@@ -62,7 +65,31 @@ class AlbertTripleExtractor:
             print('speaker_id', speaker_id)
             if turn:
                 tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
+        print('tokens', tokens)
         return tokens
+
+    # def simple_test(self, dialog, speaker1, speaker2):
+    #     inputs = dialog.split()
+    #     y_subj, y_pred, y_obj = self._argument_module.predict(inputs)
+    #
+    #     # show results
+    #     for arg, y in [('Subject', y_subj), ('Predicate', y_pred), ('Object', y_obj)]:
+    #         print('\n', arg)
+    #         print('O\tB\tI')
+    #         for score, token in zip(y.T, subwords):
+    #             score_str = '\t'.join(
+    #                 ["[" + str(s)[:5] + "]" if s == max(score) else " " + str(round(s, 4))[:5] + " " for s in score])
+    #             token_str = token.replace('▁', '')
+    #             print(score_str, token_str)
+    #
+    #     # Albert
+    #     print(' '.join(subwords).replace('▁', '') + '\n')
+    #     # MLBert
+    #     print(' '.join(subwords).replace('##', '') + '\n')
+    #
+    #     print('Subjects:  ', bio_tags_to_tokens(subwords, y_subj.T, one_hot=True))
+    #     print('Predicates:', bio_tags_to_tokens(subwords, y_pred.T, one_hot=True))
+    #     print('Objects:   ', bio_tags_to_tokens(subwords, y_obj.T, one_hot=True))
 
     def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
         """
@@ -98,12 +125,12 @@ class AlbertTripleExtractor:
             batch = candidates[i:i + batch_size]
             for y_hat in self._scoring_module.predict(tokens, batch):
                 predictions.append(y_hat)
-
         # Rank candidates according to entailment predictions
         triples = []
         for y_hat, (subj, pred, obj) in zip(predictions, candidates):
             pol = 'negative' if y_hat[2] > y_hat[1] else 'positive'
             ent = max(y_hat[1], y_hat[2])
+            print('y_hat', y_hat, ent)
 
             # Replace SPEAKER* with speaker
             subj = speaker_id_to_speaker(subj, speaker1, speaker2)
@@ -117,122 +144,24 @@ class AlbertTripleExtractor:
 
         return sorted(triples, key=lambda x: -x[0])
 
-
-class MultiLingualBertTripleExtractor:
-    def __init__(self, path, max_triples: int = 0, base_model='google-bert/bert-base-multilingual-cased', sep='[SEP]'):
-        """ Constructor of the Multilingual Bert Triple Extraction Pipeline.
-
-        :param path:       path to savefile
-        :param base_model: base model (default: google-bert/bert-base-multilingual-cased)
-        :param sep:        separator token used to delimit dialogue turns (default: [SEP])
-        :param speaker1:   name of user (default: speaker1)
-        :param speaker2:   name of system (default: speaker2)
-        """
-        logger.debug("Loading model %s", path)
-
-        self._argument_module = ArgumentExtraction(base_model=base_model, path=path, sep=sep)
-        self._scoring_module = TripleScoring(base_model=base_model, path=path, sep=sep)
-
-        self._post_processor = PostProcessor()
-        self._nlp = spacy.load('en_core_web_sm')
-      #  self._nlp = spacy.load('nl_core_news_sm')
-        self._sep = sep
-
-        self._max_triples = max_triples
-
-    @property
-    def name(self):
-        return "BERT"
-
-    def _tokenize(self, dialog):
-        """ Divides up the dialogue into separate turns and dereferences
-            personal pronouns 'I' and 'you'.
-
-        :param dialog: separator-delimited dialogue
-        :return:       list of tokenized dialogue turns
-        """
-        # Split dialogue into turns
-        turns = [turn.lower().strip() for turn in dialog.split(self._sep)]
-
-        # Tokenize each turn separately (and splitting "n't" off)
-        tokens = []
-        for turn_id, turn in enumerate(turns):
-            # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
-            speaker_id = (len(turns) - turn_id + 1) % 2
-            if turn:
-                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
-        return tokens
-
-    def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
-        """
-        :param dialog:       separator-delimited dialogue
-        :param speaker1:       speaker of odd turns
-        :param speaker2:       speaker of even turns
-        :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
-        :param batch_size:   If a lot of possible triples exist, batch up processing
-        :param verbose:      whether to print messages (True) or be silent (False) (default: False)
-        :return:             A list of confidence-triple pairs of the form (confidence, (subj, pred, obj, polarity))
-        """
-        # Assign unambiguous tokens to you/I
-        tokens = self._tokenize(dialog)
-        # Extract SPO arguments from token sequence
-        subjs, preds, objs = self._argument_module.predict(tokens)
-
-        logger.debug('subjects:   %s' % subjs)
-        logger.debug('predicates: %s' % preds)
-        logger.debug('objects:    %s\n' % objs)
-
-        # List all possible combinations of arguments
-        candidates = [list(triple) for triple in product(subjs, preds, objs)]
-        if not candidates:
-            return []
-
-        if self._max_triples > 0:
-            candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
-
-        #print('candidates', candidates)
-        # Score candidate triples
-        predictions = []
-        for i in range(0, len(candidates), batch_size):
-            batch = candidates[i:i + batch_size]
-            for y_hat in self._scoring_module.predict(tokens, batch):
-                predictions.append(y_hat)
-
-        # Rank candidates according to entailment predictions
-        triples = []
-        for y_hat, (subj, pred, obj) in zip(predictions, candidates):
-            pol = 'negative' if y_hat[2] > y_hat[1] else 'positive'
-            ent = max(y_hat[1], y_hat[2])
-
-            # Replace SPEAKER* with speaker
-            subj = speaker_id_to_speaker(subj, speaker1, speaker2)
-            pred = speaker_id_to_speaker(pred, speaker1, speaker2)
-            obj = speaker_id_to_speaker(obj, speaker1, speaker2)
-
-            # Fix mistakes, expand contractions
-            if post_process:
-                subj, pred, obj = self._post_processor.format((subj, pred, obj))
-            triples.append((ent, (subj, pred, obj, pol)))
-
-        return sorted(triples, key=lambda x: -x[0])
 
 if __name__ == '__main__':
-    sep = '<eos>'
-    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', sep=sep)
-    # sep = '[SEP]'
-    # model = MultiLingualBertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11',
-    #                                         base_model='google-bert/bert-base-multilingual-cased',
-    #                                         sep=sep)
-    # Test!
-    examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + sep +
-                " Do you have any kids of your's own now ? " + sep + " no " +sep]
+   # model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', base_model='albert-base-v2', lang='en')
 
-  #  examples = ['I went to the new university. It was great! '+sep+' I like studying too and learning. You? ' + sep+ ' No, can afford it!',
-  #             'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+sep+' Ik hou ook van studeren en leren. Jij? ' +sep +' Nee, ik heb het niet nodig!']
+    model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11', base_model='google-bert/bert-base-multilingual-cased', lang="en")
+    SEP = model._sep
+    # Test!
+    examples = ["I enjoy watching american football but don\'t like to make homework " + SEP + " what does Mike like to do? " + SEP + " gaming, but I hate cats " + SEP]
+    examples = ["Ik vind het leuk om naar voetbal te kijken maar ik hou niet van huiswerk " + SEP + " Wat zou mike graag willen doen? " + SEP + " gaming, maar ik heb een hekel aan katten " + SEP]
+
+    #examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + SEP +  " Do you have any kids of your's own now ? " + SEP + " no " + SEP]
+                #,
+                #'I went to the new university. It was great! '+model._sep+' I like studying too and learning. You? ' + model._sep+ ' No, can afford it!'+model._sep,
+                #'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+model._sep+' Ik hou ook van studeren en leren. Jij? ' +model._sep +' Nee, ik heb het niet nodig!'+model._sep]
     for example in examples:
         print('example', example)
         for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
-            print(score, triple)
+           print(score, triple)
 
 ### Albert:
 # 0.99959534 ('Thomas', 'visit', 'the new university', 'positive')
