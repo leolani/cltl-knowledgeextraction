@@ -60,12 +60,8 @@ class AlbertTripleExtractor:
         for turn_id, turn in enumerate(turns):
             # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
             speaker_id = (len(turns) - turn_id + 1) % 2
-            print('turn', turn)
-            print('turn_id', turn_id)
-            print('speaker_id', speaker_id)
             if turn:
                 tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
-        print('tokens', tokens)
         return tokens
 
     # def simple_test(self, dialog, speaker1, speaker2):
@@ -130,7 +126,7 @@ class AlbertTripleExtractor:
         for y_hat, (subj, pred, obj) in zip(predictions, candidates):
             pol = 'negative' if y_hat[2] > y_hat[1] else 'positive'
             ent = max(y_hat[1], y_hat[2])
-            print('y_hat', y_hat, ent)
+            #print('y_hat', y_hat, ent)
 
             # Replace SPEAKER* with speaker
             subj = speaker_id_to_speaker(subj, speaker1, speaker2)
