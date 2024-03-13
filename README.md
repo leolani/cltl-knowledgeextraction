@@ -78,6 +78,8 @@ Models for the ConversationalAnalyzer can be downloaded
 from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW). These files must be under the
 folder `resources/conversational_triples/`
 
+Multilingual models can be donwloaded from: [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/xL9fPrqIq8bs6NH).
+
 ### Sample output
 
 Here is a sample output for sentence `“I have three white cats”`:
