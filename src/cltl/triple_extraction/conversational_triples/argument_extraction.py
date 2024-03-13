@@ -33,8 +33,8 @@ class ArgumentExtraction(torch.nn.Module):
         self._tokenizer = AutoTokenizer.from_pretrained(base_model)
         self._tokenizer.add_tokens(['SPEAKER1', 'SPEAKER2'], special_tokens=True)
         self._model.resize_token_embeddings(len(self._tokenizer))
-        print('Tokenizer sep token', self._tokenizer.decode(self._tokenizer.sep_token_id))
-        print('Tokenizer cls token', self._tokenizer.decode(self._tokenizer.cls_token_id))
+       # print('Tokenizer sep token', self._tokenizer.decode(self._tokenizer.sep_token_id))
+       # print('Tokenizer cls token', self._tokenizer.decode(self._tokenizer.cls_token_id))
 
         # Add token classification heads
         hidden_size = AutoConfig.from_pretrained(base_model).hidden_size
@@ -171,22 +171,11 @@ class ArgumentExtraction(torch.nn.Module):
 
         # Invert tokenization for viewing
         subwords = self._tokenizer.convert_ids_to_tokens(input_ids[0])
-        #print('subwords', subwords)
         # Forward-pass
         predictions = self(input_ids, speaker_ids)
         subjs = predictions[0].cpu().detach().numpy()[0]
         preds = predictions[1].cpu().detach().numpy()[0]
         objs = predictions[2].cpu().detach().numpy()[0]
-
-        # show results
-        # for arg, y in [('Subject', subjs), ('Predicate', preds), ('Object', objs)]:
-        #     print('\n', arg)
-        #     print('O\tB\tI')
-        #     for score, token in zip(y.T, subwords):
-        #         score_str = '\t'.join(
-        #             ["[" + str(s)[:5] + "]" if s == max(score) else " " + str(round(s, 4))[:5] + " " for s in score])
-        #         token_str = token.replace('▁', '')
-        #         print(score_str, token_str)
 
         # Decode predictions into strings
         subj_args = bio_tags_to_tokens(subwords, subjs.T, one_hot=True)

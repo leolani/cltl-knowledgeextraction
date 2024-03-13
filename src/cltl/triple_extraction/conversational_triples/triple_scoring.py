@@ -28,8 +28,8 @@ class TripleScoring(torch.nn.Module):
         self._tokenizer = AutoTokenizer.from_pretrained(base_model)
         self._tokenizer.add_tokens(['SPEAKER1', 'SPEAKER2'], special_tokens=True)
         self._model.resize_token_embeddings(len(self._tokenizer))
-        print('Tokenizer sep token', self._tokenizer.decode(self._tokenizer.sep_token_id))
-        print('Tokenizer cls token', self._tokenizer.decode(self._tokenizer.cls_token_id))
+        #print('Tokenizer sep token', self._tokenizer.decode(self._tokenizer.sep_token_id))
+        #print('Tokenizer cls token', self._tokenizer.decode(self._tokenizer.cls_token_id))
 
         # SPO candidate scoring head
         hidden_size = AutoConfig.from_pretrained(base_model).hidden_size
