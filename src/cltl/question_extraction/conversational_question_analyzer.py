@@ -12,8 +12,8 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 logger = logging.getLogger(__name__)
 
 class ConversationalQuestionAnalyzer(Analyzer):
-    def __init__(self, model_path: str, threshold: float = 0.8, max_triples: int = 0,
-                 batch_size: int = 8, dialogue_acts: List[DialogueAct] = None):
+    def __init__(self, model_path: str, base_model: str, threshold: float = 0.8, max_triples: int = 0,
+                 batch_size: int = 8, dialogue_acts: List[DialogueAct] = None, lang="en"):
         """
         Parameters
         ----------
@@ -24,13 +24,13 @@ class ConversationalQuestionAnalyzer(Analyzer):
         """
         super().__init__()
 
-        self._extractor = AlbertTripleExtractor(path=model_path, max_triples=max_triples)
+        self._extractor = AlbertTripleExtractor(path=model_path, base_model=base_model, max_triples=max_triples, lang=lang)
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
         self._batch_size = batch_size
         self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
-
+        self._sep = self._extractor._sep
         self._chat = None
 
     def analyze(self, utterance):
@@ -73,20 +73,24 @@ class ConversationalQuestionAnalyzer(Analyzer):
 
             self._utterance = chat.last_utterance
             conversation =""
+
             if chat.last_utterance.transcript.casefold().startswith("who "):
-                conversation = "<eos>" + "**blank**" + "<eos>" + "Someone" + chat.last_utterance.transcript[3:] + "<eos>##blank##"
+                conversation = self._sep + " **blank** " + self._sep + " Someone" + chat.last_utterance.transcript[3:] + " "+self._sep+"##blank##"
             else:
-                conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
-                conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript +"<eos>##blank##"
+                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript
+                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript +" " +self._sep+"##blank##"
+            # if chat.last_utterance.transcript.casefold().startswith("who "):
+            #     conversation = "<eos>" + "**blank**" + "<eos>" + "Someone" + chat.last_utterance.transcript[3:] + "<eos>##blank##"
+            # else:
+            #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
+            #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript +"<eos>##blank##"
 
             if not conversation.endswith("?"):
                 conversation+="?"
 
-
-            #print('chat.speaker', chat.speaker)
-            #print('chat.agent', chat.agent)
-            #print(conversation)
-            #print('Conversation input', conversation)
+            # print('chat.speaker', chat.speaker)
+            # print('chat.agent', chat.agent)
+            # print('Conversation input', conversation)
 
             extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)

@@ -118,34 +118,62 @@ if __name__ == "__main__":
     '''
     resultfile = open("data/evaluation_CONV_03102023.txt", "w")
 
-    model = "../resources/conversational_triples"
-    model ='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
+    # Test with monolingual model
+    # path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    # base_model='albert-base-v2'
+    # lang='en'
 
-    analyzer = ConversationalQuestionAnalyzer(model)
-    analyzer.__init__(model)
+    # Test with multilingual model
+    path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    base_model='google-bert/bert-base-multilingual-cased'
+    lang="en"
+
+    analyzer = ConversationalQuestionAnalyzer(model_path=path, base_model=base_model, lang=lang)
+    #analyzer.__init__(model)
     all_test_files = [
-       # "./data/wh-questions.txt",
-         "./data/verb-questions.txt",
+        "./data/wh-questions.txt",
+       #  "./data/verb-questions.txt",
     ]
 
    # all_test_files = ["./data/perspective.txt"]
     '''
+Results using ALBERT
+RAN 63 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+CORRECT TRIPLE ELEMENTS: 113			INCORRECT TRIPLE ELEMENTS: 76
+
+UTTERANCES WITH TRIPLES: 45			UTTERANCE WITHOUT TRIPLES: 18
+
+ISSUES (28 UTTERANCES):
+
+Results using Multilingual BERT
 
 RAN 63 UTTERANCES FROM FILE ./data/verb-questions.txt
 
-CORRECT TRIPLE ELEMENTS: 115			INCORRECT TRIPLE ELEMENTS: 74
 
-UTTERANCES WITH TRIPLES: 50			UTTERANCE WITHOUT TRIPLES: 13
-ISSUES (28 UTTERANCES):
+CORRECT TRIPLE ELEMENTS: 130			INCORRECT TRIPLE ELEMENTS: 59
 
-    RAN 88 UTTERANCES FROM FILE ./data/statements.txt
+UTTERANCES WITH TRIPLES: 55			UTTERANCE WITHOUT TRIPLES: 8
+
 
 RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
 
-CORRECT TRIPLE ELEMENTS: 53			INCORRECT TRIPLE ELEMENTS: 145
 
-UTTERANCES WITH TRIPLES: 37			UTTERANCE WITHOUT TRIPLES: 29
-ISSUES (40 UTTERANCES):
+CORRECT TRIPLE ELEMENTS: 86			INCORRECT TRIPLE ELEMENTS: 112
+
+UTTERANCES WITH TRIPLES: 43			UTTERANCE WITHOUT TRIPLES: 23
+
+ISSUES (36 UTTERANCES): {
+
+Multilingual Model
+
+RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
+
+
+CORRECT TRIPLE ELEMENTS: 39			INCORRECT TRIPLE ELEMENTS: 159
+
+UTTERANCES WITH TRIPLES: 21			UTTERANCE WITHOUT TRIPLES: 45
+ISSUES (41 UTTERANCES): {
 
     '''
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')

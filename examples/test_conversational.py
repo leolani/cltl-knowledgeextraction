@@ -112,24 +112,42 @@ if __name__ == "__main__":
     '''
     resultfile = open("data/evaluation_CONV_03102023.txt", "w")
 
-    model = "../resources/conversational_triples"
-    model ='/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27'
 
-    analyzer = ConversationalAnalyzer(model)
-    analyzer.__init__(model)
+    # Test with monolingual model
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    base_model='albert-base-v2'
+    lang='en'
+
+    # Test with multilingual model
+    # path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    # base_model='google-bert/bert-base-multilingual-cased'
+    # lang="en"
+
+    analyzer = ConversationalAnalyzer(model_path=path, base_model=base_model, lang=lang)
+    #analyzer.__init__(model)
+
     all_test_files = [
         "./data/statements.txt",
-        "./data/perspective.txt",
-        "./data/wh-questions.txt",
-        "./data/verb-questions.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+        # "./data/perspective.txt",
+        # "./data/wh-questions.txt",
+        # "./data/verb-questions.txt",
+        # "./data/kinship-friends.txt",
+        # "./data/activities.txt",
+        # "./data/feelings.txt",
+        # "./data/locations.txt",
+        # "./data/professions.txt"
     ]
 
    # all_test_files = ["./data/perspective.txt"]
+
+    print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
+
+    for test_file in all_test_files:
+        test_triples_in_file(test_file, analyzer, resultfile)
+
+    resultfile.close()
+
+
     '''
     LAST RESULTS: 19/01/2023
 
@@ -149,9 +167,3 @@ CORRECT TRIPLE ELEMENTS: 188			INCORRECT TRIPLE ELEMENTS: 76
 ISSUES (36 UTTERANCES):
 
     '''
-    print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
-
-    for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer, resultfile)
-
-    resultfile.close()
