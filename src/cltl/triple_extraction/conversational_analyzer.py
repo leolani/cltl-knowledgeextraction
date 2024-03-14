@@ -11,8 +11,9 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)
 
+
 class ConversationalAnalyzer(Analyzer):
-    def __init__(self, model_path: str, threshold: float = 0.8, max_triples: int = 0,
+    def __init__(self, model_path: str, base_model: str, threshold: float = 0.8, max_triples: int = 0,
                  batch_size: int = 8, dialogue_acts: List[DialogueAct] = None, lang="en"):
         """
         Parameters
@@ -24,7 +25,7 @@ class ConversationalAnalyzer(Analyzer):
         """
         super().__init__()
 
-        self._extractor = AlbertTripleExtractor(path=model_path, max_triples=max_triples, lang=lang)
+        self._extractor = AlbertTripleExtractor(path=model_path, base_model=base_model, max_triples=max_triples, lang=lang)
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
