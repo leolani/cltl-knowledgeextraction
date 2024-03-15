@@ -30,7 +30,7 @@ class AlbertTripleExtractor:
 
         self._argument_module = ArgumentExtraction(base_model, path=path)
         self._scoring_module = TripleScoring(base_model, path=path)
-
+        self._base_model = base_model
         self._post_processor = PostProcessor()
         if lang=="nl":
             self._nlp = spacy.load('nl_core_web_sm')

@@ -6,6 +6,7 @@ THEREFORE EACH UTTERANCE MAY HAVE THREE COMPARISONS (SPO) OR MORE (IF COUNTING T
 TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN INTO ACCOUNT.
 """
 
+from datetime import datetime
 import json
 from collections import defaultdict
 
@@ -105,7 +106,9 @@ def test_triples_in_file(path, analyzer, resultfile):
     print(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}')
     print(f'\nUTTERANCES WITH TRIPLES: {nr_tripled_utt}\t\t\tUTTERANCE WITHOUT TRIPLES: {len(test_suite)-nr_tripled_utt}')
     print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
+    resultfile.write(f'\nMODEL: {analyzer._extractor._base_model}\n')
     resultfile.write(f'\nCORRECT TRIPLE ELEMENTS: {correct}\t\t\tINCORRECT TRIPLE ELEMENTS: {incorrect}\n')
+    resultfile.write(f'\nUTTERANCES WITH TRIPLES: {nr_tripled_utt}\t\t\tUTTERANCE WITHOUT TRIPLES: {len(test_suite)-nr_tripled_utt}\n')
     resultfile.write(
         f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}\n")
 
@@ -116,7 +119,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    resultfile = open("data/evaluation_CONV_03102023.txt", "w")
+
 
     # Test with monolingual model
     # path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
@@ -127,6 +130,10 @@ if __name__ == "__main__":
     path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
     base_model='google-bert/bert-base-multilingual-cased'
     lang="en"
+    current_date = datetime.today()
+    resultfilename= "data/evaluation_CONVQ_"+base_model.replace("/","_")+str(current_date.date())+".csv"
+
+    resultfile = open(resultfilename, "w")
 
     analyzer = ConversationalQuestionAnalyzer(model_path=path, base_model=base_model, lang=lang)
     #analyzer.__init__(model)
@@ -135,7 +142,13 @@ if __name__ == "__main__":
        #  "./data/verb-questions.txt",
     ]
 
-   # all_test_files = ["./data/perspective.txt"]
+    print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
+
+    for test_file in all_test_files:
+        test_triples_in_file(test_file, analyzer, resultfile)
+
+    resultfile.close()
+
     '''
 Results using ALBERT
 RAN 63 UTTERANCES FROM FILE ./data/verb-questions.txt
@@ -176,9 +189,4 @@ UTTERANCES WITH TRIPLES: 21			UTTERANCE WITHOUT TRIPLES: 45
 ISSUES (41 UTTERANCES): {
 
     '''
-    print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
 
-    for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer, resultfile)
-
-    resultfile.close()
