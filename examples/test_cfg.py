@@ -10,7 +10,7 @@ import logging
 from datetime import datetime
 
 from cltl.triple_extraction import logger
-from cltl.triple_extraction.spacy_analyzer import spacyAnalyzer
+from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
 from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     '''
     # Set up logging file
     current_date = str(datetime.today().date())
-    resultfilename = f"evaluation_reports/evaluation_SPACY_{current_date}.txt"
+    resultfilename = f"evaluation_reports/evaluation_CFG_{current_date}.txt"
     resultfile = open(resultfilename, "w")
 
     # Select files to test
@@ -38,9 +38,17 @@ if __name__ == "__main__":
     ]
 
     # Analyze utterances
-    analyzer = spacyAnalyzer()
+    analyzer = CFGAnalyzer()
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
     for test_file in all_test_files:
         test_triples_in_file(test_file, analyzer, resultfile, verbose=False)
+    resultfile.close()
 
-    # SPACY CORRECT TRIPLE ELEMENTS: 87			INCORRECT TRIPLE ELEMENTS: 177
+    '''
+    d.d. 20/01/2023
+    CORRECT TRIPLE ELEMENTS: 225			INCORRECT TRIPLE ELEMENTS: 39
+    ISSUES (19 UTTERANCES):
+    
+    CORRECT TRIPLE ELEMENTS: 187			INCORRECT TRIPLE ELEMENTS: 77
+ISSUES (37 UTTERANCES)
+    '''

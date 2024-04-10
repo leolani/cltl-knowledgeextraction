@@ -3,113 +3,14 @@ THIS SCRIPT TESTS THE TRIPLE-QUERY EXTRACTION. IT LOOPS THROUGH FOUR TXT FILES (
 WHICH CONTAIN SINGLE QUESTIONS AND THEIR IDEAL EXTRACTED TRIPLE.
 """
 
-import json
-from collections import defaultdict
+import logging
+from datetime import datetime
 
-from test_triples import compare_elementwise_triple
-from test_triples import load_golden_triples
-from test_utils import test_triples, recall
-
-from cltl.triple_extraction.api import Chat, DialogueAct
 from cltl.question_extraction.stanza_question_analyzer import StanzaQuestionAnalyzer
+from cltl.triple_extraction import logger
+from test_utils import test_triples_in_file
 
-
-# def test_triples(item, correct, incorrect, issues, errorf, analyzer:StanzaQuestionAnalyzer):
-#     chat = Chat("leolani", "lenka")
-#
-#     utterance_ = item['utterance']
-#     chat.add_utterance(utterance_, "lenka", [DialogueAct.QUESTION])
-#     analyzer.analyze_in_context(chat)
-#
-#     # No triple was extracted, so we missed three items (s, p, o)
-#     if not chat.last_utterance.triples:
-#         print((chat.last_utterance, 'ERROR'))
-#         incorrect += 3
-#         issues[chat.last_utterance.transcript]['parsing'] = 'NOT PARSED'
-#         error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-#             'predicate'] + " " + item['triple']['object'] + "\n"
-#         errorf.write(error_string)
-#         issues[chat.last_utterance.transcript]['triple'] = error_string
-#         return correct, incorrect, issues
-#
-#     # A triple was extracted so we compare it elementwise
-#     else:
-#         # Compare all extracted triples, select the one with the most correct elements
-#         triples_scores = [compare_elementwise_triple(extracted_triple, item['triple'])
-#                           for extracted_triple in chat.last_utterance.triples]
-#
-#         score_best_triple = max(triples_scores)
-#         idx_best_triple = triples_scores.index(score_best_triple)
-#
-#         # add to statistics
-#         correct += score_best_triple
-#         incorrect += (3 - score_best_triple)
-#         if score_best_triple < 3:
-#             issues[chat.last_utterance.transcript]['triple'] = (3 - score_best_triple)
-#             error_string = chat.last_utterance.transcript + ": " + item['triple']['subject'] + " " + item['triple'][
-#                 'predicate'] + " " + item['triple']['object'] + "\n"
-#             errorf.write(error_string)
-#         # Report
-#         if score_best_triple==3:
-#             print("CORRECT")
-#         else:
-#             print("INCORRECT")
-#         print(f"\nUtterance: \t{chat.last_utterance}")
-#         print(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}")
-#         print(f"Expected triple:   \t{item['triple']}")
-#
-#         return correct, incorrect, issues
-
-
-def test_triples_in_file(path, analyzer):
-    """
-    This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
-    test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
-    triple elements
-    :param path: filepath of test file
-    """
-    results = {'correct': 0, 'incorrect': 0, 'correct_subjects': 0, 'incorrect_subjects': 0, 'correct_predicates': 0,
-               'incorrect_predicates': 0, 'correct_objects': 0, 'incorrect_objects': 0, 'correct_perspective': 0,
-               'incorrect_perspective': 0}
-    issues = defaultdict(dict)
-    test_suite = load_golden_triples(path)
-    errorf = open(path + ".error.txt", "w")
-    print(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n')
-
-    for item in test_suite:
-        print(f'\n---------------------------------------------------------------\n')
-        results, issues = test_triples(item, results, issues, errorf, analyzer)
-    errorf.close()
-
-    correct = results['correct']
-    incorrect = results['incorrect']
-    correct_subjects = results['correct_subjects']
-    incorrect_subjects = results['incorrect_subjects']
-    correct_predicates = results['correct_predicates']
-    incorrect_predicates = results['incorrect_predicates']
-    correct_objects = results['correct_objects']
-    incorrect_objects = results['incorrect_objects']
-    correct_perspective = results['correct_perspective']
-    incorrect_perspective = results['incorrect_perspective']
-    triple_recall = recall(len(test_suite), correct)
-    subject_recall = recall(len(test_suite), correct_subjects)
-    predicate_recall = recall(len(test_suite), correct_predicates)
-    objects_recall = recall(len(test_suite), correct_objects)
-    perspective_recall = recall(len(test_suite) * 3, incorrect_perspective)
-
-    print(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n')
-    print(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n')
-    print(f'\nCORRECT TRIPLES: {correct}\t\t\tINCORRECT TRIPLES: {incorrect}\t\t\tRECALL: {triple_recall:.2f}%')
-    print(f'\nCORRECT SUBJECTS: {correct_subjects}\t\t\tINCORRECT SUBJECTS: {incorrect_subjects}\t\t\tRECALL: '
-          f'{subject_recall:.2f}%')
-    print(f'\nCORRECT PREDICATES: {correct_predicates}\t\t\tINCORRECT PREDICATES: {incorrect_predicates}\t\t\tRECALL: '
-          f'{predicate_recall:.2f}%')
-    print(f'\nCORRECT OBJECTS: {correct_objects}\t\t\tINCORRECT OBJECTS: {incorrect_objects}\t\t\tRECALL: '
-          f'{objects_recall:.2f}%')
-    print(f'\nCORRECT PERSPECTIVES: {correct_perspective}\t\t\tINCORRECT PERSPECTIVES: {incorrect_perspective}\t\t\t'
-          f'RECALL: {perspective_recall:.2f}%')
-    print(f"ISSUES ({len(issues)} UTTERANCES): {json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}")
-
+logger.setLevel(logging.ERROR)
 
 if __name__ == "__main__":
     '''
@@ -117,245 +18,24 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    analyzer = StanzaQuestionAnalyzer()
+    # Set up logging file
+    current_date = str(datetime.today().date())
+    resultfilename = f"evaluation_reports/evaluation_STANZAQ_{current_date}.txt"
+    resultfile = open(resultfilename, "w")
+
+    # Select files to test
     all_test_files = [
-        # "./data/wh-questions.txt",
+        "./data/wh-questions.txt",
         "./data/verb-questions.txt"
     ]
 
+    # Analyze utterances
+    analyzer = StanzaQuestionAnalyzer()
     print(f'\nRUNNING {len(all_test_files)} FILES\n\n')
-
     for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer)
+        test_triples_in_file(test_file, analyzer, resultfile, is_question=True, verbose=False)
 
 # RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
-#
-#
 # CORRECT TRIPLE ELEMENTS: 132			INCORRECT TRIPLE ELEMENTS: 66
-# CFG: # CORRECT TRIPLE ELEMENTS: 179			INCORRECT TRIPLE ELEMENTS: 19
-# ISSUES (21 UTTERANCES): {
-#     "what day is your birthday": {
-#         "triple": 3
-#     },
-#     "what is my favorite TV show": {
-#         "parsing": "NOT PARSED",
-#         "triple": "what is my favorite TV show: lenka favorite-tv-show-is \n"
-#     },
-#     "what is your brother's name": {
-#         "triple": 3
-#     },
-#     "what is your dog's name": {
-#         "triple": 3
-#     },
-#     "when are you going to Mexico": {
-#         "triple": 2
-#     },
-#     "when did Selene come": {
-#         "parsing": "NOT PARSED",
-#         "triple": "when did Selene come: selene come \n"
-#     },
-#     "when did you go to school": {
-#         "triple": 2
-#     },
-#     "when is your father's birthday": {
-#         "triple": 3
-#     },
-#     "where can I go": {
-#         "parsing": "NOT PARSED",
-#         "triple": "where can I go: lenka can-go \n"
-#     },
-#     "where did you go yesterday": {
-#         "triple": 1
-#     },
-#     "where is my friend": {
-#         "triple": 3
-#     },
-#     "where is selene from": {
-#         "parsing": "NOT PARSED",
-#         "triple": "where is selene from: selene be-from \n"
-#     },
-#     "where is your best friend": {
-#         "triple": 3
-#     },
-#     "where is your friend": {
-#         "triple": 3
-#     },
-#     "where was Selene born": {
-#         "parsing": "NOT PARSED",
-#         "triple": "where was Selene born: selene born \n"
-#     },
-#     "where were you born": {
-#         "parsing": "NOT PARSED",
-#         "triple": "where were you born: leolani born \n"
-#     },
-#     "which is your favorite color": {
-#         "triple": 3
-#     },
-#     "who are your colleagues": {
-#         "triple": 3
-#     },
-#     "who does Selene know": {
-#         "parsing": "NOT PARSED",
-#         "triple": "who does Selene know: selene know \n"
-#     },
-#     "who is your best friend": {
-#         "triple": 3
-#     },
-#     "who will come to school": {
-#         "triple": 1
-#     }
-# }
-
-# CORRECT TRIPLE ELEMENTS: 179			INCORRECT TRIPLE ELEMENTS: 19
-# ISSUES (7 UTTERANCES): {
-#     "where is my friend": {
-#         "triple": 2
-#     },
-#     "where is your friend": {
-#         "triple": 2
-#     },
-#     "where was Selene born": {
-#         "parsing": "NOT PARSED"
-#     },
-#     "where were you born": {
-#         "parsing": "NOT PARSED"
-#     },
-#     "who are your colleagues": {
-#         "triple": 3
-#     },
-#     "who is your best friend": {
-#         "triple": 2
-#     },
-#     "who will come to school": {
-#         "triple": 1
-#     }
-# }
-
-
 ######## VERB QUESTIONS
 # CORRECT TRIPLE ELEMENTS: 122			INCORRECT TRIPLE ELEMENTS: 67
-#### CFG results
-# CORRECT TRIPLE ELEMENTS: 172			INCORRECT TRIPLE ELEMENTS: 17
-# ISSUES (26 UTTERANCES): {
-#     "am I your best friend": {
-#         "parsing": "NOT PARSED",
-#         "triple": "am I your best friend: leolani-best-friend be lenka\n"
-#     },
-#     "are you a girl": {
-#         "triple": 1
-#     },
-#     "are you afraid of dogs": {
-#         "triple": 1
-#     },
-#     "are your parents from the netherlands": {
-#         "triple": 1
-#     },
-#     "can I call you": {
-#         "parsing": "NOT PARSED",
-#         "triple": "can I call you: lenka can-call leolani\n"
-#     },
-#     "can I make a cake": {
-#         "parsing": "NOT PARSED",
-#         "triple": "can I make a cake: lenka can-make a-cake\n"
-#     },
-#     "can my friend talk to you": {
-#         "triple": 2
-#     },
-#     "can you sing": {
-#         "triple": 2
-#     },
-#     "can you talk to me": {
-#         "triple": 2
-#     },
-#     "can you tell me what is a dog": {
-#         "parsing": "NOT PARSED",
-#         "triple": "can you tell me what is a dog: a-dog be \n"
-#     },
-#     "can't you come to university": {
-#         "triple": 2
-#     },
-#     "did lana read a book": {
-#         "parsing": "NOT PARSED",
-#         "triple": "did lana read a book: lana read a-book\n"
-#     },
-#     "did you go to school yesterday": {
-#         "triple": 1
-#     },
-#     "did you talk with Selene": {
-#         "triple": 2
-#     },
-#     "didn't you see Selene": {
-#         "triple": 1
-#     },
-#     "do you know what a dog is": {
-#         "parsing": "NOT PARSED",
-#         "triple": "do you know what a dog is: a-dog be \n"
-#     },
-#     "does Selene know Suzana": {
-#         "parsing": "NOT PARSED",
-#         "triple": "does Selene know Suzana: selene know suzana\n"
-#     },
-#     "does john enjoy watching movies": {
-#         "parsing": "NOT PARSED",
-#         "triple": "does john enjoy watching movies: john enjoy watching-movies\n"
-#     },
-#     "does john live in the building": {
-#         "triple": 1
-#     },
-#     "does selene know suzana": {
-#         "parsing": "NOT PARSED",
-#         "triple": "does selene know suzana: selene know suzana\n"
-#     },
-#     "have you ever been to Paris": {
-#         "triple": 1
-#     },
-#     "haven't you been in New York": {
-#         "triple": 2
-#     },
-#     "is purple your favorite color": {
-#         "parsing": "NOT PARSED",
-#         "triple": "is purple your favorite color: leolani favorite-color-is purple\n"
-#     },
-#     "is your best friend Selene": {
-#         "parsing": "NOT PARSED",
-#         "triple": "is your best friend Selene: leolani-best-friend be selene\n"
-#     },
-#     "is your favorite food pizza": {
-#         "triple": 2
-#     },
-#     "is your friend called susie": {
-#         "triple": 1
-#     }
-# }
-
-#### CFG results
-# CORRECT TRIPLE ELEMENTS: 172			INCORRECT TRIPLE ELEMENTS: 17
-# ISSUES (9 UTTERANCES): {
-#     "am I your best friend": {
-#         "triple": 2
-#     },
-#     "can my friend talk to you": {
-#         "triple": 2
-#     },
-#     "can you talk to me": {
-#         "triple": 2
-#     },
-#     "can't you come to university": {
-#         "triple": 2
-#     },
-#     "did you talk with Selene": {
-#         "triple": 2
-#     },
-#     "didn't you see Selene": {
-#         "triple": 1
-#     },
-#     "haven't you been in New York": {
-#         "triple": 1
-#     },
-#     "is purple your favorite color": {
-#         "triple": 3
-#     },
-#     "will you go to Paris": {
-#         "triple": 1
-#     }
-# }

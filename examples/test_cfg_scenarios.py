@@ -6,9 +6,15 @@ THIS PACKAGE SO THE BEHAVIOUR CANNOT BE COMPARED.
 """
 
 import json
+import logging
+from datetime import datetime
 
+from cltl.triple_extraction import logger
 from cltl.triple_extraction.api import Chat
 from cltl.triple_extraction.cfg_analyzer import CFGAnalyzer
+from test_utils import log_report
+
+logger.setLevel(logging.ERROR)
 
 
 def load_scenarios(filepath):
@@ -34,7 +40,7 @@ def load_scenarios(filepath):
     return scenarios
 
 
-def test_scenario(statements, questions, gold):
+def test_scenario(statements, questions, gold, resultfile):
     """
     :param statements: one or several statements separated by a comma, to be stored in the brain
     :param questions: set of questions regarding the stored statement
@@ -42,32 +48,32 @@ def test_scenario(statements, questions, gold):
     :return: number of correct replies
     """
 
-    print(f'\n\n---------------------------------------------------------------')
+    log_report(f'\n\n---------------------------------------------------------------', to_file=resultfile)
 
     chat = Chat("Leolani", "Lenka")
     analyzer = CFGAnalyzer()
 
     # one or several statements are added to the brain
-    print(f'\nSTATEMENTS\n')
+    log_report(f'\nSTATEMENTS\n', to_file=resultfile)
     for statement in statements:
         chat.add_utterance(statement)
         analyzer.analyze(chat.last_utterance)
 
-        print(f"Utterance: {chat.last_utterance}")
-        print(f"Triple:      \t{json.dumps(chat.last_utterance.triples)}")
+        log_report(f"Utterance: {chat.last_utterance}", to_file=resultfile)
+        log_report(f"Triple:      \t{json.dumps(chat.last_utterance.triples)}", to_file=resultfile)
 
     # brain is queried and a reply is generated and compared with golden standard
-    print(f'\nQUESTIONS\n')
+    log_report(f'\nQUESTIONS\n', to_file=resultfile)
     for question in questions:
         chat.add_utterance(question)
         analyzer.analyze(chat.last_utterance)
 
-        print(f"Question:   \t{chat.last_utterance}")
-        print(f"Triple:            \t{json.dumps(chat.last_utterance.triples)}")
-        print(f"Expected response: \t{gold.lower().strip()}\n")
+        log_report(f"Question:   \t{chat.last_utterance}", to_file=resultfile)
+        log_report(f"Triple:            \t{json.dumps(chat.last_utterance.triples)}", to_file=resultfile)
+        log_report(f"Expected response: \t{gold.lower().strip()}\n", to_file=resultfile)
 
 
-def test_scenarios():
+def test_scenarios(resultfile):
     """
     This functions opens the scenarios test file and runs the test for all the scenarios
     :return: number of correct and number of incorrect replies
@@ -76,15 +82,16 @@ def test_scenarios():
     tot_statements = 0
     tot_questions = 0
 
-    print(f'\nRUNNING {len(scenarios)} SCENARIOS\n\n\n')
+    log_report(f'\nRUNNING {len(scenarios)} SCENARIOS\n\n\n', to_file=resultfile)
 
     for sc in scenarios:
-        test_scenario(sc['statement'], sc['questions'], sc['reply'])
+        test_scenario(sc['statement'], sc['questions'], sc['reply'], resultfile)
         tot_statements += len(sc['statement'])
         tot_questions += len(sc['questions'])
 
-    print(f'\n\n\n---------------------------------------------------------------\nTOTAL\n')
-    print(f'\nTOTAL SCENARIOS: {len(scenarios)}\tSTATEMENTS: {tot_statements}\tQUESTIONS: {tot_questions}')
+    log_report(f'\n\n\n---------------------------------------------------------------\nTOTAL\n', to_file=resultfile)
+    log_report(f'\nTOTAL SCENARIOS: {len(scenarios)}\tSTATEMENTS: {tot_statements}\tQUESTIONS: {tot_questions}',
+               to_file=resultfile)
 
 
 if __name__ == "__main__":
@@ -93,5 +100,9 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
+    # Set up logging file
+    current_date = str(datetime.today().date())
+    resultfilename = f"evaluation_reports/evaluation_CFGSC_{current_date}.txt"
+    resultfile = open(resultfilename, "w")
 
-    test_scenarios()
+    test_scenarios(resultfile)

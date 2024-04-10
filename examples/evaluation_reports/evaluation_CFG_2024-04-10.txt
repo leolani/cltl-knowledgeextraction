@@ -1,0 +1,1605 @@
+
+
+RUNNING 7 FILES
+
+
+
+RUNNING 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know you"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'know', 'type': ['cognition']}, 'object': {'label': 'leolani', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'know', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is she"
+Triple:            	{'predicate': {'label': 'be', 'type': ['stative']}, 'subject': {'label': 'she', 'type': []}, 'object': {'label': 'she', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.QUESTION: '2'>}
+Expected triple:   	{'subject': 'she', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my best friend is he"
+Triple:            	{'subject': {'label': 'he', 'type': []}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'best-friend-is', 'object': 'he'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have three white cats"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'have', 'type': ['possession']}, 'object': {'label': 'three-white-cats', 'type': ['numeral:3', 'animal']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'have', 'object': 'three-white-cats'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene doesn't like cheese"
+Triple:            	{'subject': {'label': 'Selene', 'type': ['person']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'cheese', 'type': ['food']}, 'perspective': {'sentiment': 0.75, 'certainty': 0.65, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene hates cheese"
+Triple:            	{'subject': {'label': 'Selene', 'type': ['person']}, 'predicate': {'label': 'hate', 'type': ['feeling']}, 'object': {'label': 'cheese', 'type': ['food']}, 'perspective': {'sentiment': -1.0, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'hate', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene might come today"
+Triple:            	{'subject': {'label': 'selene', 'type': ['person']}, 'predicate': {'label': 'might-come', 'type': ['modal', 'motion']}, 'object': {'label': 'today', 'type': ['time']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.5, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'might-come', 'object': 'today'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't think selene likes cheese"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'think', 'type': ['cognition']}, 'object': {'label': 'selene-likes-cheese', 'type': ['person', 'cognition', 'food']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'can-read', 'type': ['ability', 'cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'can-read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'must-read', 'type': ['obligation', 'cognition']}, 'object': {'label': '', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'must-read', 'object': ''}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'will-come', 'type': ['prediction', 'motion']}, 'object': {'label': 'Amsterdam', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'will-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in paris"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+Triple:            	{'subject': {'label': 'animals', 'type': []}, 'predicate': {'label': 'must-drink', 'type': ['obligation', 'consumption']}, 'object': {'label': 'water', 'type': ['substance']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'animals', 'predicate': 'must-drink', 'object': 'water'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+Triple:            	{'subject': {'label': 'food', 'type': []}, 'predicate': {'label': 'should-be', 'type': ['obligation', 'stative']}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 0.75, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'food', 'predicate': 'should-be', 'object': 'healthy'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['communication']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'go-to', 'type': ['motion']}, 'object': {'label': 'England', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'talking-to-people', 'type': ['communication', 'group']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'enjoy', 'type': ['agent']}, 'object': {'label': 'watching-movies', 'type': ['perception', 'communication']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'live-in', 'type': ['stative']}, 'object': {'label': 'the-Netherlands', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'live-in', 'type': ['stative']}, 'object': {'label': 'this-office', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-robot', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-robot'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-person', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'a-person'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+Triple:            	{'subject': {'label': 'humans', 'type': ['animal']}, 'predicate': {'label': 'can-eat', 'type': ['ability', 'consumption']}, 'object': {'label': 'food', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'humans', 'predicate': 'can-eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+Triple:            	{'subject': {'label': 'swimming', 'type': ['act', 'action']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'swimming', 'predicate': 'be', 'object': 'a-sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+Triple:            	{'subject': {'label': 'bram', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['feeling']}, 'object': {'label': 'sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from france"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'come-from', 'type': ['motion']}, 'object': {'label': 'france', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know selene might come today"
+Triple:            	{'subject': {'label': 'selene', 'type': ['person']}, 'predicate': {'label': 'might-come', 'type': ['modal', 'motion']}, 'object': {'label': 'today', 'type': ['time']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'might-come', 'object': 'today'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to smell flowers"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'like-to', 'type': ['emotion']}, 'object': {'label': 'smell-flowers', 'type': ['perception', 'plant']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like-to', 'object': 'smell-flowers'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have heard about you"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'hear-about', 'type': ['agent']}, 'object': {'label': 'you', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'hear-about', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "sorry this is my chair"
+Triple:            	{'subject': {'label': 'this', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'lenka-chair', 'type': ['agent', 'artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'chair-is', 'object': 'this'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Leolani you are my best friend"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'lenka-best-friend', 'type': ['agent', 'person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-best-friend', 'predicate': 'be', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love ice-cream"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['emotion']}, 'object': {'label': 'ice-cream', 'type': ['substance', 'group']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'love', 'object': "'ice-cream'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in New York"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'live-in', 'type': ['stative']}, 'object': {'label': 'New-York', 'type': ['None', 'group']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': "'new-york'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I come from the Netherlands"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'come-from', 'type': ['motion']}, 'object': {'label': 'the-Netherlands', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'come-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my mother loves the beatles"
+Triple:            	{'subject': {'label': 'lenka-mother', 'type': ['agent', 'person']}, 'predicate': {'label': 'love', 'type': ['feeling']}, 'object': {'label': 'the-beatles', 'type': ['group']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-mother', 'predicate': 'love', 'object': "'the-beatles'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was born in the U.K. "
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'must-read', 'type': ['obligation', 'cognition']}, 'object': {'label': '', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'must-read', 'object': ''}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you should go"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'should-go', 'type': ['obligation', 'motion']}, 'object': {'label': '', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 0.75, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'should-go', 'object': ''}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that fruit grows on trees"
+Triple:            	{'subject': {'label': 'fruit', 'type': ['plant']}, 'predicate': {'label': 'grow-on', 'type': ['agent']}, 'object': {'label': 'trees', 'type': ['plant']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'fruit', 'predicate': 'grow-on', 'object': 'trees'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go home"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'must-go', 'type': ['obligation', 'motion']}, 'object': {'label': 'home', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'must-go', 'object': 'home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bram hates being late"
+Triple:            	{'subject': {'label': 'Bram', 'type': ['person']}, 'predicate': {'label': 'hate', 'type': ['feeling']}, 'object': {'label': 'being-late', 'type': ['stative', 'adv']}, 'perspective': {'sentiment': -1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'hate', 'object': 'being-late'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is my cup"
+Triple:            	{'subject': {'label': 'that', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'lenka-cup', 'type': ['agent', 'artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'cup-is', 'object': 'that'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "these books are mine"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'books-is', 'type': ['communication', 'stative']}, 'object': {'label': 'these', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'books-is', 'object': 'these'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this yellow fruit is a banana"
+Triple:            	{'subject': {'label': 'this-yellow-fruit', 'type': ['plant']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-banana', 'type': ['plant']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'this-yellow-fruit', 'predicate': 'be', 'object': 'a-banana'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you like me"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "your sister must come to Amsterdam"
+Triple:            	{'subject': {'label': 'leolani-sister', 'type': ['agent', 'person']}, 'predicate': {'label': 'must-come', 'type': ['obligation', 'motion']}, 'object': {'label': 'Amsterdam', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani-sister', 'predicate': 'must-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister doesn't like baking cakes"
+Triple:            	{'subject': {'label': 'lenka-sister', 'type': ['agent', 'person']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'baking-cakes', 'type': ['change', 'artifact', 'object']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go to Paris"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'must-go', 'type': ['obligation', 'motion']}, 'object': {'label': 'Paris', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'must-go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "they are not going to the university"
+Triple:            	{'subject': {'label': 'they', 'type': []}, 'predicate': {'label': 'go-to', 'type': ['motion']}, 'object': {'label': 'the-university', 'type': ['group']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'they', 'predicate': 'go-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Suzana might have been at home"
+Triple:            	{'subject': {'label': 'Suzana', 'type': ['person']}, 'predicate': {'label': 'might-be-at', 'type': ['modal', 'stative']}, 'object': {'label': 'home', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.5, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'suzana', 'predicate': 'might-be-at', 'object': 'home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have never been to Japan"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-to', 'type': ['stative']}, 'object': {'label': 'Japan', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-to', 'object': 'japan'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I want to go home"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'want-to', 'type': ['emotion']}, 'object': {'label': 'go-home', 'type': ['motion', 'location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'want-to', 'object': 'go-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'can-read', 'type': ['ability', 'cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'can-read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't enjoy washing the dishes"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'enjoy', 'type': ['emotion']}, 'object': {'label': 'washing-the-dishes', 'type': ['contact', 'artifact', 'object']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'enjoy', 'object': 'washing-the-dishes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is a lovely shirt"
+Triple:            	{'subject': {'label': 'that', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-lovely-shirt', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'that', 'predicate': 'be', 'object': 'a-lovely-shirt'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'go-to', 'type': ['motion']}, 'object': {'label': 'England', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to talk"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'like-to', 'type': ['emotion']}, 'object': {'label': 'talk', 'type': ['communication']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like-to', 'object': 'talk'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene likes baking cakes"
+Triple:            	{'subject': {'label': 'Selene', 'type': ['person']}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'baking-cakes', 'type': ['change', 'artifact', 'object']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene loves to bake cakes"
+Triple:            	{'subject': {'label': 'Selene', 'type': ['person']}, 'predicate': {'label': 'love-to', 'type': ['feeling']}, 'object': {'label': 'bake-cakes', 'type': ['change', 'artifact', 'object']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'love-to', 'object': 'bake-cakes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister's name is Emma"
+Triple:            	{'subject': {'label': 'Emma', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'name-is', 'object': 'emma'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you think my name is Anna"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'name-is', 'type': ['communication', 'stative']}, 'object': {'label': 'Anna', 'type': ['quantity']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'name-is', 'object': 'anna'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'talking-to-people', 'type': ['communication', 'group']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds cannot talk"
+Triple:            	{'subject': {'label': 'birds', 'type': ['animal']}, 'predicate': {'label': 'can', 'type': ['ability']}, 'object': {'label': 'talk', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'birds', 'predicate': 'can', 'object': 'talk'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from France"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'come-from', 'type': ['motion']}, 'object': {'label': 'France', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'will-come', 'type': ['prediction', 'motion']}, 'object': {'label': 'Amsterdam', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'will-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I wouldn't like to eat pizza"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'would-like-to', 'type': ['modal', 'emotion']}, 'object': {'label': 'eat-pizza', 'type': ['consumption', 'food']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'would-like-to', 'object': 'eat-pizza'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in Paris"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be-in', 'type': ['stative']}, 'object': {'label': 'Paris', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is my favorite song"
+Triple:            	{'subject': {'label': 'this', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'lenka-favorite-song', 'type': ['agent', 'communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-song-is', 'object': 'this'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my father's favorite movie is the Titanic"
+Triple:            	{'subject': {'label': 'the-Titanic', 'type': ['None']}, 'predicate': {'label': 'be-father-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-father', 'predicate': 'favorite-movie-is', 'object': "'the-titanic'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a teddy-bear"
+Triple:            	{'subject': {'label': 'this', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-teddy-bear', 'type': ['artifact', 'animal', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'this', 'predicate': 'be', 'object': 'a-teddy-bear'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a pink chair"
+Triple:            	{'subject': {'label': 'this', 'type': []}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-pink-chair', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'this', 'predicate': 'be', 'object': 'a-pink-chair'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have always liked reading comic books"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'reading-comic-books', 'type': ['cognition', 'communication']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'reading-comic-books'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+Triple:            	{'subject': {'label': 'animals', 'type': []}, 'predicate': {'label': 'must-drink', 'type': ['obligation', 'consumption']}, 'object': {'label': 'water', 'type': ['substance']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'animals', 'predicate': 'must-drink', 'object': 'water'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+Triple:            	{'subject': {'label': 'food', 'type': []}, 'predicate': {'label': 'should-be', 'type': ['obligation', 'stative']}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 0.75, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'food', 'predicate': 'should-be', 'object': 'healthy'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['communication']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'enjoy', 'type': ['agent']}, 'object': {'label': 'watching-movies', 'type': ['perception', 'communication']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'live-in', 'type': ['stative']}, 'object': {'label': 'the-Netherlands', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'live-in', 'type': ['stative']}, 'object': {'label': 'this-office', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-robot', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-robot'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-person', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'a-person'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+Triple:            	{'subject': {'label': 'humans', 'type': ['animal']}, 'predicate': {'label': 'can-eat', 'type': ['ability', 'consumption']}, 'object': {'label': 'food', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'humans', 'predicate': 'can-eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+Triple:            	{'subject': {'label': 'swimming', 'type': ['act', 'action']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'swimming', 'predicate': 'be', 'object': 'a-sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+Triple:            	{'subject': {'label': 'bram', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['feeling']}, 'object': {'label': 'sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I own three beautiful cats"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'own', 'type': ['possession']}, 'object': {'label': 'three-beautiful-cats', 'type': ['numeral:3', 'animal']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'three-beautiful-cats'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love looking at the starry sky"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['emotion']}, 'object': {'label': 'looking-at-the-starry-sky', 'type': ['perception', 'object']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'love', 'object': 'looking-at-the-starry-sky'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have to go home"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-to', 'type': ['stative']}, 'object': {'label': 'go-home', 'type': ['motion', 'location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'have-to', 'object': 'go-home'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 2
+
+CORRECT TRIPLES: 68			INCORRECT TRIPLES: 20			RECALL: 77.27%
+
+CORRECT SUBJECTS: 78			INCORRECT SUBJECTS: 10			RECALL: 88.64%
+
+CORRECT PREDICATES: 74			INCORRECT PREDICATES: 14			RECALL: 84.09%
+
+CORRECT OBJECTS: 73			INCORRECT OBJECTS: 15			RECALL: 82.95%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Triple:            	{'subject': {'label': 'bram', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['emotion']}, 'object': {'label': 'sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+Triple:            	{'subject': {'label': 'birds', 'type': ['animal']}, 'predicate': {'label': 'can', 'type': ['ability']}, 'object': {'label': 'talk', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'birds', 'predicate': 'can-talk', 'object': ''}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john hates fashion"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'hate', 'type': ['feeling']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': -1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john loves fashion"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'love', 'type': ['feeling']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john doesn't hate fashion"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'hate', 'type': ['emotion']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': -1.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think selene works in Amsterdam"
+Triple:            	{'subject': {'label': 'selene', 'type': ['person']}, 'predicate': {'label': 'work-in', 'type': 'noun.act-col'}, 'object': {'label': 'Amsterdam', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'can-come', 'type': ['ability', 'motion']}, 'object': {'label': 'school', 'type': ['group']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'can-come-to', 'object': 'school'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'coffee', 'type': ['food']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Triple:            	{'subject': {'label': 'birds', 'type': ['animal']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'flying', 'type': ['motion']}, 'perspective': {'sentiment': 0.75, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you are not a human"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-human', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-human'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you aren't a human"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-human', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-human'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene works in Amsterdam"
+Triple:            	{'subject': {'label': 'Selene', 'type': ['person']}, 'predicate': {'label': 'work-in', 'type': 'noun.act-col'}, 'object': {'label': 'Amsterdam', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'can-come', 'type': ['ability', 'motion']}, 'object': {'label': 'school', 'type': ['group']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'can-come-to', 'object': 'school'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Triple:            	{'subject': {'label': 'birds', 'type': ['animal']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'flying', 'type': ['motion']}, 'perspective': {'sentiment': 0.75, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+Triple:            	{'subject': {'label': 'birds', 'type': ['animal']}, 'predicate': {'label': 'can', 'type': ['ability']}, 'object': {'label': 'talk', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'birds', 'predicate': 'can-talk', 'object': ''}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John hates fashion"
+Triple:            	{'subject': {'label': 'John', 'type': ['artifact', 'object']}, 'predicate': {'label': 'hate', 'type': ['feeling']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': -1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'coffee', 'type': ['food']}, 'perspective': {'sentiment': 0.75, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene thinks my favorite color is blue"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'favorite-color-is', 'type': ['attribute', 'stative']}, 'object': {'label': 'blue', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 0.65, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-color-is', 'object': 'blue'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think you don't like pizza"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'like', 'type': ['emotion']}, 'object': {'label': 'pizza', 'type': ['food']}, 'perspective': {'sentiment': 0.75, 'certainty': 0.65, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'pizza'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Triple:            	{'subject': {'label': 'lana', 'type': ['agent']}, 'predicate': {'label': 'read', 'type': ['cognition']}, 'object': {'label': 'a-book', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Triple:            	{'subject': {'label': 'bram', 'type': ['agent']}, 'predicate': {'label': 'love', 'type': ['emotion']}, 'object': {'label': 'sport', 'type': ['act', 'action']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John loves fashion"
+Triple:            	{'subject': {'label': 'John', 'type': ['artifact', 'object']}, 'predicate': {'label': 'love', 'type': ['feeling']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': 1.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John doesn't hate fashion"
+Triple:            	{'subject': {'label': 'John', 'type': ['artifact', 'object']}, 'predicate': {'label': 'hate', 'type': ['emotion']}, 'object': {'label': 'fashion', 'type': ['attribute']}, 'perspective': {'sentiment': -1.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you must bring three books"
+Triple:            	{'subject': {'label': 'leolani', 'type': ['agent']}, 'predicate': {'label': 'must-bring', 'type': ['obligation', 'motion']}, 'object': {'label': 'three-books', 'type': ['numeral:3', 'communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'must-bring', 'object': 'three-books'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john might like reading books"
+Triple:            	{'subject': {'label': 'john', 'type': ['artifact', 'object']}, 'predicate': {'label': 'might-like', 'type': ['modal', 'emotion']}, 'object': {'label': 'reading-books', 'type': ['cognition', 'communication']}, 'perspective': {'sentiment': 0.75, 'certainty': 0.5, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'might-like', 'object': 'reading-books'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene should come to the university"
+Triple:            	{'subject': {'label': 'selene', 'type': ['person']}, 'predicate': {'label': 'should-come', 'type': ['obligation', 'motion']}, 'object': {'label': 'the-university', 'type': ['group']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.75, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'should-come-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bob might be from england"
+Triple:            	{'subject': {'label': 'Bob', 'type': ['quantity']}, 'predicate': {'label': 'might-be', 'type': ['modal', 'stative']}, 'object': {'label': 'england', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 0.5, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bob', 'predicate': 'might-be-from', 'object': 'england'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 22			INCORRECT TRIPLES: 6			RECALL: 78.57%
+
+CORRECT SUBJECTS: 28			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 22			INCORRECT PREDICATES: 6			RECALL: 78.57%
+
+CORRECT OBJECTS: 26			INCORRECT OBJECTS: 2			RECALL: 92.86%
+
+CORRECT PERSPECTIVES: 60			INCORRECT PERSPECTIVES: 6			RECALL: 7.14%
+
+RUNNING 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister called Carla"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has a sister called Carla"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'Carl', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a brother called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'Carla', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'carla'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister Carla"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister"
+Triple:            	{'subject': {'label': 'someone', 'type': []}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother"
+Triple:            	{'subject': {'label': 'someone', 'type': []}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little sister"
+Triple:            	{'subject': {'label': 'someone', 'type': []}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little brother"
+Triple:            	{'subject': {'label': 'someone', 'type': []}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brother is called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brothers name is Carl"
+Triple:            	{'subject': {'label': 'lenka-brothers', 'type': ['agent', 'person']}, 'predicate': {'label': 'name-is', 'type': ['communication', 'stative']}, 'object': {'label': 'Carl', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sister is called Carla"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sisters name is Carla"
+Triple:            	{'subject': {'label': 'lenka-sisters', 'type': ['agent', 'person']}, 'predicate': {'label': 'name-is', 'type': ['communication', 'stative']}, 'object': {'label': 'Carla', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My father is called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-father-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-father-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mother is called Carla"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-mother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-mother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mothers name is Carla"
+Triple:            	{'subject': {'label': 'lenka-mothers', 'type': ['agent', 'person']}, 'predicate': {'label': 'name-is', 'type': ['communication', 'stative']}, 'object': {'label': 'Carla', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-mother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my brother"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-brother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my sister"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-sister-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my father"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-father-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-father-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my mother"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'be-mother-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-mother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my husband"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-husband-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-husband-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My husband is called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-husband-of', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-husband-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is married to Carl"
+Triple:            	{'subject': {'label': 'Carla', 'type': ['None']}, 'predicate': {'label': 'marry-to', 'type': ['agent']}, 'object': {'label': 'Carl', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-spouse-of', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla's husband is Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-husband-of', 'type': ['stative', 'person']}, 'object': {'label': 'carla', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-husband-of', 'object': 'carla'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a husband called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-husband-of', 'type': ['stative', 'person']}, 'object': {'label': 'Carla', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'spouse', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are married"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are together"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is your friend"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'leolani', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a friend Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friend is called Carl"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-friends-with', 'type': ['stative', 'person']}, 'object': {'label': 'lenka', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friends name is Carl"
+Triple:            	{'subject': {'label': 'lenka-friends', 'type': ['agent', 'person']}, 'predicate': {'label': 'name-is', 'type': ['communication', 'stative']}, 'object': {'label': 'Carl', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 2
+
+CORRECT TRIPLES: 26			INCORRECT TRIPLES: 8			RECALL: 76.47%
+
+CORRECT SUBJECTS: 27			INCORRECT SUBJECTS: 7			RECALL: 79.41%
+
+CORRECT PREDICATES: 26			INCORRECT PREDICATES: 8			RECALL: 76.47%
+
+CORRECT OBJECTS: 27			INCORRECT OBJECTS: 7			RECALL: 79.41%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I watch a video"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'video', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'video'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play soccer"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'soccer', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'soccer'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play cards"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'cards', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'cards'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I listen to music"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'listen-to', 'type': ['perception']}, 'object': {'label': 'music', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'music'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been dancing"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'dancing', 'type': ['motion']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'dancing'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw an exhibition"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'exhibition', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'exhibition'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw a show"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'show', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'show'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to a concert"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'concert', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the movies"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'movies', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to a concert"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'concert', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to the movies"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'movies', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was at the theater"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'theater', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'theater'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the museum"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'museum', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'museum'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw an exhibition"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'exhibition', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'exhibition'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw a show"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'show', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'show'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to a concert"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'concert', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the movies"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'movies', 'type': ['communication']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the theater"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'theater', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'theater'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the museum"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'museum', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'museum'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been running"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'running', 'type': ['motion']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'running'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been swimming"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'swimming', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'swimming'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has been running"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'running', 'type': ['motion']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'cal', 'predicate': 'do-activity', 'object': 'running'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was running"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'do-activity', 'type': ['social', 'act', 'action']}, 'object': {'label': 'running', 'type': ['motion']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'running'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I ran a marathon"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'run', 'type': ['motion']}, 'object': {'label': 'a-marathon', 'type': ['act', 'action']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenk', 'predicate': 'do-activity', 'object': 'marathon'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 18			INCORRECT TRIPLES: 6			RECALL: 75.00%
+
+CORRECT SUBJECTS: 22			INCORRECT SUBJECTS: 2			RECALL: 91.67%
+
+CORRECT PREDICATES: 22			INCORRECT PREDICATES: 2			RECALL: 91.67%
+
+CORRECT OBJECTS: 20			INCORRECT OBJECTS: 4			RECALL: 83.33%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am sick"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'sick', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am healthy"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'healthy'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel sick"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'feel', 'type': ['emotion']}, 'object': {'label': 'sick', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel great"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'feel', 'type': ['emotion']}, 'object': {'label': 'great', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'great'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels sick"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'sick', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels great"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'great', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'great'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is sick"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'sick', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is healthy"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'feel', 'type': ['cognition']}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'healthy'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 8			INCORRECT TRIPLES: 0			RECALL: 100.00%
+
+CORRECT SUBJECTS: 8			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 8			INCORRECT PREDICATES: 0			RECALL: 100.00%
+
+CORRECT OBJECTS: 8			INCORRECT OBJECTS: 0			RECALL: 100.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-next-to', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am at the library"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-at', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in the library"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in my home"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'my-home', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am next to the library"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be-next-to', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in my home"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'my-home', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is at the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-at', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-next-to', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in my home"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-inside', 'type': ['stative']}, 'object': {'label': 'my-home', 'type': ['location']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-at', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was next to the library"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-next-to', 'type': ['stative']}, 'object': {'label': 'the-library', 'type': ['artifact', 'object']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 13			INCORRECT TRIPLES: 0			RECALL: 100.00%
+
+CORRECT SUBJECTS: 13			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 13			INCORRECT PREDICATES: 0			RECALL: 100.00%
+
+CORRECT OBJECTS: 13			INCORRECT OBJECTS: 0			RECALL: 100.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a teacher"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'work-as', 'type': ['act', 'action']}, 'object': {'label': 'teacher', 'type': ['person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is a teacher"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'work-as', 'type': ['act', 'action']}, 'object': {'label': 'teacher', 'type': ['person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a police-officer"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'be', 'type': ['stative']}, 'object': {'label': 'a-police-officer', 'type': ['group', 'person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'police-officer'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was a policeman"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'work-as', 'type': ['act', 'action']}, 'object': {'label': 'policeman', 'type': ['person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'policeman'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was an actor"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'work-as', 'type': ['act', 'action']}, 'object': {'label': 'actor', 'type': ['person']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'actor'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I work as a teacher"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'work-as', 'type': ['social']}, 'object': {'label': '', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl works as a teacher"
+Triple:            	{'subject': {'label': 'Carl', 'type': ['None']}, 'predicate': {'label': 'be-as', 'type': ['stative']}, 'object': {'label': '', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'teacher'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 4			INCORRECT TRIPLES: 3			RECALL: 57.14%
+
+CORRECT SUBJECTS: 7			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 5			INCORRECT PREDICATES: 2			RECALL: 71.43%
+
+CORRECT OBJECTS: 4			INCORRECT OBJECTS: 3			RECALL: 57.14%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%

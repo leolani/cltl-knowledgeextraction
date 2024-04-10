@@ -25,7 +25,8 @@ class ConversationalAnalyzer(Analyzer):
         """
         super().__init__()
 
-        self._extractor = AlbertTripleExtractor(path=model_path, base_model=base_model, max_triples=max_triples, lang=lang)
+        self._extractor = AlbertTripleExtractor(path=model_path, base_model=base_model, max_triples=max_triples,
+                                                lang=lang)
         self._triple_normalizer = TripleNormalizer()
         self._threshold = threshold
         self._max_triples = max_triples
@@ -80,14 +81,16 @@ class ConversationalAnalyzer(Analyzer):
             # print('speaker2', speaker2)
             # print(conversation)
 
-            extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2, batch_size=self._batch_size)
+            extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2,
+                                                                batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)
                        for score, triple_value
                        in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
                        if score >= self._threshold]
             triples = list(filter(None, triples))
         else:
-            logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
+            logger.debug('This is not from the human speaker', chat.speaker, ' but from:',
+                         chat.last_utterance.utterance_speaker)
 
         if not triples:
             logger.warning("Couldn't extract triples")
