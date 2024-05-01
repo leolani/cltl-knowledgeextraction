@@ -3,6 +3,29 @@
 A knowledge extraction service (aka Leolani's Triple Extractor package). This service performs Natural Language
 Understanding through Grammars natural language textual data and outputs structured data.
 
+## Table of contents
+
+* [Description](#description)
+  + [Triple extraction implementations](#triple-extraction-implementations)
+    - [CFGAnalyzer](#cfganalyzer)
+    - [ConversationalAnalyzer](#conversationalanalyzer)
+      * [Models](#models)
+    - [SpacyAnalyzer](#spacyanalyzer)
+    - [OIEAnalyzer](#oieanalyzer)
+  + [Question extraction implementations](#question-extraction-implementations)
+    - [CFGQuestionAnalyzer](#cfgquestionanalyzer)
+    - [ConversationalQuestionAnalyzer](#conversationalquestionanalyzer)
+    - [StanzaQuestionAnalyzer](#stanzaquestionanalyzer)
+  + [Sample output](#sample-output)
+* [Getting started](#getting-started)
+  + [Prerequisites](#prerequisites)
+  + [Installation](#installation)
+  + [Usage](#usage)
+* [Examples](#examples)
+* [Contributing](#contributing)
+* [License](#license)
+* [Authors](#authors)
+
 ## Description
 
 This package allows extracting structured information, in the form of SPO triples, from natural language textual data.
@@ -21,12 +44,9 @@ It features:
 ### Triple extraction implementations
 
 The triples consist of subject, predicate and object alongside with their semantic types. In case of a statement, the
-triple is accompanied by a perspective. In the case of a question the triple is incomplete. Below are a few examples of
-the triples which are the output of analyzers:
+triple is accompanied by a perspective. Below is an example of the triples which are the output of analyzers:
 
 * `“My sister enjoys eating cakes” lenka-sister_enjoy_eating-cakes `
-
-* ` “What does my sister enjoy?” lenka-sister_enjoy_? `
 
 The elements of the triple are separated with underscore; while dash is used to separate elements of multiword
 expressions. When a multiword expression is actually a collocation, the multiword expression is marked with apostrophes
@@ -63,8 +83,8 @@ Below is a short summary of NLP that happens during the CFG utterance analysis:
    mentioned above
 1. Lemmatization using NLTK
 1. Modal verbs are analyzed using the lexicon and this is stored within Perspective
-1. Checking whether some of the multi-word elements are actually collocations such as New York or ice-cream (these
-   should be processed as one word)
+1. Checking whether the multi-word elements are actually collocations such as New York or ice-cream (these should be
+   processed as one word)
 1. Getting semantic types of each element of the triple, and its subparts, using the manually made lexicon, WordNet
    lexname, Stanford NER
 
@@ -79,6 +99,36 @@ from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW). T
 folder `resources/conversational_triples/`
 
 Multilingual models can be donwloaded from: [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/xL9fPrqIq8bs6NH).
+
+#### SpacyAnalyzer
+
+Extract triples based on dependancy parsing, according
+to [spacy's implementation](https://spacy.io/api/dependencyparser). This does not extract perspective values.
+
+#### OIEAnalyzer
+
+Extract triples based on the Open Information Extraction framework, according
+to [Stanford's implementation](https://nlp.stanford.edu/software/openie.html). This does not extract perspective values.
+
+### Question extraction implementations
+
+The triples consist of subject, predicate and object alongside with their semantic types. In the case of a question the
+triple is incomplete. Below is an example of the triples which are the output of analyzers:
+
+* ` “What does my sister enjoy?” lenka-sister_enjoy_? `
+
+#### CFGQuestionAnalyzer
+
+This follows the same rules and processes as the [CFGAnalyzer](#cfganalyzer)
+
+#### ConversationalQuestionAnalyzer
+
+Similar to the [ConversationalAnalyzer](#conversationalanalyzer)
+
+#### StanzaQuestionAnalyzer
+
+Extract questions based on constituency parsing, according
+to [Stanza's implementation](https://stanfordnlp.github.io/stanza/constituency.html)
 
 ### Sample output
 
