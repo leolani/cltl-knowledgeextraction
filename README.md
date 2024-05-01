@@ -35,11 +35,7 @@ It features:
   triples, where each triple has a subject, predicate and object.
 * If an Utterance is a statement, it also has a Perspective object which consists of a polarity, certainty, sentiment
   and emotion value.
-* The Analyzer class is the API for triple extractors. At this moment there are two Analyzers implemented: CFGAnalyzer
-  (which uses Context Free Grammar parsing), and OIE Analyzer (which uses Stanford OIE library)
-* The CFGAnalyzer consists of a hierarchy of classes, topmost class is the abstract general class Analyzer, which is
-  separated into two abstract classes StatementAnalyzer and QuestionAnalyzer, which consist of the concrete classes
-  GeneralStatementAnalyzer, WhQuestionAnalyzer and VerbQuestionAnalyzer.
+* The Analyzer class is the API for triple/question extractors. 
 
 ### Triple extraction implementations
 
