@@ -1,7 +1,20 @@
 # cltl-knowledgeextraction
 
-A knowledge extraction service (aka Leolani's Triple Extractor package). This service performs Natural Language
-Understanding through Grammars natural language textual data and outputs structured data.
+A knowledge extraction service (aka Leolani's Triple Extractor package). This service is designed to extract knowledge from conversation as structured data in the form of so-called triples of the form: subject, predicate object. E.g.:
+
+```
+Input: For a couple of years I lived in Amsterdam
+Triple: (SPEAKER, live-in, Amsterdam)
+````
+
+There are several types of analyzers:
+
+* ContextFreeGrammar (CFG, English only): a rule-based triple extractor that uses a context-free grammar, a lexicon and Part-of-Speech taggers to detect triples in conversational status. It takes single utterances as input.
+* ConversationalAnalyzer: (English only and Multilingual): BERT models (ALBERT for English and mBERT for other languages) finetuned for IOB style triple extraction. It takes sequences of three utterances: "speaker turn -agent turn -speaker turn" as a context to detect the triples.
+* Stanford OIE (English): trained on Wikipedia data
+* SpacyDependency (Multilingual): patterns of spacy dependency relations are converted to triple.
+
+The extractors do not require a predefined schema to detect triples but are limited in terms of the patterns they can detect.
 
 ## Table of contents
 
@@ -28,8 +41,7 @@ Understanding through Grammars natural language textual data and outputs structu
 
 ## Description
 
-This package allows extracting structured information, in the form of SPO triples, from natural language textual data.
-It features:
+This package extracts structured information, in the form of SPO triples, from natural language text:
 
 * An Utterance is analyzed with the help of the Analyzer class. It extracts structured data in the form of a list of
   triples, where each triple has a subject, predicate and object.
@@ -39,14 +51,13 @@ It features:
 
 ### Triple extraction implementations
 
-The triples consist of subject, predicate and object alongside with their semantic types. In case of a statement, the
-triple is accompanied by a perspective. Below is an example of the triples which are the output of analyzers:
+The triples consist of subject, predicate and object alongside with their semantic types. Below is an example of the triples which is the output of one of the analyzers:
 
 * `“My sister enjoys eating cakes” lenka-sister_enjoy_eating-cakes `
 
 The elements of the triple are separated with underscore; while dash is used to separate elements of multiword
 expressions. When a multiword expression is actually a collocation, the multiword expression is marked with apostrophes
-during the analysis (e.g. ”mexico-city”)to ensure that subparts of collocations are not analyzed separately.
+during the analysis (e.g. ”mexico-city”) to ensure that subparts of collocations are not analyzed separately.
 implementations
 
 #### CFGAnalyzer
@@ -86,15 +97,28 @@ Below is a short summary of NLP that happens during the CFG utterance analysis:
 
 #### ConversationalAnalyzer
 
-Extract triples taking the conversational context into account.
+Extract triples taking the conversational context into account. It takes the consequetive turns from two speakers as input to detect triples:
+
+```
+Speaker1: I watched a lot of movies
+Speaker 2: What movies do you like?
+Speaker 1: Science fiction movies
+```
+```
+Triple: Speaker 1, likes, science fiction movies
+```
+
+This extractor is more tuned to way in which people exchange knowledge in conversation. The training data is created from TopicalChat and DailyDialog data that were annotated with IOB tags for subject, predicate and object tokens as well as for negation and uncertainty. 
+
+The finetuned models can be downloaded from ResearchDrive and need to be installed locally.
 
 ##### Models
 
-Models for the ConversationalAnalyzer can be downloaded
-from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW). These files must be under the
-folder `resources/conversational_triples/`
+* finetuned ALBERT model, English only: downloaded
+from [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/WpL1vFChlQpkbqW).
+* finetuned multilingual mBERT, all mBERT languages: downloaded from: [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/xL9fPrqIq8bs6NH).
 
-Multilingual models can be donwloaded from: [ResearchDrive](https://vu.data.surfsara.nl/index.php/s/xL9fPrqIq8bs6NH).
+The downloaded files must be placed in a folder `resources/conversational_triples/`
 
 #### SpacyAnalyzer
 
