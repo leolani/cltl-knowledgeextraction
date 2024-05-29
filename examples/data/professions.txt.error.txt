@@ -1,0 +1,3 @@
+I am a police-officer: lenka work-as police-officer
+I work as a teacher: lenka work-as teacher
+Carl works as a teacher: carl work-as teacher

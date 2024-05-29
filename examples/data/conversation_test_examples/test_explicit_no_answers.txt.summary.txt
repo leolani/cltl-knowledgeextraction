@@ -1,0 +1,1891 @@
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+RAN 47 UTTERANCES FROM FILE ./data/conversation_test_examples/test_explicit_no_answers.txt
+
+CORRECT TRIPLE ELEMENTS: 81			INCORRECT TRIPLE ELEMENTS: 198ISSUES (47 UTTERANCES): {
+    "Congratulations !<eos>How about you ? Have you got any news from university ?<eos>No . But I am going to apply for some vocational schools . I like fashion design and want to study it .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "any news from university", 
+            "predicate": "got", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "news-from-university", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "get", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Do you want to eat breakfast here ?<eos>No , why don't we just grad a bite at the coffee shop next door ?<eos>Okay by me .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "eat breakfast", 
+            "predicate": "want to", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-bite-at-the-coffee-shop", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "grad", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Excuse me . May I see that laptop for a moment ?<eos>Sure . You mean this one ?<eos>No , the one on the left . Yes , that is the one . ... Thank you .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "this one", 
+            "predicate": "mean", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "the-one-on-the-left", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "mean", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "Have you tried the Internet ?<eos>No , not yet . Can you find a good price there ?<eos>Wow , you really live in the Stone Age , Mom .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "the internet", 
+            "predicate": "tried", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "the-stone-age", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "live-in", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "I believe we are all out of food .<eos>Do you know what to get ?<eos>Nope, I don't know what we need .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "what to get", 
+            "predicate": "know", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "what-to-get", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "know", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "I haven't been driving for long only for a few months .<eos>Do you like to drive the bus ?<eos>Not in the least bit .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "drive the bus", 
+            "predicate": "like to", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "drive-the-bus", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "like-to-in", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "I need to continue to deal with my business . I haven ' t finished it yet .<eos>Oh , I see . Would you like me to reschedule you for another time ?<eos>No . Thank you .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "it", 
+            "predicate": "finished", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "it", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "finish", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "I purchased mine from IKEA .<eos>Is IKEA affordable ?<eos>Not at all , but you get what you pay for .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "affordable", 
+            "predicate": "is", 
+            "subject": "ikea"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "affordable", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "ikea", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "No , not at all . Very straight . Her hair comes down like this ... just over the ears .<eos>Does she wear glasses ?<eos>No ... no . I think you're thinking of someone else .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "glasses", 
+            "predicate": "wear", 
+            "subject": "she"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "glasses", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "wear", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "she", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "Not good . I lost my wallet .<eos>Oh , that's too bad . Was it stolen ?<eos>No , I think it came out of my pocket when I was in the taxi .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "stolen", 
+            "predicate": "was", 
+            "subject": "it"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "stolen", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "it", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "Oh , it's a service charge .<eos>But I only have 900 in cash here . Can you let it go for 900 yuan ?<eos>Sorry , but we can't do that . It's store's rule .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "900 yuan", 
+            "predicate": "can let go for", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "that", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "can-do", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "There are some seats in the rear mezzanine .<eos>Isn't there anything else available ?<eos>No , the show is almost sold out .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "anything else", 
+            "predicate": "is available", 
+            "subject": "there"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "anything-else", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "there", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "We went out to the stadium . Bob hadn't been to a game for a few weeks .<eos>How ' d it go ? Did we win ?<eos>Nope , lost again . But , it was a good game .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "win", 
+            "predicate": "did", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "the-stadium", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "went-out-to", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Well , my car won't start . I don't know what's the matter with it .<eos>Could it be the battery ?<eos>No , I don't think it could be . I checked the battery two days ago . It must be other problems .\n": {
+        "parsing": "NOT PARSED", 
+        "triple": "Well , my car won't start . I don't know what's the matter with it .<eos>Could it be the battery ?<eos>No , I don't think it could be . I checked the battery two days ago . It must be other problems .\n: it could be the battery\n"
+    }, 
+    "Well , that was an intelligent thing to do .<eos>You don't have any spare change ?<eos>No , I don't .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "spare change", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "spare-change", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "Will you introduce me to the new colleague ?<eos>Haven't you met yet ?<eos>No , we haven't .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "the new colleague", 
+            "predicate": "met", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "the-new-colleague", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "meet", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Would you like me to type it for you ?<eos>Yes , please . That would be a great help . Are you sure you don ' t mind that ?<eos>Not at all . I ' ll be glad to do it .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "that", 
+            "predicate": "mind", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "that", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "mind", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "Yes , I liked it , too . Did you like the acting ?<eos>Yes . I thought it was excellent . Didn't you ?<eos>Not really . I thought it was disappointing .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "it was excellent", 
+            "predicate": "thought", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "it", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "like", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Yes , it's me .<eos>Do you have a cold ?<eos>No . Worse than that . I have a flu . I'm in bed with a fever .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "a cold", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-cold", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "Yes , she does . She works at home .<eos>Oh , I understand . She cooks , cleans and takes care of children . Is that right ?<eos>Oh , no . Most of the time I do these things . She is a writer .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "the children", 
+            "predicate": "takes care of", 
+            "subject": "she"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "home", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "works-at", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "she", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "Yes . I'll have a room free next week .<eos>What do you charge ?<eos>25 . 00 dollars a week , but you can't have visitors .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "visitors", 
+            "predicate": "can have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "visitors", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "can-have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "did you learn about people with 3 toes ?<eos>no . are you a sloth ?<eos>no . i am a person . do not be rude . i will feed you to the lions .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "people with 3 toes", 
+            "predicate": "learn about", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "people-with-3-toes", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "learn-about", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "ever heard of e l james<eos>i have not . what has he written ?<eos>well , i'm not her ahahah .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "e l james", 
+            "predicate": "heard of", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "e-l-james", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "heard-of", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 3
+    }, 
+    "great . my father was a teacher too so<eos>did he hike like i do ?<eos>no he did not . he and i enjoyed time in the beach .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "speaker2 do", 
+            "predicate": "hike like", 
+            "subject": "he"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "the-beach", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "enjoyed-time-in", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "he", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "hello ! how are you today ?<eos>hello , i am well . i was just thinking about jazz . do you listen to it ?<eos>no . my boyfriend does though . he says it helps with his job at nasa .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "it", 
+            "predicate": "listen to", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "it", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "listen-to", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "how about any other family ?<eos>yes , i was married three times before , but they are all ex wives now , you ?<eos>nope . . . i am an only child and mostly just hang with friends .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "married", 
+            "predicate": "was", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "married", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "i am active duty right now .<eos>oh cool . do you have any kids at home ?<eos>no , i'm going to get married next year and then we may try .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "kids at home", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "kids", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "i can make a killer whiskey sour . i also cook good .<eos>my kind of person ! do you make sushi ?<eos>no . i'd like to learn .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "sushi", 
+            "predicate": "make", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "sushi", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "make", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "i live in browns country . my dad and several other doctors have box seats .<eos>fantastic . i'm planning on becoming an english teacher . you going to be a doctor ?<eos>no , i'm going to be a vet .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "be a doctor", 
+            "predicate": "going to", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-doctor", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "going-to-be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "i'm from alabama . football is fun to watch<eos>you are a crimson tide fan ?<eos>not too much , i am so busy going to nursing school right now\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "a crimson tide fan", 
+            "predicate": "are", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "so-busy", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "i'm great . how are you this evening ?<eos>have you ever been to mars ?<eos>nope i preferably choose earth lol\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "mars", 
+            "predicate": "been to", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "mars", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "been-to", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "i'm trying . you seem nice . you can ask me questions . do you have pets ?<eos>nope no pets , do you ?<eos>no , but i think it would be nice to have a buddy , and they don't ask questions\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "pets", 
+            "predicate": "have", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "pets", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "is this a larp or nah<eos>no i don't think so . what do you do for a living ?<eos>i play country music for a living\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "a larp", 
+            "predicate": "is", 
+            "subject": "this"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-larp", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "this", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "it is kind of a struggle for me sometimes as a woman .<eos>yeah ? i am sorry to hear that , do you have any kids ?<eos>no kids . i hope my kids will be as tall as me though .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "kids", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "kids", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "my name is john . i am in my early thirties<eos>hi john . i like chocolate . do you ?<eos>no . i don't have money to spend on chocolate . my wife takes it all\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "money", 
+            "predicate": "like", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "chocolate", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "like", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "no , i don't usually listen to music , although i collected a musical pen .<eos>that is interesting . is being a vegan hard ?<eos>not really as i spend so much time writing i forget to eat .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "hard", 
+            "predicate": "is", 
+            "subject": "being vegan"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "hard", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "that", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "not as much as every food i see<eos>lol what ? you like broadway ?<eos>not much into broadway . everyone is so pretty and thin unlike me\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "broadway", 
+            "predicate": "like", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "broadway", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "like", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "not really , my room mates all love animals though . all three of them haha<eos>do you have any trouble losing weight ?<eos>i do not think so lol . i tend to stay in shape\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "trouble losing weight", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "trouble", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "ow wow now that will be hard task<eos>yeah do you have kids ?<eos>no i sadly do not . i never been one to hold a steady relationship\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "kids", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "kids", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "owning is great . do you have a family ?<eos>i've a boyfriend , but we live separately . what about you ?<eos>no . just single . spend a lot of time travelling in my blue car .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "a boyfriend", 
+            "predicate": "have", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-family", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "have", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "that is always nice . are you in school<eos>nope , are you ?<eos>yeah i am graduating high school this year\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "school", 
+            "predicate": "are in", 
+            "subject": "speaker2"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "school", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "are-in", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "that is impressive . and yes i do ! do you like fish ?<eos>i usually only eat salmon while i am playing basketball . you ?<eos>no not to eat . i have a huge aquarium and have them as pets .\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "salmon", 
+            "predicate": "eat", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "salmon", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": 1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "eat", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker2", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "that sounds very enjoyable . maybe those would be easy for me to read<eos>yeah . do you love anyone ?<eos>no not at the moment . i live vicariously through foreign movies and tv\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "anyone", 
+            "predicate": "love", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 1.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "anyone", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 1.0
+            }, 
+            "predicate": {
+                "label": "love", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "that's nice to hear , when i was your age i was married<eos>are you indian by any chance ?<eos>no i am from somalia\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "indian", 
+            "predicate": "are", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "indian", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }, 
+    "well when i am not hiking or climbing i work as an engineer<eos>i walk dogs and own the business , do you like dogs ?<eos>not at all , only hiking\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "dogs", 
+            "predicate": "like", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "dogs", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "like", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3
+    }, 
+    "yeah he is awesome . he helps me listen to tapes of new rap artists<eos>does he do any tricks ? do you walk him like a dog ?<eos>no way man he's too chill for that\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "him", 
+            "predicate": "walk like a dog", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.75
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "a-dog", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.75
+            }, 
+            "predicate": {
+                "label": "walk-him-like", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 2
+    }, 
+    "yes , i've 3 cats and they are so adorable<eos>i bet . are you married ? do you have kids ?<eos>sorry not married and of course do not have kids\n": {
+        "expected_perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "expected_triple": {
+            "object": "married", 
+            "predicate": "are", 
+            "subject": "speaker1"
+        }, 
+        "generated_perspective": {
+            "certainty": 1.0, 
+            "emotion": 0.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "generated_triple": {
+            "object": {
+                "label": "married", 
+                "type": []
+            }, 
+            "perspective": {
+                "certainty": 1.0, 
+                "emotion": 0.0, 
+                "polarity": -1.0, 
+                "sentiment": 0.0
+            }, 
+            "predicate": {
+                "label": "be", 
+                "type": []
+            }, 
+            "subject": {
+                "label": "speaker1", 
+                "type": []
+            }, 
+            "utterance_type": "1"
+        }, 
+        "perspective": 3, 
+        "triple": 1
+    }
+}
