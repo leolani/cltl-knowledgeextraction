@@ -6,7 +6,7 @@ from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
-from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
+from cltl.triple_extraction.conversational_triples.conversational_triple_extraction_org import AlbertTripleExtractor
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)

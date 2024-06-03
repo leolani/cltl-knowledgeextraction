@@ -75,9 +75,14 @@ class TripleExtractionService(GroupProcessor):
 
         agent_topic = config.get("topic_agent") if "topic_agent" in config else None
         dialogue_act_topic = config.get("topic_dialogue_act") if "topic_dialogue_act" in config else None
+        topic_input = config.get("topic_input")
+        topic_output = config.get("topic_output")
+        topic_intention = config.get("topic_intention") if "topic_intention" in config else None
+        intentions = config.get("intentions", multi=True) if "intentions" in config else []
+        topic_scenario= config.get("topic_scenario") if "topic_scenario" in config else None
 
-        return cls(config.get("topic_input"), agent_topic, dialogue_act_topic, config.get("topic_output"),
-                   config.get("topic_scenario"), config.get("topic_intention"), config.get("intentions", multi=True),
+        return cls(topic_input, agent_topic, dialogue_act_topic, topic_output,
+                   topic_scenario, topic_intention, intentions,
                    extractor, emissor_client, event_bus, resource_manager)
 
     def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str, scenario_topic: str,
