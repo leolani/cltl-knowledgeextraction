@@ -1,0 +1,76 @@
+Yes , it's me .<eos>Do you have a cold ?<eos>No . Worse than that . I have a flu . I'm in bed with a fever .
+: speaker1 have a cold
+Well , that was an intelligent thing to do .<eos>You don't have any spare change ?<eos>No , I don't .
+: speaker1 have spare change
+There are some seats in the rear mezzanine .<eos>Isn't there anything else available ?<eos>No , the show is almost sold out .
+: there is available anything else
+Excuse me . May I see that laptop for a moment ?<eos>Sure . You mean this one ?<eos>No , the one on the left . Yes , that is the one . ... Thank you .
+: speaker1 mean this one
+did you learn about people with 3 toes ?<eos>no . are you a sloth ?<eos>no . i am a person . do not be rude . i will feed you to the lions .
+: speaker2 learn about people with 3 toes
+I believe we are all out of food .<eos>Do you know what to get ?<eos>Nope, I don't know what we need .
+: speaker1 know what to get
+I purchased mine from IKEA .<eos>Is IKEA affordable ?<eos>Not at all , but you get what you pay for .
+: ikea is affordable
+Congratulations !<eos>How about you ? Have you got any news from university ?<eos>No . But I am going to apply for some vocational schools . I like fashion design and want to study it .
+: speaker1 got any news from university
+i'm great . how are you this evening ?<eos>have you ever been to mars ?<eos>nope i preferably choose earth lol
+: speaker1 been to mars
+not really , my room mates all love animals though . all three of them haha<eos>do you have any trouble losing weight ?<eos>i do not think so lol . i tend to stay in shape
+: speaker1 have trouble losing weight
+owning is great . do you have a family ?<eos>i've a boyfriend , but we live separately . what about you ?<eos>no . just single . spend a lot of time travelling in my blue car .
+: speaker1 have a boyfriend
+Well , my car won't start . I don't know what's the matter with it .<eos>Could it be the battery ?<eos>No , I don't think it could be . I checked the battery two days ago . It must be other problems .
+: it could be the battery
+that's nice to hear , when i was your age i was married<eos>are you indian by any chance ?<eos>no i am from somalia
+: speaker1 are indian
+great . my father was a teacher too so<eos>did he hike like i do ?<eos>no he did not . he and i enjoyed time in the beach .
+: he hike like speaker2 do
+ever heard of e l james<eos>i have not . what has he written ?<eos>well , i'm not her ahahah .
+: speaker2 heard of e l james
+my name is john . i am in my early thirties<eos>hi john . i like chocolate . do you ?<eos>no . i don't have money to spend on chocolate . my wife takes it all
+: speaker1 like money
+no , i don't usually listen to music , although i collected a musical pen .<eos>that is interesting . is being a vegan hard ?<eos>not really as i spend so much time writing i forget to eat .
+: being vegan is hard
+Yes . I'll have a room free next week .<eos>What do you charge ?<eos>25 . 00 dollars a week , but you can't have visitors .
+: speaker1 can have visitors
+yes , i've 3 cats and they are so adorable<eos>i bet . are you married ? do you have kids ?<eos>sorry not married and of course do not have kids
+: speaker1 are married
+i live in browns country . my dad and several other doctors have box seats .<eos>fantastic . i'm planning on becoming an english teacher . you going to be a doctor ?<eos>no , i'm going to be a vet .
+: speaker1 going to be a doctor
+Not good . I lost my wallet .<eos>Oh , that's too bad . Was it stolen ?<eos>No , I think it came out of my pocket when I was in the taxi .
+: it was stolen
+Have you tried the Internet ?<eos>No , not yet . Can you find a good price there ?<eos>Wow , you really live in the Stone Age , Mom .
+: speaker2 tried the internet
+Do you want to eat breakfast here ?<eos>No , why don't we just grad a bite at the coffee shop next door ?<eos>Okay by me .
+: speaker2 want to eat breakfast
+i am active duty right now .<eos>oh cool . do you have any kids at home ?<eos>no , i'm going to get married next year and then we may try .
+: speaker1 have kids at home
+hello ! how are you today ?<eos>hello , i am well . i was just thinking about jazz . do you listen to it ?<eos>no . my boyfriend does though . he says it helps with his job at nasa .
+: speaker1 listen to it
+Oh , it's a service charge .<eos>But I only have 900 in cash here . Can you let it go for 900 yuan ?<eos>Sorry , but we can't do that . It's store's rule .
+: speaker1 can let go for 900 yuan
+We went out to the stadium . Bob hadn't been to a game for a few weeks .<eos>How ' d it go ? Did we win ?<eos>Nope , lost again . But , it was a good game .
+: speaker2 did win
+Will you introduce me to the new colleague ?<eos>Haven't you met yet ?<eos>No , we haven't .
+: speaker1 met the new colleague
+yeah he is awesome . he helps me listen to tapes of new rap artists<eos>does he do any tricks ? do you walk him like a dog ?<eos>no way man he's too chill for that
+: speaker1 walk like a dog him
+Yes , I liked it , too . Did you like the acting ?<eos>Yes . I thought it was excellent . Didn't you ?<eos>Not really . I thought it was disappointing .
+: speaker1 thought it was excellent
+i'm from alabama . football is fun to watch<eos>you are a crimson tide fan ?<eos>not too much , i am so busy going to nursing school right now
+: speaker1 are a crimson tide fan
+that is impressive . and yes i do ! do you like fish ?<eos>i usually only eat salmon while i am playing basketball . you ?<eos>no not to eat . i have a huge aquarium and have them as pets .
+: speaker1 eat salmon
+I need to continue to deal with my business . I haven ' t finished it yet .<eos>Oh , I see . Would you like me to reschedule you for another time ?<eos>No . Thank you .
+: speaker1 finished it
+Yes , she does . She works at home .<eos>Oh , I understand . She cooks , cleans and takes care of children . Is that right ?<eos>Oh , no . Most of the time I do these things . She is a writer .
+: she takes care of the children
+is this a larp or nah<eos>no i don't think so . what do you do for a living ?<eos>i play country music for a living
+: this is a larp
+that is always nice . are you in school<eos>nope , are you ?<eos>yeah i am graduating high school this year
+: speaker2 are in school
+how about any other family ?<eos>yes , i was married three times before , but they are all ex wives now , you ?<eos>nope . . . i am an only child and mostly just hang with friends .
+: speaker1 was married
+I haven't been driving for long only for a few months .<eos>Do you like to drive the bus ?<eos>Not in the least bit .
+: speaker1 like to drive the bus
