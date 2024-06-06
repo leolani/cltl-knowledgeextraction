@@ -6,11 +6,17 @@ from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
-from cltl.triple_extraction.conversational_triples.conversational_triple_extraction_org import AlbertTripleExtractor
+from cltl.triple_extraction.conversational_triples.conversational_triple_extraction import AlbertTripleExtractor
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)
 
+
+qwords_en = ["what", "when", "where", "who", "why", "how"]
+whowords = ["who", "wie"]
+qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was"]
+qwords_nl = ["wat", "wanneer", "waar", "waarom", "hoe"]
+qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "zal", "gaan", "gingen"]
 
 class ConversationalAnalyzer(Analyzer):
     def __init__(self, model_path: str, base_model: str, threshold: float = 0.8, max_triples: int = 0,
@@ -31,6 +37,7 @@ class ConversationalAnalyzer(Analyzer):
         self._threshold = threshold
         self._max_triples = max_triples
         self._batch_size = batch_size
+        self._sep = self._extractor._sep
         self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
 
         self._chat = None
@@ -49,6 +56,29 @@ class ConversationalAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
+    def analyze(self, utterance):
+        """
+        Analyzer factory function
+
+        Determines the type of utterance, extracts the RDF triple and perspective attaching them to the last utterance
+
+        Parameters
+        ----------
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+        raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
+
+    def is_question(self, transcript):
+        words = transcript.split()
+        if words[0].lower() in qwords_en+qwords_nl+qverbs_en+qverbs_nl+whowords:
+            return True
+        if words[-1]=="?":
+            return True
+        return False
+
+
     def analyze_in_context(self, chat):
         """
         Analyzer factory function
@@ -61,25 +91,24 @@ class ConversationalAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        self._chat = chat
+        if self.is_question(chat.last_utterance.transcript):
+            self.analyze_question_in_context(chat)
+        else:
+            self.analyze_statement_in_context(chat)
 
+    def analyze_statement_in_context(self, chat):
+        self._chat = chat
         if (self._dialogue_acts and self.utterance.dialogue_acts
                 and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
             logger.debug("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
             return
 
         triples = []
-        # print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
-        # print('chat.speaker', chat.speaker)
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
 
             self._utterance = chat.last_utterance
             conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
-
-            # print('speaker1', speaker1)
-            # print('speaker2', speaker2)
-            # print(conversation)
 
             extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2,
                                                                 batch_size=self._batch_size)
@@ -102,6 +131,196 @@ class ConversationalAnalyzer(Analyzer):
         for triple in triples:
             logger.debug("triple: %s", triple)
             self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
+
+
+    def analyze_question_in_context_org(self, chat):
+        """
+        Analyzer factory function
+
+        Find appropriate Analyzer for this utterance
+
+        Parameters
+        ----------
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+        self._chat = chat
+
+        if (self._dialogue_acts and self.utterance.dialogue_acts
+                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
+            logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+            return
+        triples = []
+        if chat.last_utterance.utterance_speaker == chat.speaker:
+            self._chat = chat
+            self._utterance = chat.last_utterance
+            conversation =""
+
+            if chat.last_utterance.transcript.casefold().startswith("who ") or chat.last_utterance.transcript.casefold().startswith("wie ") :
+                conversation = self._sep + " **blank** " + self._sep + " Someone" + chat.last_utterance.transcript[3:] + " "+self._sep+"##blank##"
+            else:
+                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript
+                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript +" " +self._sep+"##blank##"
+
+            if not conversation.endswith("?"):
+                conversation+="?"
+
+            extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
+            triples = [self._convert_triple(triple_value)
+                       for score, triple_value
+                       in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
+                       if score >= self._threshold]
+            triples = list(filter(None, triples))
+        else:
+            logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
+
+        if not triples:
+            logger.warning("Couldn't extract triples")
+
+        for triple in triples:
+            logger.debug("triple: %s", triple)
+            self._remove_blank(triple)
+            chat.last_utterance.triples.append(triple)
+            self.set_extracted_values_given_perspective(utterance_type=UtteranceType.QUESTION, triple=triple)
+
+    def _remove_blank_org(self, triple):
+        if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" or triple["subject"]['label'] == "someone":
+            triple["subject"]['label'] = ""
+        elif "**blank**-" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("blank-", "")
+        elif "-blank" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("-blank", "")
+
+        if triple["object"]['label'] == "**blank**" or triple["object"]['label'] == "blank":
+            triple["object"]['label'] = ""
+        elif "**blank**-" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("blank-", "")
+        elif "-blank" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("-blank", "")
+
+        if triple["predicate"]['label'] == "**blank**" or triple["predicate"]['label'] == "blank":
+            triple["predicate"]['label'] = ""
+        elif "**blank**-" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("blank-", "")
+        elif "-blank" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-blank", "")
+        return triple
+
+
+    def analyze_question_in_context(self, chat):
+        """
+        Analyzer factory function
+
+        Find appropriate Analyzer for this utterance
+
+        Parameters
+        ----------
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+        self._chat = chat
+
+        if (self._dialogue_acts and self.utterance.dialogue_acts
+                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
+            logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+            return
+        triples = []
+        if chat.last_utterance.utterance_speaker == chat.speaker:
+            self._chat = chat
+            self._utterance = chat.last_utterance
+
+            pos = self._utterance.transcript.index(" ")
+            first_word = self._utterance.transcript[:pos]
+            if first_word.lower() in whowords:
+                conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                if not conversation.endswith("?"):
+                    conversation += "?"
+                conversation += " "+self._sep+" Joe"
+            elif first_word.lower() in qwords_nl+qwords_en:
+                conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                if not conversation.endswith("?"):
+                    conversation += "?"
+                conversation += " "+self._sep+" Something"
+            elif first_word.lower() in qverbs_en+qverbs_nl:
+                conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                if not conversation.endswith("?"):
+                     conversation += "?"
+                conversation += " "+self._sep+" Yes"
+
+            extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
+            print('extracted_triples', extracted_triples)
+            for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
+                triples = [self._convert_triple(triple_value)]
+                break
+
+            triples = list(filter(None, triples))
+        else:
+            logger.warning('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
+
+        if not triples:
+            logger.warning("Couldn't extract triples")
+
+        if self._max_triples and len(triples) > self._max_triples:
+            logger.debug('Limit %s triples to %s', len(triples), self._max_triples)
+            triples = triples[:self._max_triples]
+
+        for triple in triples:
+            logger.warning("triple: %s", triple)
+            self._remove_blank(triple)
+            chat.last_utterance.triples.append(triple)
+            self.set_extracted_values_given_perspective(utterance_type=UtteranceType.QUESTION, triple=triple)
+
+    def _remove_blank(self, triple):
+        if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" \
+                or triple["subject"]['label'] == "joe" \
+                or triple["subject"]['label'] == "who" \
+                or triple["subject"]['label'] == "someone":
+            triple["subject"]['label'] = ""
+        elif "**blank**-" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("blank-", "")
+        elif "-blank" in triple["subject"]['label']:
+            triple["subject"]['label'] = triple["subject"]['label'].replace("-blank", "")
+
+        if triple["object"]['label'] == "**blank**" or triple["object"]['label'] == "blank" or triple["object"]['label'] == "something":
+            triple["object"]['label'] = ""
+        elif "**blank**-" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("blank-", "")
+        elif "-blank" in triple["object"]['label']:
+            triple["object"]['label'] = triple["object"]['label'].replace("-blank", "")
+
+        if triple["predicate"]['label'] == "**blank**" or triple["predicate"]['label'] == "blank":
+            triple["predicate"]['label'] = ""
+        elif "**blank**-" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("**blank**-", "")
+        elif "-**blank**" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-**blank**", "")
+        elif "blank-" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("blank-", "")
+        elif "-blank" in triple["predicate"]['label']:
+            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-blank", "")
+        return triple
 
     def _convert_triple(self, triple_value):
         if len(triple_value) < 3:

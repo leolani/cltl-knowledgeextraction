@@ -110,7 +110,15 @@ class AlbertTripleExtractor:
         logger.debug('objects:    %s\n' % objs)
 
         # List all possible combinations of arguments
-        candidates = [list(triple) for triple in product(subjs, preds, objs)]
+        # List all possible combinations of arguments
+        if not subjs and preds and objs:
+            candidates = [list(triple) for triple in product({'who'}, preds, objs)]
+        elif subjs and preds and not objs:
+            candidates = [list(triple) for triple in product(subjs, preds, {'what'})]
+        elif subjs and not preds and objs:
+            candidates = [list(triple) for triple in product(subjs, {'is'}, objs)]
+        else:
+            candidates = [list(triple) for triple in product(subjs, preds, objs)]
         if not candidates:
             return []
 
