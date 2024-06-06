@@ -1,3 +1,7 @@
+
+import spacy
+
+
 def predicateInfoToTriple(pred_info: dict, predicate: str):
     triple = None
     if pred_info.get('head') and pred_info.get('tail'):
@@ -414,3 +418,24 @@ def get_subj_prep_pobj_triples_with_spacy(nlp, utterance: str, SPEAKER: str, HEA
     return triples, zip(speaker_tokens, speaker_mentions), zip(hearer_tokens, hearer_mentions), zip(subject_tokens,
                                                                                                     subject_mentions), zip(
         object_tokens, object_mentions)
+
+if __name__ == "__main__":
+    nlp = spacy.load("en_core_web_sm")
+    utterance = "I love cats. What about you?"
+    speaker = "Piek"
+    hearer = "leolani"
+    triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = get_subj_obj_triples_with_spacy(
+        nlp, utterance, speaker, hearer)
+    if not triples:
+        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = get_subj_amod_triples_with_spacy(
+            nlp, utterance, speaker, hearer)
+    if not triples:
+        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = get_subj_attr_triples_with_spacy(
+            nlp, utterance, speaker, hearer)
+    if not triples:
+        triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = get_subj_prep_pobj_triples_with_spacy(
+            nlp, utterance, speaker, hearer)
+
+    if triples:
+        for triple in triples:
+            print(triple)

@@ -41,7 +41,7 @@ setup(
         'stanford_openie~=1.3',
         'spacy~=3.2',
         'stanza~=1.5',
-        "cltl.combot~=1.0"
+        "cltl.combot"
     ],
     extras_require={
         "service": [

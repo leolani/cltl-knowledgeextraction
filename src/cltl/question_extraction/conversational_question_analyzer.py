@@ -47,7 +47,7 @@ class ConversationalQuestionAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
-    def analyze_question_in_context(self, chat):
+    def analyze_in_context(self, chat):
         """
         Analyzer factory function
 
