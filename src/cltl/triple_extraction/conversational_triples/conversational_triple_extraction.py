@@ -35,7 +35,7 @@ class AlbertTripleExtractor:
         self._base_model = base_model
         self._post_processor = PostProcessor()
         if lang=="nl":
-            self._nlp = spacy.load('nl_core_web_sm')
+            self._nlp = spacy.load('nl_core_news_sm')
         else:
             self._nlp = spacy.load('en_core_web_sm')
 
