@@ -207,7 +207,7 @@ class TripleExtractionService(GroupProcessor):
             for ch in response:
                 triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
                     'label'] + ') '
-            if DialogueAct.QUESTION in dialogue_acts:
+            if dialogue_acts and DialogueAct.QUESTION in dialogue_acts:
                 utterance = f"{choice(YOU_ASK)} {triple}"
             else:
                 utterance = f"{choice(I_SEE)} {triple}"
