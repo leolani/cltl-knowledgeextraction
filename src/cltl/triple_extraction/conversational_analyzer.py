@@ -92,8 +92,10 @@ class ConversationalAnalyzer(Analyzer):
 
         """
         if self.is_question(chat.last_utterance.transcript):
+            chat.last_utterance.dialogue_acts=[UtteranceType.QUESTION]
             self.analyze_question_in_context(chat)
         else:
+            chat.last_utterance.dialogue_acts=[UtteranceType.STATEMENT]
             self.analyze_statement_in_context(chat)
 
     def analyze_statement_in_context(self, chat):
@@ -108,9 +110,9 @@ class ConversationalAnalyzer(Analyzer):
             self._chat = chat
 
             self._utterance = chat.last_utterance
-            conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
+            speakers, conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
 
-            extracted_triples = self._extractor.extract_triples(conversation, speaker1, speaker2,
+            extracted_triples = self._extractor.extract_triples(speakers, conversation, speaker1, speaker2,
                                                                 batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)
                        for score, triple_value
@@ -343,7 +345,6 @@ class ConversationalAnalyzer(Analyzer):
         utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
                                  in itertools.groupby(chat.utterances, lambda utt: utt.utterance_speaker)]
         utterances_by_speaker = utterances_by_speaker[-3:]
-
         speakers = list(zip(*utterances_by_speaker))[0]
         turns = list(zip(*utterances_by_speaker))[1]
         conversation = ("<eos>" * min(2, (3 - len(utterances_by_speaker)))) + "<eos>".join(turns)
@@ -354,7 +355,7 @@ class ConversationalAnalyzer(Analyzer):
         else:
             speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
 
-        return conversation, speaker1, speaker2
+        return conversation, speakers, speaker1, speaker2
 
     def get_simple_triple(self, triple):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),

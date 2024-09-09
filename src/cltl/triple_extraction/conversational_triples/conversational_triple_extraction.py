@@ -47,6 +47,30 @@ class AlbertTripleExtractor:
     def name(self):
         return "ALBERT"
 
+    def _tokenize_with_speakers(self, dialog, speakers):
+        """ Divides up the dialogue into separate turns and dereferences
+            personal pronouns 'I' and 'you'.
+
+        :param dialog: separator-delimited dialogue
+        :return:       list of tokenized dialogue turns
+        """
+        print("DIALOG", dialog)
+        # Split dialogue into turns
+        turns = [turn.lower().strip() for turn in dialog.split(self._sep)]
+
+        # Tokenize each turn separately (and splitting "n't" off)
+        tokens = []
+        for speaker, turn in zip(speakers, turns):
+            # Assign speaker ID to turns (tn=1, tn-1=0, tn-2=1, etc.)
+           # speaker_id = (len(turns) - turn_id + 1) % 2
+            if speaker=="speaker1":
+                speaker_id = 1
+            else:
+                speaker_id = 2
+            if turn:
+                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
+        return tokens
+
     def _tokenize(self, dialog):
         """ Divides up the dialogue into separate turns and dereferences
             personal pronouns 'I' and 'you'.
@@ -54,6 +78,7 @@ class AlbertTripleExtractor:
         :param dialog: separator-delimited dialogue
         :return:       list of tokenized dialogue turns
         """
+        print("DIALOG", dialog)
         # Split dialogue into turns
         turns = [turn.lower().strip() for turn in dialog.split(self._sep)]
 
@@ -89,7 +114,7 @@ class AlbertTripleExtractor:
     #     print('Predicates:', bio_tags_to_tokens(subwords, y_pred.T, one_hot=True))
     #     print('Objects:   ', bio_tags_to_tokens(subwords, y_obj.T, one_hot=True))
 
-    def extract_triples(self, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
+    def extract_triples(self, speakers, dialog, speaker1, speaker2, post_process=True, batch_size=32, verbose=False):
         """
         :param dialog:       separator-delimited dialogue
         :param speaker1:       speaker of odd turns
@@ -100,7 +125,7 @@ class AlbertTripleExtractor:
         :return:             A list of confidence-triple pairs of the form (confidence, (subj, pred, obj, polarity))
         """
         # Assign unambiguous tokens to you/I
-        tokens = self._tokenize(dialog)
+        tokens = self._tokenize_with_speakers(dialog, speakers)
 
         # Extract SPO arguments from token sequence
         subjs, preds, objs = self._argument_module.predict(tokens)
