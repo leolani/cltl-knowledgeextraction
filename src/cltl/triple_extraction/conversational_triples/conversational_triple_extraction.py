@@ -181,14 +181,14 @@ if __name__ == '__main__':
     # Test!
     examples = ["I enjoy watching american football but don\'t like to make homework " + SEP + " what does Mike like to do? " + SEP + " gaming, but I hate cats " + SEP]
     examples = ["Ik vind het leuk om naar voetbal te kijken maar ik hou niet van huiswerk " + SEP + " Wat zou mike graag willen doen? " + SEP + " gaming, maar ik heb een hekel aan katten " + SEP]
-
+    speakers = ["speaker1", "speaker2", "speaker1"]
     #examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + SEP +  " Do you have any kids of your's own now ? " + SEP + " no " + SEP]
                 #,
                 #'I went to the new university. It was great! '+model._sep+' I like studying too and learning. You? ' + model._sep+ ' No, can afford it!'+model._sep,
                 #'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+model._sep+' Ik hou ook van studeren en leren. Jij? ' +model._sep +' Nee, ik heb het niet nodig!'+model._sep]
     for example in examples:
         print('example', example)
-        for score, triple in model.extract_triples(example, speaker1="Thomas", speaker2="LEOLANI"):
+        for score, triple in model.extract_triples(speakers, example, speaker1="Thomas", speaker2="LEOLANI"):
            print(score, triple)
 
 ### Albert:

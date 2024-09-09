@@ -244,7 +244,8 @@ class ConversationalAnalyzer(Analyzer):
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
             self._utterance = chat.last_utterance
-
+            # Dummy list of speakers
+            speakers = ["speaker2", "speaker1", "speaker2"]
             pos = self._utterance.transcript.index(" ")
             first_word = self._utterance.transcript[:pos]
             if first_word.lower() in whowords:
@@ -263,7 +264,7 @@ class ConversationalAnalyzer(Analyzer):
                      conversation += "?"
                 conversation += " "+self._sep+" Yes"
 
-            extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
+            extracted_triples = self._extractor.extract_triples(speakers, conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
             print('extracted_triples', extracted_triples)
             for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
                 triples = [self._convert_triple(triple_value)]
@@ -355,7 +356,7 @@ class ConversationalAnalyzer(Analyzer):
         else:
             speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
 
-        return conversation, speakers, speaker1, speaker2
+        return speakers, conversation, speaker1, speaker2
 
     def get_simple_triple(self, triple):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
