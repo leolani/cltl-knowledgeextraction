@@ -27,9 +27,6 @@ class AlbertTripleExtractor:
         :param speaker2:   name of system (default: speaker2)
         """
         logger.debug("Loading model %s", path)
-        path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
-        base_model='google-bert/bert-base-multilingual-cased'
-        lang="nl"
         self._argument_module = ArgumentExtraction(base_model, path=path)
         self._scoring_module = TripleScoring(base_model, path=path)
         self._base_model = base_model
