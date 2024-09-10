@@ -112,7 +112,7 @@ class ConversationalAnalyzer(Analyzer):
             self._utterance = chat.last_utterance
             speakers, conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
 
-            extracted_triples = self._extractor.extract_triples(speakers, conversation, speaker1, speaker2,
+            extracted_triples = self._extractor.extract_triples(speakers, conversation, chat.speaker, chat.agent,
                                                                 batch_size=self._batch_size)
             triples = [self._convert_triple(triple_value)
                        for score, triple_value
@@ -349,13 +349,14 @@ class ConversationalAnalyzer(Analyzer):
         turns = list(zip(*utterances_by_speaker))[1]
         conversation = ("<eos>" * min(2, (3 - len(utterances_by_speaker)))) + "<eos>".join(turns)
 
-        speaker1 = speakers[-1] if speakers else None
-        if len(speakers) > 1:
-            speaker2 = speakers[-2]
-        else:
-            speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
+        ##### This should be based on the chat object  and not some obscure order
+        # speaker1 = speakers[-1] if speakers else None
+        # if len(speakers) > 1:
+        #     speaker2 = speakers[-2]
+        # else:
+        #     speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
 
-        return speakers, conversation, speaker1, speaker2
+        return speakers, conversation, chat.speaker, chat.agent
 
     def get_simple_triple(self, triple):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),

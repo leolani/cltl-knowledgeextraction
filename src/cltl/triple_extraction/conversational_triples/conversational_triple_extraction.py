@@ -61,8 +61,10 @@ class AlbertTripleExtractor:
            # speaker_id = (len(turns) - turn_id + 1) % 2
             if speaker==human:
                 speaker_id = 1
-            else:
+            elif speaker==agent:
                 speaker_id = 2
+            else:
+                speaker_id = 1
             if turn:
                 tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
         return tokens
@@ -112,8 +114,8 @@ class AlbertTripleExtractor:
     def extract_triples(self, speakers, dialog, human, agent, post_process=True, batch_size=32, verbose=False):
         """
         :param dialog:       separator-delimited dialogue
-        :param speaker1:       speaker of odd turns
-        :param speaker2:       speaker of even turns
+        :param human:       speaker of odd turns
+        :param human:       speaker of even turns
         :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
         :param batch_size:   If a lot of possible triples exist, batch up processing
         :param verbose:      whether to print messages (True) or be silent (False) (default: False)
@@ -179,14 +181,14 @@ if __name__ == '__main__':
     # Test!
     examples = ["I enjoy watching american football but don\'t like to make homework " + SEP + " what does Mike like to do? " + SEP + " gaming, but I hate cats " + SEP]
     examples = ["Ik vind het leuk om naar voetbal te kijken maar ik hou niet van huiswerk " + SEP + " Wat zou mike graag willen doen? " + SEP + " gaming, maar ik heb een hekel aan katten " + SEP]
-    speakers = ["speaker1", "speaker2", "speaker1"]
+    speakers = ["Thomas", "Leolani", "Thomas"]
     #examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + SEP +  " Do you have any kids of your's own now ? " + SEP + " no " + SEP]
                 #,
                 #'I went to the new university. It was great! '+model._sep+' I like studying too and learning. You? ' + model._sep+ ' No, can afford it!'+model._sep,
                 #'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+model._sep+' Ik hou ook van studeren en leren. Jij? ' +model._sep +' Nee, ik heb het niet nodig!'+model._sep]
     for example in examples:
         print('example', example)
-        for score, triple in model.extract_triples(speakers, example, speaker1="Thomas", speaker2="LEOLANI"):
+        for score, triple in model.extract_triples(speakers, example, human="Thomas", agent="Leolani"):
            print(score, triple)
 
 ### Albert:

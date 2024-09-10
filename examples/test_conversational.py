@@ -27,6 +27,11 @@ if __name__ == "__main__":
     path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
     lang = 'en' if not MULTILINGUAL else 'nl'
+    # Test with monolingual model or multilingual
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
+    base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
+    lang = 'en' if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
@@ -36,12 +41,12 @@ if __name__ == "__main__":
     # Select files to test
     all_test_files = [
         "./data/statements.txt",
-        "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+      #  "./data/perspective.txt",
+      #  "./data/kinship-friends.txt",
+      #  "./data/activities.txt",
+      #  "./data/feelings.txt",
+      #  "./data/locations.txt",
+      #  "./data/professions.txt"
     ]
 
     # Analyze utterances
