@@ -191,7 +191,7 @@ def extract_triples(annotation, neg_oversampling=7, contr_oversampling=0.7, elli
 
 
 def pronoun_to_speaker_id(token, speaker_id):
-    # Even turns -> speaker1
+    # SPEAKER1 == human, SPEAKER2=agent
     if speaker_id == 1:
         if token in ['i', 'me', 'myself', 'we', 'us', 'ourselves']:
             return 'SPEAKER1'
@@ -231,6 +231,7 @@ def pronoun_to_speaker_id(token, speaker_id):
     return token
 
 def pronoun_to_speaker_id_turn(token, turn_idx):
+    # SPEAKER1 == human, SPEAKER2=agent
     # Even turns -> speaker1
     if turn_idx % 2 == 0:
         if token in ['i', 'me', 'myself', 'we', 'us', 'ourselves']:
@@ -271,5 +272,5 @@ def pronoun_to_speaker_id_turn(token, turn_idx):
     return token
 
 
-def speaker_id_to_speaker(string, speaker1, speaker2):
-    return string.replace('SPEAKER1', ' ' + speaker1).replace('SPEAKER2', ' ' + speaker2).strip()
+def speaker_id_to_speaker(string, human, agent):
+    return string.replace('SPEAKER1', ' ' + human).replace('SPEAKER2', ' ' + agent).strip()

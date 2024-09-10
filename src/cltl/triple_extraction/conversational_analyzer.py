@@ -265,7 +265,6 @@ class ConversationalAnalyzer(Analyzer):
                 conversation += " "+self._sep+" Yes"
 
             extracted_triples = self._extractor.extract_triples(speakers, conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
-            print('extracted_triples', extracted_triples)
             for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
                 triples = [self._convert_triple(triple_value)]
                 break
@@ -392,13 +391,15 @@ if __name__ == "__main__":
     collocation
     '''
 
-    model = "resources/conversational_triples"
-
-    analyzer = ConversationalAnalyzer(model)
-    utterances = ["I love cats.", "Do you also love dogs?", "No I do not."]
+    analyzer = ConversationalAnalyzer(model_path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11', base_model='google-bert/bert-base-multilingual-cased', lang="en")
+    agent = "Leolani"
+    human="Lenka"
+    utterances = [{"speaker": human, "utterance": "I love cats.", "dialogue_act": DialogueAct.STATEMENT},
+                  {"speaker": agent, "utterance": "Do you also love dogs?", "dialogue_act": DialogueAct.QUESTION},
+                  {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:
-        chat.add_utterance(utterance)
+        chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"], dialogue_acts=utterance["dialogue_act"])
         analyzer.analyze_in_context(chat)
     for utterance in chat.utterances:
         print(utterance)
