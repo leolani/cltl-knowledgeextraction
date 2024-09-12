@@ -66,39 +66,44 @@ class ConversationalQuestionAnalyzer(Analyzer):
             logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
             return
         triples = []
-        # print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
-        # print('chat.speaker', chat.speaker)
+        #print('chat.last_utterance.utterance_speaker', chat.last_utterance.utterance_speaker)
+        #print('chat.speaker', chat.speaker)
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
 
             self._utterance = chat.last_utterance
-            conversation =""
+            triples = self.ask_for_all(self._utterance, chat.speaker, chat.agent)
+            if not triples:
+                conversation =""
+                speakers = [chat.agent, chat.speaker, chat.agent]
+                if chat.last_utterance.transcript.casefold().startswith("who "):
+                    conversation = self._sep + " **blank** " + self._sep + " Someone" + chat.last_utterance.transcript[3:] + " "+self._sep+"##blank##"
+                else:
+                    conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript
+                    conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript +" " +self._sep+"##blank##"
+                # if chat.last_utterance.transcript.casefold().startswith("who "):
+                #     conversation = "<eos>" + "**blank**" + "<eos>" + "Someone" + chat.last_utterance.transcript[3:] + "<eos>##blank##"
+                # else:
+                #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
+                #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript +"<eos>##blank##"
+                # if not conversation.endswith("?"):
+                #     conversation+="?"
 
-            if chat.last_utterance.transcript.casefold().startswith("who "):
-                conversation = self._sep + " **blank** " + self._sep + " Someone" + chat.last_utterance.transcript[3:] + " "+self._sep+"##blank##"
-            else:
-                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript
-                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript +" " +self._sep+"##blank##"
-            # if chat.last_utterance.transcript.casefold().startswith("who "):
-            #     conversation = "<eos>" + "**blank**" + "<eos>" + "Someone" + chat.last_utterance.transcript[3:] + "<eos>##blank##"
-            # else:
-            #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript
-            #     conversation = "<eos>" +"**blank**"+ "<eos>" + chat.last_utterance.transcript +"<eos>##blank##"
+                # print('chat.speaker', chat.speaker)
+                # print('chat.agent', chat.agent)
+                # print('Conversation input', conversation)
 
-            if not conversation.endswith("?"):
-                conversation+="?"
+                extracted_triples = self._extractor.extract_triples(speakers, conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
+                triples = [self._convert_triple(triple_value)
+                           for triple_value
+                           in extracted_triples]
 
-            # print('chat.speaker', chat.speaker)
-            # print('chat.agent', chat.agent)
-            # print('Conversation input', conversation)
-
-            extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
-            triples = [self._convert_triple(triple_value)
-                       for score, triple_value
-                       in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
-                       if score >= self._threshold]
-            triples = list(filter(None, triples))
-            print('Triples', triples)
+                # triples = [self._convert_triple(triple_value)
+                #            for score, triple_value
+                #            in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
+                #            if score >= self._threshold]
+                triples = list(filter(None, triples))
+               # print('Triples', triples)
         else:
             logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
 
@@ -113,7 +118,25 @@ class ConversationalQuestionAnalyzer(Analyzer):
             logger.debug("triple: %s", triple)
             self._remove_blank(triple)
             chat.last_utterance.triples.append(triple)
-            self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
+            self.set_extracted_values_given_perspective(utterance_type=UtteranceType.QUESTION, triple=triple)
+
+    def ask_for_all(self, utterance, human, agent):
+        triples = []
+        if utterance.casefold().startswith("Tell me all about ") or utterance.casefold().startswith("What do you know about "):
+            tokens = utterance.split()
+            who = tokens[-1]
+            if who.endswith("?"):
+                who = who[:-1]
+            if who.lowercase()=="me":
+                who = human
+            if who.lowercase()=="you":
+                who= agent
+            triple = {"subject": {"label": who, "type": [], "uri": None},
+                      "predicate": {"label": "", "type": [], "uri": None},
+                      "object": {"label": "", "type": [], "uri": None}
+                      }
+            triples.append(triple)
+        return triples
 
     def _remove_blank(self, triple):
         if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" or triple["subject"]['label'] == "someone":
@@ -219,10 +242,7 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-
-    model = "/Users/piek/Desktop/d-Leolani/resources/models/2022-04-27"
-
-    analyzer = ConversationalQuestionAnalyzer(model)
+    analyzer = ConversationalQuestionAnalyzer(model_path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11', base_model='google-bert/bert-base-multilingual-cased', lang="en")
     utterances = [{"speaker": "Lenka", "utterance": "I love cats.", "dialog_act": DialogueAct.STATEMENT},
                   {"speaker": "Leolani", "utterance": "Amazing, I never heard about cats before!", "dialog_act": DialogueAct.STATEMENT},
                   {"speaker": "Lenka", "utterance": "Do you also love dogs?", "dialog_act": DialogueAct.QUESTION}]
@@ -264,15 +284,15 @@ if __name__ == "__main__":
 {"speaker": "Lenka", "utterance": "who works at the university", "dialog_act": DialogueAct.QUESTION}]
 
 
-    speaker1="Leolani"
-    speaker2="Lenka"
+    human="Lenka"
+    agent="Leolani"
     cnt = 0
     unsolved = []
     for utt in utterances:
-        if utt.get('speaker')==speaker2 and utt.get('dialog_act')==DialogueAct.QUESTION:
-            chat = Chat(speaker1, speaker2)
+        if utt.get('speaker')==human and utt.get('dialog_act')==DialogueAct.QUESTION:
+            chat = Chat(agent, human)
             chat.add_utterance(utt.get('utterance'), utt.get('speaker'), utt.get('dialog_act'))
-            analyzer.analyze_question_in_context(chat)
+            analyzer.analyze_in_context(chat)
             if len(chat.last_utterance.triples)>0:
                 cnt+=1
                 print('Final triples', chat.last_utterance.triples)
