@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 qwords_en = ["what", "when", "where", "who", "why", "how"]
 whowords = ["who", "wie"]
-qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was"]
+qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was", "tell", "give", "show", "provide", "list"]
 qwords_nl = ["wat", "wanneer", "waar", "waarom", "hoe"]
 qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "zal", "gaan", "gingen"]
 
