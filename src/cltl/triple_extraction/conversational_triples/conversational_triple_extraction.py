@@ -143,7 +143,8 @@ class AlbertTripleExtractor:
             candidates = [list(triple) for triple in product(subjs, preds, objs)]
         if not candidates:
             return []
-
+        else:
+            print('candidates', candidates)
         if self._max_triples > 0:
             candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
 
@@ -172,6 +173,39 @@ class AlbertTripleExtractor:
 
         return sorted(triples, key=lambda x: -x[0])
 
+    def extract_triples_for_questions(self, speakers, dialog, human, agent, post_process=True, batch_size=32, verbose=False):
+        """
+        :param dialog:       separator-delimited dialogue
+        :param human:       speaker of odd turns
+        :param human:       speaker of even turns
+        :param post_process: Whether to apply rules to fix contractions and strip auxiliaries (like baselines)
+        :param batch_size:   If a lot of possible triples exist, batch up processing
+        :param verbose:      whether to print messages (True) or be silent (False) (default: False)
+        :return:             A list of confidence-triple pairs of the form (confidence, (subj, pred, obj, polarity))
+        """
+        # Assign unambiguous tokens to you/I
+        tokens = self._tokenize_with_speakers(dialog, speakers, human, agent)
+
+        # Extract SPO arguments from token sequence
+        subjs, preds, objs = self._argument_module.predict(tokens)
+
+        logger.debug('subjects:   %s' % subjs)
+        logger.debug('predicates: %s' % preds)
+        logger.debug('objects:    %s\n' % objs)
+
+        # List all possible combinations of arguments
+        # List all possible combinations of arguments
+        if not subjs and preds and objs:
+            candidates = [list(triple) for triple in product({''}, preds, objs)]
+        elif subjs and preds and not objs:
+            candidates = [list(triple) for triple in product(subjs, preds, {''})]
+        elif subjs and not preds and objs:
+            candidates = [list(triple) for triple in product(subjs, {''}, objs)]
+        else:
+            candidates = [list(triple) for triple in product(subjs, preds, objs)]
+        if not candidates:
+            return []
+        return candidates
 
 if __name__ == '__main__':
    # model = AlbertTripleExtractor(path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27', base_model='albert-base-v2', lang='en')
