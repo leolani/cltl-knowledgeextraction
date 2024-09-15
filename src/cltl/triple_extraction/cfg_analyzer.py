@@ -56,7 +56,6 @@ class CFGAnalyzer(Analyzer):
             return
 
         CFGAnalyzer.PARSER.parse(utterance)
-        # print('PIEK checking parser', CFGAnalyzer.PARSER.constituents)
         if not CFGAnalyzer.PARSER.forest:
             logger.warning("Couldn't parse input")
         else:

@@ -135,92 +135,6 @@ class ConversationalAnalyzer(Analyzer):
             self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
 
 
-    def analyze_question_in_context_org(self, chat):
-        """
-        Analyzer factory function
-
-        Find appropriate Analyzer for this utterance
-
-        Parameters
-        ----------
-        utterance: Utterance
-            utterance to be analyzed
-
-        """
-        self._chat = chat
-
-        if (self._dialogue_acts and self.utterance.dialogue_acts
-                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
-            logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
-            return
-        triples = []
-        if chat.last_utterance.utterance_speaker == chat.speaker:
-            self._chat = chat
-            self._utterance = chat.last_utterance
-            conversation =""
-
-            if chat.last_utterance.transcript.casefold().startswith("who ") or chat.last_utterance.transcript.casefold().startswith("wie ") :
-                conversation = self._sep + " **blank** " + self._sep + " Someone" + chat.last_utterance.transcript[3:] + " "+self._sep+"##blank##"
-            else:
-                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript
-                conversation = self._sep +" **blank** "+ self._sep + " " + chat.last_utterance.transcript +" " +self._sep+"##blank##"
-
-            if not conversation.endswith("?"):
-                conversation+="?"
-
-            extracted_triples = self._extractor.extract_triples(conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
-            triples = [self._convert_triple(triple_value)
-                       for score, triple_value
-                       in sorted(extracted_triples, key=lambda r: r[0], reverse=True)
-                       if score >= self._threshold]
-            triples = list(filter(None, triples))
-        else:
-            logger.debug('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
-
-        if not triples:
-            logger.warning("Couldn't extract triples")
-
-        for triple in triples:
-            logger.debug("triple: %s", triple)
-            self._remove_blank(triple)
-            chat.last_utterance.triples.append(triple)
-            self.set_extracted_values_given_perspective(utterance_type=UtteranceType.QUESTION, triple=triple)
-
-    def _remove_blank_org(self, triple):
-        if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" or triple["subject"]['label'] == "someone":
-            triple["subject"]['label'] = ""
-        elif "**blank**-" in triple["subject"]['label']:
-            triple["subject"]['label'] = triple["subject"]['label'].replace("**blank**-", "")
-        elif "-**blank**" in triple["subject"]['label']:
-            triple["subject"]['label'] = triple["subject"]['label'].replace("-**blank**", "")
-        elif "blank-" in triple["subject"]['label']:
-            triple["subject"]['label'] = triple["subject"]['label'].replace("blank-", "")
-        elif "-blank" in triple["subject"]['label']:
-            triple["subject"]['label'] = triple["subject"]['label'].replace("-blank", "")
-
-        if triple["object"]['label'] == "**blank**" or triple["object"]['label'] == "blank":
-            triple["object"]['label'] = ""
-        elif "**blank**-" in triple["object"]['label']:
-            triple["object"]['label'] = triple["object"]['label'].replace("**blank**-", "")
-        elif "-**blank**" in triple["object"]['label']:
-            triple["object"]['label'] = triple["object"]['label'].replace("-**blank**", "")
-        elif "blank-" in triple["object"]['label']:
-            triple["object"]['label'] = triple["object"]['label'].replace("blank-", "")
-        elif "-blank" in triple["object"]['label']:
-            triple["object"]['label'] = triple["object"]['label'].replace("-blank", "")
-
-        if triple["predicate"]['label'] == "**blank**" or triple["predicate"]['label'] == "blank":
-            triple["predicate"]['label'] = ""
-        elif "**blank**-" in triple["predicate"]['label']:
-            triple["predicate"]['label'] = triple["predicate"]['label'].replace("**blank**-", "")
-        elif "-**blank**" in triple["predicate"]['label']:
-            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-**blank**", "")
-        elif "blank-" in triple["predicate"]['label']:
-            triple["predicate"]['label'] = triple["predicate"]['label'].replace("blank-", "")
-        elif "-blank" in triple["predicate"]['label']:
-            triple["predicate"]['label'] = triple["predicate"]['label'].replace("-blank", "")
-        return triple
-
 
     def analyze_question_in_context(self, chat):
         """
@@ -315,6 +229,7 @@ class ConversationalAnalyzer(Analyzer):
                       }
             triples.append(triple)
         return triples
+
 
     def _remove_blank(self, triple):
         if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" \
