@@ -7,7 +7,7 @@ sys.path.append('predicate_normalization')
 from cltl.triple_extraction.conversational_triples.argument_extraction import ArgumentExtraction
 from cltl.triple_extraction.conversational_triples.triple_scoring import TripleScoring
 from cltl.triple_extraction.conversational_triples.post_processing import PostProcessor
-from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker, speaker_id_to_speaker, \
+from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker,pronoun_to_speaker_id,  speaker_id_to_speaker, \
     bio_tags_to_tokens
 from itertools import product
 import spacy
@@ -58,13 +58,13 @@ class AlbertTripleExtractor:
 
         # Tokenize each turn separately (and splitting "n't" off)
         tokens = []
-        print('SPEAKERS AND TURNS', speakers, turns)
+        #print('SPEAKERS AND TURNS', speakers, turns)
         for speaker, turn in zip(speakers, turns):
             # Assign speaker ID to turns
             if turn:
-                print('speaker', speaker, 'turn', turn)
+                #print('speaker', speaker, 'turn', turn)
                 tokens += [pronoun_to_speaker(t.lower_, speaker, human, agent) for t in self._nlp(turn)] + [self._sep]
-                print('tokens', tokens)
+                #print('tokens', tokens)
         return tokens
 
     def _tokenize_with_speaker_ids(self, dialog, speakers, human, agent):
@@ -79,7 +79,7 @@ class AlbertTripleExtractor:
 
         # Tokenize each turn separately (and splitting "n't" off)
         tokens = []
-        print('SPEAKERS AND TURNS', speakers, turns)
+        #print('SPEAKERS AND TURNS', speakers, turns)
         for speaker, turn in zip(speakers, turns):
             # Assign speaker ID to turns
             ##### in the conversational triple analyzer speaker 1 is the human and speaker 2 is the agent
@@ -90,12 +90,9 @@ class AlbertTripleExtractor:
             else:
                 speaker_id = 1
             if turn:
-                print('turn', turn)
-                for t in self._nlp(turn):
-                    tokens += pronoun_to_speaker_id(t.lower_, speaker_id)
-                tokens += [self._sep]
-                # tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
-                print('tokens', tokens)
+                #print('turn', turn)
+                tokens += [pronoun_to_speaker_id(t.lower_, speaker_id) for t in self._nlp(turn)] + [self._sep]
+                #print('tokens', tokens)
         return tokens
 
     def _tokenize(self, dialog):
@@ -172,8 +169,6 @@ class AlbertTripleExtractor:
             candidates = [list(triple) for triple in product(subjs, preds, objs)]
         if not candidates:
             return []
-        else:
-            print('candidates', candidates)
         if self._max_triples > 0:
             candidates = candidates[:int(math.ceil(self._max_triples / batch_size)) * batch_size]
 
@@ -212,7 +207,7 @@ class AlbertTripleExtractor:
         """
         # Assign unambiguous tokens to you/I
         tokens = self._tokenize_with_speakers(dialog, speakers, human, agent)
-        print('tokens with speakers', tokens)
+        #print('tokens with speakers', tokens)
         # Extract SPO arguments from token sequence
         subjs, preds, objs = self._argument_module.predict(tokens)
 
@@ -233,7 +228,7 @@ class AlbertTripleExtractor:
         if not candidates:
             return []
         for candidate in candidates:
-            print('candidate', candidate)
+           # print('candidate', candidate)
             candidate[0] = speaker_id_to_speaker(candidate[0], human, agent)
             candidate[2] = speaker_id_to_speaker(candidate[2], human, agent)
         return candidates
