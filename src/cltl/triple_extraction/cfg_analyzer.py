@@ -68,7 +68,7 @@ class CFGAnalyzer(Analyzer):
                     if sentence_type == 'S':
                         analyzer = StatementAnalyzer()
                         analyzer.analyze(utterance)
-                    elif sentence_type == 'Q' and self._process_questions:
+                    elif sentence_type == 'Q': # and self._process_questions:
                         analyzer = QuestionAnalyzer()
                         analyzer.analyze(utterance)
                     elif self._process_questions:
