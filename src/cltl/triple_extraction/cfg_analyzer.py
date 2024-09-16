@@ -37,9 +37,9 @@ class CFGAnalyzer(Analyzer):
         return self._utterance
 
     def analyze_in_context(self, chat: Chat):
-        self.analyze(chat.last_utterance)
+        self.analyze(chat)
 
-    def analyze(self, utterance):
+    def analyze(self, chat):
         """
         CFGAnalyzer factory function
 
@@ -51,11 +51,11 @@ class CFGAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        self._utterance = utterance
+        self._utterance = chat.last_utterance
         # if not self._process_questions and DialogueAct.QUESTION in utterance.dialogue_acts:
         #     return
 
-        CFGAnalyzer.PARSER.parse(utterance)
+        CFGAnalyzer.PARSER.parse(self._utterance)
         if not CFGAnalyzer.PARSER.forest:
             logger.warning("Couldn't parse input")
         else:
@@ -67,10 +67,10 @@ class CFGAnalyzer(Analyzer):
                 try:
                     if sentence_type == 'S':
                         analyzer = StatementAnalyzer()
-                        analyzer.analyze(utterance)
-                    elif sentence_type == 'Q': # and self._process_questions:
+                        analyzer.analyze(self._utterance)
+                    elif sentence_type == 'Q':  # and self._process_questions:
                         analyzer = QuestionAnalyzer()
-                        analyzer.analyze(utterance)
+                        analyzer.analyze(chat)
                     elif self._process_questions:
                         logger.warning("Unsupported sentence type: %s", sentence_type)
                 except Exception as e:
@@ -122,7 +122,7 @@ class CFGAnalyzer(Analyzer):
         triple = self.analyze_np(triple)
         logger.debug('after NP: {}'.format(triple))
         # Analyze object
-        if not triple['object']==None:
+        if not triple['object'] == None:
             if len(triple['object'].split('-')) > 1:  # multi-word object, consisting of a phrase
                 logger.debug('multi-word object, consisting of a phrase', triple['object'])
                 triple = self.analyze_multiword_complement(triple)
@@ -205,7 +205,8 @@ class CFGAnalyzer(Analyzer):
                                                  'piek']:
                                 final_type.append('person')
                             elif typ.capitalize() == typ:
-                                final_type.append('None') ## This was person before, now it should trigger the type infenence function in the brain
+                                final_type.append(
+                                    'None')  ## This was person before, now it should trigger the type infenence function in the brain
                             else:
                                 node = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, typ)
                                 if node in ['IN', 'TO']:
@@ -233,10 +234,11 @@ class CFGAnalyzer(Analyzer):
                     if triple[el]['text'].lower() in ['leolani']:
                         triple[el]['type'] = ['robot']
                     elif triple[el]['text'].lower() in ['lenka', 'selene', 'suzana', 'bram', 'thomas', 'jaap', 'lea',
-                                                 'piek']:
+                                                        'piek']:
                         triple[el]['type'] = ['person']
                     elif triple[el]['text'].capitalize() == triple[el]['text']:
-                        triple[el]['type'] = ['None']  ## This was person before, now it should trigger the type infenence function in the brain
+                        triple[el]['type'] = [
+                            'None']  ## This was person before, now it should trigger the type infenence function in the brain
                 elif 'proximity' in entry:
                     triple[el]['type'] = ['deictic']
 
@@ -244,17 +246,17 @@ class CFGAnalyzer(Analyzer):
 
     def get_kinship(self, triple, utterance_info):
         kinship_word = ""
-        if triple['predicate']=="be" or triple['predicate']=="is":
+        if triple['predicate'] == "be" or triple['predicate'] == "is":
             predicate, kinship_word = lexicon_lookup_subword(triple['subject'], 'kinship')
             if predicate and kinship_word:
-                triple['predicate']= predicate
+                triple['predicate'] = predicate
                 first = triple['subject'].split("-")[0].lower()
                 last = triple['subject'].split("-")[-1]
                 triple['subject'] = triple['object']
-                if first=='my':
-                    triple['object'] =self.utterance._chat_speaker
-                elif first=="your":
-                    triple['object'] =self.utterance._chat_agent
+                if first == 'my':
+                    triple['object'] = self.utterance._chat_speaker
+                elif first == "your":
+                    triple['object'] = self.utterance._chat_agent
                 else:
                     triple['object'] = first
                 logger.debug('s-kinship', triple)
@@ -262,17 +264,17 @@ class CFGAnalyzer(Analyzer):
                 predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
                 if predicate and kinship_word:
                     # my kinship is obj
-                    triple['predicate']= predicate
+                    triple['predicate'] = predicate
                     first = triple['object'].split("-")[0].lower()
                     if first == 'my':
                         triple['object'] = self.utterance._chat_speaker
                     elif first == 'your':
                         triple['object'] = self.utterance._chat_agent
                 logger.debug('o-kinship', triple)
-        elif triple['predicate']=="have" or triple['predicate']=="has":
+        elif triple['predicate'] == "have" or triple['predicate'] == "has":
             # my kinship is obj
             predicate, kinship_word = lexicon_lookup_subword(triple['object'], 'kinship')
-            if  predicate and kinship_word:
+            if predicate and kinship_word:
                 triple['predicate'] = predicate
                 last = triple['object'].split("-")[-1]
                 if triple['subject'].lower() == 'i':
@@ -281,12 +283,13 @@ class CFGAnalyzer(Analyzer):
                     triple['object'] = self.utterance._chat_agent
                 else:
                     triple['object'] = triple['subject']
-                if not last==kinship_word:
+                if not last == kinship_word:
                     triple['subject'] = last
                 else:
                     triple['subject'] = 'someone'
                 logger.debug('o-kinship', triple)
-        elif triple['predicate']=="is-named" or triple['predicate']=="is-called" or triple['predicate']=="is-married":
+        elif triple['predicate'] == "is-named" or triple['predicate'] == "is-called" or triple[
+            'predicate'] == "is-married":
             predicate, kinship_word = lexicon_lookup_subword(triple['subject'], 'kinship')
             if predicate and kinship_word:
                 triple['predicate'] = predicate
@@ -304,78 +307,79 @@ class CFGAnalyzer(Analyzer):
 
     def get_activity(self, triple, utterance_info):
         activity_word = ""
-        if (lemmatize(triple['predicate'], 'v')=="be" or
-            lemmatize(triple['predicate'], 'v')=="be-at" or
-            lemmatize(triple['predicate'], 'v')=="be-to" or
-            lemmatize(triple['predicate'], 'v')=="have-been" or
-            lemmatize(triple['predicate'], 'v')=="has-been" or
-            lemmatize(triple['predicate'], 'v')=="was-at" or
-            lemmatize(triple['predicate'], 'v')=="was-to" or
-            lemmatize(triple['predicate'], 'v')=="were-at" or
-            lemmatize(triple['predicate'], 'v')=="were-to" or
-            lemmatize(triple['predicate'], 'v')=="am-at" or
-            lemmatize(triple['predicate'], 'v')=="am-to" or
-            lemmatize(triple['predicate'], 'v')=="go" or
-            lemmatize(triple['predicate'], 'v')=="went" or
-            lemmatize(triple['predicate'], 'v')=="go-to" or
-            lemmatize(triple['predicate'], 'v')=="went-to" or
-            lemmatize(triple['predicate'], 'v')=="attend" or
-            lemmatize(triple['predicate'], 'v')=="attended" or
-            lemmatize(triple['predicate'], 'v')=="watch" or
-            lemmatize(triple['predicate'], 'v')=="watched" or
-            lemmatize(triple['predicate'], 'v')=="watching" or
-            lemmatize(triple['predicate'], 'v')=="see" or
-            lemmatize(triple['predicate'], 'v')=="seeing" or
-            lemmatize(triple['predicate'], 'v')=="saw" or
-            lemmatize(triple['predicate'], 'v')=="play" or
-            lemmatize(triple['predicate'], 'v')=="plays" or
-            lemmatize(triple['predicate'], 'v')=="played" or
-            lemmatize(triple['predicate'], 'v')=="visit" or
-            lemmatize(triple['predicate'], 'v')=="visits" or
-            lemmatize(triple['predicate'], 'v')=="visited" or
-            lemmatize(triple['predicate'], 'v')=="listen" or
-            lemmatize(triple['predicate'], 'v')=="listens" or
-            lemmatize(triple['predicate'], 'v')=="listening" or
-            lemmatize(triple['predicate'], 'v')=="listen-to"):
+        if (lemmatize(triple['predicate'], 'v') == "be" or
+                lemmatize(triple['predicate'], 'v') == "be-at" or
+                lemmatize(triple['predicate'], 'v') == "be-to" or
+                lemmatize(triple['predicate'], 'v') == "have-been" or
+                lemmatize(triple['predicate'], 'v') == "has-been" or
+                lemmatize(triple['predicate'], 'v') == "was-at" or
+                lemmatize(triple['predicate'], 'v') == "was-to" or
+                lemmatize(triple['predicate'], 'v') == "were-at" or
+                lemmatize(triple['predicate'], 'v') == "were-to" or
+                lemmatize(triple['predicate'], 'v') == "am-at" or
+                lemmatize(triple['predicate'], 'v') == "am-to" or
+                lemmatize(triple['predicate'], 'v') == "go" or
+                lemmatize(triple['predicate'], 'v') == "went" or
+                lemmatize(triple['predicate'], 'v') == "go-to" or
+                lemmatize(triple['predicate'], 'v') == "went-to" or
+                lemmatize(triple['predicate'], 'v') == "attend" or
+                lemmatize(triple['predicate'], 'v') == "attended" or
+                lemmatize(triple['predicate'], 'v') == "watch" or
+                lemmatize(triple['predicate'], 'v') == "watched" or
+                lemmatize(triple['predicate'], 'v') == "watching" or
+                lemmatize(triple['predicate'], 'v') == "see" or
+                lemmatize(triple['predicate'], 'v') == "seeing" or
+                lemmatize(triple['predicate'], 'v') == "saw" or
+                lemmatize(triple['predicate'], 'v') == "play" or
+                lemmatize(triple['predicate'], 'v') == "plays" or
+                lemmatize(triple['predicate'], 'v') == "played" or
+                lemmatize(triple['predicate'], 'v') == "visit" or
+                lemmatize(triple['predicate'], 'v') == "visits" or
+                lemmatize(triple['predicate'], 'v') == "visited" or
+                lemmatize(triple['predicate'], 'v') == "listen" or
+                lemmatize(triple['predicate'], 'v') == "listens" or
+                lemmatize(triple['predicate'], 'v') == "listening" or
+                lemmatize(triple['predicate'], 'v') == "listen-to"):
             predicate, activity_word = lexicon_lookup_subword(triple['object'], 'activities')
             if predicate and activity_word:
                 triple['predicate'] = predicate
-                triple['object'] =  activity_word
+                triple['object'] = activity_word
                 logger.debug('o-activity', triple)
         return triple, utterance_info, activity_word
 
-
     def get_condition(self, triple, utterance_info):
         condition_word = ""
-        if triple['predicate']=="be" or triple['predicate']=="am" or triple['predicate']=="is" or triple['predicate']=="was":
-            predicate,  condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
+        if triple['predicate'] == "be" or triple['predicate'] == "am" or triple['predicate'] == "is" or triple[
+            'predicate'] == "was":
+            predicate, condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
             if predicate and condition_word:
-                triple['predicate']=  predicate
-                triple['object'] =  condition_word
+                triple['predicate'] = predicate
+                triple['object'] = condition_word
                 logger.debug('o-condition', triple)
-        elif triple['predicate']=="feel" or triple['predicate']=="feels" or triple['predicate']=="felt":
+        elif triple['predicate'] == "feel" or triple['predicate'] == "feels" or triple['predicate'] == "felt":
             # my kinship is obj
-            predicate,  condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
+            predicate, condition_word = lexicon_lookup_subword(triple['object'], 'feelings')
             if predicate and condition_word:
-                triple['predicate'] =  predicate
-                triple['object'] =  condition_word
+                triple['predicate'] = predicate
+                triple['object'] = condition_word
                 logger.debug('o-condition', triple)
             logger.debug('predicative reading triple', triple)
         return triple, utterance_info, condition_word
 
     def get_location(self, triple, utterance_info):
         container_word = ""
-        if lemmatize(triple['predicate'], 'v')=="be" and ( triple['object'].startswith("in-") or triple['object'].startswith("on-")):
+        if lemmatize(triple['predicate'], 'v') == "be" and (
+                triple['object'].startswith("in-") or triple['object'].startswith("on-")):
             container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
             if container_word:
-                triple['predicate']= "be-inside"
+                triple['predicate'] = "be-inside"
                 ### We keep the full object phrase, take out comment to use the container word
                 ##triple['object'] =  container_word
                 logger.debug('container_word', triple)
-        elif lemmatize(triple['predicate'], 'v')=="be" and triple['object'].startswith("next-to-"):
+        elif lemmatize(triple['predicate'], 'v') == "be" and triple['object'].startswith("next-to-"):
             container_word = lexicon_lookup_subword_class(triple['object'], 'containers')
             if container_word:
-                triple['predicate']= "be-next-to"
+                triple['predicate'] = "be-next-to"
                 ### We keep the full object phrase, take out comment to use the container word
                 ##triple['object'] =  container_word
                 triple['object'] = triple['object'].split('next-to-')[1]
@@ -384,14 +388,14 @@ class CFGAnalyzer(Analyzer):
 
     def get_profession(self, triple, utterance_info):
         profession_word = ""
-        if lemmatize(triple['predicate'], 'v')=="be":
+        if lemmatize(triple['predicate'], 'v') == "be":
             profession_word = lexicon_lookup_subword_class(triple['object'], 'professions')
             if profession_word:
-                triple['predicate']= "work-as"
-                triple['object'] =  profession_word
+                triple['predicate'] = "work-as"
+                triple['object'] = profession_word
                 logger.debug('container_word', triple)
-        if lemmatize(triple['predicate'], 'v')=="work" and triple['object'].startswith("as-"):
-            triple['predicate']= "work-as"
+        if lemmatize(triple['predicate'], 'v') == "work" and triple['object'].startswith("as-"):
+            triple['predicate'] = "work-as"
             triple['object'] = profession_word
             logger.debug('predicative reading triple', triple)
         return triple, utterance_info, profession_word
@@ -412,8 +416,8 @@ class CFGAnalyzer(Analyzer):
             if triple['predicate'].startswith("does-"):
                 triple['predicate'] = triple['predicate'][5:]
             elif triple['predicate'].startswith("do-"):
-                triple['predicate']= triple['predicate'][3:]
-                
+                triple['predicate'] = triple['predicate'][3:]
+
             if len(triple['predicate'].split('-')) == 1:
                 # prepositions are joined to the predicate and removed from the object
                 label = get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate'])
@@ -500,7 +504,8 @@ class CFGAnalyzer(Analyzer):
                 triple['subject'] = triple['subject'].replace('not-', '')
 
         else:  # one word subject
-            triple['subject'] = fix_pronouns(triple['subject'], self.utterance._chat_speaker, self.utterance._chat_agent)
+            triple['subject'] = fix_pronouns(triple['subject'], self.utterance._chat_speaker,
+                                             self.utterance._chat_agent)
         return triple
 
     def analyze_possessive(self, triple, element):
@@ -566,7 +571,8 @@ class CFGAnalyzer(Analyzer):
         """
         if lexicon_lookup(triple['predicate'], 'aux') or lexicon_lookup(triple['predicate'], 'modal'):
             triple['predicate'] += '-be-' + triple['object'].split('-')[0]
-        elif len(triple['predicate'].split("-")) == 1:  ## this checks prevents that predicate that are already augmented with particles are not extended
+        elif len(triple['predicate'].split(
+                "-")) == 1:  ## this checks prevents that predicate that are already augmented with particles are not extended
             triple['predicate'] += '-' + triple['object'].split('-')[0]
         triple['object'] = triple['object'].replace(triple['object'].split('-')[0], '', 1)[1:]
         return triple
@@ -589,7 +595,8 @@ class CFGAnalyzer(Analyzer):
                 triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['object'] = fix_pronouns(triple['object'], self.utterance._chat_speaker, self.utterance._chat_agent)
+                triple['object'] = fix_pronouns(triple['object'], self.utterance._chat_speaker,
+                                                self.utterance._chat_agent)
         elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['subject']).startswith('V') \
                 and get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate']) == 'MD':
             triple['predicate'] += '-' + triple['subject']
@@ -606,7 +613,8 @@ class CFGAnalyzer(Analyzer):
         # TODO
         if lexicon_lookup(triple['object']) and 'person' in lexicon_lookup(triple['object']):
             if triple['predicate'] == 'be':
-                subject = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
+                subject = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker,
+                                       self.utterance._chat_agent)
                 pred = ''
                 for el in triple['subject'].split('-')[1:]:
                     pred += el + '-'
@@ -614,7 +622,8 @@ class CFGAnalyzer(Analyzer):
                 triple['object'] = triple['subject'].split('-')[0]
                 triple['subject'] = subject
             else:
-                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker, self.utterance._chat_agent)
+                triple['object'] = fix_pronouns(triple['object'].lower(), self.utterance._chat_speaker,
+                                                self.utterance._chat_agent)
         elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['object']).startswith('V') \
                 and get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, triple['predicate']) == 'MD':
             triple['predicate'] += '-' + triple['object']
@@ -707,31 +716,31 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         ## This is now a cascade, we could change this to get a list of triples and either vote or take them all
         if not preempted:
             triple, utterance_info, preempted = self.get_activity(triple, utterance_info)
-            if preempted: logger.debug('ACTIVITY TRIPLE',  preempted,triple)
+            if preempted: logger.debug('ACTIVITY TRIPLE', preempted, triple)
             if not preempted:
                 triple, utterance_info, preempted = self.get_condition(triple, utterance_info)
-                if preempted: logger.debug('CONDITION TRIPLE',  preempted,triple)
+                if preempted: logger.debug('CONDITION TRIPLE', preempted, triple)
                 if not preempted:
                     triple, utterance_info, preempted = self.get_location(triple, utterance_info)
-                    if preempted: logger.debug('LOCATION TRIPLE',  preempted,triple)
+                    if preempted: logger.debug('LOCATION TRIPLE', preempted, triple)
                     if not preempted:
                         triple, utterance_info, preempted = self.get_profession(triple, utterance_info)
-                        if preempted: logger.debug('PROFESSION TRIPLE',  preempted,triple)
+                        if preempted: logger.debug('PROFESSION TRIPLE', preempted, triple)
         if preempted:
-                triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
-                logger.debug('PREEMPTED TRIPLE', triple)
+            triple, utterance_info = self.fix_triple_details_subject_object(triple, utterance_info)
+            logger.debug('PREEMPTED TRIPLE', triple)
         else:
-             # Fix phrases and multiword information
-             triple, utterance_info = self.fix_triple_details(triple, utterance_info)
-             logger.debug('Fixed TRIPLE', triple)
+            # Fix phrases and multiword information
+            triple, utterance_info = self.fix_triple_details(triple, utterance_info)
+            logger.debug('Fixed TRIPLE', triple)
 
         # Extract perspective
         perspective = self.extract_perspective(triple['predicate']['label'], utterance_info)
-        triple.update({'perspective':perspective})
+        triple.update({'perspective': perspective})
         # Final triple assignment
         logger.info('final triple: {} {}'.format(triple, utterance_info))
         self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
-        #self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
+        # self.set_extracted_values(utterance_type=UtteranceType.STATEMENT, triple=triple, perspective=perspective)
 
     def initialize_triple(self):
 
@@ -855,6 +864,48 @@ class ObjectStatementAnalyzer(StatementAnalyzer):
 
         super().__init__()
 
+
+def pronoun_to_speaker(token, speaker, human, agent):
+    #print('speaker', speaker)
+    if speaker == human:
+        if token in ['I', 'i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return human
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return human + "'s"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return agent
+        elif token in ['your', 'yours']:
+            return agent + "'s"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return human
+        elif token in ['mijn', 'mijne', 'onze']:
+            return human + "'s"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return agent
+        elif token in ['jouw']:
+            return agent + "'s"
+    elif speaker == agent:
+        if token in ['I', 'i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return agent
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return agent + "'s"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return human
+        elif token in ['your', 'yours']:
+            return human + "'s"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return agent
+        elif token in ['mijn', 'mijne', 'onze']:
+            return agent + "'s"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return human
+        elif token in ['jouw']:
+            return human + "'s"
+    return token
+
+
 class QuestionAnalyzer(CFGAnalyzer):
     """Abstract QuestionAnalyzer Object: call QuestionAnalyzer.analyze(utterance) factory function"""
 
@@ -868,7 +919,7 @@ class QuestionAnalyzer(CFGAnalyzer):
 
         super().__init__()
 
-    def analyze(self, utterance):
+    def analyze(self, chat):
         """
         QuestionAnalyzer factory function
 
@@ -880,17 +931,21 @@ class QuestionAnalyzer(CFGAnalyzer):
             utterance to be analyzed
         """
 
-        self._utterance = utterance
+        self._utterance = chat.last_utterance
 
-        if utterance.tokens:
-            first_word = utterance.tokens[0]
+        if self._utterance.tokens:
+            first_word = self._utterance.tokens[0]
             if first_word.lower() in CFGAnalyzer.LEXICON['question words']:
                 analyzer = WhQuestionAnalyzer()
-                analyzer.analyze(utterance)
-
+                analyzer.analyze(self._utterance)
             else:
                 analyzer = VerbQuestionAnalyzer()
-                analyzer.analyze(utterance)
+                analyzer.analyze(self._utterance)
+            for triple in self._utterance.triples:
+                triple['subject']['label'] = pronoun_to_speaker(triple['subject']['label'],
+                                                                self.utterance._chat_speaker, chat.speaker, chat.agent)
+                triple['object']['label'] = pronoun_to_speaker(triple['object']['label'], self.utterance._chat_speaker,
+                                                               chat.speaker, chat.agent)
 
 
 class WhQuestionAnalyzer(QuestionAnalyzer):

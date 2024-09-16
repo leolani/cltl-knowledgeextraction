@@ -11,12 +11,12 @@ from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 
 logger = logging.getLogger(__name__)
 
-
 qwords_en = ["what", "when", "where", "who", "why", "how"]
 whowords = ["who", "wie"]
 qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was", "tell", "give", "show", "provide", "list"]
 qwords_nl = ["wat", "wanneer", "waar", "waarom", "hoe"]
 qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "zal", "gaan", "gingen"]
+
 
 class ConversationalAnalyzer(Analyzer):
     def __init__(self, model_path: str, base_model: str, threshold: float = 0.8, max_triples: int = 0,
@@ -72,12 +72,11 @@ class ConversationalAnalyzer(Analyzer):
 
     def is_question(self, transcript):
         words = transcript.split()
-        if words[0].lower() in qwords_en+qwords_nl+qverbs_en+qverbs_nl+whowords:
+        if words[0].lower() in qwords_en + qwords_nl + qverbs_en + qverbs_nl + whowords:
             return True
-        if words[-1]=="?":
+        if words[-1] == "?":
             return True
         return False
-
 
     def analyze_in_context(self, chat):
         """
@@ -92,10 +91,10 @@ class ConversationalAnalyzer(Analyzer):
 
         """
         if self.is_question(chat.last_utterance.transcript):
-            chat.last_utterance.dialogue_acts=[UtteranceType.QUESTION]
+            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
             self.analyze_question_in_context(chat)
         else:
-            chat.last_utterance.dialogue_acts=[UtteranceType.STATEMENT]
+            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
             self.analyze_statement_in_context(chat)
 
     def analyze_statement_in_context(self, chat):
@@ -134,8 +133,6 @@ class ConversationalAnalyzer(Analyzer):
             logger.debug("triple: %s", triple)
             self.set_extracted_values_given_perspective(utterance_type=UtteranceType.STATEMENT, triple=triple)
 
-
-
     def analyze_question_in_context(self, chat):
         """
         Analyzer factory function
@@ -161,38 +158,59 @@ class ConversationalAnalyzer(Analyzer):
 
             triples = self.ask_for_all(self._utterance, chat.speaker, chat.agent)
             if not triples:
-                    # Dummy list of speakers
-                    speakers = [chat.agent, chat.speaker, chat.agent]
-                    pos = self._utterance.transcript.index(" ")
-                    first_word = self._utterance.transcript[:pos]
-                    if first_word.lower() in whowords:
-                        conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                        if not conversation.endswith("?"):
-                            conversation += "?"
-                        conversation += " "+self._sep+" Joe"
-                    elif first_word.lower() in qwords_nl+qwords_en:
-                        conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                        if not conversation.endswith("?"):
-                            conversation += "?"
-                        conversation += " "+self._sep+" Something"
-                    elif first_word.lower() in qverbs_en+qverbs_nl:
-                        conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                        if not conversation.endswith("?"):
-                             conversation += "?"
-                        conversation += " "+self._sep+" Yes"
+                # Dummy list of speakers
+                speakers = [chat.agent, chat.speaker, chat.agent]
 
-                    extracted_triples = self._extractor.extract_triples(speakers, conversation, chat.speaker, chat.agent, batch_size=self._batch_size)
+                speakers = [chat.speaker, chat.agent]
+                pos = self._utterance.transcript.index(" ")
+                first_word = self._utterance.transcript[:pos]
+                #                     if first_word.lower() in whowords:
+                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                #                         if not conversation.endswith("?"):
+                #                             conversation += "?"
+                #                         conversation += " "+self._sep+" Joe"
+                #                     elif first_word.lower() in qwords_nl+qwords_en:
+                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                #                         if not conversation.endswith("?"):
+                #                             conversation += "?"
+                #                         conversation += " "+self._sep+" Something"
+                #                     elif first_word.lower() in qverbs_en+qverbs_nl:
+                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
+                #                         if not conversation.endswith("?"):
+                #                              conversation += "?"
+                #                         conversation += " "+self._sep+" Yes"
 
-                    ##### We do not need to score these triples since we use dummies
-                    # for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
-                    #     triples = [self._convert_triple(triple_value)]
-                    #     break
-                    for triple_value in extracted_triples:
-                        triples = [self._convert_triple(triple_value)]
+                if first_word.lower() in whowords:
+                    conversation = self._utterance.transcript
+                    if not conversation.endswith("?"):
+                        conversation += "?"
+                    conversation += " " + self._sep + " Joe"
+                elif first_word.lower() in qwords_nl + qwords_en:
+                    conversation = self._utterance.transcript
+                    if not conversation.endswith("?"):
+                        conversation += "?"
+                    conversation += " " + self._sep + " Something"
+                elif first_word.lower() in qverbs_en + qverbs_nl:
+                    conversation = elf._utterance.transcript
+                    if not conversation.endswith("?"):
+                        conversation += "?"
+                    conversation += " " + self._sep + " Yes"
+
+                extracted_triples = self._extractor.extract_triples_for_questions(speakers=speakers,
+                                                                                  dialog=conversation,
+                                                                                  human=chat.speaker, agent=chat.agent)
+
+                ##### We do not need to score these triples since we use dummies
+                # for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
+                #     triples = [self._convert_triple(triple_value)]
+                #     break
+                for triple_value in extracted_triples:
+                    triples = [self._convert_triple(triple_value)]
             # end of else:
             triples = list(filter(None, triples))
         else:
-            logger.warning('This is not from the human speaker', chat.speaker, ' but from:', chat.last_utterance.utterance_speaker )
+            logger.warning('This is not from the human speaker', chat.speaker, ' but from:',
+                           chat.last_utterance.utterance_speaker)
 
         if not triples:
             logger.warning("Couldn't extract triples")
@@ -216,12 +234,12 @@ class ConversationalAnalyzer(Analyzer):
             who = tokens[-1]
             if who.endswith("?"):
                 who = who[:-1]
-            if who.lower()=="me":
+            if who.lower() == "me":
                 who = human
-            elif who.lower()=="you":
-                who= agent
+            elif who.lower() == "you":
+                who = agent
             elif who.lower().startswith("your"):
-                who= agent
+                who = agent
             triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                       "predicate": {"label": "", "type": ["n2mu"], "uri": None},
                       "object": {"label": "", "type": [], "uri": None},
@@ -229,7 +247,6 @@ class ConversationalAnalyzer(Analyzer):
                       }
             triples.append(triple)
         return triples
-
 
     def _remove_blank(self, triple):
         if triple["subject"]['label'] == "**blank**" or triple["subject"]['label'] == "blank" \
@@ -246,7 +263,8 @@ class ConversationalAnalyzer(Analyzer):
         elif "-blank" in triple["subject"]['label']:
             triple["subject"]['label'] = triple["subject"]['label'].replace("-blank", "")
 
-        if triple["object"]['label'] == "**blank**" or triple["object"]['label'] == "blank" or triple["object"]['label'] == "something":
+        if triple["object"]['label'] == "**blank**" or triple["object"]['label'] == "blank" or triple["object"][
+            'label'] == "something":
             triple["object"]['label'] = ""
         elif "**blank**-" in triple["object"]['label']:
             triple["object"]['label'] = triple["object"]['label'].replace("**blank**-", "")
@@ -307,7 +325,7 @@ class ConversationalAnalyzer(Analyzer):
         simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
                          'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
                          'object': triple['object']['label'].replace(" ", "-").replace('---', '-'),
-                         'perspective': triple['perspective']}
+                         'perspective': self.extract_perspective()}
         return simple_triple
 
     def extract_perspective(self):
@@ -337,15 +355,18 @@ if __name__ == "__main__":
     collocation
     '''
 
-    analyzer = ConversationalAnalyzer(model_path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11', base_model='google-bert/bert-base-multilingual-cased', lang="en")
+    analyzer = ConversationalAnalyzer(
+        model_path='/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11',
+        base_model='google-bert/bert-base-multilingual-cased', lang="en")
     agent = "Leolani"
-    human="Lenka"
+    human = "Lenka"
     utterances = [{"speaker": human, "utterance": "I love cats.", "dialogue_act": DialogueAct.STATEMENT},
                   {"speaker": agent, "utterance": "Do you also love dogs?", "dialogue_act": DialogueAct.QUESTION},
                   {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:
-        chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"], dialogue_acts=utterance["dialogue_act"])
+        chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"],
+                           dialogue_acts=utterance["dialogue_act"])
         analyzer.analyze_in_context(chat)
     for utterance in chat.utterances:
         print(utterance)
