@@ -29,12 +29,14 @@ if __name__ == "__main__":
     # Select files to test
     all_test_files = [
         "./data/statements.txt",
-        "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+        "./data/verb-questions.txt",
+        "./data/wh-questions.txt",
+        # "./data/perspective.txt",
+        # "./data/kinship-friends.txt",
+        # "./data/activities.txt",
+        # "./data/feelings.txt",
+        # "./data/locations.txt",
+        # "./data/professions.txt"
     ]
 
     # Analyze utterances

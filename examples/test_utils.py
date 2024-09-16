@@ -167,7 +167,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
 
     # analyze utterance
     if type(analyzer).__name__ in ['CFGAnalyzer', 'spacyAnalyzer', 'OIEAnalyzer']:
-        analyzer.analyze(chat.last_utterance)
+        analyzer.analyze(chat)
     elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer']:
         analyzer.analyze_in_context(chat)
     elif type(analyzer).__name__ in ['ConversationalQuestionAnalyzer']:
