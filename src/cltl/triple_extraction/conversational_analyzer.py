@@ -209,6 +209,9 @@ class ConversationalAnalyzer(Analyzer):
         triples = []
         if utterance.transcript.lower().startswith("tell me all about ") or \
                 utterance.transcript.lower().startswith("tell me about ") or \
+                utterance.transcript.lower().startswith("tell me all you know about ") or \
+                utterance.transcript.lower().startswith("tell me what you know about ") or \
+                utterance.transcript.lower().startswith("what you know about ") or \
                 utterance.transcript.lower().startswith("what do you know about "):
             tokens = utterance.transcript.split()
             who = tokens[-1]
