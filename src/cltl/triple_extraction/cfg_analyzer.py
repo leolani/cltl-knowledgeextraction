@@ -66,9 +66,11 @@ class CFGAnalyzer(Analyzer):
 
                 try:
                     if sentence_type == 'S':
+                        self._utterance.dialogue_acts = [UtteranceType.STATEMENT]
                         analyzer = StatementAnalyzer()
                         analyzer.analyze(self._utterance)
                     elif sentence_type == 'Q':  # and self._process_questions:
+                        self._utterance.dialogue_acts = [UtteranceType.QUESTION]
                         analyzer = QuestionAnalyzer()
                         analyzer.analyze(chat)
                     elif self._process_questions:

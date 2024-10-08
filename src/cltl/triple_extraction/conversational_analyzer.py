@@ -164,22 +164,6 @@ class ConversationalAnalyzer(Analyzer):
                 speakers = [chat.speaker, chat.agent]
                 pos = self._utterance.transcript.index(" ")
                 first_word = self._utterance.transcript[:pos]
-                #                     if first_word.lower() in whowords:
-                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                #                         if not conversation.endswith("?"):
-                #                             conversation += "?"
-                #                         conversation += " "+self._sep+" Joe"
-                #                     elif first_word.lower() in qwords_nl+qwords_en:
-                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                #                         if not conversation.endswith("?"):
-                #                             conversation += "?"
-                #                         conversation += " "+self._sep+" Something"
-                #                     elif first_word.lower() in qverbs_en+qverbs_nl:
-                #                         conversation = self._sep + " **blank** " + self._sep + " "+self._utterance.transcript
-                #                         if not conversation.endswith("?"):
-                #                              conversation += "?"
-                #                         conversation += " "+self._sep+" Yes"
-
                 if first_word.lower() in whowords:
                     conversation = self._utterance.transcript
                     if not conversation.endswith("?"):
@@ -191,7 +175,7 @@ class ConversationalAnalyzer(Analyzer):
                         conversation += "?"
                     conversation += " " + self._sep + " Something"
                 elif first_word.lower() in qverbs_en + qverbs_nl:
-                    conversation = elf._utterance.transcript
+                    conversation = self._utterance.transcript
                     if not conversation.endswith("?"):
                         conversation += "?"
                     conversation += " " + self._sep + " Yes"
@@ -200,10 +184,6 @@ class ConversationalAnalyzer(Analyzer):
                                                                                   dialog=conversation,
                                                                                   human=chat.speaker, agent=chat.agent)
 
-                ##### We do not need to score these triples since we use dummies
-                # for score, triple_value in sorted(extracted_triples, key=lambda r: r[0], reverse=True):
-                #     triples = [self._convert_triple(triple_value)]
-                #     break
                 for triple_value in extracted_triples:
                     triples = [self._convert_triple(triple_value)]
             # end of else:
