@@ -209,13 +209,12 @@ class ConversationalAnalyzer(Analyzer):
 
     def standard_questions(self, utterance, human, agent):
         triples = []
-        print("human, agent", human, agent)
         if utterance.transcript.lower().startswith("what do ") or \
                 utterance.transcript.lower().startswith("what does "):
             if utterance.transcript.lower().endswith(" have") or \
-                    utterance.transcript.lower().endswith(" own") or \
-                    utterance.transcript.lower().endswith(" have?") or \
-                    utterance.transcript.lower().endswith(" own?"):
+                utterance.transcript.lower().endswith(" own") or \
+                utterance.transcript.lower().endswith(" have?") or \
+                utterance.transcript.lower().endswith(" own?") :
                 tokens = utterance.transcript.split()
                 who = tokens[2]
                 if who.lower() == "i":
@@ -228,56 +227,80 @@ class ConversationalAnalyzer(Analyzer):
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
-        if utterance.transcript.lower().startswith("who are your friends") or \
-                utterance.transcript.lower().startswith("who do you know"):
-            triple = {"subject": {"label": agent.lower(), "type": [], "uri": None},
-                      "predicate": {"label": "knows", "type": ["n2mu"], "uri": None},
-                      "object": {"label": "", "type": [], "uri": None},
-                      "perspective": self.extract_perspective()
-                      }
-            triples.append(triple)
-        if utterance.transcript.lower().startswith("who are my friends"):
-            triple = {"subject": {"label": human.lower(), "type": [], "uri": None},
-                      "predicate": {"label": "knows", "type": ["n2mu"], "uri": None},
-                      "object": {"label": "", "type": [], "uri": None},
-                      "perspective": self.extract_perspective()
-                      }
-            triples.append(triple)
+        if utterance.transcript.lower().startswith("who does ") and (utterance.transcript.lower().endswith(" know") or utterance.transcript.lower().endswith(" know?")):
+                tokens = utterance.transcript.split()
+                who = tokens[2]
+                triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
+                          "predicate": {"label": "know", "type": ["n2mu"], "uri": None},
+                          "object": {"label": "", "type": ["person"], "uri": None},
+                          "perspective": self.extract_perspective()
+                          }
+                triples.append(triple)
+        if (utterance.transcript.lower().startswith("who is ") or
+            utterance.transcript.lower().startswith("who are ") or
+            utterance.transcript.lower().startswith("who do ") or
+            utterance.transcript.lower().startswith("who does ")) and \
+                (utterance.transcript.lower().endswith(" friend") or
+                 utterance.transcript.lower().endswith(" friends") or
+                 utterance.transcript.lower().endswith(" friend?") or
+                 utterance.transcript.lower().endswith(" friends?") or
+                 utterance.transcript.lower().endswith(" know?") or
+                 utterance.transcript.lower().startswith(" know?")):
+                tokens = utterance.transcript.split()
+                who = tokens[2]
+                if who.endswith("'s"):
+                    who = who[:-2]
+                if who.endswith("'"):
+                    who = who[:-1]
+                if who.lower() == "my":
+                    who = human
+                elif who.lower() == "your":
+                    who = agent
+                if who.lower() == "i":
+                    who = human
+                elif who.lower() == "you":
+                    who = agent
+                triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
+                          "predicate": {"label": "know", "type": ["n2mu"], "uri": None},
+                          "object": {"label": "", "type": ["person"], "uri": None},
+                          "perspective": self.extract_perspective()
+                          }
+                print('TRIPLE IS', triple)
+                triples.append(triple)
         if utterance.transcript.lower().startswith("what are ") or \
-                utterance.transcript.lower().startswith("what is ") or \
-                utterance.transcript.lower().startswith("who are ") or \
-                utterance.transcript.lower().startswith("who is "):
-            tokens = utterance.transcript.split()
-            who = tokens[-1]
-            if who.endswith("?"):
-                who = who[:-1]
-            if who.lower() == "i":
-                who = human
-            elif who.lower() == "you":
-                who = agent
-            triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                      "predicate": {"label": "", "type": ["rdf"],
-                                    "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-                      "object": {"label": "", "type": ["n2mu"], "uri": None},
-                      "perspective": self.extract_perspective()
-                      }
-            triples.append(triple)
+           utterance.transcript.lower().startswith("what is ") or \
+            utterance.transcript.lower().startswith("who are ") or \
+            utterance.transcript.lower().startswith("who is "):
+                tokens = utterance.transcript.split()
+                who = tokens[-1]
+                if who.endswith("?"):
+                    who = who[:-1]
+                if who.lower() == "i":
+                    who = human
+                elif who.lower() == "you":
+                    who = agent
+                triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
+                          "predicate": {"label": "", "type": ["rdf"], "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
+                          "object": {"label": "", "type": ["n2mu"], "uri": None},
+                          "perspective": self.extract_perspective()
+                          }
+                triples.append(triple)
         if utterance.transcript.lower().startswith("where are ") or \
-                utterance.transcript.lower().startswith("where is "):
-            tokens = utterance.transcript.split()
-            who = tokens[-1]
-            if who.endswith("?"):
-                who = who[:-1]
-            if who.lower() == "i":
-                who = human
-            elif who.lower() == "you":
-                who = agent
-            triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                      "predicate": {"label": "", "type": ["n2mu"], "uri": None},
-                      "object": {"label": "", "type": ["n2mu"], "uri": "http://cltl.nl/leolani/n2mu/place"},
-                      "perspective": self.extract_perspective()
-                      }
-            triples.append(triple)
+           utterance.transcript.lower().startswith("where is "):
+                tokens = utterance.transcript.split()
+                who = tokens[-1]
+                if who.endswith("?"):
+                    who = who[:-1]
+                if who.lower() == "i":
+                    who = human
+                elif who.lower() == "you":
+                    who = agent
+                triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
+                          "predicate": {"label": "", "type": ["n2mu"], "uri": None},
+                          "object": {"label": "", "type": ["n2mu:place"], "uri": None},
+                          "perspective": self.extract_perspective()
+                          }
+                triples.append(triple)
         return triples
 
     def ask_for_all(self, utterance, human, agent):
