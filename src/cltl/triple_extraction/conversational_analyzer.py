@@ -222,21 +222,21 @@ class ConversationalAnalyzer(Analyzer):
                 elif who.lower() == "you":
                     who = agent
                 triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                          "predicate": {"label": "have", "type": ["n2mu"], "uri": None},
+                          "predicate": {"label": "have", "type": [], "uri": None},
                           "object": {"label": "", "type": [], "uri": None},
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
-        if utterance.transcript.lower().startswith("who does ") and (utterance.transcript.lower().endswith(" know") or utterance.transcript.lower().endswith(" know?")):
+        elif utterance.transcript.lower().startswith("who does ") and (utterance.transcript.lower().endswith(" know") or utterance.transcript.lower().endswith(" know?")):
                 tokens = utterance.transcript.split()
                 who = tokens[2]
                 triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                          "predicate": {"label": "know", "type": ["n2mu"], "uri": None},
+                          "predicate": {"label": "know", "type": [], "uri": None},
                           "object": {"label": "", "type": ["person"], "uri": None},
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
-        if (utterance.transcript.lower().startswith("who is ") or
+        elif (utterance.transcript.lower().startswith("who is ") or
             utterance.transcript.lower().startswith("who are ") or
             utterance.transcript.lower().startswith("who do ") or
             utterance.transcript.lower().startswith("who does ")) and \
@@ -267,7 +267,7 @@ class ConversationalAnalyzer(Analyzer):
                           }
                 print('TRIPLE IS', triple)
                 triples.append(triple)
-        if utterance.transcript.lower().startswith("what are ") or \
+        elif utterance.transcript.lower().startswith("what are ") or \
            utterance.transcript.lower().startswith("what is ") or \
             utterance.transcript.lower().startswith("who are ") or \
             utterance.transcript.lower().startswith("who is "):
@@ -285,7 +285,7 @@ class ConversationalAnalyzer(Analyzer):
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
-        if utterance.transcript.lower().startswith("where are ") or \
+        elif utterance.transcript.lower().startswith("where are ") or \
            utterance.transcript.lower().startswith("where is "):
                 tokens = utterance.transcript.split()
                 who = tokens[-1]
@@ -301,6 +301,29 @@ class ConversationalAnalyzer(Analyzer):
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
+        elif utterance.transcript.lower().startswith("who "):
+                tokens = utterance.transcript.split()
+                if len(tokens)>2:
+                    what = tokens[-1]
+                    predicate = tokens[1]
+                    if predicate.lower()=="has":
+                        predicate = "have"
+                    elif predicate.lower()=="is":
+                        predicate = "be"
+                    elif predicate.lower().endswith("s"):
+                        predicate = predicate[:-1]
+                    if what.endswith("?"):
+                        what = what[:-1]
+                    if what.lower() == "i":
+                        what = human
+                    elif what.lower() == "you":
+                        what = agent
+                    triple = {"subject": {"label": "", "type": [], "uri": None},
+                              "predicate": {"label": predicate, "type": [], "uri": None},
+                              "object": {"label": what.lower(), "type": [], "uri": None},
+                              "perspective": self.extract_perspective()
+                              }
+                    triples.append(triple)
         return triples
 
     def ask_for_all(self, utterance, human, agent):
@@ -327,6 +350,11 @@ class ConversationalAnalyzer(Analyzer):
                       "perspective": self.extract_perspective()
                       }
             triples.append(triple)
+            triple = {"subject": {"label": "", "type": [], "uri": None},
+                      "predicate": {"label": "", "type": ["n2mu"], "uri": None},
+                      "object": {"label": who.lower(), "type": [], "uri": None},
+                      "perspective": self.extract_perspective()
+                      }
         return triples
 
     def _remove_blank(self, triple):
