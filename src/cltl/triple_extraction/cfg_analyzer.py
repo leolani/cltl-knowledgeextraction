@@ -672,7 +672,7 @@ class StatementAnalyzer(CFGAnalyzer):
         self._utterance = utterance
 
         analyzer = GeneralStatementAnalyzer()
-        analyzer.analyze(utterance)
+        analyzer.analyze(self.utterance)
 
 
 class GeneralStatementAnalyzer(StatementAnalyzer):
@@ -944,6 +944,7 @@ class QuestionAnalyzer(CFGAnalyzer):
                 analyzer = VerbQuestionAnalyzer()
                 analyzer.analyze(self._utterance)
             for triple in self._utterance.triples:
+                logger.debug('Extracted question triple: {}'.format(triple))
                 triple['subject']['label'] = pronoun_to_speaker(triple['subject']['label'],
                                                                 self.utterance._chat_speaker, chat.speaker, chat.agent)
                 triple['object']['label'] = pronoun_to_speaker(triple['object']['label'], self.utterance._chat_speaker,

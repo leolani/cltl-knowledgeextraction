@@ -227,6 +227,29 @@ class ConversationalAnalyzer(Analyzer):
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
+            elif utterance.transcript.lower().startswith("who "):
+                tokens = utterance.transcript.split()
+                if len(tokens)>2:
+                    what = tokens[-1]
+                    predicate = tokens[1]
+                    if predicate.lower()=="has":
+                        predicate = "have"
+                    elif predicate.lower()=="is":
+                        predicate = "be"
+                    elif predicate.lower().endswith("s"):
+                        predicate = predicate[:-1]
+                    if what.endswith("?"):
+                        what = what[:-1]
+                    if what.lower() == "i":
+                        what = human
+                    elif what.lower() == "you":
+                        what = agent
+                    triple = {"subject": {"label": "", "type": [], "uri": None},
+                              "predicate": {"label": predicate, "type": [], "uri": None},
+                              "object": {"label": what.lower(), "type": [], "uri": None},
+                              "perspective": self.extract_perspective()
+                              }
+                    triples.append(triple)
         elif utterance.transcript.lower().startswith("who does ") and (utterance.transcript.lower().endswith(" know") or utterance.transcript.lower().endswith(" know?")):
                 tokens = utterance.transcript.split()
                 who = tokens[2]
@@ -301,29 +324,6 @@ class ConversationalAnalyzer(Analyzer):
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
-        elif utterance.transcript.lower().startswith("who "):
-                tokens = utterance.transcript.split()
-                if len(tokens)>2:
-                    what = tokens[-1]
-                    predicate = tokens[1]
-                    if predicate.lower()=="has":
-                        predicate = "have"
-                    elif predicate.lower()=="is":
-                        predicate = "be"
-                    elif predicate.lower().endswith("s"):
-                        predicate = predicate[:-1]
-                    if what.endswith("?"):
-                        what = what[:-1]
-                    if what.lower() == "i":
-                        what = human
-                    elif what.lower() == "you":
-                        what = agent
-                    triple = {"subject": {"label": "", "type": [], "uri": None},
-                              "predicate": {"label": predicate, "type": [], "uri": None},
-                              "object": {"label": what.lower(), "type": [], "uri": None},
-                              "perspective": self.extract_perspective()
-                              }
-                    triples.append(triple)
         return triples
 
     def ask_for_all(self, utterance, human, agent):
