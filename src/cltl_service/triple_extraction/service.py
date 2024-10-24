@@ -16,6 +16,20 @@ from cltl.triple_extraction.api import Chat, DialogueAct
 
 logger = logging.getLogger(__name__)
 
+I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ",
+         "So interesting what you said. It boils down to: "]
+I_DONT_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.",
+              "Ok, interesting but too much for me. What else?",
+              "What are you trying to say? I am just a humble AI, please try again.",
+              "Sorry, I did not get that."]
+YOU_ASK = ["I see. This is what I got from what you ask: ", "I got it. So you are asking: ", "Ok, so: ",
+           "So interesting, so you want to know "]
+GREETINGS = ["Please tell me anything new!", "What's up!", "Tell me something.",
+             "I have not been outside lately. What is going on?"]
+greet_words = ["hi", "hello", "good day", "good morning", "good evening", "greetings", "yo"]
+BYES = ["Great talking to you!", "See you soon!", "Have a great day.", "Get back soon!", "Gonna miss you."]
+bye_words = ["bye", "goodbye", "have a nice day", "stop", "have to leave", "cheers", "see you next time", "see you"]
+
 
 class UtteranceGroup(Group):
     def __init__(self, utterance_id: str, input_topics: List[str], dialogue_act_topic: str):
@@ -61,15 +75,16 @@ class UtteranceGroup(Group):
 
     def _extract_dialogue_act(self, dialogue_act):
         if (dialogue_act.value.type.lower() == 'midas' and dialogue_act.value.value.lower().startswith('open_question')
-            or dialogue_act.value.type.lower() == 'silicone' and dialogue_act.value.value.lower() == 'ask'):
-            return  DialogueAct.QUESTION
+                or dialogue_act.value.type.lower() == 'silicone' and dialogue_act.value.value.lower() == 'ask'):
+            return DialogueAct.QUESTION
         else:
-            return  DialogueAct.STATEMENT
+            return DialogueAct.STATEMENT
 
 
 class TripleExtractionService(GroupProcessor):
     @classmethod
-    def from_config(cls, extractor: Analyzer, emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager,
+    def from_config(cls, extractor: Analyzer, emissor_client: EmissorDataClient, event_bus: EventBus,
+                    resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
 
@@ -79,13 +94,14 @@ class TripleExtractionService(GroupProcessor):
         topic_output = config.get("topic_output")
         topic_intention = config.get("topic_intention") if "topic_intention" in config else None
         intentions = config.get("intentions", multi=True) if "intentions" in config else []
-        topic_scenario= config.get("topic_scenario") if "topic_scenario" in config else None
+        topic_scenario = config.get("topic_scenario") if "topic_scenario" in config else None
 
         return cls(topic_input, agent_topic, dialogue_act_topic, topic_output,
                    topic_scenario, topic_intention, intentions,
                    extractor, emissor_client, event_bus, resource_manager)
 
-    def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str, scenario_topic: str,
+    def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str,
+                 scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
                  emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager):
         self._extractor = extractor
@@ -175,13 +191,13 @@ class TripleExtractionService(GroupProcessor):
         self._extractor.analyze_in_context(self._chat)
         response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
 
-        if response:
-            # TODO: transform capsules into proper EMISSOR annotations
-            self._event_bus.publish(self._output_topic, Event.for_payload(response))
-            logger.info("Published %s triples for signal %s (%s): %s",
-                         len(response), text_signal.id, text_signal.text, response)
-        else:
-            logger.info("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+        #         if response:
+        #             # TODO: transform capsules into proper EMISSOR annotations
+        #             self._event_bus.publish(self._output_topic, Event.for_payload(response))
+        #             logger.info("Published %s triples for signal %s (%s): %s",
+        #                          len(response), text_signal.id, text_signal.text, response)
+        #         else:
+        #             logger.info("No triples for signal %s (%s)", text_signal.id, text_signal.text)
 
         scenario_id = self._emissor_client.get_current_scenario_id()
 
@@ -190,14 +206,6 @@ class TripleExtractionService(GroupProcessor):
         from cltl.combot.infra.time_util import timestamp_now
         from cltl.combot.event.emissor import TextSignalEvent
 
-        I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ",
-                 "So interesting what you said. It boils down to: "]
-        I_DONT_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.",
-                      "Ok, interesting but too much for me. What else?",
-                      "What are you trying to say? I am just a humble AI, please try again.",
-                      "Sorry, I did not get that."]
-        YOU_ASK = ["I see. This is what I got from what you ask: ", "I got it. So you are asking: ", "Ok, so: ",
-                   "So interesting, so you want to know "]
         if response:
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
             logger.debug("Published %s triples for signal %s (%s): %s",
@@ -211,16 +219,42 @@ class TripleExtractionService(GroupProcessor):
                 utterance = f"{choice(YOU_ASK)} {triple}"
             elif text_signal.text.endswith("?"):
                 utterance = f"{choice(YOU_ASK)} {triple}"
+
+            elif text_signal.text.lower().startswith("who") or text_signal.text.lower().startswith(
+                    "what") or text_signal.text.lower().startswith("where") or text_signal.text.lower().startswith(
+                    "when") or text_signal.text.lower().startswith("why"):
+                utterance = f"{choice(YOU_ASK)} {triple}"
             else:
                 utterance = f"{choice(I_SEE)} {triple}"
-            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            # self._event_bus.publish(self.text_out, Event.for_payload(TextSignalEvent.for_agent(signal)))
+            response = [{'text_response': utterance}]
+            self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
+            ### Need to post this as a cltl.topic.brain_response to trigger the replier.
+            # self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
 
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
-            utterance = f"{choice(I_DONT_SEE)}"
-            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            utterance = None
+            signal = None
+            for word in greet_words:
+                if word in text_signal.text.lower():
+                    utterance = f"{choice(GREETINGS)}"
+                    break
+            if not utterance:
+                for word in bye_words:
+                    if word in text_signal.text.lower():
+                        utterance = f"{choice(BYES)}"
+                        break
+            if not utterance:
+                utterance = f"{choice(I_DONT_SEE)}"
+
+            # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            response = [{'text_response': utterance}]
+            self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
+            ### Need to post this as a cltl.topic.brain_response to trigger the replier.
+            #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
 
         # if response:
         #     self._event_bus.publish(self._output_topic, Event.for_payload(response))
@@ -240,15 +274,14 @@ class TripleExtractionService(GroupProcessor):
         #     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
         #     self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
 
-
     def get_key(self, event: Event):
         key = None
         if event.metadata.topic in [self._input_topic, self._agent_topic]:
             key = event.payload.signal.id
         elif event.metadata.topic == self._dialogue_act_topic:
             key = next(segment.container_id
-                    for mention in event.payload.mentions
-                    for segment in mention.segment)
+                       for mention in event.payload.mentions
+                       for segment in mention.segment)
 
         if not key:
             raise ValueError("Could not extract key from event: " + event.id)
@@ -321,12 +354,12 @@ class TripleExtractionService(GroupProcessor):
         return capsules
 
     def _add_uri_to_triple(self, triple: dict):
-        uri = {'uri':None}
+        uri = {'uri': None}
         triple['subject'].update(uri)
         triple['predicate'].update(uri)
         triple['object'].update(uri)
 
-    #@TODO check if this needs to be the TextSignal source
+    # @TODO check if this needs to be the TextSignal source
     def _get_author(self):
         return {
             "label": self._speaker.name if self._speaker and self._speaker.name else self._chat.speaker,
