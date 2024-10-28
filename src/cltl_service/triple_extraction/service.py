@@ -26,7 +26,7 @@ YOU_ASK = ["I see. This is what I got from what you ask: ", "I got it. So you ar
            "So interesting, so you want to know "]
 GREETINGS = ["Please tell me anything new!", "What's up!", "Tell me something.",
              "I have not been outside lately. What is going on?"]
-greet_words = ["hi", "hello", "good day", "good morning", "good evening", "greetings", "yo"]
+greet_words = ["hi", "hello", "how are you", "how do you do", "hello", "good day", "good morning", "good evening", "greetings", "yo"]
 BYES = ["Great talking to you!", "See you soon!", "Have a great day.", "Get back soon!", "Gonna miss you."]
 bye_words = ["bye", "goodbye", "have a nice day", "stop", "have to leave", "cheers", "see you next time", "see you"]
 
@@ -210,28 +210,24 @@ class TripleExtractionService(GroupProcessor):
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
-            triple = ""
-            for ch in response:
-                triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
-                    'label'] + ') '
-
-            if dialogue_acts and DialogueAct.QUESTION in dialogue_acts:
-                utterance = f"{choice(YOU_ASK)} {triple}"
-            elif text_signal.text.endswith("?"):
-                utterance = f"{choice(YOU_ASK)} {triple}"
-
-            elif text_signal.text.lower().startswith("who") or text_signal.text.lower().startswith(
-                    "what") or text_signal.text.lower().startswith("where") or text_signal.text.lower().startswith(
-                    "when") or text_signal.text.lower().startswith("why"):
-                utterance = f"{choice(YOU_ASK)} {triple}"
-            else:
-                utterance = f"{choice(I_SEE)} {triple}"
-            # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            # self._event_bus.publish(self.text_out, Event.for_payload(TextSignalEvent.for_agent(signal)))
-            response = [{'text_response': utterance}]
-            self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
-            ### Need to post this as a cltl.topic.brain_response to trigger the replier.
-            # self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
+            # triple = ""
+            # for ch in response:
+            #     triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
+            #         'label'] + ') '
+            #
+            # if dialogue_acts and DialogueAct.QUESTION in dialogue_acts:
+            #     utterance = f"{choice(YOU_ASK)} {triple}"
+            # elif text_signal.text.endswith("?"):
+            #     utterance = f"{choice(YOU_ASK)} {triple}"
+            #
+            # elif text_signal.text.lower().startswith("who") or text_signal.text.lower().startswith(
+            #         "what") or text_signal.text.lower().startswith("where") or text_signal.text.lower().startswith(
+            #         "when") or text_signal.text.lower().startswith("why"):
+            #     utterance = f"{choice(YOU_ASK)} {triple}"
+            # else:
+            #     utterance = f"{choice(I_SEE)} {triple}"
+            # response = [{'text_response': utterance}]
+            # self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
 
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
