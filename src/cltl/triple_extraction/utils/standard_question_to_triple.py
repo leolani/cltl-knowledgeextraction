@@ -19,7 +19,7 @@ def standard_questions(self, utterance, human, agent):
                 who = agent
             triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                       "predicate": {"label": "have", "type": [], "uri": None},
-                      "object": {"label": "", "type": [], "uri": None},
+                      "object": {"label": "", "type": ["n2mu"], "uri": None},
                       "perspective": self.extract_perspective()
                       }
             triples.append(triple)
@@ -42,7 +42,7 @@ def standard_questions(self, utterance, human, agent):
                     what = agent
                 triple = {"subject": {"label": "", "type": [], "uri": None},
                           "predicate": {"label": predicate, "type": [], "uri": None},
-                          "object": {"label": what.lower(), "type": [], "uri": None},
+                          "object": {"label": what.lower(), "type": ["n2mu"], "uri": None},
                           "perspective": self.extract_perspective()
                           }
                 triples.append(triple)
@@ -81,7 +81,7 @@ def standard_questions(self, utterance, human, agent):
         elif who.lower() == "you":
             who = agent
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                  "predicate": {"label": "know", "type": ["n2mu"], "uri": None},
+                  "predicate": {"label": "know", "type": [], "uri": None},
                   "object": {"label": "", "type": ["person"], "uri": None},
                   "perspective": self.extract_perspective()
                   }
@@ -100,8 +100,8 @@ def standard_questions(self, utterance, human, agent):
         elif who.lower() == "you":
             who = agent
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                  "predicate": {"label": "", "type": ["rdf"], "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-                  "object": {"label": "", "type": ["n2mu"], "uri": None},
+                  "predicate": {"label": "", "type": [], "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
+                  "object": {"label": "", "type": [], "uri": None},
                   "perspective": self.extract_perspective()
                   }
         triples.append(triple)
@@ -116,7 +116,7 @@ def standard_questions(self, utterance, human, agent):
         elif who.lower() == "you":
             who = agent
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                  "predicate": {"label": "", "type": ["n2mu"], "uri": None},
+                  "predicate": {"label": "", "type": [], "uri": None},
                   "object": {"label": "", "type": ["n2mu:place"], "uri": None},
                   "perspective": self.extract_perspective()
                   }
@@ -142,14 +142,14 @@ def ask_for_all(self, utterance, human, agent):
         elif who.lower().startswith("your"):
             who = agent
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                  "predicate": {"label": "", "type": ["n2mu"], "uri": None},
-                  "object": {"label": "", "type": [], "uri": None},
+                  "predicate": {"label": "", "type": [], "uri": None},
+                  "object": {"label": "", "type": ["n2mu"], "uri": None},
                   "perspective": self.extract_perspective()
                   }
         triples.append(triple)
         triple = {"subject": {"label": "", "type": [], "uri": None},
-                  "predicate": {"label": "", "type": ["n2mu"], "uri": None},
-                  "object": {"label": who.lower(), "type": [], "uri": None},
+                  "predicate": {"label": "", "type": [], "uri": None},
+                  "object": {"label": who.lower(), "type": ["n2mu"], "uri": None},
                   "perspective": self.extract_perspective()
                   }
     return triples
