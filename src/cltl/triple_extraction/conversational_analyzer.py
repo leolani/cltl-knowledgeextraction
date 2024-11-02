@@ -10,6 +10,8 @@ from cltl.triple_extraction.conversational_triples.conversational_triple_extract
 from cltl.triple_extraction.utils.triple_normalization import TripleNormalizer
 import cltl.triple_extraction.utils.standard_question_to_triple as standard_question
 logger = logging.getLogger(__name__)
+from cltl.triple_extraction.utils.helper_functions import get_triple_element_type, lemmatize, trim_dash, fix_pronouns, \
+    get_pos_in_tree, extract_perspective, get_simple_triple
 
 qwords_en = ["what", "when", "where", "who", "why", "how"]
 whowords = ["who", "wie"]
@@ -261,7 +263,7 @@ class ConversationalAnalyzer(Analyzer):
             triple["perspective"] = {"polarity": Polarity.from_str(triple_value[3]).value,
                                      "certainty": Certainty.from_str(triple_value[4]).value}
 
-        return self._triple_normalizer.normalize(self.utterance, self.get_simple_triple(triple))
+        return self._triple_normalizer.normalize(self.utterance, get_simple_triple(triple))
 
     def _chat_to_conversation(self, chat):
         utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
@@ -280,32 +282,10 @@ class ConversationalAnalyzer(Analyzer):
 
         return speakers, conversation, chat.speaker, chat.agent
 
-    def get_simple_triple(self, triple):
-        simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
-                         'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
-                         'object': triple['object']['label'].replace(" ", "-").replace('---', '-'),
-                         'perspective': self.extract_perspective()}
-        return simple_triple
-
-    def extract_perspective(self):
-        """
-        This function extracts perspective from statements
-        :param predicate: statement predicate
-        :param utterance_info: product of statement analysis thus far
-        :return: perspective dictionary consisting of sentiment, certainty, and polarity value
-        """
-        certainty = 1  # Possible
-        polarity = 1  # Positive
-        sentiment = 0  # Underspecified
-        emotion = 0  # Underspecified
-        perspective = {'sentiment': float(sentiment), 'certainty': float(certainty), 'polarity': float(polarity),
-                       'emotion': float(emotion)}
-        return perspective
 
     @property
     def utterance(self) -> Utterance:
         return self._chat.last_utterance
-
 
 if __name__ == "__main__":
     '''

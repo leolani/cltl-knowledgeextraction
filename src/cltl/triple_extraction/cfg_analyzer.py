@@ -936,7 +936,7 @@ class QuestionAnalyzer(CFGAnalyzer):
 
         self._utterance = chat.last_utterance
 
-        self._utterance.triples = standard_question.ask_for_all(self._utterance, chat.speaker, chat.agent)
+        self._utterance.triples = standard_question.ask_for_all(self._utterance, chat.speaker, chat.agent, self.ex)
         if not self._utterance.triples:
             self._utterance.triples = standard_question.standard_questions(self._utterance, chat.speaker, chat.agent)
         if not self._utterance.triples:

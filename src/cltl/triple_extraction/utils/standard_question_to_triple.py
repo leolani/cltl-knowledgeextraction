@@ -1,6 +1,8 @@
 
 
-def standard_questions(self, utterance, human, agent):
+from cltl.triple_extraction.utils.helper_functions import extract_perspective
+
+def standard_questions(utterance, human, agent):
 
     # https://github.com/leolani/cltl-knowledgerepresentation/blob/b96b7017a4420d8e59db2534321f8bd4c93fce76/src/cltl/brain/utils/base_cases.py#L1510
 
@@ -20,7 +22,7 @@ def standard_questions(self, utterance, human, agent):
             triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                       "predicate": {"label": "have", "type": [], "uri": None},
                       "object": {"label": "", "type": ["n2mu"], "uri": None},
-                      "perspective": self.extract_perspective()
+                      "perspective": extract_perspective()
                       }
             triples.append(triple)
         elif utterance.transcript.lower().startswith("who "):
@@ -43,7 +45,7 @@ def standard_questions(self, utterance, human, agent):
                 triple = {"subject": {"label": "", "type": [], "uri": None},
                           "predicate": {"label": predicate, "type": [], "uri": None},
                           "object": {"label": what.lower(), "type": ["n2mu"], "uri": None},
-                          "perspective": self.extract_perspective()
+                          "perspective": extract_perspective()
                           }
                 triples.append(triple)
     elif utterance.transcript.lower().startswith("who does ") and (utterance.transcript.lower().endswith(" know")
@@ -53,7 +55,7 @@ def standard_questions(self, utterance, human, agent):
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                   "predicate": {"label": "know", "type": [], "uri": None},
                   "object": {"label": "", "type": ["person"], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective": extract_perspective()
                   }
         triples.append(triple)
     elif (utterance.transcript.lower().startswith("who is ") or
@@ -83,7 +85,7 @@ def standard_questions(self, utterance, human, agent):
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                   "predicate": {"label": "know", "type": [], "uri": None},
                   "object": {"label": "", "type": ["person"], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective": extract_perspective()
                   }
         print('TRIPLE IS', triple)
         triples.append(triple)
@@ -102,7 +104,7 @@ def standard_questions(self, utterance, human, agent):
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                   "predicate": {"label": "", "type": [], "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
                   "object": {"label": "", "type": [], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective":extract_perspective()
                   }
         triples.append(triple)
     elif utterance.transcript.lower().startswith("where are ") or \
@@ -118,12 +120,12 @@ def standard_questions(self, utterance, human, agent):
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                   "predicate": {"label": "", "type": [], "uri": None},
                   "object": {"label": "", "type": ["n2mu:place"], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective": extract_perspective()
                   }
         triples.append(triple)
     return triples
 
-def ask_for_all(self, utterance, human, agent):
+def ask_for_all(utterance, human, agent):
     triples = []
     if utterance.transcript.lower().startswith("tell me all about ") or \
             utterance.transcript.lower().startswith("tell me about ") or \
@@ -144,12 +146,12 @@ def ask_for_all(self, utterance, human, agent):
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
                   "predicate": {"label": "", "type": [], "uri": None},
                   "object": {"label": "", "type": ["n2mu"], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective": extract_perspective()
                   }
         triples.append(triple)
         triple = {"subject": {"label": "", "type": [], "uri": None},
                   "predicate": {"label": "", "type": [], "uri": None},
                   "object": {"label": who.lower(), "type": ["n2mu"], "uri": None},
-                  "perspective": self.extract_perspective()
+                  "perspective": extract_perspective()
                   }
     return triples

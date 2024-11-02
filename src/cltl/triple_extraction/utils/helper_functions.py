@@ -421,3 +421,27 @@ def add_deduplicated(triple, list_json_triples):
         addition = True
 
     return list_json_triples, addition
+
+
+def get_simple_triple(triple):
+    simple_triple = {'subject': triple['subject']['label'].replace(" ", "-").replace('---', '-'),
+                     'predicate': triple['predicate']['label'].replace(" ", "-").replace('---', '-'),
+                     'object': triple['object']['label'].replace(" ", "-").replace('---', '-'),
+                     'perspective': extract_perspective()}
+    return simple_triple
+
+def extract_perspective():
+    """
+    This function extracts perspective from statements
+    :param predicate: statement predicate
+    :param utterance_info: product of statement analysis thus far
+    :return: perspective dictionary consisting of sentiment, certainty, and polarity value
+    """
+    certainty = 1  # Possible
+    polarity = 1  # Positive
+    sentiment = 0  # Underspecified
+    emotion = 0  # Underspecified
+    perspective = {'sentiment': float(sentiment), 'certainty': float(certainty), 'polarity': float(polarity),
+                   'emotion': float(emotion)}
+    return perspective
+
