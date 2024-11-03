@@ -326,7 +326,9 @@ class TripleExtractionService(GroupProcessor):
         capsules = []
 
         for triple in utterance.triples:
+            logger.debug("Triple input: %s", triple)
             self._add_uri_to_triple(triple)
+            logger.debug("Triple input after adding URI: %s", triple)
             scenario_id = signal.time.container_id
 
             capsule = {"chat": scenario_id,
@@ -346,7 +348,7 @@ class TripleExtractionService(GroupProcessor):
                        }
 
             capsules.append(capsule)
-
+            logger.debug("Capsule input after adding URI: %s", capsule)
         return capsules
 
     def _add_uri_to_triple(self, triple: dict):

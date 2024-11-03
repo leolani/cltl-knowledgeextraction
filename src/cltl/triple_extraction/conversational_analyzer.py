@@ -163,8 +163,6 @@ class ConversationalAnalyzer(Analyzer):
                 triples = standard_question.standard_questions(self._utterance, chat.speaker, chat.agent)
             if not triples:
                 # Dummy list of speakers
-                speakers = [chat.agent, chat.speaker, chat.agent]
-
                 speakers = [chat.speaker, chat.agent]
                 pos = self._utterance.transcript.index(" ")
                 first_word = self._utterance.transcript[:pos]

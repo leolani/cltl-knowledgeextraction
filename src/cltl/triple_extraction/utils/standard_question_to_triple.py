@@ -144,14 +144,15 @@ def ask_for_all(utterance, human, agent):
         elif who.lower().startswith("your"):
             who = agent
         triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
-                  "predicate": {"label": "", "type": [], "uri": None},
-                  "object": {"label": "", "type": ["n2mu"], "uri": None},
+                  "predicate": {"label": "", "type": ["n2mu:"], "uri": None},
+                  "object": {"label": "", "type": [], "uri": None},
                   "perspective": extract_perspective()
                   }
         triples.append(triple)
         triple = {"subject": {"label": "", "type": [], "uri": None},
-                  "predicate": {"label": "", "type": [], "uri": None},
-                  "object": {"label": who.lower(), "type": ["n2mu"], "uri": None},
+                  "predicate": {"label": "", "type": ["n2mu:"], "uri": None},
+                  "object": {"label": who.lower(), "type": [], "uri": None},
                   "perspective": extract_perspective()
                   }
+        triples.append(triple)
     return triples

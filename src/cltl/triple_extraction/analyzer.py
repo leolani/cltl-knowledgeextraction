@@ -36,7 +36,10 @@ class Analyzer:
     def set_extracted_values(self, utterance_type=None, triple=None, perspective=None):
         with self._analyzer_lock:
             # Pack everything together
-            triple["perspective"] = perspective if perspective else {}
+            if not "perspective" in triple:
+                triple["perspective"] = perspective if perspective else {}
+            elif perspective:
+                triple["perspective"] = perspective
             triple["utterance_type"] = utterance_type
 
             # Set type, and triple

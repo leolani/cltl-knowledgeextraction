@@ -936,24 +936,30 @@ class QuestionAnalyzer(CFGAnalyzer):
 
         self._utterance = chat.last_utterance
 
-        self._utterance.triples = standard_question.ask_for_all(self._utterance, chat.speaker, chat.agent, self.ex)
-        if not self._utterance.triples:
-            self._utterance.triples = standard_question.standard_questions(self._utterance, chat.speaker, chat.agent)
-        if not self._utterance.triples:
-            if self._utterance.tokens:
-                first_word = self._utterance.tokens[0]
-                if first_word.lower() in CFGAnalyzer.LEXICON['question words']:
-                    analyzer = WhQuestionAnalyzer()
-                    analyzer.analyze(self._utterance)
-                else:
-                    analyzer = VerbQuestionAnalyzer()
-                    analyzer.analyze(self._utterance)
-                for triple in self._utterance.triples:
-                    logger.debug('Extracted question triple: {}'.format(triple))
-                    triple['subject']['label'] = pronoun_to_speaker(triple['subject']['label'],
-                                                                    self.utterance._chat_speaker, chat.speaker, chat.agent)
-                    triple['object']['label'] = pronoun_to_speaker(triple['object']['label'], self.utterance._chat_speaker,
-                                                                   chat.speaker, chat.agent)
+        triples = standard_question.ask_for_all(self._utterance, chat.speaker, chat.agent)
+        if triples:
+            for triple in triples:
+                self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple)
+        else:
+            triples = standard_question.standard_questions(self._utterance, chat.speaker, chat.agent)
+            if triples:
+                for triple in triples:
+                    self.set_extracted_values(utterance_type=UtteranceType.QUESTION, triple=triple)
+            else:
+                if self._utterance.tokens:
+                    first_word = self._utterance.tokens[0]
+                    if first_word.lower() in CFGAnalyzer.LEXICON['question words']:
+                        analyzer = WhQuestionAnalyzer()
+                        analyzer.analyze(self._utterance)
+                    else:
+                        analyzer = VerbQuestionAnalyzer()
+                        analyzer.analyze(self._utterance)
+                    for triple in self._utterance.triples:
+                        logger.debug('Extracted question triple: {}'.format(triple))
+                        triple['subject']['label'] = pronoun_to_speaker(triple['subject']['label'],
+                                                                        self.utterance._chat_speaker, chat.speaker, chat.agent)
+                        triple['object']['label'] = pronoun_to_speaker(triple['object']['label'], self.utterance._chat_speaker,
+                                                                       chat.speaker, chat.agent)
 
 
 class WhQuestionAnalyzer(QuestionAnalyzer):
