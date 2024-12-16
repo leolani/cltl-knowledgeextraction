@@ -2,7 +2,7 @@ import json
 import pandas as pd
 import os
 from collections import defaultdict
-
+from datetime import datetime
 from cltl.triple_extraction.api import Chat, DialogueAct
 
 
@@ -44,6 +44,11 @@ def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose
     result_dict.update({"incorrect_triples": incorrect})
     result_dict.update({"triple_recall": triple_recall})
     result_dict.update({"triple_precision": triple_precision})
+    result_dict.update({"total triple elements": 3*len(test_suite)})
+    result_dict.update({"correct triple elements": correct_subjects+correct_predicates+correct_objects})
+    result_dict.update({"incorrect triple elements": incorrect_subjects+incorrect_predicates+incorrect_objects})
+    result_dict.update({"recall triple elements": (correct_subjects+correct_predicates+correct_objects)/3*len(test_suite)})
+    result_dict.update({"precision triple elements": (correct_subjects+correct_predicates+correct_objects)/(correct_subjects+correct_predicates+correct_objects+incorrect_subjects+incorrect_predicates+incorrect_objects)})
     result_dict.update({"correct_subjects": correct_subjects})
     result_dict.update({"incorrect_subjects": incorrect_subjects})
     result_dict.update({"subjects_recall": subject_recall})
@@ -312,7 +317,9 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     return result_dict
 
 def get_overview(path):
-    overviewfile = os.path.join(path, "overview.csv")
+
+    current_date = str(datetime.today().date())
+    overviewfile = os.path.join(path, f"overview_{current_date}.csv")
     df = pd.DataFrame()
     for file in os.listdir(path):
         if file.endswith(".json"):

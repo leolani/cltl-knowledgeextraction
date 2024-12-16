@@ -14,7 +14,7 @@ from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
 
-MULTILINGUAL = False
+MULTILINGUAL = True
 
 if __name__ == "__main__":
     '''
@@ -26,31 +26,33 @@ if __name__ == "__main__":
     # path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
     path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    lang = 'en' if not MULTILINGUAL else 'nl'
+    lang = 'en' #if not MULTILINGUAL else 'nl'
     # Test with monolingual model or multilingual
-    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
     # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    lang = 'en' if not MULTILINGUAL else 'nl'
+    lang = 'en' #if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
     analyzer_name ="CONV"
 
     resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.json"
+    resultjson = f"evaluation_reports/evaluation_{analyzer_name}__{base_model.replace('/', '_')}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
     # Select files to test
     all_test_files = [
         "./data/statements.txt",
-       "./data/perspective.txt",
-       "./data/kinship-friends.txt",
-       "./data/activities.txt",
-       "./data/feelings.txt",
-       "./data/locations.txt",
-       "./data/professions.txt"
+        "./data/verb-questions.txt",
+        "./data/wh-questions.txt",
+        "./data/perspective.txt",
+        "./data/kinship-friends.txt",
+        "./data/activities.txt",
+        "./data/feelings.txt",
+        "./data/locations.txt",
+        "./data/professions.txt"
     ]
 
     # Analyze utterances

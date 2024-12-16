@@ -33,6 +33,8 @@ if __name__ == "__main__":
     # Select files to test
     all_test_files = [
         "./data/statements.txt",
+        "./data/verb-questions.txt",
+        "./data/wh-questions.txt",
         "./data/perspective.txt",
         "./data/kinship-friends.txt",
         "./data/activities.txt",

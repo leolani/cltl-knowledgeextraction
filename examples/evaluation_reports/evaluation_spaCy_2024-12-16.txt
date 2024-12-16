@@ -1,6 +1,6 @@
 
 
-RUNNING 7 FILES
+RUNNING 9 FILES
 
 
 
@@ -601,6 +601,869 @@ CORRECT SUBJECTS: 37			INCORRECT SUBJECTS: 51			RECALL: 42.05%
 CORRECT PREDICATES: 34			INCORRECT PREDICATES: 54			RECALL: 38.64%
 
 CORRECT OBJECTS: 21			INCORRECT OBJECTS: 67			RECALL: 23.86%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 63 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does john enjoy watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did lana read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like living in amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can you sing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can a bird sing a song"
+Triple:            	{'predicate': {'label': 'sing', 'type': []}, 'subject': {'label': 'bird', 'type': []}, 'object': {'label': 'song', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'a-bird', 'predicate': 'can-sing', 'object': 'a-song'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can I call you"
+Triple:            	{'predicate': {'label': 'call', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'leolani', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'can-call', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can I make a cake"
+Triple:            	{'predicate': {'label': 'make', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'cake', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'can-make', 'object': 'a-cake'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "will you go to Paris"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'will-go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "must you go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like amsterdam"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'amsterdam', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you know me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does selene know suzana"
+Triple:            	{'predicate': {'label': 'know', 'type': []}, 'subject': {'label': 'selene', 'type': []}, 'object': {'label': 'suzana', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'know', 'object': 'suzana'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you see a dog"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'dog', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'a-dog'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you meet john"
+Triple:            	{'predicate': {'label': 'meet', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'john', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'meet', 'object': 'john'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does john live in the building"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'building', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'live-in', 'object': 'the-building'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like new york"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'york', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can my friend talk to you"
+Triple:            	{'predicate': {'label': 'talk-to', 'type': []}, 'subject': {'label': 'friend', 'type': []}, 'object': {'label': 'leolani', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-friend', 'predicate': 'can-talk-to', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can you talk to me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can you tell me what is a dog"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you know what a dog is"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "are your parents from the netherlands"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "is your best friend Selene"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "am I your best friend"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "must you go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does john live in the building"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'building', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'live-in', 'object': 'the-building'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does Selene know Suzana"
+Triple:            	{'predicate': {'label': 'know', 'type': []}, 'subject': {'label': 'Selene', 'type': []}, 'object': {'label': 'Suzana', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'know', 'object': 'suzana'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "is your friend called susie"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you talk with Selene"
+Triple:            	{'predicate': {'label': 'talk-with', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Selene', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'talk-with', 'object': 'selene'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "haven't you been in New York"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'York', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can't you come to university"
+Triple:            	{'predicate': {'label': 'come-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'university', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'can-come-to', 'object': 'university'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "didn't you see Selene"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Selene', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'selene'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "could you hear me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can you sing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can I call you"
+Triple:            	{'predicate': {'label': 'call', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'leolani', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'can-call', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can you recommend a book about history"
+Triple:            	{'predicate': {'label': 'recommend', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'can-recommend', 'object': 'a-book-about-history'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "is purple your favorite color"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like living in amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you go to school yesterday"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'school', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'school-yesterday'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "are you a girl"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'girl', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-girl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you sing a song about rain"
+Triple:            	{'predicate': {'label': 'sing', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'song', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'sing', 'object': 'a-song-about-rain'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you see a dog"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'dog', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'a-dog'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "are you afraid of dogs"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'afraid', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'afraid-of-dogs'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does your sister know me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you meet a pretty girl"
+Triple:            	{'predicate': {'label': 'meet', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'girl', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'meet', 'object': 'a-pretty-girl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you know a dangerous animal"
+Triple:            	{'predicate': {'label': 'know', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'animal', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'know', 'object': 'a-dangerous-animal'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "have you ever been to Paris"
+Triple:            	{'predicate': {'label': 'be-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "have you ever seen a dog"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'dog', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'a-dog'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "does john enjoy watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did lana read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can a bird sing a song"
+Triple:            	{'predicate': {'label': 'sing', 'type': []}, 'subject': {'label': 'bird', 'type': []}, 'object': {'label': 'song', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'a-bird', 'predicate': 'can-sing', 'object': 'a-song'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "can I make a cake"
+Triple:            	{'predicate': {'label': 'make', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'cake', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'can-make', 'object': 'a-cake'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "will you go to Paris"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'will-go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "is your favorite food pizza"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like amsterdam"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'amsterdam', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you know me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you see a dog"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'dog', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'a-dog'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you meet john"
+Triple:            	{'predicate': {'label': 'meet', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'john', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'meet', 'object': 'john'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "do you like New York"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'York', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "did you ever go to Paris"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "will you come tomorrow"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 63 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 24
+
+CORRECT TRIPLES: 10			INCORRECT TRIPLES: 53			RECALL: 15.87%
+
+CORRECT SUBJECTS: 35			INCORRECT SUBJECTS: 28			RECALL: 55.56%
+
+CORRECT PREDICATES: 28			INCORRECT PREDICATES: 35			RECALL: 44.44%
+
+CORRECT OBJECTS: 16			INCORRECT OBJECTS: 47			RECALL: 25.40%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 66 UTTERANCES FROM FILE ./data/wh-questions.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who is your best friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who can sing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who works at the university"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who have you seen"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who is from Mexico"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who does Selene know"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who do you like"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who lives in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who can sing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes singing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when is your birthday"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when did Selene come"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when are you coming"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what can you see"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is your favorite color"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is my favorite food"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what do you enjoy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is selene from"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is your friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where are you going"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is my friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where can I go"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where did Bram come from"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when did you go to school"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'school', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'school'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who will come to school"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where did you go yesterday"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where did Bram come from"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what day is your birthday"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when are you going to Mexico"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Mexico', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'mexico'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is my friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "which is your favorite color"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is your best friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when is your birthday"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is your brother's name"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when is your father's birthday"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is your dog's name"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who is your best friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what can you see"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is Selene from"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where can I go"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where was Selene born"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where were you born"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where are you going"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who does Selene know"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when did Selene come"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who lives in New York"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who hates cleaning"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what do you hate"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is your office"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is my favorite TV show"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who are your colleagues"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is your biggest fear"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who works at the university"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who have you seen"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who is from Mexico"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who do you like"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who lives in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "who likes singing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "when are you coming"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is your favorite color"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what is my favorite food"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "what do you enjoy"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 66 UTTERANCES FROM FILE ./data/wh-questions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 64
+
+CORRECT TRIPLES: 2			INCORRECT TRIPLES: 64			RECALL: 3.03%
+
+CORRECT SUBJECTS: 2			INCORRECT SUBJECTS: 64			RECALL: 3.03%
+
+CORRECT PREDICATES: 2			INCORRECT PREDICATES: 64			RECALL: 3.03%
+
+CORRECT OBJECTS: 2			INCORRECT OBJECTS: 64			RECALL: 3.03%
 
 CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
 

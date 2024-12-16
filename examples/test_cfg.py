@@ -41,7 +41,7 @@ if __name__ == "__main__":
         "./data/locations.txt",
         "./data/professions.txt"
     ]
-
+    #all_test_files = ["./data/professions.txt.error.txt"]
     # Analyze utterances
     analyzer = CFGAnalyzer()
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
