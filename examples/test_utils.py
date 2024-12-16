@@ -1,4 +1,6 @@
 import json
+import pandas as pd
+import os
 from collections import defaultdict
 
 from cltl.triple_extraction.api import Chat, DialogueAct
@@ -11,7 +13,7 @@ def log_report(text, to_print=True, to_file=None):
         print(text)
 
 
-def report(test_suite, path, results, issues, resultfile, verbose=True):
+def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose=False):
     not_parsed = results['not_parsed']
     correct = results['correct']
     incorrect = results['incorrect']
@@ -23,11 +25,41 @@ def report(test_suite, path, results, issues, resultfile, verbose=True):
     incorrect_objects = results['incorrect_objects']
     correct_perspective = results['correct_perspective']
     incorrect_perspective = results['incorrect_perspective']
+    triple_precision = precision(incorrect+correct, correct)
     triple_recall = recall(len(test_suite), correct)
+    subject_precision = precision(correct_subjects+incorrect_subjects, correct_subjects)
     subject_recall = recall(len(test_suite), correct_subjects)
+    predicate_precision = precision(correct_predicates+incorrect_predicates, correct_predicates)
     predicate_recall = recall(len(test_suite), correct_predicates)
+    objects_precision = precision(correct_objects+incorrect_objects, correct_objects)
     objects_recall = recall(len(test_suite), correct_objects)
-    perspective_recall = recall(len(test_suite) * 3, incorrect_perspective)
+    perspective_precision = precision(correct_perspective+incorrect_perspective, correct_perspective)
+    perspective_recall = recall(len(test_suite), correct_perspective)
+
+    result_dict = {"analyzer": analyzer_name}
+    result_dict.update({"test_file": path})
+    result_dict.update({"nr_utterances":len(test_suite)})
+    result_dict.update({"no_triples":not_parsed})
+    result_dict.update({"correct_triples": correct})
+    result_dict.update({"incorrect_triples": incorrect})
+    result_dict.update({"triple_recall": triple_recall})
+    result_dict.update({"triple_precision": triple_precision})
+    result_dict.update({"correct_subjects": correct_subjects})
+    result_dict.update({"incorrect_subjects": incorrect_subjects})
+    result_dict.update({"subjects_recall": subject_recall})
+    result_dict.update({"subjects_precision": subject_precision})
+    result_dict.update({"correct_objects": correct_objects})
+    result_dict.update({"incorrect_objects": incorrect_objects})
+    result_dict.update({"objects_recall": objects_recall})
+    result_dict.update({"objects_precision": objects_precision})
+    result_dict.update({"correct_predicates": correct_predicates})
+    result_dict.update({"incorrect_predicates": incorrect_predicates})
+    result_dict.update({"predicates_recall": predicate_recall})
+    result_dict.update({"predicates_precision": predicate_precision})
+    result_dict.update({"correct_perspectives": correct_perspective})
+    result_dict.update({"incorrect_perspectives": incorrect_perspective})
+    result_dict.update({"perspectives_recall": perspective_recall})
+    result_dict.update({"perspectives_precision": perspective_precision})
 
     log_report(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n', to_file=resultfile)
     log_report(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
@@ -47,7 +79,7 @@ def report(test_suite, path, results, issues, resultfile, verbose=True):
     if verbose:
         log_report(f"\nISSUES ({len(issues)} UTTERANCES): "
                    f"{json.dumps(issues, indent=4, sort_keys=True, separators=(', ', ': '))}", to_file=resultfile)
-
+    return result_dict
 
 def recall(total, observed):
     if total == 0:
@@ -57,6 +89,15 @@ def recall(total, observed):
         # accuracy = 100-error_rate
 
     return recall
+
+def precision(total, correct):
+    if total == 0:
+        precision = 0
+    else:
+        precision = correct / total * 100
+        # accuracy = 100-error_rate
+
+    return precision
 
 
 def compare_elementwise(triple, gold, resultfile, verbose=True):
@@ -244,7 +285,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
         return results, issues
 
 
-def test_triples_in_file(path, analyzer, resultfile,
+def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
                          speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, verbose=True):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
@@ -266,4 +307,22 @@ def test_triples_in_file(path, analyzer, resultfile,
                                        speakers=speakers, is_question=is_question, verbose=verbose)
 
     # print report
-    report(test_suite, path, results, issues, resultfile, verbose=verbose)
+    result_dict = report(analyzer_name, test_suite, path, results, issues, resultfile, verbose=verbose)
+    print(results)
+    return result_dict
+
+def get_overview(path):
+    overviewfile = os.path.join(path, "overview.csv")
+    df = pd.DataFrame()
+    for file in os.listdir(path):
+        if file.endswith(".json"):
+            filepath= os.path.join(path, file)
+            print(filepath)
+            df_t = pd.read_json(filepath)
+            df = pd.concat([df,df_t])
+    df.to_csv(overviewfile)
+
+
+if __name__ == "__main__":
+    path = "evaluation_reports"
+    get_overview(path)
