@@ -1,0 +1,1533 @@
+
+
+RUNNING 7 FILES
+
+
+
+RUNNING 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know you"
+Triple:            	{'predicate': {'label': 'know', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'leolani', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'know', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is she"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my best friend is he"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have three white cats"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'cat', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'have', 'object': 'three-white-cats'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene doesn't like cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene hates cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene might come today"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't think selene likes cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'can-read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+Triple:            	{'predicate': {'label': 'come-to', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'Amsterdam', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'will-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in paris"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'have-been-in', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+Triple:            	{'predicate': {'label': 'drink', 'type': []}, 'subject': {'label': 'animal', 'type': []}, 'object': {'label': 'water', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'animals', 'predicate': 'must-drink', 'object': 'water'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'England', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'Netherlands', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'office', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'robot', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-robot'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'person', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'a-person'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+Triple:            	{'predicate': {'label': 'eat', 'type': []}, 'subject': {'label': 'human', 'type': []}, 'object': {'label': 'food', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'humans', 'predicate': 'can-eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'swimming', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'swimming', 'predicate': 'be', 'object': 'a-sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'bram', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from france"
+Triple:            	{'predicate': {'label': 'come-from', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'france', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know selene might come today"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to smell flowers"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have heard about you"
+Triple:            	{'predicate': {'label': 'hear-about', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'leolani', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'hear-about', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "sorry this is my chair"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Leolani you are my best friend"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-best-friend', 'predicate': 'be', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love ice-cream"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'cream', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'love', 'object': "'ice-cream'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in New York"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'York', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': "'new-york'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I come from the Netherlands"
+Triple:            	{'predicate': {'label': 'come-from', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'Netherlands', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'come-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my mother loves the beatles"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'mother', 'type': []}, 'object': {'label': 'beatle', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-mother', 'predicate': 'love', 'object': "'the-beatles'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was born in the U.K. "
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you should go"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that fruit grows on trees"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bram hates being late"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is my cup"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "these books are mine"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this yellow fruit is a banana"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'fruit', 'type': []}, 'object': {'label': 'banana', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'this-yellow-fruit', 'predicate': 'be', 'object': 'a-banana'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you like me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "your sister must come to Amsterdam"
+Triple:            	{'predicate': {'label': 'come-to', 'type': []}, 'subject': {'label': 'sister', 'type': []}, 'object': {'label': 'Amsterdam', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani-sister', 'predicate': 'must-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister doesn't like baking cakes"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'sister', 'type': []}, 'object': {'label': 'cake', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go to Paris"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'must-go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "they are not going to the university"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Suzana might have been at home"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'Suzana', 'type': []}, 'object': {'label': 'home', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'suzana', 'predicate': 'might-be-at', 'object': 'home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have never been to Japan"
+Triple:            	{'predicate': {'label': 'be-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'Japan', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-to', 'object': 'japan'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I want to go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'can-read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't enjoy washing the dishes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is a lovely shirt"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'England', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene likes baking cakes"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'Selene', 'type': []}, 'object': {'label': 'cake', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene loves to bake cakes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister's name is Emma"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'name', 'type': []}, 'object': {'label': 'Emma', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'name-is', 'object': 'emma'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you think my name is Anna"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds cannot talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from France"
+Triple:            	{'predicate': {'label': 'come-from', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'France', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+Triple:            	{'predicate': {'label': 'come-to', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'Amsterdam', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'will-come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I wouldn't like to eat pizza"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in Paris"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'Paris', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is my favorite song"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my father's favorite movie is the Titanic"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'movie', 'type': []}, 'object': {'label': 'titanic', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka-father', 'predicate': 'favorite-movie-is', 'object': "'the-titanic'"}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a teddy-bear"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a pink chair"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have always liked reading comic books"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+Triple:            	{'predicate': {'label': 'drink', 'type': []}, 'subject': {'label': 'animal', 'type': []}, 'object': {'label': 'water', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'animals', 'predicate': 'must-drink', 'object': 'water'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'Netherlands', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+Triple:            	{'predicate': {'label': 'live-in', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'office', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'robot', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'a-robot'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'person', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'a-person'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+Triple:            	{'predicate': {'label': 'eat', 'type': []}, 'subject': {'label': 'human', 'type': []}, 'object': {'label': 'food', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'humans', 'predicate': 'can-eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'swimming', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'swimming', 'predicate': 'be', 'object': 'a-sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'bram', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I own three beautiful cats"
+Triple:            	{'predicate': {'label': 'own', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'cat', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'three-beautiful-cats'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love looking at the starry sky"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have to go home"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 40
+
+CORRECT TRIPLES: 10			INCORRECT TRIPLES: 78			RECALL: 11.36%
+
+CORRECT SUBJECTS: 37			INCORRECT SUBJECTS: 51			RECALL: 42.05%
+
+CORRECT PREDICATES: 34			INCORRECT PREDICATES: 54			RECALL: 38.64%
+
+CORRECT OBJECTS: 21			INCORRECT OBJECTS: 67			RECALL: 23.86%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'bram', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john hates fashion"
+Triple:            	{'predicate': {'label': 'hate', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john loves fashion"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john doesn't hate fashion"
+Triple:            	{'predicate': {'label': 'hate', 'type': []}, 'subject': {'label': 'john', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think selene works in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'coffee', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you are not a human"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you aren't a human"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene works in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John hates fashion"
+Triple:            	{'predicate': {'label': 'hate', 'type': []}, 'subject': {'label': 'John', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+Triple:            	{'predicate': {'label': 'like', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'coffee', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene thinks my favorite color is blue"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think you don't like pizza"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Triple:            	{'predicate': {'label': 'read', 'type': []}, 'subject': {'label': 'lana', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'bram', 'type': []}, 'object': {'label': 'sport', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John loves fashion"
+Triple:            	{'predicate': {'label': 'love', 'type': []}, 'subject': {'label': 'John', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John doesn't hate fashion"
+Triple:            	{'predicate': {'label': 'hate', 'type': []}, 'subject': {'label': 'John', 'type': []}, 'object': {'label': 'fashion', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you must bring three books"
+Triple:            	{'predicate': {'label': 'bring', 'type': []}, 'subject': {'label': 'leolani', 'type': []}, 'object': {'label': 'book', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'must-bring', 'object': 'three-books'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john might like reading books"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene should come to the university"
+Triple:            	{'predicate': {'label': 'come-to', 'type': []}, 'subject': {'label': 'selene', 'type': []}, 'object': {'label': 'university', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'selene', 'predicate': 'should-come-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bob might be from england"
+Triple:            	{'predicate': {'label': 'be-from', 'type': []}, 'subject': {'label': 'Bob', 'type': []}, 'object': {'label': 'england', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'bob', 'predicate': 'might-be-from', 'object': 'england'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 13
+
+CORRECT TRIPLES: 10			INCORRECT TRIPLES: 18			RECALL: 35.71%
+
+CORRECT SUBJECTS: 15			INCORRECT SUBJECTS: 13			RECALL: 53.57%
+
+CORRECT PREDICATES: 12			INCORRECT PREDICATES: 16			RECALL: 42.86%
+
+CORRECT OBJECTS: 11			INCORRECT OBJECTS: 17			RECALL: 39.29%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 36			RECALL: 0.00%
+
+RUNNING 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister called Carla"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother called Carl"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has a sister called Carla"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a brother called Carl"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'Carla', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'carla'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister Carla"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother Carl"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little sister"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little brother"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'someone', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brother is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brothers name is Carl"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'name', 'type': []}, 'object': {'label': 'Carl', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sister is called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sisters name is Carla"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'name', 'type': []}, 'object': {'label': 'Carla', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My father is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mother is called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mothers name is Carla"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'name', 'type': []}, 'object': {'label': 'Carla', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-mother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my brother"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'brother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-brother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my sister"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carla', 'type': []}, 'object': {'label': 'sister', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-sister-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my father"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'father', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-father-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my mother"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carla', 'type': []}, 'object': {'label': 'mother', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-mother-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my husband"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'husband', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-husband-of', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My husband is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is married to Carl"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carla', 'type': []}, 'object': {'label': 'married', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'be-spouse-of', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla's husband is Carl"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'husband', 'type': []}, 'object': {'label': 'Carl', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-husband-of', 'object': 'carla'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a husband called Carl"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'Carla', 'type': []}, 'object': {'label': 'husband', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carla', 'predicate': 'spouse', 'object': 'carl'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are married"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are together"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is your friend"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a friend Carl"
+Triple:            	{'predicate': {'label': 'have', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'friend', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friend is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friends name is Carl"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'name', 'type': []}, 'object': {'label': 'Carl', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-friends-with', 'object': 'lenka'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 8
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 34			RECALL: 0.00%
+
+CORRECT SUBJECTS: 10			INCORRECT SUBJECTS: 24			RECALL: 29.41%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 34			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 34			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I watch a video"
+Triple:            	{'predicate': {'label': 'watch', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'video', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'video'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play soccer"
+Triple:            	{'predicate': {'label': 'play', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'soccer', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'soccer'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play cards"
+Triple:            	{'predicate': {'label': 'play', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'card', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'cards'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I listen to music"
+Triple:            	{'predicate': {'label': 'listen-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'music', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'music'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been dancing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw an exhibition"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'exhibition', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'exhibition'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw a show"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'show', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'show'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to a concert"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'concert', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the movies"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'movie', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to a concert"
+Triple:            	{'predicate': {'label': 'be-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'concert', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to the movies"
+Triple:            	{'predicate': {'label': 'be-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'movie', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was at the theater"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'theater', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'theater'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the museum"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'museum', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'do-activity', 'object': 'museum'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw an exhibition"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'exhibition', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'exhibition'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw a show"
+Triple:            	{'predicate': {'label': 'see', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'show', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'show'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to a concert"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'concert', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'concert'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the movies"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'movie', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'movie'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the theater"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'theater', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'theater'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the museum"
+Triple:            	{'predicate': {'label': 'go-to', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'museum', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'do-activity', 'object': 'museum'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been swimming"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has been running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I ran a marathon"
+Triple:            	{'predicate': {'label': 'run', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'marathon', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenk', 'predicate': 'do-activity', 'object': 'marathon'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 5
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 24			RECALL: 0.00%
+
+CORRECT SUBJECTS: 18			INCORRECT SUBJECTS: 6			RECALL: 75.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 24			RECALL: 0.00%
+
+CORRECT OBJECTS: 18			INCORRECT OBJECTS: 6			RECALL: 75.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am sick"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sick', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am healthy"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'healthy'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel sick"
+Triple:            	{'predicate': {'label': 'feel', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'sick', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel great"
+Triple:            	{'predicate': {'label': 'feel', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'great', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'feel', 'object': 'great'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels sick"
+Triple:            	{'predicate': {'label': 'feel', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'sick', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels great"
+Triple:            	{'predicate': {'label': 'feel', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'great', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'great'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is sick"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'sick', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'sick'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is healthy"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'healthy', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'feel', 'object': 'healthy'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 4			INCORRECT TRIPLES: 4			RECALL: 50.00%
+
+CORRECT SUBJECTS: 8			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 4			INCORRECT PREDICATES: 4			RECALL: 50.00%
+
+CORRECT OBJECTS: 8			INCORRECT OBJECTS: 0			RECALL: 100.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'next', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am at the library"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in the library"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in my home"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'home', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am next to the library"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'next', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in the library"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in my home"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'home', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is at the library"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'next', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in the library"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in my home"
+Triple:            	{'predicate': {'label': 'be-in', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'home', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-inside', 'object': 'my-home'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the library"
+Triple:            	{'predicate': {'label': 'be-at', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'library', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-at', 'object': 'the-library'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was next to the library"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'next', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'be-next-to', 'object': 'the-library'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 13			RECALL: 0.00%
+
+CORRECT SUBJECTS: 13			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 3			INCORRECT PREDICATES: 10			RECALL: 23.08%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 13			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a teacher"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'teacher', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is a teacher"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'teacher', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a police-officer"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'officer', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'police-officer'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was a policeman"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'policeman', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'policeman'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was an actor"
+Triple:            	{'predicate': {'label': 'be', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'actor', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'actor'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I work as a teacher"
+Triple:            	{'predicate': {'label': 'work-as', 'type': []}, 'subject': {'label': 'lenka', 'type': []}, 'object': {'label': 'teacher', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'work-as', 'object': 'teacher'}
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl works as a teacher"
+Triple:            	{'predicate': {'label': 'work-as', 'type': []}, 'subject': {'label': 'Carl', 'type': []}, 'object': {'label': 'teacher', 'type': []}, 'perspective': {}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'carl', 'predicate': 'work-as', 'object': 'teacher'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 2			INCORRECT TRIPLES: 5			RECALL: 28.57%
+
+CORRECT SUBJECTS: 7			INCORRECT SUBJECTS: 0			RECALL: 100.00%
+
+CORRECT PREDICATES: 2			INCORRECT PREDICATES: 5			RECALL: 28.57%
+
+CORRECT OBJECTS: 6			INCORRECT OBJECTS: 1			RECALL: 85.71%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
