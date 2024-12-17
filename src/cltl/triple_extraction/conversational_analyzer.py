@@ -163,11 +163,11 @@ class ConversationalAnalyzer(Analyzer):
                 triples = standard_question.standard_questions(self._utterance, chat.speaker, chat.agent)
             if not triples:
                 # Dummy list of speakers
+                conversation = self._utterance.transcript
                 speakers = [chat.speaker, chat.agent]
                 pos = self._utterance.transcript.index(" ")
                 first_word = self._utterance.transcript[:pos]
                 if first_word.lower() in whowords:
-                    conversation = self._utterance.transcript
                     if not conversation.endswith("?"):
                         conversation += "?"
                     conversation += " " + self._sep + " Joe"

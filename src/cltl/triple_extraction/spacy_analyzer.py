@@ -32,7 +32,7 @@ class spacyAnalyzer(Analyzer):
         self.analyze(chat.last_utterance)
 
     # TODO this doesn't match the Analyzer interface!
-    def analyze(self, utterance):
+    def analyze(self, chat):
         """
         Analyzer factory function
 
@@ -44,24 +44,24 @@ class spacyAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        self._utterance = utterance
-        speaker = self._utterance.chat.speaker
-        hearer = self._utterance.chat.agent
+        self._utterance = chat.last_utterance
+        speaker = chat.speaker
+        hearer = chat.agent
 
         # @TODO: check if there are embedded clauses:
         # - ccomp  "I think ccomp that S. likes chees"
         # - xcomp, subject or object raising  "I like xcomp talking to her"
         triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_obj_triples_with_spacy(
-            self._nlp, utterance.transcript, speaker, hearer)
+            self._nlp, self._utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_amod_triples_with_spacy(
-                self._nlp, utterance.transcript, speaker, hearer)
+                self._nlp, self._utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_attr_triples_with_spacy(
-                self._nlp, utterance.transcript, speaker, hearer)
+                self._nlp, self._utterance.transcript, speaker, hearer)
         if not triples:
             triples, speaker_mentions, hearer_mentions, subject_mentions, object_mentions = dep_to_triple.get_subj_prep_pobj_triples_with_spacy(
-                self._nlp, utterance.transcript, speaker, hearer)
+                self._nlp, self._utterance.transcript, speaker, hearer)
 
         if triples:
             for triple in triples:

@@ -35,6 +35,8 @@ def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose
     objects_recall = recall(len(test_suite), correct_objects)
     perspective_precision = precision(correct_perspective+incorrect_perspective, correct_perspective)
     perspective_recall = recall(len(test_suite), correct_perspective)
+    elements_recall = recall(3*len(test_suite), correct_subjects+correct_predicates+correct_objects)
+    elements_precision = precision(correct_subjects+correct_predicates+correct_objects+incorrect_subjects+incorrect_predicates+incorrect_objects, correct_subjects+correct_predicates+correct_objects)
 
     result_dict = {"analyzer": analyzer_name}
     result_dict.update({"test_file": path})
@@ -47,8 +49,8 @@ def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose
     result_dict.update({"total triple elements": 3*len(test_suite)})
     result_dict.update({"correct triple elements": correct_subjects+correct_predicates+correct_objects})
     result_dict.update({"incorrect triple elements": incorrect_subjects+incorrect_predicates+incorrect_objects})
-    result_dict.update({"recall triple elements": (correct_subjects+correct_predicates+correct_objects)/3*len(test_suite)})
-    result_dict.update({"precision triple elements": (correct_subjects+correct_predicates+correct_objects)/(correct_subjects+correct_predicates+correct_objects+incorrect_subjects+incorrect_predicates+incorrect_objects)})
+    result_dict.update({"recall triple elements": elements_recall})
+    result_dict.update({"precision triple elements": elements_precision})
     result_dict.update({"correct_subjects": correct_subjects})
     result_dict.update({"incorrect_subjects": incorrect_subjects})
     result_dict.update({"subjects_recall": subject_recall})
@@ -319,10 +321,10 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
 def get_overview(path):
 
     current_date = str(datetime.today().date())
-    overviewfile = os.path.join(path, f"overview_{current_date}.csv")
+    overviewfile = os.path.join(path, f"CONVSToverview_{current_date}.csv")
     df = pd.DataFrame()
     for file in os.listdir(path):
-        if file.endswith(".json"):
+        if "evaluation_CONVST" in file and file.endswith(".json"):
             filepath= os.path.join(path, file)
             print(filepath)
             df_t = pd.read_json(filepath)

@@ -9,14 +9,14 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 import logging
 from collections import defaultdict
 from datetime import datetime
-
+import json
 from cltl.triple_extraction import logger
 from cltl.triple_extraction.conversational_analyzer import ConversationalAnalyzer
 from test_utils import log_report, report, test_triples
 
 logger.setLevel(logging.ERROR)
 
-MULTILINGUAL = False
+MULTILINGUAL = True
 
 '''
 personachat-valid-000544
@@ -83,8 +83,8 @@ def load_golden_conversation_triples(filepath):
     return test_suite
 
 
-def test_triples_in_file(path, analyzer, resultfile,
-                         speakers={'agent': 'leolani', 'speaker': 'lenka'}, verbose=True):
+def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
+                         speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, verbose=True):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
@@ -101,9 +101,35 @@ def test_triples_in_file(path, analyzer, resultfile,
 
     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
     for item in test_suite:
-        results, issues = test_triples(item, results, issues, resultfile, analyzer, speakers=speakers, verbose=verbose)
-    # report
-    report(test_suite, path, results, issues, resultfile, verbose=verbose)
+        results, issues = test_triples(item, results, issues, resultfile, analyzer,
+                                       speakers=speakers, is_question=is_question, verbose=verbose)
+
+    # print report
+    result_dict = report(analyzer_name, test_suite, path, results, issues, resultfile, verbose=verbose)
+    print(results)
+    return result_dict
+
+# def test_triples_in_file(path, analyzer, resultfile,
+#                          speakers={'agent': 'leolani', 'speaker': 'lenka'}, verbose=True):
+#     """
+#     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
+#     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
+#     triple elements
+#     :param path: filepath of test file
+#     """
+#     results = {'not_parsed': 0, 'correct': 0, 'incorrect': 0,
+#                'correct_subjects': 0, 'incorrect_subjects': 0,
+#                'correct_predicates': 0, 'incorrect_predicates': 0,
+#                'correct_objects': 0, 'incorrect_objects': 0,
+#                'correct_perspective': 0, 'incorrect_perspective': 0}
+#     issues = defaultdict(dict)
+#     test_suite = load_golden_conversation_triples(path)
+#
+#     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
+#     for item in test_suite:
+#         results, issues = test_triples(item, results, issues, resultfile, analyzer, speakers=speakers, verbose=verbose)
+#     # report
+#     report(test_suite, path, results, issues, resultfile, verbose=verbose)
 
 
 if __name__ == "__main__":
@@ -115,13 +141,17 @@ if __name__ == "__main__":
     # Test with monolingual model or multilingual
     path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
    # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    lang = 'en' if not MULTILINGUAL else 'nl'
+    lang = 'en' #if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
     resultfilename = f"evaluation_reports/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.txt"
     resultfile = open(resultfilename, "w")
+    resultjson = f"evaluation_reports/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.json"
+
 
     # Select files to test
     all_test_files = [
@@ -136,15 +166,20 @@ if __name__ == "__main__":
         # "./data/conversation_test_examples/test_implicit_negation.txt", #TODO not able to read data
         "./data/conversation_test_examples/test_single_utterances.txt"
     ]
+    analyzer_name ="CONVST"
 
     # Analyze utterances
-    analyzer = ConversationalAnalyzer(model_path=path, base_model=base_model, lang=lang)
+    analyzer = ConversationalAnalyzer(model_path=path, base_model=base_model, lang=lang, threshold=0.6, max_triples=5)
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
     speaker1 = "speaker1"  ### this is supposed to be the human that gives the first and third response
     speaker2 = "speaker2"  ### this is supposed to be the agent that gives the second response
     analyzer._extractor._speaker1 = speaker1
     analyzer._extractor._speaker2 = speaker2
-
+    jsonresults = []
     for test_file in all_test_files:
-        test_triples_in_file(test_file, analyzer, resultfile,
-                             speakers={'agent': speaker2, 'speaker': speaker1}, verbose=False)
+        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, speakers={'agent': speaker2, 'speaker': speaker1}, verbose=False)
+        jsonresults.append(result_dict)
+    resultfile.close()
+    with open (resultjson, 'w') as outfile:
+        json.dump(jsonresults, outfile)
+        outfile.close()

@@ -32,7 +32,7 @@ class OIEAnalyzer(Analyzer):
     def analyze_in_context(self, chat: Chat):
         self.analyze(chat.last_utterance)
 
-    def analyze(self, utterance):
+    def analyze(self, chat):
         """
         Analyzer factory function
 
@@ -44,11 +44,11 @@ class OIEAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-        self._utterance = utterance
+        self._utterance = chat.last_utterance
 
         try:
             with StanfordOpenIE(properties=OIEAnalyzer.PROPERTIES) as client:
-                text = utterance.transcript
+                text = self._utterance.transcript
 
                 result = client.annotate(text)
                 if result:
@@ -56,10 +56,10 @@ class OIEAnalyzer(Analyzer):
                     for triple in result:
                         # Final triple assignment
                         fixed_triple = {
-                            "subject": {'label': fix_pronouns(triple['subject'], self._utterance.chat.speaker, self._utterance.chat.agent),
+                            "subject": {'label': fix_pronouns(triple['subject'], self.utterance.utterance_speaker, self._utterance.chat.speaker, self._utterance.chat.agent),
                                         'type': []},
                             "predicate": {'label': triple['relation'], 'type': []},
-                            "object": {'label': fix_pronouns(triple['object'], self._utterance.chat.speaker, self._utterance.chat.agent),
+                            "object": {'label': fix_pronouns(triple['object'], self.utterance.utterance_speaker, self._utterance.chat.speaker, self._utterance.chat.agent),
                                        'type': []},
                         }
 
