@@ -20,31 +20,39 @@ qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "z
 
 #_INSTRUCT: {'role':'system', 'content':'You will receive input from an agent that is not well-formulated. Rephrase this input to simple English as if coming from you. If it contains names, then use these names in the paraphrase. Do not switch "you" and "I" when generating the paraphrase from the input. You in the input is the user and I in the input is you. Be concise and do NOT include or repeat the instructions in the paraphrase.'}
 
-_INSTRUCT = {'role':'system', 'content':'You will analyze a dialogue and break it down into triples consisting of a subject, predicate,and object. Each triple should capture the essence of interactions between speakers. \
-                                         Additionally, annotate each triple with:  \
-- Sentiment (-1 for negative, 0 for neutral, 1 for positive) \
-- Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) \
-- Certainty (a scale between 0 for uncertain and 1 for certain) \
-Ensure that predicates are semantically meaningful. Separate multi-word items with an underscore. \
-Save it as a JSON with this format: \
-{"dialogue": [{"sender": "human", "text": "I am from  find my order. It was supposed to arrive yesterday.", "triples": [ { "subject": "I", "predicate": "cannot_find", "object": "my_order", "sentiment": -1, "polarity": -1, "certainty": 1n},\
-            {"subject": "It", "predicate": "was_supposed_to_arrive", "object": "yesterday", "sentiment": -1, "polarity": 1, "certainty": 0.7 }]},\
-{"sender": "agent","text": "I will help you with that.", "triples": [ {"subject": "I", "predicate": "will_help", "object": "you_with_that", "sentiment": 1, "polarity": 1, "certainty": 1}]}]}\
-                                        Do not output any other text than the JSON'
-}
+# _INSTRUCT = {'role':'system', 'content':'You will analyze a dialogue and break it down into triples consisting of a subject, predicate,and object. Each triple should capture the essence of interactions between speakers. \
+#                                          Additionally, annotate each triple with:  \
+# - Sentiment (-1 for negative, 0 for neutral, 1 for positive) \
+# - Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) \
+# - Certainty (a scale between 0 for uncertain and 1 for certain) \
+# Ensure that predicates are semantically meaningful. Separate multi-word items with an underscore. \
+# Save it as a JSON with this format: \
+# {"dialogue": [{"sender": "human", "text": "I am from  find my order. It was supposed to arrive yesterday.", "triples": [ { "subject": "I", "predicate": "cannot_find", "object": "my_order", "sentiment": -1, "polarity": -1, "certainty": 1n},\
+#             {"subject": "It", "predicate": "was_supposed_to_arrive", "object": "yesterday", "sentiment": -1, "polarity": 1, "certainty": 0.7 }]},\
+# {"sender": "agent","text": "I will help you with that.", "triples": [ {"subject": "I", "predicate": "will_help", "object": "you_with_that", "sentiment": 1, "polarity": 1, "certainty": 1}]}]}\
+#                                         Do not output any other text than the JSON'
+#}
+
 _INSTRUCT = {'role':'system', 'content':'You will analyze a dialogue and break it down into triples consisting of a subject, predicate,and object. \
 Each triple should capture the essence of interactions between speakers. \
-Replace the predicate by its lemma, for example "is" and "am" should become "be". Remove auxiliary verbs such as "be", "have", "can" from predicates. \
-If the object starts with a preposition, concatenate the object to the predicate preceded by an undescore.\
+Replace the predicate by its lemma, for example "is" and "am" should become "be". Remove auxiliary verbs such as "be", "have", "can", "might" from predicates. \
+If the object starts with a preposition, concatenate the preposition to the predicate separated by a hyphen, for example "be-from".\
 Additionally, annotate each triple with:  \
 - Sentiment (-1 for negative, 0 for neutral, 1 for positive) \
 - Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) \
 - Certainty (a scale between 0 for uncertain and 1 for certain) \
 Ensure that predicates are semantically meaningful. Separate multi-word items with an underscore. \
 Save it as a JSON with this format: \
-{"dialogue": [{"sender": "human", "text": "I am from Amsterdam.", "triples": [ { "subject": "I", "predicate": "be_from", "object": "Amsterdam", "sentiment": -1, "polarity": -1, "certainty": 1}]},\
-{"sender": "human","text": " Who likes cats?", "triples": [ {"subject": "", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 1}]},\
-{"sender": "human","text": " Do you like cats?", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 1}]}]}\
+{"dialogue": [{"sender": "human", "text": "I am from Amsterdam.", "triples": [ { "subject": "I", "predicate": "be_from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}]},\
+{"dialogue": [{"sender": "human", "text": "lana is reading a book.", "triples": [ { "subject": "lana", "predicate": "read", "object": "a-book", "sentiment": 0, "polarity": 1, "certainty": 1}]},\
+{"dialogue": [{"sender": "human", "text": "You hate dogs.", "triples": [ { "subject": "You", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.7}]},\
+{"dialogue": [{"sender": "human", "text": "Selene does not like cheese.", "triples": [ { "subject": "Selene", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 0.5}]},\
+{"sender": "human","text": " Who likes cats?", "triples": [ {"subject": "", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]},\
+{"sender": "human","text": " Wen did Selene come?", "triples": [ {"subject": "Selene", "predicate": "come", "object": "", "sentiment": 1, "polarity": 1, "certainty": 0.1}]},\
+{"sender": "human","text": " Where can I go?", "triples": [ {"subject": "I", "predicate": "go", "object": "", "sentiment": 1, "polarity": 1, "certainty": 0.1}]},\
+{"sender": "human","text": " Who likes cats?", "triples": [ {"subject": "", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]},\
+{"sender": "human","text": " Are cats pets?", "triples": [ {"subject": "cats", "predicate": "be", "object": "pets", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}]}\
+{"sender": "human","text": " Do you like cats?", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}]}\
                                         Do not output any other text than the JSON.'
 
 }
