@@ -122,17 +122,19 @@ def compare_elementwise(triple, gold, resultfile, verbose=True):
 
         if type(triple[key]) == dict:
             # This is a triple
-            match_result = triple[key]['label'].lower() == gold[key]
-            matches['triple'][key] = int(match_result)
+            if 'label' in triple[key]:
+                match_result = triple[key]['label'].lower() == gold[key]
+                matches['triple'][key] = int(match_result)
 
-            # Report
-            if verbose:
-                if not match_result:
-                    log_report(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}",
-                               to_file=resultfile)
-                if match_result:
-                    log_report(f"Match triple {key}: {triple[key]} == {gold[key]}", to_file=resultfile)
-
+                # Report
+                if verbose:
+                    if not match_result:
+                        log_report(f"Mismatch in triple {key}: {triple[key]['label'].lower()} != {gold[key]}",
+                                   to_file=resultfile)
+                    if match_result:
+                        log_report(f"Match triple {key}: {triple[key]} == {gold[key]}", to_file=resultfile)
+            else:
+                print('ERROR', key, triple[key])
         elif type(triple[key]) == float:
             # This is a perspective
             match_result = triple[key] == gold[key]
@@ -216,7 +218,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
     # analyze utterance
     if type(analyzer).__name__ in ['CFGAnalyzer', 'spacyAnalyzer', 'OIEAnalyzer']:
         analyzer.analyze(chat)
-    elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer']:
+    elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer', 'LlamaAnalyzer']:
         analyzer.analyze_in_context(chat)
     elif type(analyzer).__name__ in ['ConversationalQuestionAnalyzer']:
         analyzer.analyze_question_in_context(chat)
