@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
     # Set up logging file
     current_date = str(datetime.today().date())
-    analyzer_name ="CONV"
+    analyzer_name ="CONV_"+base_model
 
     resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.txt"
     resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.json"

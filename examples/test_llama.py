@@ -32,6 +32,7 @@ if __name__ == "__main__":
     LLAMA_MODEL = "llama3.2"
     #MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
+    analyzer_name += "_" + MODEL
     resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.txt"
     resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.json"
 
