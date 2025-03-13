@@ -1,13 +1,13 @@
 Carl is next to the library: carl be-next-to the-library
 I am at the library: lenka be-at the-library
-I am in the library: lenka be-inside the-library
-I am in my home: lenka be-inside my-home
+I am in the library: lenka be-in the-library
+I am in my home: lenka be-in my-home
 I am next to the library: lenka be-next-to the-library
-Carl is in the library: carl be-inside the-library
-Carl is in my home: carl be-inside my-home
+Carl is in the library: carl be-in the-library
+Carl is in my home: carl be-in my-home
 Carl is at the library: carl be-at the-library
 Carl is next to the library: carl be-next-to the-library
-Carl was in the library: carl be-inside the-library
-Carl was in my home: carl be-inside my-home
+Carl was in the library: carl be-in the-library
+Carl was in my home: carl be-in my-home
 Carl was at the library: carl be-at the-library
 Carl was next to the library: carl be-next-to the-library

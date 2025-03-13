@@ -1,68 +1,58 @@
-who is your best friend: Leolani best-friend-is ?
-who can sing: ? can-sing ?
-who likes talking to people: ? like talking-to-people
-who works at the university: ? work-at the-university
-who have you seen: Leolani see ?
-who is from Mexico: ? be-from Mexico
-who does Selene know: Selene know ?
-who do you like: Leolani like ?
-who lives in Amsterdam: ? live-in Amsterdam
-who can sing: ? can-sing ?
-who likes singing: ? like singing
-who likes watching movies: ? like watching-movies
-when is your birthday: Leolani birthday-is ?
-when did Selene come: Selene come ?
-when are you coming: Leolani come ?
-what can you see: Leolani can-see ?
-what is your favorite color: Leolani favorite-color-is ?
-what is my favorite food: Lenka favorite-food-is ?
+what are cats: cats be ?
+what can you see: Leolani see ?: can
+what day is your birthday: leolani birthday ?
+what do I like: lenka like ?
 what do you enjoy: Leolani enjoy ?
-where is selene from: Selene be-from ?
-where is your friend: leolani friend-is ?
-where are you going: leolani go ?
-where is my friend: lenka friend-is ?
-where can I go: lenka can-go ?
-where did Bram come from: Bram come-from ?
-when did you go to school: leolani go-to school
-who will come to school: ? will-come-to school
-where did you go yesterday: leolani go yesterday
-where did Bram come from: Bram come-from ?
-what day is your birthday: leolani birthday-is ?
+what do you hate: leolani hate ?
+what do you have: Leolani have ?
+what do you like: leolani like ?
+what do you own: Leolani own ?
+what is a cat: cat be ?
+what is my favorite TV show: lenka favorite-tv-show ?
+what is my favorite food: Lenka favorite-food ?
+what is your biggest fear: leolani biggest-fear ?
+what is your brother's name: leolani-brother name ?
+what is my brother's name: lenka-brother name ?
+what is your dog's name: leolani-dog name ?
+what is your favorite color: Leolani-favorite-color be ?
+when are you coming: Leolani come ?
 when are you going to Mexico: leolani go-to mexico
+when did Selene come: Selene come ?
+when did you go to school: leolani go-to-school ?
+when is your birthday: Leolani birthday ?
+when is your father's birthday: leolani-father birthday ?
+where are you going: leolani go ?
+where can I go: lenka go ?: can
+where did Bram come from: Bram come-from ?
+where did you go yesterday: leolani go ? : yesterday
 where is my friend: lenka-friend be ?
-which is your favorite color: leolani favorite-color-is ?
+where is selene from: Selene be-from ?
 where is your best friend: leolani-best-friend be ?
-when is your birthday: Leolani birthday-is ?
-what is your brother's name: leolani-brother name-is ?
-when is your father's birthday: leolani-father birthday-is ?
-what is your dog's name: leolani dog-name-is ?
-who is your best friend: Leolani-best-friend be ?
-what can you see: Leolani can-see ?
-where is Selene from: Selene be-from ?
-where can I go: lenka can-go ?
+where is your friend: leolani-friend be ?
+where is your office: leolani-office be ?
 where was Selene born: selene born ?
 where were you born: leolani born ?
-where are you going: leolani go ?
-who does Selene know: Selene know ?
-when did Selene come: Selene come ?
-who lives in New York: ? live-in new-york
+which is your favorite color: leolani favorite-color ?
+who are your colleagues: leolani colleagues ?
+who can sing: ? sing ? : can
+who do I know: Lenka know ?
+who do you know: Leolani know ?
+who do I like: Lenka like ?
+who do you like: Leolani like ?
+who does selene like: selene like ?
+who does Selene know: selene know ?
+who has a cat: ? has cat
 who hates cleaning: ? hate cleaning
-what do you hate: leolani hate ?
-who likes watching movies: ? like watching-movies
-where is your office: leolani office-is ?
-what is my favorite TV show: lenka favorite-tv-show-is ?
-who are your colleagues: leolani colleagues-is ?
-what is your biggest fear: leolani biggest-fear-is ?
-who likes talking to people: ? like talking-to-people
-who works at the university: ? work-at the-university
 who have you seen: Leolani see ?
 who is from Mexico: ? be-from Mexico
-who do you like: Leolani like ?
-who lives in Amsterdam: ? live-in Amsterdam
+who is your best friend: Leolani-best-friend be ?
+who likes me: ? like Lenka
+who likes you: ? like Leolani
 who likes singing: ? like singing
-when are you coming: Leolani come ?
-what is your favorite color: Leolani favorite-color-is ?
-what is my favorite food: Lenka favorite-food-is ?
-what do you enjoy: Leolani enjoy ?
-
-
+who likes talking to people: ? like talking-to-people
+who likes watching movies: ? like watching-movies
+who lives in Amsterdam: ? live-in Amsterdam
+who lives in New York: ? live-in new-york
+who owns a cat: ? own cat
+who will come to school: ? come-to school: will
+who works at the university: ? work-at the-university

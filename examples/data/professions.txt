@@ -1,7 +1,7 @@
-I am a teacher: lenka work-as teacher
-Carl is a teacher: carl work-as teacher
-I am a police-officer: lenka work-as police-officer
-I was a policeman: lenka work-as policeman
-Carl was an actor: carl work-as actor
-I work as a teacher: lenka work-as teacher
-Carl works as a teacher: carl work-as teacher
+I am a teacher: lenka be teacher
+Carl is a teacher: carl be teacher
+I am a police-officer: lenka be police-officer
+I was a policeman: lenka be policeman
+Carl was an actor: carl be actor
+I work as a teacher: lenka be teacher
+Carl works as a teacher: carl be teacher
