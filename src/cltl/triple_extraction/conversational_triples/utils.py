@@ -230,6 +230,47 @@ def pronoun_to_speaker(token, speaker, human, agent):
             return "SPEAKER1's"
     return token
 
+
+def pronoun_to_speaker_name(token, speaker, human, agent):
+    #print('speaker', speaker)
+    if speaker == human:
+        if token in ['I', 'i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return human
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return human+"'s"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return agent
+        elif token in ['your', 'yours']:
+            return agent+"'s"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return human
+        elif token in ['mijn', 'mijne', 'onze']:
+            return human+"'s"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return agent
+        elif token in ['jouw']:
+            return agent+"'s"
+    elif speaker == agent:
+        if token in ['I', 'i', 'me', 'myself', 'we', 'us', 'ourselves']:
+            return agent
+        elif token in ['my', 'mine', 'our', 'ours']:
+            return agent+"'s"
+        elif token in ['you', 'yourself', 'yourselves']:
+            return human
+        elif token in ['your', 'yours']:
+            return human+"'s"
+        ##### DUTCH
+        elif token in ['ik', 'me', 'mezelf', 'mijzelf', 'mij', 'we', 'wij', 'ons', 'onszelf']:
+            return agent
+        elif token in ['mijn', 'mijne', 'onze']:
+            return agent+"'s"
+        elif token in ['jij', 'je', 'jou', 'jezelf', 'jijzelf']:
+            return human
+        elif token in ['jouw']:
+            return human+"'s"
+    return token
+
 def pronoun_to_speaker_id(token, speaker_id):
     # SPEAKER1 == human, SPEAKER2=agent
     #print('speaker_id',speaker_id)

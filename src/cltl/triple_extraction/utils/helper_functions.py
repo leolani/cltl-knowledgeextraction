@@ -42,7 +42,7 @@ def trim_dash(triple):
     return triple
 
 
-def fix_pronouns(pronoun, speaker, agent):
+def fix_pronouns(pronoun, speaker, human, agent):
     """
     :param pronoun: personal ronoun which is said in the sentence
     :param speaker: the original speaker get_pos_in_tree an utterance
@@ -55,12 +55,22 @@ def fix_pronouns(pronoun, speaker, agent):
 
     if entry and 'person' in entry:
         if entry['person'] == 'first':
-            return speaker
+                return speaker
         elif entry['person'] == 'second':
-            return agent
+            if speaker == human:
+                return agent
+            elif speaker == agent:
+                return human
         else:
             # print('disambiguate third person')
             return pronoun
+    elif pronoun=='i':
+        return speaker
+    elif pronoun.lower()=='you':
+        if speaker == human:
+            return agent
+        elif speaker == agent:
+            return human
     else:
         return pronoun
 
