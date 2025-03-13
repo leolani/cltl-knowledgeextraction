@@ -26,34 +26,40 @@ if __name__ == "__main__":
 
     # Set up logging file
     current_date = str(datetime.today().date())
-    analyzer_name ="LLAMA3.2"
+    analyzer_name ="LLM"
     # LLAMA_MODEL = "llama3.2:1b"
+    QWEN_MODEL = "qwen2.5"
     LLAMA_MODEL = "llama3.2"
-    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{LLAMA_MODEL}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}__{LLAMA_MODEL}_{current_date}.json"
+    #MODEL = LLAMA_MODEL
+    MODEL = QWEN_MODEL
+    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.txt"
+    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
     # Select files to test
     all_test_files = [
-        "./data/statements.txt",
-        "./data/verb-questions.txt",
-        "./data/wh-questions.txt",
-        "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+       # "./data/statements.txt",
+       # "./data/verb-questions.txt",
+        #"./data/wh-questions.txt",
+         "./data/perspective.txt",
+         "./data/kinship-friends.txt",
+         "./data/activities.txt",
+         "./data/feelings.txt",
+         "./data/locations.txt",
+         "./data/professions.txt"
     ]
 
     # Analyze utterances
-    analyzer = LlamaAnalyzer(model_name=LLAMA_MODEL,temperature=0.1)
+    analyzer = LlamaAnalyzer(model_name=MODEL,temperature=0.1, keep_alive=20)
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
 
     jsonresults = []
     for test_file in all_test_files:
-        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, verbose=False)
+        is_question = False
+        if "question" in test_file:
+            is_question = True
+        result_dict = test_triples_in_file(analyzer_name=analyzer_name, path=test_file, analyzer=analyzer, is_question=is_question, resultfile=resultfile, verbose=True)
         jsonresults.append(result_dict)
     resultfile.close()
     with open (resultjson, 'w') as outfile:

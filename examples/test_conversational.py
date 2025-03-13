@@ -14,7 +14,7 @@ from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
 
-MULTILINGUAL = True
+MULTILINGUAL = False
 
 if __name__ == "__main__":
     '''
@@ -23,22 +23,22 @@ if __name__ == "__main__":
     collocation
     '''
     # Test with monolingual model or multilingual
-    # path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
-    path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    #path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
     lang = 'en' #if not MULTILINGUAL else 'nl'
     # Test with monolingual model or multilingual
-    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    #path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
     # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
-    base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    lang = 'en' #if not MULTILINGUAL else 'nl'
+    #base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
+    #lang = 'en' #if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
     analyzer_name ="CONV"
 
     resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}__{base_model.replace('/', '_')}_{current_date}.json"
+    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
@@ -61,7 +61,10 @@ if __name__ == "__main__":
 
     jsonresults = []
     for test_file in all_test_files:
-        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, verbose=False)
+        is_question = False
+        if "question" in test_file:
+            is_question = True
+        result_dict = test_triples_in_file(analyzer_name=analyzer_name, path=test_file, analyzer=analyzer, is_question=is_question, resultfile=resultfile, verbose=True)
         jsonresults.append(result_dict)
     resultfile.close()
     with open (resultjson, 'w') as outfile:

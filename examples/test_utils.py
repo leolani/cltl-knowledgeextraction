@@ -163,15 +163,18 @@ def load_golden_triples(filepath):
 
         try:
             # set utterance, triple and perspective
+            # ignore perspectives that are added to the end of the statements separated with a second colon, e.g. they are not going to the university: they go-to the-university: not
             item = {'utterance': sample.split(':')[0], 'triple': {'subject': sample.split(':')[1].split()[0].lower(),
                                                                   'predicate': sample.split(':')[1].split()[1].lower(),
                                                                   'object': sample.split(':')[1].split()[2].lower()}}
 
             # set perspective if available
             if len(sample.split(':')) > 2:
-                item['perspective'] = {'certainty': float(sample.split(':')[2].split()[0]),
-                                       'polarity': float(sample.split(':')[2].split()[1]),
-                                       'sentiment': float(sample.split(':')[2].split()[2])}
+                perspectives = sample.split(':')[2].split()
+                if len(perspectives) == 3:
+                    item['perspective'] = {'certainty': float(sample.split(':')[2].split()[0]),
+                                           'polarity': float(sample.split(':')[2].split()[1]),
+                                           'sentiment': float(sample.split(':')[2].split()[2])}
 
             # cleanup
             for k, v in item['triple'].items():
@@ -185,6 +188,9 @@ def load_golden_triples(filepath):
 
     return test_suite
 
+def print_triple(triple):
+    print = {'subject': triple['subject']['label'], 'predicate': triple['predicate']['label'], 'object':triple['object']['label']}
+    return print
 
 def test_triples(item, results, issues, resultfile, analyzer,
                  speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, verbose=True):
@@ -213,7 +219,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
     if is_question:
         chat.add_utterance(item['utterance'], speakers['speaker'], [DialogueAct.QUESTION])
     else:
-        chat.add_utterance(item['utterance'], speakers['speaker'])
+        chat.add_utterance(item['utterance'], speakers['speaker'], [DialogueAct.STATEMENT])
 
     # analyze utterance
     if type(analyzer).__name__ in ['CFGAnalyzer', 'spacyAnalyzer', 'OIEAnalyzer']:
@@ -273,7 +279,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
 
         # Report
         log_report(f"\nUtterance: \t{chat.last_utterance}", to_file=resultfile)
-        log_report(f"Triple:            \t{chat.last_utterance.triples[idx_best_triple]}", to_file=resultfile)
+        log_report(f"Predicted Triple:  \t{print_triple(chat.last_utterance.triples[idx_best_triple])}", to_file=resultfile)
         log_report(f"Expected triple:   \t{item['triple']}", to_file=resultfile)
 
         # Compare perspectives if available
@@ -311,7 +317,8 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     test_suite = load_golden_triples(path)
 
     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
-    for item in test_suite:
+    for index, item in enumerate(test_suite):
+        print (index, "out of", len(test_suite))
         results, issues = test_triples(item, results, issues, resultfile, analyzer,
                                        speakers=speakers, is_question=is_question, verbose=verbose)
 
@@ -323,10 +330,11 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
 def get_overview(path):
 
     current_date = str(datetime.today().date())
-    overviewfile = os.path.join(path, f"CONVSToverview_{current_date}.csv")
+    overviewfile = os.path.join(path, f"overview_{current_date}.csv")
+   # overviewfile = os.path.join(path, f"CONVSToverview_{current_date}.csv")
     df = pd.DataFrame()
     for file in os.listdir(path):
-        if "evaluation_CONVST" in file and file.endswith(".json"):
+        if not "evaluation_CONVST" in file and file.endswith(".json"):
             filepath= os.path.join(path, file)
             print(filepath)
             df_t = pd.read_json(filepath)

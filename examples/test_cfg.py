@@ -46,8 +46,12 @@ if __name__ == "__main__":
     analyzer = CFGAnalyzer()
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
     jsonresults = []
+
     for test_file in all_test_files:
-        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, verbose=False)
+        is_question = False
+        if "question" in test_file:
+            is_question = True
+        result_dict = test_triples_in_file(analyzer_name=analyzer_name, path=test_file, analyzer=analyzer, is_question=is_question, resultfile=resultfile, verbose=True)
         jsonresults.append(result_dict)
     resultfile.close()
     with open (resultjson, 'w') as outfile:
