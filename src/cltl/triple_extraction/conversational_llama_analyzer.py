@@ -64,6 +64,53 @@ prepositions_nl = ["in", "op", "naar", "van", "bij", "onder", "voor", "naast", "
 #
 # }
 
+
+_INSTRUCT_CONVERSATION = {'role':'system', 'content': '''You will receive a short conversation between a user and a system with turns. 
+The last turn is the response from the user. Use the preceding turns as the context to extract triples consisting of a subject, predicate and object from the last turn.
+Each triple should capture the essence of statement by the user.
+If the user response is the answer to a yes/no question from the system,
+then extract the triple from the yes/no question and interpret the response as the polarity of the triple,
+for example if the input is {'role': 'assistant', 'content': 'Leolani said Do you love dogs?'}, {'role': 'user', 'content': 'Lenka said No'},
+then the output should be {'subject': {'label': 'Lenka', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': -1, 'certainty': 0.9, 'sentiment': -1}}
+If the user response is the answer to an open question from the system with a wh-word,
+then use the user response to complete the triple from the open question, 
+for example if the input is {'role': 'assistant', 'content': 'Leolani said What do you love?'}, {'role': 'user', 'content': 'Lenka said dogs'},
+then the output should be {'subject': {'label': 'Lenka', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': 1, 'certainty': 0.9, 'sentiment': -1}}
+When extracting the labels for the triples, consider the following:
+- Replace the predicate by its lemma, for example "is" and "am" should become "be", "likes" and "liked" should become "like".
+- Remove auxiliary verbs from the predicates such as "be", "have", "can", "might", "must", "will", "shall", "should", and also negation variants such as "cannot", "won't", "shouldn't".
+- Remove negation words such as "n't", "no", "not" and "never" from the predicates. 
+- If the object starts with a preposition, concatenate the preposition to the predicate separated by a hyphen, 
+for example "I am from amsterdam" should become {"subject": "I", "predicate": "be-from", "object": "amsterdam"}.
+- If "am", "is" or "be" is the main verb followed by an adjective then "be" should be the predicate and the adjective the object,
+for example "wind is cold" should become {"subject": "wind", "predicate": "be", "object": "cold"}.
+- If "am", "is" or "be" is the main verb followed by a noun phrase then "be" should be the predicate and the noun phrase the object,
+for example "this is a teddy bear" should become {"subject": "this", "predicate": "be", "object": "teddy-bear"}.
+- Do not extend the predicate with hyphens followed by determiners such as "a", "an", "the" or adjectives such as "cold", "big".
+- If the predicate is followed by an infinite verb phrase with "to" such as "like to swim", then the object should start with "to-" as in "to-swim".
+- If the predicate is an cognitive verb such as "think", "believe" or "know" or a speech-act such "say" or "tell", 
+then extract the triple from the complement phrase of the predicate,
+for example "I think selene likes cats" should become {"subject": "selene", "predicate": "like", "object": "cats"}. 
+- Combine multi-word subjects, predicates and objects with hyphens, for example "three white cats" should become "three-white-cats".
+- If you have no value for the subject or object use an empty string "" as a value, do NOT use none or None as a value.
+Additionally, use any auxiliary verbs, negation words, adverbs and cognitive verbs to annotate each triple with:  
+- Sentiment (-1 for negative, 0 for neutral, 1 for positive) 
+- Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) 
+- Certainty (a scale between 0 for uncertain and 1 for certain) 
+Ensure that predicates are semantically meaningful. 
+Save it as a JSON with this format:
+{"sender": "user", "text": "I am from Amsterdam.", "triples": [ { "subject": "I", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}]},
+{"sender": "user", "text": "lana is reading a book.", "triples": [ { "subject": "lana", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
+{"sender": "user", "text": "You hate dogs.", "triples": [ { "subject": "You", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.7}]},
+{"sender": "user", "text": "Selene does not like cheese.", "triples": [ { "subject": "selene", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 0.5}]},
+{"sender": "user","text": "Selene likes to swim", "triples": [ {"subject": "selene", "predicate": "like", "object": "to-swim", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+{"sender": "user","text": "Selene likes swimming", "triples": [ {"subject": "selene", "predicate": "like", "object": "swimming", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+{"sender": "user","text": "I have to go to paris", "triples": [ {"subject": "i", "predicate": "go-to", "object": "paris", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+{"sender": "user","text": "I think that you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+{"sender": "user","text": "John said you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+                    Do not output any other text than the JSON.'''
+}
+
 _INSTRUCT_STATEMENT = {'role':'system', 'content': '''You will receive a statement from a user in a conversation 
 and you need to break it down into triples consisting of a subject, predicate and object. 
 Each triple should capture the essence of statement by the speaker. 
@@ -212,21 +259,7 @@ class LlamaAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
-    def analyze(self, utterance):
-        """
-        Analyzer factory function
-
-        Determines the type of utterance, extracts the RDF triple and perspective attaching them to the last utterance
-
-        Parameters
-        ----------
-        utterance: Utterance
-            utterance to be analyzed
-
-        """
-        raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
-
-    def analyze_in_context(self, chat):
+    def analyze_last_utterance(self, chat):
         """
         Analyzer factory function
 
@@ -245,25 +278,17 @@ class LlamaAnalyzer(Analyzer):
         if chat.last_utterance.dialogue_acts[0]==DialogueAct.QUESTION:
             instruct = self._q_instruct
         prompt = [instruct, input]
+        print('INPUT', input)
         attempt = 0
-        max=1
+        max=3
         while not triples and attempt<max:
             attempt += 1
-           #print('attempt', attempt)
             response = self._llm.invoke(prompt)
- #           print('response', response)
             try:
                 content = json.loads(response.content)
                 print('content', content)
                 if "triples" in content:
                     triples.extend(content["triples"])
-                # if "dialogue" in content:
-                #     dialogue = content["dialogue"]
-                #     for field in dialogue:
-                #        # print('field', field)
-                #         if "triples" in field:
-                #            # print(field["triples"])
-                #             triples.extend(field["triples"])
             except:
                 logger.debug("ERROR parsing JSON",response.content)
         for triple_value in triples:
@@ -271,6 +296,46 @@ class LlamaAnalyzer(Analyzer):
             if triple:
                 chat.last_utterance.triples.append(triple)
 
+    def analyze_in_context(self, chat):
+        """
+        Analyzer factory function
+
+        Find appropriate Analyzer for this utterance
+
+        Parameters
+        ----------
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+
+        triples = []
+        instruct = self._s_instruct
+        if chat.last_utterance.dialogue_acts[0]==DialogueAct.QUESTION:
+            instruct = self._q_instruct
+        prompt = [instruct]
+
+        conversation = self._chat_to_conversation(chat)
+        prompt.extend(conversation)
+        print('INPUT', prompt)
+        attempt = 0
+        max=3
+        while not triples and attempt<max:
+            attempt += 1
+            response = self._llm.invoke(prompt)
+            try:
+                content = json.loads(response.content)
+                print('content', content)
+                if "triples" in content:
+                    triples.extend(content["triples"])
+            except:
+                logger.debug("ERROR parsing JSON",response.content)
+        for triple_value in triples:
+            triple = self._convert_triple(triple_value, chat.last_utterance.utterance_speaker, chat.speaker, chat.agent)
+            if triple:
+                chat.last_utterance.triples.append(triple)
+
+    #@TODO needs to be fixed as we are requesting different output format now
     def analyze_in_context_server(self, chat):
             """
             Analyzer factory function
@@ -285,7 +350,8 @@ class LlamaAnalyzer(Analyzer):
             """
 
             triples = []
-            input = {"role": "user", "content": chat.last_utterance.transcript}
+            conversation = self._chat_to_conversation(chat)
+            input = {"role": "user", "content": conversation}
             prompt = [self._instruct, input]
             attempt = 0
             max = 5
@@ -296,11 +362,8 @@ class LlamaAnalyzer(Analyzer):
                 # "triples": [ { "subject": "I", "predicate": "have", "object": "three-white-cats", "sentiment": 0, "polarity": 1, "certainty": 1}]}]}
                 try:
                     content = json.loads(response)
-                    if "dialogue" in content:
-                        dialogue = content["dialogue"]
-                        for field in dialogue:
-                            if "triples" in field:
-                                triples.extend(field["triples"])
+                    if "triples" in content:
+                        triples.extend(content["triples"])
                 except:
                     logger.debug("ERROR parsing JSON", response)
             for triple_value in triples:
@@ -355,19 +418,29 @@ class LlamaAnalyzer(Analyzer):
         if "object" in triple and "predicate" in triple:
             for preposition in prepositions_en:
                 if triple["object"].startswith(preposition+" ") or triple["object"].startswith(preposition+"-") or triple["object"].startswith(preposition+"_"):
-                    print('BEFORE', triple)
                     triple["predicate"] += "-"+preposition
                     triple["object"] = triple["object"][len(preposition):].strip()
-                    print('AFTER', triple)
 
 
     def _chat_to_conversation(self, chat):
+        conversation = []
         utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
                                  in itertools.groupby(chat.utterances, lambda utt: utt.utterance_speaker)]
         utterances_by_speaker = utterances_by_speaker[-3:]
         speakers = list(zip(*utterances_by_speaker))[0]
         turns = list(zip(*utterances_by_speaker))[1]
-        conversation = ("<eos>" * min(2, (3 - len(utterances_by_speaker)))) + "<eos>".join(turns)
+
+        print(utterances_by_speaker)
+        print(speakers)
+        print(turns)
+        for element in utterances_by_speaker:
+            utterance = None
+            if chat.agent == element[0]:
+                utterance = {'role': 'assistant', 'content': f'''{element[0]} said {element[1]}'''}
+            else:
+                utterance = {'role': 'user', 'content': f'''{element[0]} said {element[1]}'''}
+            if utterance:
+                conversation.append(utterance)
 
         ##### This should be based on the chat object and not some obscure order
         # speaker1 = speakers[-1] if speakers else None
@@ -376,7 +449,7 @@ class LlamaAnalyzer(Analyzer):
         # else:
         #     speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
 
-        return speakers, conversation, chat.speaker, chat.agent
+        return conversation
 
 if __name__ == "__main__":
     '''
@@ -384,25 +457,26 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-
-    analyzer = LlamaAnalyzer(
-        model_name=LLAMA_MODEL,temperature=0.1, keep_alive=10)
+    MODEL = LLAMA_MODEL
+    MODEL = QWEN_MODEL
+    analyzer = LlamaAnalyzer( model_name=MODEL,temperature=0.1, keep_alive=10, s_instruct=_INSTRUCT_CONVERSATION)
     agent = "Leolani"
     human = "Lenka"
     utterances = [{"speaker": human, "utterance": "I love cats.", "dialogue_act": DialogueAct.STATEMENT},
                   {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
                   {"speaker": agent, "utterance": "Do you also love dogs?", "dialogue_act": DialogueAct.QUESTION},
                   {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}]
-    utterances = [
-        #{"speaker": human, "utterance": "my mother loves the beatles.", "dialogue_act": DialogueAct.STATEMENT},
-                  {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
-                 # {"speaker": agent, "utterance": "I come from the Netherlands", "dialogue_act": DialogueAct.STATEMENT},
-                  ]
+    # utterances = [
+    #     #{"speaker": human, "utterance": "my mother loves the beatles.", "dialogue_act": DialogueAct.STATEMENT},
+    #               {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
+    #              # {"speaker": agent, "utterance": "I come from the Netherlands", "dialogue_act": DialogueAct.STATEMENT},
+    #               ]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:
         chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"],
-                           dialogue_acts=utterance["dialogue_act"])
-        analyzer.analyze_in_context(chat)
+                           dialogue_acts=[utterance["dialogue_act"]])
+        if utterance['speaker']==human:
+            analyzer.analyze_in_context(chat)
     for utterance in chat.utterances:
         print(utterance)
         print('Final triples', utterance.triples)

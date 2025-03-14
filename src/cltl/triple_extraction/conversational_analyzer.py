@@ -191,8 +191,7 @@ class ConversationalAnalyzer(Analyzer):
             # end of else:
             triples = list(filter(None, triples))
         else:
-            logger.warning('This is not from the human speaker', chat.speaker, ' but from:',
-                           chat.last_utterance.utterance_speaker)
+            logger.warning(f'This is not from the human speaker {chat.speaker} but from {chat.last_utterance.utterance_speaker}')
 
         if not triples:
             logger.warning("Couldn't extract triples")
