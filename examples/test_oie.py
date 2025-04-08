@@ -1,4 +1,5 @@
 import logging
+import os
 from datetime import datetime
 from time import sleep
 import json
@@ -18,8 +19,12 @@ if __name__ == "__main__":
     current_date = str(datetime.today().date())
     analyzer_name ="openIE"
 
-    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.json"
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
+
+    resultfilename = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.txt"
+    resultjson = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
@@ -29,11 +34,11 @@ if __name__ == "__main__":
         "./data/verb-questions.txt",
         "./data/wh-questions.txt",
         "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+        # "./data/kinship-friends.txt",
+        # "./data/activities.txt",
+        # "./data/feelings.txt",
+        # "./data/locations.txt",
+        # "./data/professions.txt"
     ]
     # Analyze utterances
     analyzer = OIEAnalyzer()

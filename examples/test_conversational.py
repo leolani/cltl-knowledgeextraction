@@ -6,6 +6,7 @@ THEREFORE EACH UTTERANCE MAY HAVE THREE COMPARISONS (SPO) OR MORE (IF COUNTING T
 TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN INTO ACCOUNT.
 """
 import logging
+import os
 from datetime import datetime
 import json
 from cltl.triple_extraction import logger
@@ -14,7 +15,7 @@ from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
 
-MULTILINGUAL = False
+MULTILINGUAL = True
 
 if __name__ == "__main__":
     '''
@@ -22,23 +23,26 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    # Test with monolingual model or multilingual
+    # Test with monolingual model
     path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
     #path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
     lang = 'en' #if not MULTILINGUAL else 'nl'
-    # Test with monolingual model or multilingual
-    #path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
-    # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
-    #base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    #lang = 'en' #if not MULTILINGUAL else 'nl'
+    # Test with multilingual model
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
+    lang = 'en' #if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
-    analyzer_name ="CONV_"+base_model
+    analyzer_name ="CONV_"+base_model.replace('/', '_')
 
-    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{base_model.replace('/', '_')}_{current_date}.json"
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
+
+    resultfilename = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.txt"
+    resultjson = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
@@ -48,11 +52,11 @@ if __name__ == "__main__":
         "./data/verb-questions.txt",
         "./data/wh-questions.txt",
         "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+        # "./data/kinship-friends.txt",
+        # "./data/activities.txt",
+        # "./data/feelings.txt",
+        # "./data/locations.txt",
+        # "./data/professions.txt"
     ]
 
     # Analyze utterances

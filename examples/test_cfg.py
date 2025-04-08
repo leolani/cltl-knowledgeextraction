@@ -7,6 +7,7 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 """
 
 import logging
+import os
 from datetime import datetime
 import json
 
@@ -25,8 +26,13 @@ if __name__ == "__main__":
     # Set up logging file
     current_date = str(datetime.today().date())
     analyzer_name ="CFG"
-    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.json"
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
+#    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.txt"
+#    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{current_date}.json"
+    resultfilename = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.txt"
+    resultjson = f"{report_folder}/evaluation_{analyzer_name}_{current_date}.json"
     resultfile = open(resultfilename, "w")
 
     # Select files to test
@@ -35,11 +41,11 @@ if __name__ == "__main__":
         "./data/verb-questions.txt",
         "./data/wh-questions.txt",
         "./data/perspective.txt",
-        "./data/kinship-friends.txt",
-        "./data/activities.txt",
-        "./data/feelings.txt",
-        "./data/locations.txt",
-        "./data/professions.txt"
+        # "./data/kinship-friends.txt",
+        # "./data/activities.txt",
+        # "./data/feelings.txt",
+        # "./data/locations.txt",
+        # "./data/professions.txt"
     ]
     #all_test_files = ["./data/professions.txt.error.txt"]
     # Analyze utterances

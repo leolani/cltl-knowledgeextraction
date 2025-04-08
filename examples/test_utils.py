@@ -214,6 +214,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
         for i, p_utt in enumerate(previous_utterances):
             sp = speakers['speaker'] if (len(previous_utterances) % 2) == (i % 2) else speakers['agent']
             chat.add_utterance(p_utt, sp)
+        log_report(f'\n{item["utterance"]}\n', to_file=resultfile)
 
     # Add last utterance, checking if it is a question
     if is_question:
@@ -224,8 +225,11 @@ def test_triples(item, results, issues, resultfile, analyzer,
     # analyze utterance
     if type(analyzer).__name__ in ['CFGAnalyzer', 'spacyAnalyzer', 'OIEAnalyzer']:
         analyzer.analyze(chat)
-    elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer', 'LlamaAnalyzer']:
+    elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer']:
+       analyzer.analyze_in_context(chat)
+    elif type(analyzer).__name__ in ['LlamaAnalyzer']:
         analyzer.analyze_in_context(chat)
+        analyzer.analyze_last_utterance(chat)
     elif type(analyzer).__name__ in ['ConversationalQuestionAnalyzer']:
         analyzer.analyze_question_in_context(chat)
 
@@ -343,5 +347,5 @@ def get_overview(path):
 
 
 if __name__ == "__main__":
-    path = "evaluation_reports"
+    path = "evaluation_reports/2025-04-07/"
     get_overview(path)

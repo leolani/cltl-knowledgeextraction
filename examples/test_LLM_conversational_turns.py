@@ -101,7 +101,8 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     test_suite = load_golden_conversation_triples(path)
 
     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
-    for item in test_suite:
+    for idx, item in enumerate(test_suite):
+        print ('Item', idx, "out of", len(test_suite))
         results, issues = test_triples(item, results, issues, resultfile, analyzer,
                                        speakers=speakers, is_question=is_question, verbose=verbose)
 
@@ -155,27 +156,28 @@ if __name__ == "__main__":
     LLAMA_MODEL = "llama3.2"
     #MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
-    analyzer_name += "CONVST_" + MODEL
     resultfilename = f"evaluation_reports/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.txt"
     resultjson = f"evaluation_reports/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.json"
+    analyzer_name += "_" + MODEL
     resultfile = open(resultfilename, "w")
     # Select files to test
     all_test_files = [
-        "./data/conversation_test_examples/test_answer_ellipsis.txt",
+        #"./data/conversation_test_examples/test_answer_ellipsis.txt",
         "./data/conversation_test_examples/test_coordination.txt",
         "./data/conversation_test_examples/test_coreference.txt",
         "./data/conversation_test_examples/test_declarative_statements.txt",
         "./data/conversation_test_examples/test_declarative_statements_negated.txt",
         "./data/conversation_test_examples/test_explicit_no_answers.txt",
         "./data/conversation_test_examples/test_explicit_yes_answers.txt",
-        "./data/conversation_test_examples/test_full.txt",
+        #"./data/conversation_test_examples/test_full.txt",
         # "./data/conversation_test_examples/test_implicit_negation.txt", #TODO not able to read data
         "./data/conversation_test_examples/test_single_utterances.txt"
     ]
     # Analyze utterances
 
     all_test_files = [
-        "./data/conversation_test_examples/test_full.txt"
+#        "./data/conversation_test_examples/test_answer_ellipsis.txt"
+        "./data/conversation_test_examples/test_test.txt"
     ]
     # Analyze utterances
     analyzer = LlamaAnalyzer(model_name=MODEL,temperature=0.1, keep_alive=20)

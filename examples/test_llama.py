@@ -6,6 +6,7 @@ THEREFORE EACH UTTERANCE MAY HAVE THREE COMPARISONS (SPO) OR MORE (IF COUNTING T
 TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN INTO ACCOUNT.
 """
 import logging
+import os
 from datetime import datetime
 import json
 from cltl.triple_extraction import logger
@@ -30,25 +31,30 @@ if __name__ == "__main__":
     # LLAMA_MODEL = "llama3.2:1b"
     QWEN_MODEL = "qwen2.5"
     LLAMA_MODEL = "llama3.2"
-    #MODEL = LLAMA_MODEL
+   # MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
     analyzer_name += "_" + MODEL
-    resultfilename = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_{analyzer_name}_{MODEL}_{current_date}.json"
+
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
+
+    resultfilename = f"{report_folder}/evaluation_{analyzer_name}_{MODEL}_{current_date}.txt"
+    resultjson = f"{report_folder}/evaluation_{analyzer_name}_{MODEL}_{current_date}.json"
 
     resultfile = open(resultfilename, "w")
 
     # Select files to test
     all_test_files = [
-       # "./data/statements.txt",
-       # "./data/verb-questions.txt",
-        #"./data/wh-questions.txt",
+        "./data/statements.txt",
+        "./data/verb-questions.txt",
+        "./data/wh-questions.txt",
          "./data/perspective.txt",
-         "./data/kinship-friends.txt",
-         "./data/activities.txt",
-         "./data/feelings.txt",
-         "./data/locations.txt",
-         "./data/professions.txt"
+         # "./data/kinship-friends.txt",
+         # "./data/activities.txt",
+         # "./data/feelings.txt",
+         # "./data/locations.txt",
+         # "./data/professions.txt"
     ]
 
     # Analyze utterances
