@@ -1,5 +1,5 @@
 lana didn't read a book: lana read a-book: 1 -1 0
-bram doesn't love sport: bram love sport: 1 -1 1
+bram doesn't love sport: bram love sport: 1 -1 -1
 birds can't talk: birds talk ?: 1 -1 0
 john hates fashion: john hate fashion: 1 1 -1
 john loves fashion: john love fashion: 1 1 1
@@ -17,9 +17,8 @@ birds can't talk: birds talk ?: 1 -1 0
 John hates fashion: john hate fashion: 1 1 -1
 you know I like coffee: lenka like coffee: 1 1 0.75
 Selene thinks my favorite color is blue: lenka favorite-color blue 0.75 1 1
-I think you don't like pizza: leolani like pizza 0.75 -1 0.75
+I think you don't like pizza: leolani like pizza 0.75 -1 -1
 lana didn't read a book: lana read book: 1 -1 0
-bram doesn't love sport: bram love sport: 1 -1 1
 John loves fashion: john love fashion: 1 1 1
 John doesn't hate fashion: john hate fashion: 1 -1 -1
 you must bring three books: leolani bring three-books 1 1 0
