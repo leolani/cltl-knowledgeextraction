@@ -88,7 +88,7 @@ support_set = [
 ]
 # prompt_template = PromptTemplate(
 #     input_variables=["support", "query"],
-#     template="Given the following examples:\n\n{support}\n\nExtract triples from the following input:\n\n{query}\n\nThe predicted triple is:"
+#     template="Given the following evaluation:\n\n{support}\n\nExtract triples from the following input:\n\n{query}\n\nThe predicted triple is:"
 # )
 #
 # few_shot_chain = FewShotChain(
