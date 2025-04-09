@@ -40,7 +40,7 @@ if __name__ == "__main__":
         "./data/statements.txt",
         "./data/verb-questions.txt",
         "./data/wh-questions.txt",
-        "./data/perspective.txt",
+        #"./data/perspective.txt",
         # "./data/kinship-friends.txt",
         # "./data/activities.txt",
         # "./data/feelings.txt",

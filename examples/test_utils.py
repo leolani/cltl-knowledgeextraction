@@ -25,18 +25,29 @@ def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose
     incorrect_objects = results['incorrect_objects']
     correct_perspective = results['correct_perspective']
     incorrect_perspective = results['incorrect_perspective']
+    correct_certainty = results['correct_certainty']
+    correct_polarity = results['correct_polarity']
+    correct_sentiment = results['correct_sentiment']
+    incorrect_certainty = results['incorrect_certainty']
+    incorrect_polarity = results['incorrect_polarity']
+    incorrect_sentiment = results['incorrect_sentiment']
+
     triple_precision = precision(incorrect+correct, correct)
-    triple_recall = recall(len(test_suite), correct)
     subject_precision = precision(correct_subjects+incorrect_subjects, correct_subjects)
-    subject_recall = recall(len(test_suite), correct_subjects)
     predicate_precision = precision(correct_predicates+incorrect_predicates, correct_predicates)
-    predicate_recall = recall(len(test_suite), correct_predicates)
     objects_precision = precision(correct_objects+incorrect_objects, correct_objects)
-    objects_recall = recall(len(test_suite), correct_objects)
     perspective_precision = precision(correct_perspective+incorrect_perspective, correct_perspective)
-    perspective_recall = recall(len(test_suite), correct_perspective)
-    elements_recall = recall(3*len(test_suite), correct_subjects+correct_predicates+correct_objects)
     elements_precision = precision(correct_subjects+correct_predicates+correct_objects+incorrect_subjects+incorrect_predicates+incorrect_objects, correct_subjects+correct_predicates+correct_objects)
+    certainty_precision = precision(correct_certainty+incorrect_certainty, correct_certainty)
+    polarity_precision = precision(correct_polarity+incorrect_polarity, correct_polarity)
+    sentiment_precision = precision(correct_sentiment+incorrect_sentiment, correct_sentiment)
+
+    # triple_recall = recall(len(test_suite), correct)
+    # subject_recall = recall(len(test_suite), correct_subjects)
+    # predicate_recall = recall(len(test_suite), correct_predicates)
+    # objects_recall = recall(len(test_suite), correct_objects)
+    # perspective_recall = recall(len(test_suite), correct_perspective)
+    # elements_recall = recall(3*len(test_suite), correct_subjects+correct_predicates+correct_objects)
 
     result_dict = {"analyzer": analyzer_name}
     result_dict.update({"test_file": path})
@@ -44,44 +55,56 @@ def report(analyzer_name, test_suite, path, results, issues, resultfile, verbose
     result_dict.update({"no_triples":not_parsed})
     result_dict.update({"correct_triples": correct})
     result_dict.update({"incorrect_triples": incorrect})
-    result_dict.update({"triple_recall": triple_recall})
     result_dict.update({"triple_precision": triple_precision})
     result_dict.update({"total triple elements": 3*len(test_suite)})
     result_dict.update({"correct triple elements": correct_subjects+correct_predicates+correct_objects})
     result_dict.update({"incorrect triple elements": incorrect_subjects+incorrect_predicates+incorrect_objects})
-    result_dict.update({"recall triple elements": elements_recall})
     result_dict.update({"precision triple elements": elements_precision})
     result_dict.update({"correct_subjects": correct_subjects})
     result_dict.update({"incorrect_subjects": incorrect_subjects})
-    result_dict.update({"subjects_recall": subject_recall})
     result_dict.update({"subjects_precision": subject_precision})
     result_dict.update({"correct_objects": correct_objects})
     result_dict.update({"incorrect_objects": incorrect_objects})
-    result_dict.update({"objects_recall": objects_recall})
     result_dict.update({"objects_precision": objects_precision})
     result_dict.update({"correct_predicates": correct_predicates})
     result_dict.update({"incorrect_predicates": incorrect_predicates})
-    result_dict.update({"predicates_recall": predicate_recall})
     result_dict.update({"predicates_precision": predicate_precision})
     result_dict.update({"correct_perspectives": correct_perspective})
     result_dict.update({"incorrect_perspectives": incorrect_perspective})
-    result_dict.update({"perspectives_recall": perspective_recall})
     result_dict.update({"perspectives_precision": perspective_precision})
+    result_dict.update({"correct_certainty": correct_certainty})
+    result_dict.update({"incorrect_certainty": incorrect_certainty})
+    result_dict.update({"certainty_precision": certainty_precision})
+    result_dict.update({"correct_polarity": correct_polarity})
+    result_dict.update({"incorrect_polarity": incorrect_polarity})
+    result_dict.update({"polarity_precision": polarity_precision})
+    result_dict.update({"correct_sentiment": correct_sentiment})
+    result_dict.update({"incorrect_sentiment": incorrect_sentiment})
+    result_dict.update({"sentiment_precision": sentiment_precision})
+
+
+
+    # result_dict.update({"triple_recall": triple_recall})
+    # result_dict.update({"recall triple elements": elements_recall})
+    # result_dict.update({"subjects_recall": subject_recall})
+    # result_dict.update({"objects_recall": objects_recall})
+    # result_dict.update({"predicates_recall": predicate_recall})
+    # result_dict.update({"perspectives_recall": perspective_recall})
 
     log_report(f'\n\n\n---------------------------------------------------------------\nSUMMARY\n', to_file=resultfile)
     log_report(f'\nRAN {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
 
     log_report(f'\nUTTERANCE WITHOUT TRIPLES: {not_parsed}', to_file=resultfile)
     log_report(f'\nCORRECT TRIPLES: {correct}\t\t\tINCORRECT TRIPLES: {incorrect}'
-               f'\t\t\tRECALL: {triple_recall:.2f}%', to_file=resultfile)
+               f'\t\t\tACCURACY: {triple_precision:.2f}%', to_file=resultfile)
     log_report(f'\nCORRECT SUBJECTS: {correct_subjects}\t\t\tINCORRECT SUBJECTS: {incorrect_subjects}'
-               f'\t\t\tRECALL: {subject_recall:.2f}%', to_file=resultfile)
+               f'\t\t\tACCURACY: {subject_precision:.2f}%', to_file=resultfile)
     log_report(f'\nCORRECT PREDICATES: {correct_predicates}\t\t\tINCORRECT PREDICATES: {incorrect_predicates}'
-               f'\t\t\tRECALL: {predicate_recall:.2f}%', to_file=resultfile)
+               f'\t\t\tACCURACY: {predicate_precision:.2f}%', to_file=resultfile)
     log_report(f'\nCORRECT OBJECTS: {correct_objects}\t\t\tINCORRECT OBJECTS: {incorrect_objects}'
-               f'\t\t\tRECALL: {objects_recall:.2f}%', to_file=resultfile)
+               f'\t\t\tACCURACY: {objects_precision:.2f}%', to_file=resultfile)
     log_report(f'\nCORRECT PERSPECTIVES: {correct_perspective}\t\t\tINCORRECT PERSPECTIVES: {incorrect_perspective}'
-               f'\t\t\tRECALL: {perspective_recall:.2f}%', to_file=resultfile)
+               f'\t\t\tACCURACY: {perspective_precision:.2f}%', to_file=resultfile)
 
     if verbose:
         log_report(f"\nISSUES ({len(issues)} UTTERANCES): "
@@ -118,6 +141,7 @@ def compare_elementwise(triple, gold, resultfile, verbose=True):
 
     for key in triple:
         if key not in gold.keys():
+            print('Key not in gold.keys in compare_elementwise', key, gold.keys())
             continue
 
         if type(triple[key]) == dict:
@@ -144,7 +168,8 @@ def compare_elementwise(triple, gold, resultfile, verbose=True):
             if verbose:
                 if not match_result:
                     log_report(f"Mismatch in perspective {key}: {triple[key]} != {gold[key]}", to_file=resultfile)
-
+        else:
+            print('Unknown value type in compare_elementwise', type(triple[key]))
     return matches
 
 
@@ -228,7 +253,7 @@ def test_triples(item, results, issues, resultfile, analyzer,
     elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer']:
        analyzer.analyze_in_context(chat)
     elif type(analyzer).__name__ in ['LlamaAnalyzer']:
-        analyzer.analyze_in_context(chat)
+       # analyzer.analyze_in_context(chat)
         analyzer.analyze_last_utterance(chat)
     elif type(analyzer).__name__ in ['ConversationalQuestionAnalyzer']:
         analyzer.analyze_question_in_context(chat)
@@ -288,6 +313,8 @@ def test_triples(item, results, issues, resultfile, analyzer,
 
         # Compare perspectives if available
         if 'perspective' in item.keys():
+            print(chat.last_utterance.triples)
+            print(chat.last_utterance.triples[idx_best_triple])
             best_persp = compare_elementwise(chat.last_utterance.triples[idx_best_triple]['perspective'],
                                              item['perspective'], resultfile, verbose)
             score_best_pesp = sum(best_persp['perspective'].values())
@@ -295,10 +322,18 @@ def test_triples(item, results, issues, resultfile, analyzer,
             # add to statistics
             results['correct_perspective'] += score_best_pesp
             results['incorrect_perspective'] += 3 - score_best_pesp
+            results['correct_certainty'] += best_persp['perspective']['certainty']
+            results['incorrect_certainty'] += 1 - best_persp['perspective']['certainty']
+            results['correct_polarity'] += best_persp['perspective']['polarity']
+            results['incorrect_polarity'] += 1 - best_persp['perspective']['polarity']
+            results['correct_sentiment'] += best_persp['perspective']['sentiment']
+            results['incorrect_sentiment'] += 1 - best_persp['perspective']['sentiment']
+
             if score_best_pesp < 3:
                 # Log issues
                 issues[chat.last_utterance.transcript]['perspective'] = item['perspective']
 
+            log_report(f"Predicted perspective:   \t{chat.last_utterance.triples[idx_best_triple]['perspective']}", to_file=resultfile)
             log_report(f"Expected perspective:   \t{item['perspective']}", to_file=resultfile)
 
         return results, issues
@@ -316,7 +351,11 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
                'correct_subjects': 0, 'incorrect_subjects': 0,
                'correct_predicates': 0, 'incorrect_predicates': 0,
                'correct_objects': 0, 'incorrect_objects': 0,
-               'correct_perspective': 0, 'incorrect_perspective': 0}
+               'correct_perspective': 0, 'incorrect_perspective': 0,
+               'correct_certainty':0, 'incorrect_certainty':0,
+               'correct_polarity':0, 'incorrect_polarity':0,
+               'correct_sentiment':0, 'incorrect_sentiment':0
+               }
     issues = defaultdict(dict)
     test_suite = load_golden_triples(path)
 
@@ -347,5 +386,5 @@ def get_overview(path):
 
 
 if __name__ == "__main__":
-    path = "evaluation_reports/2025-04-07/"
+    path = "evaluation_reports/2025-04-09/"
     get_overview(path)

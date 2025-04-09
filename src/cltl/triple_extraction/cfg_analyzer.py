@@ -779,7 +779,9 @@ class GeneralStatementAnalyzer(StatementAnalyzer):
         :return: updated triple
         """
         first_word = triple['object'].split('-')[0]
-        if get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, first_word) in ['TO', 'IN']:
+        if first_word=="a" or first_word=="an":
+            triple['object'] = triple['object'].replace(first_word, '')
+        elif get_pos_in_tree(CFGAnalyzer.PARSER.structure_tree, first_word) in ['TO', 'IN']:
             triple = self.analyze_complement_with_preposition(triple)
 
         elif lexicon_lookup(first_word) and 'person' in lexicon_lookup(first_word):

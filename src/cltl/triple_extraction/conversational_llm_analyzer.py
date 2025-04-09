@@ -244,8 +244,10 @@ class LlamaAnalyzer(Analyzer):
                           "object": {"label": triple_value['object'].lower(), "type": [], "uri": None}
                           }
             if 'polarity' in triple_value and 'certainty' in triple_value and 'sentiment' in triple_value:
-                triple["perspective"] = {"polarity": triple_value["polarity"],"certainty": triple_value['certainty'], "sentiment": triple_value['sentiment']}
-
+                triple["perspective"] = {"polarity": float(triple_value["polarity"]),"certainty": float(triple_value['certainty']), "sentiment": float(triple_value['sentiment'])}
+            elif 'perspective' in triple_value:
+                triple["perspective"] = {"polarity": float(triple_value["perspective"]["polarity"]),"certainty": float(triple_value["perspective"]['certainty']), "sentiment": float(triple_value["perspective"]['sentiment'])}
+        print('triple=', triple)
         return triple
 
     def _fix_pp_objects(self, triple):

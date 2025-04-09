@@ -10,12 +10,10 @@ import os
 from datetime import datetime
 import json
 from cltl.triple_extraction import logger
-from cltl.triple_extraction.conversational_llama_analyzer import LlamaAnalyzer
+from cltl.triple_extraction.conversational_llm_analyzer import LlamaAnalyzer
 from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
-
-MULTILINGUAL = True
 
 if __name__ == "__main__":
     '''
@@ -27,7 +25,7 @@ if __name__ == "__main__":
 
     # Set up logging file
     current_date = str(datetime.today().date())
-    analyzer_name ="LLM"
+    analyzer_name ="llm"
     # LLAMA_MODEL = "llama3.2:1b"
     QWEN_MODEL = "qwen2.5"
     LLAMA_MODEL = "llama3.2"
@@ -46,9 +44,9 @@ if __name__ == "__main__":
 
     # Select files to test
     all_test_files = [
-        "./data/statements.txt",
-        "./data/verb-questions.txt",
-        "./data/wh-questions.txt",
+        # "./data/statements.txt",
+        # "./data/verb-questions.txt",
+        # "./data/wh-questions.txt",
          "./data/perspective.txt",
          # "./data/kinship-friends.txt",
          # "./data/activities.txt",
@@ -73,23 +71,3 @@ if __name__ == "__main__":
         json.dump(jsonresults, outfile)
         outfile.close()
 
-
-    '''
-    LAST RESULTS: 19/01/2023
-
-    RAN 88 UTTERANCES FROM FILE ./data/statements.txt
-
-
-CORRECT TRIPLE ELEMENTS: 107			INCORRECT TRIPLE ELEMENTS: 157
-ISSUES (70 UTTERANCES)
-
-CORRECT TRIPLE ELEMENTS: 133			INCORRECT TRIPLE ELEMENTS: 131
-ISSUES (66 UTTERANCES)
-
-CORRECT TRIPLE ELEMENTS: 187			INCORRECT TRIPLE ELEMENTS: 77
-ISSUES (37 UTTERANCES)
-
-CORRECT TRIPLE ELEMENTS: 188			INCORRECT TRIPLE ELEMENTS: 76
-ISSUES (36 UTTERANCES):
-
-    '''

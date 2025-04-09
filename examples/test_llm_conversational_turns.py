@@ -12,7 +12,7 @@ from datetime import datetime
 import json
 from cltl.triple_extraction import logger
 
-from cltl.triple_extraction.conversational_llama_analyzer import LlamaAnalyzer
+from cltl.triple_extraction.conversational_llm_analyzer import LlamaAnalyzer
 from test_utils import log_report, report, test_triples
 
 logger.setLevel(logging.ERROR)

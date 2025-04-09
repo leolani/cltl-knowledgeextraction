@@ -178,9 +178,11 @@ for example "I think selene likes cats" should become {"subject": "selene", "pre
 Ensure that predicates are semantically meaningful. 
 
 Additionally, use auxiliary verbs, negation words, adverbs and cognitive verbs to extend each triple with:  
-- Sentiment (-1 for negative, 0 for neutral, 1 for positive) 
-- Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) 
-- Certainty (a scale between 0 for uncertain and 1 for certain)
+    - Sentiment (-1.0 for negative, 0 for neutral, 1.0 for positive) 
+    - Polarity (-1.0 for negation, 0 for neutral/questioning, 1.0 for affirmation) 
+    - Certainty (a scale between 0 for uncertain and 1.0 for certain)
+
+Only use floats as values for Sentiment, Polarity and Certainty.
 
 Save the triples in a list as JSON with this format:
 {"sender": "user", "text": "speaker 1 said I am from Amsterdam.", "triples": [ { "subject": "speaker1", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}.]},
@@ -224,11 +226,13 @@ Save the triples in a list as JSON with this format:
     - If you have no value for the subject or object use an empty string "" as a value, do NOT use none or None as a value.
     Ensure that predicates are semantically meaningful. 
 
-    Additionally, use auxiliary verbs, negation words, adverbs and cognitive verbs to extend each triple with:  
-    - Sentiment (-1 for negative, 0 for neutral, 1 for positive) 
-    - Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) 
-    - Certainty (a scale between 0 for uncertain and 1 for certain)
+    Additionally, use auxiliary verbs, negation words, adverbs and cognitive verbs to extend each triple:  
+    - Sentiment (-1.0 for negative, 0 for neutral, 1.0 for positive) 
+    - Polarity (-1.0 for negation, 0 for neutral/questioning, 1.0 for affirmation) 
+    - Certainty (a scale between 0 for uncertain and 1.0 for certain)
 
+    Only use floats as values for Sentiment, Polarity and Certainty.
+    
     Save the triples in a list as JSON with this format:
     {"sender": "user", "text": "speaker 1 said I am from Amsterdam.", "triples": [ { "subject": "speaker1", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}.]},
     {"sender": "user", "text": "speaker 1 said reading a book.", "triples": [ { "subject": "speaker1", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
@@ -264,20 +268,22 @@ If you have no value for the subject or object use an empty string "" as a value
 Ensure that predicates are semantically meaningful. 
 
 Additionally, use any auxiliary verbs, negation words, adverbs and cognitive verbs to annotate each triple with:  
-- Sentiment (-1 for negative, 0 for neutral, 1 for positive) 
-- Polarity (-1 for negation, 0 for neutral/questioning, 1 for affirmation) 
-- Certainty (a scale between 0 for uncertain and 1 for certain)
+    - Sentiment (-1.0 for negative, 0 for neutral, 1.0 for positive) 
+    - Polarity (-1.0 for negation and 1.0 for affirmation, no other values) 
+    - Certainty (a scale between 0 for uncertain and 1.0 for certain)
+
+Only use floats as values for Sentiment, Polarity and Certainty. Do NOT use 0.0 as a value for Polarity.
 
 Save it as a JSON with this format:
-{"sender": "user", "text": "I am from Amsterdam.", "triples": [ { "subject": "I", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}]},
-{"sender": "user", "text": "lana is reading a book.", "triples": [ { "subject": "lana", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
-{"sender": "user", "text": "You hate dogs.", "triples": [ { "subject": "You", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.7}]},
-{"sender": "user", "text": "Selene does not like cheese.", "triples": [ { "subject": "selene", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 0.5}]},
-{"sender": "user","text": "Selene likes to swim", "triples": [ {"subject": "selene", "predicate": "like", "object": "to-swim", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
-{"sender": "user","text": "Selene likes swimming", "triples": [ {"subject": "selene", "predicate": "like", "object": "swimming", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
-{"sender": "user","text": "I have to go to paris", "triples": [ {"subject": "i", "predicate": "go-to", "object": "paris", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
-{"sender": "user","text": "I think that you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
-{"sender": "user","text": "John said you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats", "sentiment": 1, "polarity": 1, "certainty": 0.1}]}
+{"sender": "user", "text": "I am from Amsterdam.", "triples": [ { "subject": "I", "predicate": "be-from", "object": "Amsterdam", "perspective": {"sentiment": 0, "polarity": 1, "certainty": 1}}]},
+{"sender": "user", "text": "lana is reading a book.", "triples": [ { "subject": "lana", "predicate": "read", "object": "book", "perspective": {"sentiment": 0, "polarity": 1, "certainty": 1}}]},
+{"sender": "user", "text": "You hate dogs.", "triples": [ { "subject": "You", "predicate": "hate", "object": "dogs", "perspective": {"sentiment": -1, "polarity": 1, "certainty": 0.7}}]},
+{"sender": "user", "text": "Selene does not like cheese.", "triples": [ { "subject": "selene", "predicate": "like", "object": "cheese",  "perspective": {"sentiment": -1, "polarity": -1, "certainty": 0.5}}]},
+{"sender": "user","text": "Selene likes to swim", "triples": [ {"subject": "selene", "predicate": "like", "object": "to-swim",  "perspective": {"sentiment": 1, "polarity": 1, "certainty": 0.1}}]}
+{"sender": "user","text": "Selene likes swimming", "triples": [ {"subject": "selene", "predicate": "like", "object": "swimming",  "perspective": {"sentiment": 1, "polarity": 1, "certainty": 0.1}}]}
+{"sender": "user","text": "I have to go to paris", "triples": [ {"subject": "i", "predicate": "go-to", "object": "paris",  "perspective": {"sentiment": 1, "polarity": 1, "certainty": 0.1}}]}
+{"sender": "user","text": "I think that you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats",  "perspective": {"sentiment": 1, "polarity": 1, "certainty": 0.1}}]}
+{"sender": "user","text": "John said you like cats", "triples": [ {"subject": "you", "predicate": "like", "object": "cats",  "perspective": {"sentiment": 1, "polarity": 1, "certainty": 0.1}}]}
                     Do not output any other text than the JSON.'''
 }
 
