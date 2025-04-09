@@ -1,7 +1,0 @@
-I am a teacher: lenka be teacher
-Carl is a teacher: carl be teacher
-I am a police-officer: lenka be police-officer
-I was a policeman: lenka be policeman
-Carl was an actor: carl be actor
-I work as a teacher: lenka be teacher
-Carl works as a teacher: carl be teacher
