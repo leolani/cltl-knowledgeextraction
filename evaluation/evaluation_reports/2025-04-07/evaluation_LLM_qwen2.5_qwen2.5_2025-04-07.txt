@@ -1,0 +1,2760 @@
+
+
+RUNNING 4 FILES
+
+
+
+RUNNING 87 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'person', 'type': [], 'uri': None} == person
+
+Utterance: 	lenka      000: "I am a person"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be', 'object': 'person'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'person'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'person', 'type': [], 'uri': None} == person
+
+Utterance: 	lenka      000: "I am a person"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be', 'object': 'person'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be', 'object': 'person'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': 'serbia', 'type': [], 'uri': None} == serbia
+
+Utterance: 	lenka      000: "I am from serbia"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'serbia'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'serbia'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "I come from the Netherlands"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'enjoy', 'type': [], 'uri': None} == enjoy
+Match triple object: {'label': 'washing-the-dishes', 'type': [], 'uri': None} == washing-the-dishes
+
+Utterance: 	lenka      000: "I don't enjoy washing the dishes"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'enjoy', 'object': 'washing-the-dishes'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'enjoy', 'object': 'washing-the-dishes'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'cheese', 'type': [], 'uri': None} == cheese
+
+Utterance: 	lenka      000: "I don't think selene likes cheese"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'reading-comic-books', 'type': [], 'uri': None} == reading-comic-books
+
+Utterance: 	lenka      000: "I have always liked reading comic books"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like', 'object': 'reading-comic-books'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'reading-comic-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'hear-about', 'type': [], 'uri': None} == hear-about
+Mismatch in triple object: -you != leolani
+
+Utterance: 	lenka      000: "I have heard about you"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'hear-about', 'object': '-you'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'hear-about', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Mismatch in triple predicate:  != be-to
+Mismatch in triple object:  != japan
+
+Utterance: 	lenka      000: "I have never been to Japan"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-to', 'object': 'japan'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'have', 'type': [], 'uri': None} == have
+Match triple object: {'label': 'three-white-cats', 'type': [], 'uri': None} == three-white-cats
+
+Utterance: 	lenka      000: "I have three white cats"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'have', 'object': 'three-white-cats'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'have', 'object': 'three-white-cats'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'home', 'type': [], 'uri': None} == home
+
+Utterance: 	lenka      000: "I have to go home"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'go-to', 'object': 'home'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'go-to', 'object': 'home'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'come', 'type': [], 'uri': None} == come
+Match triple object: {'label': 'today', 'type': [], 'uri': None} == today
+
+Utterance: 	lenka      000: "I know selene might come today"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'come', 'object': 'today'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'come', 'object': 'today'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+
+Utterance: 	lenka      000: "I know that you like me"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'lenka'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Mismatch in triple predicate:  != know
+Mismatch in triple object:  != leolani
+
+Utterance: 	lenka      000: "I know you"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'know', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: like-to != like
+Mismatch in triple object: -smell-flowers != to-smell-flowers
+
+Utterance: 	lenka      000: "I like to smell flowers"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like-to', 'object': '-smell-flowers'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'to-smell-flowers'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: like-to != like
+Mismatch in triple object: -talk != to-talk
+
+Utterance: 	lenka      000: "I like to talk"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like-to', 'object': '-talk'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'to-talk'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Match triple object: {'label': 'new-york', 'type': [], 'uri': None} == new-york
+
+Utterance: 	lenka      000: "I live in New York"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'new-york'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'live-in', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'ice-cream', 'type': [], 'uri': None} == ice-cream
+
+Utterance: 	lenka      000: "I love ice-cream"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'love', 'object': 'ice-cream'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'love', 'object': 'ice-cream'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: love-looking-at != love
+Mismatch in triple object: starry-sky != looking-at-the-starry-sky
+
+Utterance: 	lenka      000: "I love looking at the starry sky"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'love-looking-at', 'object': 'starry-sky'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'love', 'object': 'looking-at-the-starry-sky'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: go-to != go
+Match triple object: {'label': 'home', 'type': [], 'uri': None} == home
+
+Utterance: 	lenka      000: "I must go home"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'go-to', 'object': 'home'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'go', 'object': 'home'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'paris', 'type': [], 'uri': None} == paris
+
+Utterance: 	lenka      000: "I must go to Paris"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'go-to', 'object': 'paris'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'own', 'type': [], 'uri': None} == own
+Match triple object: {'label': 'three-beautiful-cats', 'type': [], 'uri': None} == three-beautiful-cats
+
+Utterance: 	lenka      000: "I own three beautiful cats"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'own', 'object': 'three-beautiful-cats'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'three-beautiful-cats'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'cheese', 'type': [], 'uri': None} == cheese
+
+Utterance: 	lenka      000: "I think Selene doesn't like cheese"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'cheese', 'type': [], 'uri': None} == cheese
+
+Utterance: 	lenka      000: "I think Selene hates cheese"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'hate', 'object': 'cheese'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'hate', 'object': 'cheese'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: want-to-go != go
+Match triple object: {'label': 'home', 'type': [], 'uri': None} == home
+
+Utterance: 	lenka      000: "I want to go home"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'want-to-go', 'object': 'home'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'go', 'object': 'home'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Mismatch in triple predicate: be-born != born-in
+Mismatch in triple object: u.k. != the-u.k.
+
+Utterance: 	lenka      000: "I was born in the U.K. "
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be-born', 'object': 'u.k.'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'born-in', 'object': 'the-u.k.'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Mismatch in triple predicate:  != like
+Mismatch in triple object:  != to-eat-pizza
+
+Utterance: 	lenka      000: "I wouldn't like to eat pizza"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'to-eat-pizza'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'animals', 'type': [], 'uri': None} == animals
+Match triple predicate: {'label': 'drink', 'type': [], 'uri': None} == drink
+Match triple object: {'label': 'water', 'type': [], 'uri': None} == water
+
+Utterance: 	lenka      000: "animals must drink water"
+Predicted Triple:  	{'subject': 'animals', 'predicate': 'drink', 'object': 'water'}
+Expected triple:   	{'subject': 'animals', 'predicate': 'drink', 'object': 'water'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'animals', 'type': [], 'uri': None} == animals
+Match triple predicate: {'label': 'eat', 'type': [], 'uri': None} == eat
+Match triple object: {'label': 'food', 'type': [], 'uri': None} == food
+
+Utterance: 	lenka      000: "animals must eat food"
+Predicted Triple:  	{'subject': 'animals', 'predicate': 'eat', 'object': 'food'}
+Expected triple:   	{'subject': 'animals', 'predicate': 'eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'being-late', 'type': [], 'uri': None} == being-late
+
+Utterance: 	lenka      000: "bram hates being late"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'hate', 'object': 'being-late'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'hate', 'object': 'being-late'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'hockey', 'type': [], 'uri': None} == hockey
+
+Utterance: 	lenka      000: "bram likes hockey"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'like', 'object': 'hockey'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'like', 'object': 'hockey'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'sport', 'type': [], 'uri': None} == sport
+
+Utterance: 	lenka      000: "bram loves sport"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'cat', 'type': [], 'uri': None} == cat
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'pet', 'type': [], 'uri': None} == pet
+
+Utterance: 	lenka      000: "cat is a pet"
+Predicted Triple:  	{'subject': 'cat', 'predicate': 'be', 'object': 'pet'}
+Expected triple:   	{'subject': 'cat', 'predicate': 'be', 'object': 'pet'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != food
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'healthy', 'type': [], 'uri': None} == healthy
+
+Utterance: 	lenka      000: "food should be healthy"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'healthy'}
+Expected triple:   	{'subject': 'food', 'predicate': 'be', 'object': 'healthy'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != houses
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'warm', 'type': [], 'uri': None} == warm
+
+Utterance: 	lenka      000: "houses should be warm"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'warm'}
+Expected triple:   	{'subject': 'houses', 'predicate': 'be', 'object': 'warm'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'humans', 'type': [], 'uri': None} == humans
+Mismatch in triple predicate: can-drink != drink
+Match triple object: {'label': 'beer', 'type': [], 'uri': None} == beer
+
+Utterance: 	lenka      000: "humans can drink beer"
+Predicted Triple:  	{'subject': 'humans', 'predicate': 'can-drink', 'object': 'beer'}
+Expected triple:   	{'subject': 'humans', 'predicate': 'drink', 'object': 'beer'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'humans', 'type': [], 'uri': None} == humans
+Mismatch in triple predicate: can-eat != eat
+Match triple object: {'label': 'food', 'type': [], 'uri': None} == food
+
+Utterance: 	lenka      000: "humans can eat food"
+Predicted Triple:  	{'subject': 'humans', 'predicate': 'can-eat', 'object': 'food'}
+Expected triple:   	{'subject': 'humans', 'predicate': 'eat', 'object': 'food'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'enjoy', 'type': [], 'uri': None} == enjoy
+Match triple object: {'label': 'watching-movies', 'type': [], 'uri': None} == watching-movies
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+Expected triple:   	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Mismatch in triple predicate: like-to != like
+Mismatch in triple object: -watch-movies != to-watch-movies
+
+Utterance: 	lenka      000: "john likes to watch movies"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'like-to', 'object': '-watch-movies'}
+Expected triple:   	{'subject': 'john', 'predicate': 'like', 'object': 'to-watch-movies'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'come-to', 'type': [], 'uri': None} == come-to
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'come-to', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'john', 'predicate': 'come-to', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "lana can read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'ride', 'type': [], 'uri': None} == ride
+Match triple object: {'label': 'bike', 'type': [], 'uri': None} == bike
+
+Utterance: 	lenka      000: "lana can ride a bike"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'ride', 'object': 'bike'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'ride', 'object': 'bike'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "lana is reading a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'write', 'type': [], 'uri': None} == write
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "lana is writing a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'write', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'write', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'eat', 'type': [], 'uri': None} == eat
+Mismatch in triple object:  != something
+
+Utterance: 	lenka      000: "lana must eat"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'eat', 'object': ''}
+Expected triple:   	{'subject': 'lana', 'predicate': 'eat', 'object': 'something'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Mismatch in triple object:  != something
+
+Utterance: 	lenka      000: "lana must read"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': ''}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'something'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "lana read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'write', 'type': [], 'uri': None} == write
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "lana write a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'write', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'write', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'robot', 'type': [], 'uri': None} == robot
+
+Utterance: 	lenka      000: "leolani is a robot"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'robot'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'robot'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'helping-people', 'type': [], 'uri': None} == helping-people
+
+Utterance: 	lenka      000: "leolani likes helping people"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'helping-people'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'helping-people'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani != lenka
+Mismatch in triple predicate: be != best-friend
+Mismatch in triple object: lenka-best-friend != leolani
+
+Utterance: 	lenka      000: "leolani you are my best friend"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'lenka-best-friend'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'best-friend', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka-best-friend != lenka
+Mismatch in triple predicate: be != best-friend
+Match triple object: {'label': 'john', 'type': [], 'uri': None} == john
+
+Utterance: 	lenka      000: "my best friend is john"
+Predicted Triple:  	{'subject': 'lenka-best-friend', 'predicate': 'be', 'object': 'john'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'best-friend', 'object': 'john'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-father', 'type': [], 'uri': None} == lenka-father
+Match triple predicate: {'label': 'favorite-movie', 'type': [], 'uri': None} == favorite-movie
+Mismatch in triple object: titanic != the-titanic
+
+Utterance: 	lenka      000: "my father's favorite movie is the Titanic"
+Predicted Triple:  	{'subject': 'lenka-father', 'predicate': 'favorite-movie', 'object': 'titanic'}
+Expected triple:   	{'subject': 'lenka-father', 'predicate': 'favorite-movie', 'object': 'the-titanic'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-mother', 'type': [], 'uri': None} == lenka-mother
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Mismatch in triple object: beatles != the-beatles
+
+Utterance: 	lenka      000: "my mother loves the beatles"
+Predicted Triple:  	{'subject': 'lenka-mother', 'predicate': 'love', 'object': 'beatles'}
+Expected triple:   	{'subject': 'lenka-mother', 'predicate': 'love', 'object': 'the-beatles'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-sister', 'type': [], 'uri': None} == lenka-sister
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'baking-cakes', 'type': [], 'uri': None} == baking-cakes
+
+Utterance: 	lenka      000: "my sister doesn't like baking cakes"
+Predicted Triple:  	{'subject': 'lenka-sister', 'predicate': 'like', 'object': 'baking-cakes'}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: sister != lenka-sister
+Mismatch in triple predicate: be != name
+Match triple object: {'label': 'emma', 'type': [], 'uri': None} == emma
+
+Utterance: 	lenka      000: "my sister's name is Emma"
+Predicted Triple:  	{'subject': 'sister', 'predicate': 'be', 'object': 'emma'}
+Expected triple:   	{'subject': 'lenka-sister', 'predicate': 'name', 'object': 'emma'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'reading', 'type': [], 'uri': None} == reading
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'activity', 'type': [], 'uri': None} == activity
+
+Utterance: 	lenka      000: "reading is an activity"
+Predicted Triple:  	{'subject': 'reading', 'predicate': 'be', 'object': 'activity'}
+Expected triple:   	{'subject': 'reading', 'predicate': 'be', 'object': 'activity'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': 'mexico', 'type': [], 'uri': None} == mexico
+
+Utterance: 	lenka      000: "selene is from mexico"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'be-from', 'object': 'mexico'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'be-from', 'object': 'mexico'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'baking-cakes', 'type': [], 'uri': None} == baking-cakes
+
+Utterance: 	lenka      000: "selene likes baking cakes"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'like', 'object': 'baking-cakes'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': 'baking-cakes'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Mismatch in triple predicate: love-to != love
+Mismatch in triple object: -bake-cakes != to-bake-cakes
+
+Utterance: 	lenka      000: "selene loves to bake cakes"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'love-to', 'object': '-bake-cakes'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'love', 'object': 'to-bake-cakes'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'come', 'type': [], 'uri': None} == come
+Mismatch in triple object:  != today
+
+Utterance: 	lenka      000: "selene might come today"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'come', 'object': ''}
+Expected triple:   	{'subject': 'selene', 'predicate': 'come', 'object': 'today'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Mismatch in triple predicate:  != own
+Mismatch in triple object:  != chair
+
+Utterance: 	lenka      000: "sorry this is my chair"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'chair'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != suzana
+Mismatch in triple predicate:  != be-at
+Mismatch in triple object:  != home
+
+Utterance: 	lenka      000: "suzana might have been at home"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'suzana', 'predicate': 'be-at', 'object': 'home'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != swimming
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'sport', 'type': [], 'uri': None} == sport
+
+Utterance: 	lenka      000: "swimming is a sport"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'sport'}
+Expected triple:   	{'subject': 'swimming', 'predicate': 'be', 'object': 'sport'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != shirt
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: lovely-shirt != lovely
+
+Utterance: 	lenka      000: "that is a lovely shirt"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'lovely-shirt'}
+Expected triple:   	{'subject': 'shirt', 'predicate': 'be', 'object': 'lovely'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: that != lenka
+Mismatch in triple predicate: be != own
+Mismatch in triple object: lenka-cup != cup
+
+Utterance: 	lenka      000: "that is my cup"
+Predicted Triple:  	{'subject': 'that', 'predicate': 'be', 'object': 'lenka-cup'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'cup'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Mismatch in triple predicate: be != own
+Mismatch in triple object: lenka's != these-books
+
+Utterance: 	lenka      000: "these books are mine"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': "lenka's"}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'own', 'object': 'these-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'they', 'type': [], 'uri': None} == they
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Mismatch in triple object: university != the-university
+
+Utterance: 	lenka      000: "they are not going to the university"
+Predicted Triple:  	{'subject': 'they', 'predicate': 'go-to', 'object': 'university'}
+Expected triple:   	{'subject': 'they', 'predicate': 'go-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'this', 'type': [], 'uri': None} == this
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'pink-chair', 'type': [], 'uri': None} == pink-chair
+
+Utterance: 	lenka      000: "this is a pink chair"
+Predicted Triple:  	{'subject': 'this', 'predicate': 'be', 'object': 'pink-chair'}
+Expected triple:   	{'subject': 'this', 'predicate': 'be', 'object': 'pink-chair'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != this
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'teddy-bear', 'type': [], 'uri': None} == teddy-bear
+
+Utterance: 	lenka      000: "this is a teddy-bear"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'teddy-bear'}
+Expected triple:   	{'subject': 'this', 'predicate': 'be', 'object': 'teddy-bear'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: this != lenka
+Mismatch in triple predicate: be != favorite-song
+Mismatch in triple object: favorite-song != this
+
+Utterance: 	lenka      000: "this is my favorite song"
+Predicted Triple:  	{'subject': 'this', 'predicate': 'be', 'object': 'favorite-song'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-song', 'object': 'this'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'this-yellow-fruit', 'type': [], 'uri': None} == this-yellow-fruit
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'banana', 'type': [], 'uri': None} == banana
+
+Utterance: 	lenka      000: "this yellow fruit is a banana"
+Predicted Triple:  	{'subject': 'this-yellow-fruit', 'predicate': 'be', 'object': 'banana'}
+Expected triple:   	{'subject': 'this-yellow-fruit', 'predicate': 'be', 'object': 'banana'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'robot', 'type': [], 'uri': None} == robot
+
+Utterance: 	lenka      000: "you are a robot"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'robot'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'robot'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'england', 'type': [], 'uri': None} == england
+
+Utterance: 	lenka      000: "you are going to england"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': 'france', 'type': [], 'uri': None} == france
+
+Utterance: 	lenka      000: "you come from france"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-from', 'object': 'france'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: be != be-in
+Match triple object: {'label': 'paris', 'type': [], 'uri': None} == paris
+
+Utterance: 	lenka      000: "you have been in paris"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'paris'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'talking-to-people', 'type': [], 'uri': None} == talking-to-people
+
+Utterance: 	lenka      000: "you like talking to people"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "you live in amsterdam"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Match triple object: {'label': 'this-office', 'type': [], 'uri': None} == this-office
+
+Utterance: 	lenka      000: "you live in this office"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'live-in', 'object': 'this-office'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: come-from != be-from
+Match triple object: {'label': 'france', 'type': [], 'uri': None} == france
+
+Utterance: 	lenka      000: "you may come from france"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'come-from', 'object': 'france'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-from', 'object': 'france'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Mismatch in triple predicate: should-go != go
+Mismatch in triple object:  != somewhere
+
+Utterance: 	lenka      000: "you should go"
+Predicted Triple:  	{'subject': '', 'predicate': 'should-go', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go', 'object': 'somewhere'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka-name != lenka
+Mismatch in triple predicate: be != name
+Match triple object: {'label': 'anna', 'type': [], 'uri': None} == anna
+
+Utterance: 	lenka      000: "you think my name is anna"
+Predicted Triple:  	{'subject': 'lenka-name', 'predicate': 'be', 'object': 'anna'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'name', 'object': 'anna'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be-in', 'type': [], 'uri': None} == be-in
+Match triple object: {'label': 'paris', 'type': [], 'uri': None} == paris
+
+Utterance: 	lenka      000: "you were in paris"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'paris'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'england', 'type': [], 'uri': None} == england
+
+Utterance: 	lenka      000: "you will go to england"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'england'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-sister', 'type': [], 'uri': None} == leolani-sister
+Match triple predicate: {'label': 'come-to', 'type': [], 'uri': None} == come-to
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "your sister must come to Amsterdam"
+Predicted Triple:  	{'subject': 'leolani-sister', 'predicate': 'come-to', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'leolani-sister', 'predicate': 'come-to', 'object': 'amsterdam'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 87 UTTERANCES FROM FILE ./data/statements.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 47			INCORRECT TRIPLES: 40			RECALL: 54.02%
+
+CORRECT SUBJECTS: 69			INCORRECT SUBJECTS: 18			RECALL: 79.31%
+
+CORRECT PREDICATES: 62			INCORRECT PREDICATES: 25			RECALL: 71.26%
+
+CORRECT OBJECTS: 60			INCORRECT OBJECTS: 27			RECALL: 68.97%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+ISSUES (39 UTTERANCES): {
+    "I come from the Netherlands": {
+        "triple": "I come from the Netherlands: lenka be-from the-netherlands"
+    }, 
+    "I have heard about you": {
+        "triple": "I have heard about you: lenka hear-about leolani"
+    }, 
+    "I have never been to Japan": {
+        "triple": "I have never been to Japan: lenka be-to japan"
+    }, 
+    "I know you": {
+        "triple": "I know you: lenka know leolani"
+    }, 
+    "I like to smell flowers": {
+        "triple": "I like to smell flowers: lenka like to-smell-flowers"
+    }, 
+    "I like to talk": {
+        "triple": "I like to talk: lenka like to-talk"
+    }, 
+    "I live in the Netherlands": {
+        "triple": "I live in the Netherlands: lenka live-in the-netherlands"
+    }, 
+    "I love looking at the starry sky": {
+        "triple": "I love looking at the starry sky: lenka love looking-at-the-starry-sky"
+    }, 
+    "I must go home": {
+        "triple": "I must go home: lenka go home"
+    }, 
+    "I want to go home": {
+        "triple": "I want to go home: lenka go home"
+    }, 
+    "I was born in the U.K. ": {
+        "triple": "I was born in the U.K. : lenka born-in the-u.k."
+    }, 
+    "I wouldn't like to eat pizza": {
+        "triple": "I wouldn't like to eat pizza: lenka like to-eat-pizza"
+    }, 
+    "food should be healthy": {
+        "triple": "food should be healthy: food be healthy"
+    }, 
+    "houses should be warm": {
+        "triple": "houses should be warm: houses be warm"
+    }, 
+    "humans can drink beer": {
+        "triple": "humans can drink beer: humans drink beer"
+    }, 
+    "humans can eat food": {
+        "triple": "humans can eat food: humans eat food"
+    }, 
+    "john likes to watch movies": {
+        "triple": "john likes to watch movies: john like to-watch-movies"
+    }, 
+    "lana must eat": {
+        "triple": "lana must eat: lana eat something"
+    }, 
+    "lana must read": {
+        "triple": "lana must read: lana read something"
+    }, 
+    "leolani you are my best friend": {
+        "triple": "leolani you are my best friend: lenka best-friend leolani"
+    }, 
+    "my best friend is john": {
+        "triple": "my best friend is john: lenka best-friend john"
+    }, 
+    "my father's favorite movie is the Titanic": {
+        "triple": "my father's favorite movie is the Titanic: lenka-father favorite-movie the-titanic"
+    }, 
+    "my mother loves the beatles": {
+        "triple": "my mother loves the beatles: lenka-mother love the-beatles"
+    }, 
+    "my sister's name is Emma": {
+        "triple": "my sister's name is Emma: lenka-sister name emma"
+    }, 
+    "selene loves to bake cakes": {
+        "triple": "selene loves to bake cakes: selene love to-bake-cakes"
+    }, 
+    "selene might come today": {
+        "triple": "selene might come today: selene come today"
+    }, 
+    "sorry this is my chair": {
+        "triple": "sorry this is my chair: lenka own chair"
+    }, 
+    "suzana might have been at home": {
+        "triple": "suzana might have been at home: suzana be-at home"
+    }, 
+    "swimming is a sport": {
+        "triple": "swimming is a sport: swimming be sport"
+    }, 
+    "that is a lovely shirt": {
+        "triple": "that is a lovely shirt: shirt be lovely"
+    }, 
+    "that is my cup": {
+        "triple": "that is my cup: lenka own cup"
+    }, 
+    "these books are mine": {
+        "triple": "these books are mine: lenka own these-books"
+    }, 
+    "they are not going to the university": {
+        "triple": "they are not going to the university: they go-to the-university"
+    }, 
+    "this is a teddy-bear": {
+        "triple": "this is a teddy-bear: this be teddy-bear"
+    }, 
+    "this is my favorite song": {
+        "triple": "this is my favorite song: lenka favorite-song this"
+    }, 
+    "you have been in paris": {
+        "triple": "you have been in paris: leolani be-in paris"
+    }, 
+    "you may come from france": {
+        "triple": "you may come from france: leolani be-from france"
+    }, 
+    "you should go": {
+        "triple": "you should go: leolani go somewhere"
+    }, 
+    "you think my name is anna": {
+        "triple": "you think my name is anna: lenka name anna"
+    }
+}
+
+RUNNING 48 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != leolani-best-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: leolani-best-friend != lenka
+
+Utterance: 	lenka      000: "am I your best friend"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be', 'object': 'leolani-best-friend'}
+Expected triple:   	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'girl', 'type': [], 'uri': None} == girl
+
+Utterance: 	lenka      000: "are you a girl"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'girl'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'girl'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: be-afraid != be
+Mismatch in triple object: dogs != afraid-of-dogs
+
+Utterance: 	lenka      000: "are you afraid of dogs"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-afraid', 'object': 'dogs'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'afraid-of-dogs'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "are your from the netherlands"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-from', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "am I from the netherlands"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'be-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-parents', 'type': [], 'uri': None} == leolani-parents
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Mismatch in triple object: netherlands != the-netherlands
+
+Utterance: 	lenka      000: "are your parents from the netherlands"
+Predicted Triple:  	{'subject': 'leolani-parents', 'predicate': 'be-from', 'object': 'netherlands'}
+Expected triple:   	{'subject': 'leolani-parents', 'predicate': 'be-from', 'object': 'the-netherlands'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Match triple predicate: {'label': 'call', 'type': [], 'uri': None} == call
+Mismatch in triple object:  != leolani
+
+Utterance: 	lenka      000: "can I call you"
+Predicted Triple:  	{'subject': '', 'predicate': 'call', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'call', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'make', 'type': [], 'uri': None} == make
+Match triple object: {'label': 'cake', 'type': [], 'uri': None} == cake
+
+Utterance: 	lenka      000: "can I make a cake"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'make', 'object': 'cake'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'make', 'object': 'cake'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'a-bird', 'type': [], 'uri': None} == a-bird
+Match triple predicate: {'label': 'sing', 'type': [], 'uri': None} == sing
+Match triple object: {'label': 'song', 'type': [], 'uri': None} == song
+
+Utterance: 	lenka      000: "can a bird sing a song"
+Predicted Triple:  	{'subject': 'a-bird', 'predicate': 'sing', 'object': 'song'}
+Expected triple:   	{'subject': 'a-bird', 'predicate': 'sing', 'object': 'song'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-friend', 'type': [], 'uri': None} == lenka-friend
+Mismatch in triple predicate: talk != talk-to
+Mismatch in triple object:  != leolani
+
+Utterance: 	lenka      000: "can my friend talk to you"
+Predicted Triple:  	{'subject': 'lenka-friend', 'predicate': 'talk', 'object': ''}
+Expected triple:   	{'subject': 'lenka-friend', 'predicate': 'talk-to', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'recommend', 'type': [], 'uri': None} == recommend
+Match triple object: {'label': 'book-about-history', 'type': [], 'uri': None} == book-about-history
+
+Utterance: 	lenka      000: "can you recommend a book about history"
+Predicted Triple:  	{'subject': '', 'predicate': 'recommend', 'object': 'book-about-history'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'recommend', 'object': 'book-about-history'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'sing', 'type': [], 'uri': None} == sing
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "can you sing"
+Predicted Triple:  	{'subject': '', 'predicate': 'sing', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'sing', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: talk != talk-to
+Mismatch in triple object:  != lenka
+
+Utterance: 	lenka      000: "can you talk to me"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'talk', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'talk-to', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: dog != a-dog
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "can you tell me what is a dog"
+Predicted Triple:  	{'subject': 'dog', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'a-dog', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'come-to', 'type': [], 'uri': None} == come-to
+Match triple object: {'label': 'university', 'type': [], 'uri': None} == university
+
+Utterance: 	lenka      000: "can't you come to university"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'come-to', 'object': 'university'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come-to', 'object': 'university'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'hear', 'type': [], 'uri': None} == hear
+Mismatch in triple object:  != lenka
+
+Utterance: 	lenka      000: "could you hear me"
+Predicted Triple:  	{'subject': '', 'predicate': 'hear', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'hear', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Match triple object: {'label': 'book', 'type': [], 'uri': None} == book
+
+Utterance: 	lenka      000: "did lana read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Mismatch in triple object: -paris != paris
+
+Utterance: 	lenka      000: "did you ever go to Paris"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': '-paris'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: go != go-to
+Mismatch in triple object: school != school-yesterday
+
+Utterance: 	lenka      000: "did you go to school yesterday"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go', 'object': 'school'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'school-yesterday'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'meet', 'type': [], 'uri': None} == meet
+Match triple object: {'label': 'pretty-girl', 'type': [], 'uri': None} == pretty-girl
+
+Utterance: 	lenka      000: "did you meet a pretty girl"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'meet', 'object': 'pretty-girl'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'meet', 'object': 'pretty-girl'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'meet', 'type': [], 'uri': None} == meet
+Match triple object: {'label': 'john', 'type': [], 'uri': None} == john
+
+Utterance: 	lenka      000: "did you meet john"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'meet', 'object': 'john'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'meet', 'object': 'john'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Match triple object: {'label': 'dog', 'type': [], 'uri': None} == dog
+
+Utterance: 	lenka      000: "did you see a dog"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'see', 'object': 'dog'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'dog'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'sing', 'type': [], 'uri': None} == sing
+Match triple object: {'label': 'song-about-rain', 'type': [], 'uri': None} == song-about-rain
+
+Utterance: 	lenka      000: "did you sing a song about rain"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'sing', 'object': 'song-about-rain'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'sing', 'object': 'song-about-rain'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: talk != talk-with
+Match triple object: {'label': 'selene', 'type': [], 'uri': None} == selene
+
+Utterance: 	lenka      000: "did you talk with Selene"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'talk', 'object': 'selene'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'talk-with', 'object': 'selene'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Match triple object: {'label': 'selene', 'type': [], 'uri': None} == selene
+
+Utterance: 	lenka      000: "didn't you see Selene"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'see', 'object': 'selene'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'selene'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Match triple object: {'label': 'dangerous-animal', 'type': [], 'uri': None} == dangerous-animal
+
+Utterance: 	lenka      000: "do you know a dangerous animal"
+Predicted Triple:  	{'subject': '', 'predicate': 'know', 'object': 'dangerous-animal'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'know', 'object': 'dangerous-animal'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Mismatch in triple object:  != lenka
+
+Utterance: 	lenka      000: "do you know me"
+Predicted Triple:  	{'subject': '', 'predicate': 'know', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'know', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'dog', 'type': [], 'uri': None} == dog
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "do you know what a dog is"
+Predicted Triple:  	{'subject': 'dog', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'dog', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "do you like amsterdam"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'living-in-amsterdam', 'type': [], 'uri': None} == living-in-amsterdam
+
+Utterance: 	lenka      000: "do you like living in amsterdam"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'living-in-amsterdam'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'living-in-amsterdam'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'new-york', 'type': [], 'uri': None} == new-york
+
+Utterance: 	lenka      000: "do you like new york"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'new-york'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: live-to != like
+Mismatch in triple object: new-york != to-live-in-new-york
+
+Utterance: 	lenka      000: "do you like to live in new york"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'live-to', 'object': 'new-york'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'to-live-in-new-york'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'talking-to-people', 'type': [], 'uri': None} == talking-to-people
+
+Utterance: 	lenka      000: "do you like talking to people"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'talking-to-people'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Match triple object: {'label': 'dog', 'type': [], 'uri': None} == dog
+
+Utterance: 	lenka      000: "do you see a dog"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'see', 'object': 'dog'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'dog'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'enjoy', 'type': [], 'uri': None} == enjoy
+Match triple object: {'label': 'watching-movies', 'type': [], 'uri': None} == watching-movies
+
+Utterance: 	lenka      000: "does john enjoy watching movies"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+Expected triple:   	{'subject': 'john', 'predicate': 'enjoy', 'object': 'watching-movies'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Mismatch in triple object: building != the-building
+
+Utterance: 	lenka      000: "does john live in the building"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'live-in', 'object': 'building'}
+Expected triple:   	{'subject': 'john', 'predicate': 'live-in', 'object': 'the-building'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Match triple object: {'label': 'suzana', 'type': [], 'uri': None} == suzana
+
+Utterance: 	lenka      000: "does selene know suzana"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'know', 'object': 'suzana'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'know', 'object': 'suzana'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-sister', 'type': [], 'uri': None} == leolani-sister
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Match triple object: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+
+Utterance: 	lenka      000: "does your sister know me"
+Predicted Triple:  	{'subject': 'leolani-sister', 'predicate': 'know', 'object': 'lenka'}
+Expected triple:   	{'subject': 'leolani-sister', 'predicate': 'know', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be-to', 'type': [], 'uri': None} == be-to
+Mismatch in triple object: -paris != paris
+
+Utterance: 	lenka      000: "have you ever been to Paris"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-to', 'object': '-paris'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-to', 'object': 'paris'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Mismatch in triple object: dog != a-dog
+
+Utterance: 	lenka      000: "have you ever seen a dog"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'see', 'object': 'dog'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': 'a-dog'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be-in', 'type': [], 'uri': None} == be-in
+Mismatch in triple object: -new-york != new-york
+
+Utterance: 	lenka      000: "haven't you been in New York"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-in', 'object': '-new-york'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be-in', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani-favorite-color
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: favorite-color != purple
+
+Utterance: 	lenka      000: "is purple your favorite color"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'favorite-color'}
+Expected triple:   	{'subject': 'leolani-favorite-color', 'predicate': 'be', 'object': 'purple'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-best-friend', 'type': [], 'uri': None} == leolani-best-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'selene', 'type': [], 'uri': None} == selene
+
+Utterance: 	lenka      000: "is your best friend Selene"
+Predicted Triple:  	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': 'selene'}
+Expected triple:   	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': 'selene'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-favorite-food', 'type': [], 'uri': None} == leolani-favorite-food
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': 'pizza', 'type': [], 'uri': None} == pizza
+
+Utterance: 	lenka      000: "is your favorite food pizza"
+Predicted Triple:  	{'subject': 'leolani-favorite-food', 'predicate': 'be', 'object': 'pizza'}
+Expected triple:   	{'subject': 'leolani-favorite-food', 'predicate': 'be', 'object': 'pizza'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-friend', 'type': [], 'uri': None} == leolani-friend
+Mismatch in triple predicate: be-called != call
+Match triple object: {'label': 'susie', 'type': [], 'uri': None} == susie
+
+Utterance: 	lenka      000: "is your friend called susie"
+Predicted Triple:  	{'subject': 'leolani-friend', 'predicate': 'be-called', 'object': 'susie'}
+Expected triple:   	{'subject': 'leolani-friend', 'predicate': 'call', 'object': 'susie'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go', 'type': [], 'uri': None} == go
+Mismatch in triple object:  != home
+
+Utterance: 	lenka      000: "must you go home"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go', 'object': 'home'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'come', 'type': [], 'uri': None} == come
+Mismatch in triple object:  != tomorrow
+
+Utterance: 	lenka      000: "will you come tomorrow"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'come', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come', 'object': 'tomorrow'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'paris', 'type': [], 'uri': None} == paris
+
+Utterance: 	lenka      000: "will you go to Paris"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'paris'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'paris'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 48 UTTERANCES FROM FILE ./data/verb-questions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 22			INCORRECT TRIPLES: 26			RECALL: 45.83%
+
+CORRECT SUBJECTS: 39			INCORRECT SUBJECTS: 9			RECALL: 81.25%
+
+CORRECT PREDICATES: 41			INCORRECT PREDICATES: 7			RECALL: 85.42%
+
+CORRECT OBJECTS: 28			INCORRECT OBJECTS: 20			RECALL: 58.33%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+ISSUES (26 UTTERANCES): {
+    "am I from the netherlands": {
+        "triple": "am I from the netherlands: lenka be-from the-netherlands"
+    }, 
+    "am I your best friend": {
+        "triple": "am I your best friend: leolani-best-friend be lenka"
+    }, 
+    "are you afraid of dogs": {
+        "triple": "are you afraid of dogs: leolani be afraid-of-dogs"
+    }, 
+    "are your from the netherlands": {
+        "triple": "are your from the netherlands: leolani be-from the-netherlands"
+    }, 
+    "are your parents from the netherlands": {
+        "triple": "are your parents from the netherlands: leolani-parents be-from the-netherlands"
+    }, 
+    "can I call you": {
+        "triple": "can I call you: lenka call leolani"
+    }, 
+    "can my friend talk to you": {
+        "triple": "can my friend talk to you: lenka-friend talk-to leolani"
+    }, 
+    "can you recommend a book about history": {
+        "triple": "can you recommend a book about history: leolani recommend book-about-history"
+    }, 
+    "can you sing": {
+        "triple": "can you sing: leolani sing "
+    }, 
+    "can you talk to me": {
+        "triple": "can you talk to me: leolani talk-to lenka"
+    }, 
+    "can you tell me what is a dog": {
+        "triple": "can you tell me what is a dog: a-dog be "
+    }, 
+    "could you hear me": {
+        "triple": "could you hear me: leolani hear lenka"
+    }, 
+    "did you ever go to Paris": {
+        "triple": "did you ever go to Paris: leolani go-to paris"
+    }, 
+    "did you go to school yesterday": {
+        "triple": "did you go to school yesterday: leolani go-to school-yesterday"
+    }, 
+    "did you talk with Selene": {
+        "triple": "did you talk with Selene: leolani talk-with selene"
+    }, 
+    "do you know a dangerous animal": {
+        "triple": "do you know a dangerous animal: leolani know dangerous-animal"
+    }, 
+    "do you know me": {
+        "triple": "do you know me: leolani know lenka"
+    }, 
+    "do you like to live in new york": {
+        "triple": "do you like to live in new york: leolani like to-live-in-new-york"
+    }, 
+    "does john live in the building": {
+        "triple": "does john live in the building: john live-in the-building"
+    }, 
+    "have you ever been to Paris": {
+        "triple": "have you ever been to Paris: leolani be-to paris"
+    }, 
+    "have you ever seen a dog": {
+        "triple": "have you ever seen a dog: leolani see a-dog"
+    }, 
+    "haven't you been in New York": {
+        "triple": "haven't you been in New York: leolani be-in new-york"
+    }, 
+    "is purple your favorite color": {
+        "triple": "is purple your favorite color: leolani-favorite-color be purple"
+    }, 
+    "is your friend called susie": {
+        "triple": "is your friend called susie: leolani-friend call susie"
+    }, 
+    "must you go home": {
+        "triple": "must you go home: leolani go home"
+    }, 
+    "will you come tomorrow": {
+        "triple": "will you come tomorrow: leolani come tomorrow"
+    }
+}
+
+RUNNING 58 UTTERANCES FROM FILE ./data/wh-questions.txt
+
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'cats', 'type': [], 'uri': None} == cats
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what are cats"
+Predicted Triple:  	{'subject': 'cats', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'cats', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what can you see"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'see', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani-birthday != leolani
+Mismatch in triple predicate: be != birthday
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what day is your birthday"
+Predicted Triple:  	{'subject': 'leolani-birthday', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'birthday', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do I like"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'enjoy', 'type': [], 'uri': None} == enjoy
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do you enjoy"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'enjoy', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'enjoy', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do you hate"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'hate', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'hate', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'have', 'type': [], 'uri': None} == have
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do you have"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'have', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'have', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do you like"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'own', 'type': [], 'uri': None} == own
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what do you own"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'own', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'own', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'cat', 'type': [], 'uri': None} == cat
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is a cat"
+Predicted Triple:  	{'subject': 'cat', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'cat', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka-favorite-tv-show != lenka
+Mismatch in triple predicate: be != favorite-tv-show
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is my favorite TV show"
+Predicted Triple:  	{'subject': 'lenka-favorite-tv-show', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-tv-show', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka-favorite-food != lenka
+Mismatch in triple predicate: be != favorite-food
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is my favorite food"
+Predicted Triple:  	{'subject': 'lenka-favorite-food', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-food', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani-biggest-fear != leolani
+Mismatch in triple predicate: be != biggest-fear
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is your biggest fear"
+Predicted Triple:  	{'subject': 'leolani-biggest-fear', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'biggest-fear', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-brother', 'type': [], 'uri': None} == leolani-brother
+Mismatch in triple predicate: be != name
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is your brother's name"
+Predicted Triple:  	{'subject': 'leolani-brother', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani-brother', 'predicate': 'name', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-brother', 'type': [], 'uri': None} == lenka-brother
+Mismatch in triple predicate: be != name
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "what is my brother's name"
+Predicted Triple:  	{'subject': 'lenka-brother', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'lenka-brother', 'predicate': 'name', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani-dog
+Mismatch in triple predicate: be != name
+Mismatch in triple object: leolani-dog-name != 
+
+Utterance: 	lenka      000: "what is your dog's name"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'leolani-dog-name'}
+Expected triple:   	{'subject': 'leolani-dog', 'predicate': 'name', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani != leolani-favorite-color
+Mismatch in triple predicate: have-favorite != be
+Mismatch in triple object: color != 
+
+Utterance: 	lenka      000: "what is your favorite color"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'have-favorite', 'object': 'color'}
+Expected triple:   	{'subject': 'leolani-favorite-color', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'come', 'type': [], 'uri': None} == come
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "when are you coming"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'come', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'come', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go-to', 'type': [], 'uri': None} == go-to
+Match triple object: {'label': 'mexico', 'type': [], 'uri': None} == mexico
+
+Utterance: 	lenka      000: "when are you going to Mexico"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'mexico'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to', 'object': 'mexico'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'come', 'type': [], 'uri': None} == come
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "when did Selene come"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'come', 'object': ''}
+Expected triple:   	{'subject': 'selene', 'predicate': 'come', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: go-to != go-to-school
+Mismatch in triple object: -school != 
+
+Utterance: 	lenka      000: "when did you go to school"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go-to', 'object': '-school'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go-to-school', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani-birthday != leolani
+Mismatch in triple predicate: be != birthday
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "when is your birthday"
+Predicted Triple:  	{'subject': 'leolani-birthday', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'birthday', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-father', 'type': [], 'uri': None} == leolani-father
+Match triple predicate: {'label': 'birthday', 'type': [], 'uri': None} == birthday
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "when is your father's birthday"
+Predicted Triple:  	{'subject': 'leolani-father', 'predicate': 'birthday', 'object': ''}
+Expected triple:   	{'subject': 'leolani-father', 'predicate': 'birthday', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go', 'type': [], 'uri': None} == go
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where are you going"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'go', 'type': [], 'uri': None} == go
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where can I go"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'go', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'go', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'come-from', 'type': [], 'uri': None} == come-from
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where did Bram come from"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'come-from', 'object': ''}
+Expected triple:   	{'subject': 'bram', 'predicate': 'come-from', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'go', 'type': [], 'uri': None} == go
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where did you go yesterday"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'go', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'go', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka-friend', 'type': [], 'uri': None} == lenka-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where is my friend"
+Predicted Triple:  	{'subject': 'lenka-friend', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'lenka-friend', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where is selene from"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'be-from', 'object': ''}
+Expected triple:   	{'subject': 'selene', 'predicate': 'be-from', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-best-friend', 'type': [], 'uri': None} == leolani-best-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where is your best friend"
+Predicted Triple:  	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-friend', 'type': [], 'uri': None} == leolani-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where is your friend"
+Predicted Triple:  	{'subject': 'leolani-friend', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani-friend', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani-office', 'type': [], 'uri': None} == leolani-office
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where is your office"
+Predicted Triple:  	{'subject': 'leolani-office', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'leolani-office', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Mismatch in triple predicate: be-born != born
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where was Selene born"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'be-born', 'object': ''}
+Expected triple:   	{'subject': 'selene', 'predicate': 'born', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: be-born != born
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "where were you born"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be-born', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'born', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Mismatch in triple predicate: have-favorite != favorite-color
+Mismatch in triple object: color != 
+
+Utterance: 	lenka      000: "which is your favorite color"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'have-favorite', 'object': 'color'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'favorite-color', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Mismatch in triple predicate: be != colleagues
+Mismatch in triple object: leolani-colleagues != 
+
+Utterance: 	lenka      000: "who are your colleagues"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'leolani-colleagues'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'colleagues', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Mismatch in triple predicate: can-sing != sing
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "who can sing"
+Predicted Triple:  	{'subject': '', 'predicate': 'can-sing', 'object': ''}
+Expected triple:   	{'subject': '', 'predicate': 'sing', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "who do I know"
+Predicted Triple:  	{'subject': '', 'predicate': 'know', 'object': ''}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'know', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "who do you know"
+Predicted Triple:  	{'subject': '', 'predicate': 'know', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'know', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != lenka
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: lenka != 
+
+Utterance: 	lenka      000: "who do I like"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'lenka'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: leolani != 
+
+Utterance: 	lenka      000: "who do you like"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'leolani'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != selene
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: selene != 
+
+Utterance: 	lenka      000: "who does selene like"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'selene'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'like', 'object': ''}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != selene
+Match triple predicate: {'label': 'know', 'type': [], 'uri': None} == know
+Mismatch in triple object: selene != 
+
+Utterance: 	lenka      000: "who does Selene know"
+Predicted Triple:  	{'subject': '', 'predicate': 'know', 'object': 'selene'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'know', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Mismatch in triple predicate: have != has
+Match triple object: {'label': 'cat', 'type': [], 'uri': None} == cat
+
+Utterance: 	lenka      000: "who has a cat"
+Predicted Triple:  	{'subject': '', 'predicate': 'have', 'object': 'cat'}
+Expected triple:   	{'subject': '', 'predicate': 'has', 'object': 'cat'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'cleaning', 'type': [], 'uri': None} == cleaning
+
+Utterance: 	lenka      000: "who hates cleaning"
+Predicted Triple:  	{'subject': '', 'predicate': 'hate', 'object': 'cleaning'}
+Expected triple:   	{'subject': '', 'predicate': 'hate', 'object': 'cleaning'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Match triple predicate: {'label': 'see', 'type': [], 'uri': None} == see
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "who have you seen"
+Predicted Triple:  	{'subject': '', 'predicate': 'see', 'object': ''}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'see', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': 'mexico', 'type': [], 'uri': None} == mexico
+
+Utterance: 	lenka      000: "who is from Mexico"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-from', 'object': 'mexico'}
+Expected triple:   	{'subject': '', 'predicate': 'be-from', 'object': 'mexico'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani-best-friend
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: leolani-best-friend != 
+
+Utterance: 	lenka      000: "who is your best friend"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'leolani-best-friend'}
+Expected triple:   	{'subject': 'leolani-best-friend', 'predicate': 'be', 'object': ''}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+
+Utterance: 	lenka      000: "who likes me"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'lenka'}
+Expected triple:   	{'subject': '', 'predicate': 'like', 'object': 'lenka'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+
+Utterance: 	lenka      000: "who likes you"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'leolani'}
+Expected triple:   	{'subject': '', 'predicate': 'like', 'object': 'leolani'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'singing', 'type': [], 'uri': None} == singing
+
+Utterance: 	lenka      000: "who likes singing"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'singing'}
+Expected triple:   	{'subject': '', 'predicate': 'like', 'object': 'singing'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'talking-to-people', 'type': [], 'uri': None} == talking-to-people
+
+Utterance: 	lenka      000: "who likes talking to people"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'talking-to-people'}
+Expected triple:   	{'subject': '', 'predicate': 'like', 'object': 'talking-to-people'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'watching-movies', 'type': [], 'uri': None} == watching-movies
+
+Utterance: 	lenka      000: "who likes watching movies"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'watching-movies'}
+Expected triple:   	{'subject': '', 'predicate': 'like', 'object': 'watching-movies'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "who lives in Amsterdam"
+Predicted Triple:  	{'subject': '', 'predicate': 'live-in', 'object': 'amsterdam'}
+Expected triple:   	{'subject': '', 'predicate': 'live-in', 'object': 'amsterdam'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'live-in', 'type': [], 'uri': None} == live-in
+Match triple object: {'label': 'new-york', 'type': [], 'uri': None} == new-york
+
+Utterance: 	lenka      000: "who lives in New York"
+Predicted Triple:  	{'subject': '', 'predicate': 'live-in', 'object': 'new-york'}
+Expected triple:   	{'subject': '', 'predicate': 'live-in', 'object': 'new-york'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'own', 'type': [], 'uri': None} == own
+Match triple object: {'label': 'cat', 'type': [], 'uri': None} == cat
+
+Utterance: 	lenka      000: "who owns a cat"
+Predicted Triple:  	{'subject': '', 'predicate': 'own', 'object': 'cat'}
+Expected triple:   	{'subject': '', 'predicate': 'own', 'object': 'cat'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Match triple predicate: {'label': 'come-to', 'type': [], 'uri': None} == come-to
+Match triple object: {'label': 'school', 'type': [], 'uri': None} == school
+
+Utterance: 	lenka      000: "who will come to school"
+Predicted Triple:  	{'subject': '', 'predicate': 'come-to', 'object': 'school'}
+Expected triple:   	{'subject': '', 'predicate': 'come-to', 'object': 'school'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': '', 'type': [], 'uri': None} == 
+Mismatch in triple predicate: work != work-at
+Mismatch in triple object: university != the-university
+
+Utterance: 	lenka      000: "who works at the university"
+Predicted Triple:  	{'subject': '', 'predicate': 'work', 'object': 'university'}
+Expected triple:   	{'subject': '', 'predicate': 'work-at', 'object': 'the-university'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 58 UTTERANCES FROM FILE ./data/wh-questions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 33			INCORRECT TRIPLES: 25			RECALL: 56.90%
+
+CORRECT SUBJECTS: 42			INCORRECT SUBJECTS: 16			RECALL: 72.41%
+
+CORRECT PREDICATES: 41			INCORRECT PREDICATES: 17			RECALL: 70.69%
+
+CORRECT OBJECTS: 47			INCORRECT OBJECTS: 11			RECALL: 81.03%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+ISSUES (25 UTTERANCES): {
+    "what day is your birthday": {
+        "triple": "what day is your birthday: leolani birthday "
+    }, 
+    "what is my brother's name": {
+        "triple": "what is my brother's name: lenka-brother name "
+    }, 
+    "what is my favorite TV show": {
+        "triple": "what is my favorite TV show: lenka favorite-tv-show "
+    }, 
+    "what is my favorite food": {
+        "triple": "what is my favorite food: lenka favorite-food "
+    }, 
+    "what is your biggest fear": {
+        "triple": "what is your biggest fear: leolani biggest-fear "
+    }, 
+    "what is your brother's name": {
+        "triple": "what is your brother's name: leolani-brother name "
+    }, 
+    "what is your dog's name": {
+        "triple": "what is your dog's name: leolani-dog name "
+    }, 
+    "what is your favorite color": {
+        "triple": "what is your favorite color: leolani-favorite-color be "
+    }, 
+    "when did you go to school": {
+        "triple": "when did you go to school: leolani go-to-school "
+    }, 
+    "when is your birthday": {
+        "triple": "when is your birthday: leolani birthday "
+    }, 
+    "where was Selene born": {
+        "triple": "where was Selene born: selene born "
+    }, 
+    "where were you born": {
+        "triple": "where were you born: leolani born "
+    }, 
+    "which is your favorite color": {
+        "triple": "which is your favorite color: leolani favorite-color "
+    }, 
+    "who are your colleagues": {
+        "triple": "who are your colleagues: leolani colleagues "
+    }, 
+    "who can sing": {
+        "triple": "who can sing:  sing "
+    }, 
+    "who do I know": {
+        "triple": "who do I know: lenka know "
+    }, 
+    "who do I like": {
+        "triple": "who do I like: lenka like "
+    }, 
+    "who do you know": {
+        "triple": "who do you know: leolani know "
+    }, 
+    "who do you like": {
+        "triple": "who do you like: leolani like "
+    }, 
+    "who does Selene know": {
+        "triple": "who does Selene know: selene know "
+    }, 
+    "who does selene like": {
+        "triple": "who does selene like: selene like "
+    }, 
+    "who has a cat": {
+        "triple": "who has a cat:  has cat"
+    }, 
+    "who have you seen": {
+        "triple": "who have you seen: leolani see "
+    }, 
+    "who is your best friend": {
+        "triple": "who is your best friend: leolani-best-friend be "
+    }, 
+    "who works at the university": {
+        "triple": "who works at the university:  work-at the-university"
+    }
+}
+
+RUNNING 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Mismatch in triple object:  != a-book
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': ''}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Mismatch in perspective certainty: 0.7 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'sport', 'type': [], 'uri': None} == sport
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != birds
+Mismatch in triple predicate:  != talk
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "birds can't talk"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'birds', 'predicate': 'talk', 'object': ''}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "john hates fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "john loves fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "john doesn't hate fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective certainty: 0.7 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Mismatch in triple predicate: work != work-in
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "I think selene works in Amsterdam"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'work', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Mismatch in perspective certainty: 0.1 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != john
+Mismatch in triple predicate:  != come-to
+Mismatch in triple object:  != school
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'john', 'predicate': 'come-to', 'object': 'school'}
+Mismatch in perspective certainty: 0.9 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'coffee', 'type': [], 'uri': None} == coffee
+
+Utterance: 	lenka      000: "you know I like coffee"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'birds', 'type': [], 'uri': None} == birds
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'flying', 'type': [], 'uri': None} == flying
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Predicted Triple:  	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Mismatch in perspective certainty: 0.1 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: not-human != human
+
+Utterance: 	lenka      000: "I know that you are not a human"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'not-human'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'human'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'be', 'type': [], 'uri': None} == be
+Mismatch in triple object: not-human != human
+
+Utterance: 	lenka      000: "I know that you aren't a human"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'be', 'object': 'not-human'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'human'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Mismatch in triple predicate: work != work-in
+Match triple object: {'label': 'amsterdam', 'type': [], 'uri': None} == amsterdam
+
+Utterance: 	lenka      000: "I think Selene works in Amsterdam"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'work', 'object': 'amsterdam'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Mismatch in perspective certainty: 0.1 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != john
+Mismatch in triple predicate:  != come-to
+Mismatch in triple object:  != school
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'john', 'predicate': 'come-to', 'object': 'school'}
+Mismatch in perspective certainty: 0.9 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'birds', 'type': [], 'uri': None} == birds
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'flying', 'type': [], 'uri': None} == flying
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Predicted Triple:  	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Mismatch in perspective certainty: 0.1 != 0.75
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != birds
+Mismatch in triple predicate:  != talk
+Match triple object: {'label': '', 'type': [], 'uri': None} == 
+
+Utterance: 	lenka      000: "birds can't talk"
+Predicted Triple:  	{'subject': '', 'predicate': '', 'object': ''}
+Expected triple:   	{'subject': 'birds', 'predicate': 'talk', 'object': ''}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "John hates fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lenka', 'type': [], 'uri': None} == lenka
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'coffee', 'type': [], 'uri': None} == coffee
+
+Utterance: 	lenka      000: "you know I like coffee"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka-favorite-color != lenka
+Mismatch in triple predicate: be != favorite-color
+Match triple object: {'label': 'blue', 'type': [], 'uri': None} == blue
+
+Utterance: 	lenka      000: "Selene thinks my favorite color is blue"
+Predicted Triple:  	{'subject': 'lenka-favorite-color', 'predicate': 'be', 'object': 'blue'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-color', 'object': 'blue'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': [], 'uri': None} == leolani
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'pizza', 'type': [], 'uri': None} == pizza
+
+Utterance: 	lenka      000: "I think you don't like pizza"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'like', 'object': 'pizza'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'pizza'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': [], 'uri': None} == lana
+Match triple predicate: {'label': 'read', 'type': [], 'uri': None} == read
+Mismatch in triple object:  != book
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'read', 'object': ''}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': [], 'uri': None} == bram
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'sport', 'type': [], 'uri': None} == sport
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "John loves fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'hate', 'type': [], 'uri': None} == hate
+Match triple object: {'label': 'fashion', 'type': [], 'uri': None} == fashion
+
+Utterance: 	lenka      000: "John doesn't hate fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective certainty: 0.7 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != leolani
+Mismatch in triple predicate: must-bring != bring
+Match triple object: {'label': 'three-books', 'type': [], 'uri': None} == three-books
+
+Utterance: 	lenka      000: "you must bring three books"
+Predicted Triple:  	{'subject': '', 'predicate': 'must-bring', 'object': 'three-books'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'bring', 'object': 'three-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': [], 'uri': None} == john
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Match triple object: {'label': 'reading-books', 'type': [], 'uri': None} == reading-books
+
+Utterance: 	lenka      000: "john might like reading books"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'like', 'object': 'reading-books'}
+Expected triple:   	{'subject': 'john', 'predicate': 'like', 'object': 'reading-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': [], 'uri': None} == selene
+Match triple predicate: {'label': 'come-to', 'type': [], 'uri': None} == come-to
+Mismatch in triple object: university != the-university
+
+Utterance: 	lenka      000: "selene should come to the university"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'come-to', 'object': 'university'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'come-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bob', 'type': [], 'uri': None} == bob
+Match triple predicate: {'label': 'be-from', 'type': [], 'uri': None} == be-from
+Match triple object: {'label': 'england', 'type': [], 'uri': None} == england
+
+Utterance: 	lenka      000: "Bob might be from england"
+Predicted Triple:  	{'subject': 'bob', 'predicate': 'be-from', 'object': 'england'}
+Expected triple:   	{'subject': 'bob', 'predicate': 'be-from', 'object': 'england'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 15			INCORRECT TRIPLES: 13			RECALL: 53.57%
+
+CORRECT SUBJECTS: 22			INCORRECT SUBJECTS: 6			RECALL: 78.57%
+
+CORRECT PREDICATES: 20			INCORRECT PREDICATES: 8			RECALL: 71.43%
+
+CORRECT OBJECTS: 21			INCORRECT OBJECTS: 7			RECALL: 75.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 66			RECALL: 0.00%
+
+ISSUES (19 UTTERANCES): {
+    "I know that you are not a human": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I know that you are not a human: leolani be human"
+    }, 
+    "I know that you aren't a human": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I know that you aren't a human: leolani be human"
+    }, 
+    "I think Selene works in Amsterdam": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think Selene works in Amsterdam: selene work-in amsterdam"
+    }, 
+    "I think john can't come to school": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think john can't come to school: john come-to school"
+    }, 
+    "I think selene works in Amsterdam": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think selene works in Amsterdam: selene work-in amsterdam"
+    }, 
+    "I think that birds like flying": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.75
+        }
+    }, 
+    "John doesn't hate fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "John hates fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "John loves fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }
+    }, 
+    "Selene thinks my favorite color is blue": {
+        "triple": "Selene thinks my favorite color is blue: lenka favorite-color blue"
+    }, 
+    "birds can't talk": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "birds can't talk: birds talk "
+    }, 
+    "bram doesn't love sport": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 1.0
+        }
+    }, 
+    "john doesn't hate fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "john hates fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "john loves fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }
+    }, 
+    "lana didn't read a book": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "lana didn't read a book: lana read book"
+    }, 
+    "selene should come to the university": {
+        "triple": "selene should come to the university: selene come-to the-university"
+    }, 
+    "you know I like coffee": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.75
+        }
+    }, 
+    "you must bring three books": {
+        "triple": "you must bring three books: leolani bring three-books"
+    }
+}

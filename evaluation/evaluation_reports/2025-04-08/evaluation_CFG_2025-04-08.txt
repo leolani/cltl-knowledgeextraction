@@ -1,0 +1,635 @@
+
+
+RUNNING 1 FILES
+
+
+
+RUNNING 27 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Match triple object: {'label': 'a-book', 'type': ['communication']} == a-book
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Match triple object: {'label': 'a-book', 'type': ['communication']} == a-book
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Match triple object: {'label': 'a-book', 'type': ['communication']} == a-book
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'do-read', 'object': 'a-book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'a-book'}
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'bram', 'type': ['agent']} == bram
+Match triple predicate: {'label': 'love', 'type': ['emotion']} == love
+Match triple object: {'label': 'sport', 'type': ['act', 'action']} == sport
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+Predicted Triple:  	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Expected triple:   	{'subject': 'bram', 'predicate': 'love', 'object': 'sport'}
+Mismatch in perspective sentiment: 0.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+
+Utterance: 	lenka      000: "birds can't talk"
+Predicted Triple:  	{'subject': 'birds', 'predicate': 'can-talk', 'object': ''}
+Expected triple:   	{'subject': 'birds', 'predicate': 'talk', 'object': ''}
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'hate', 'type': ['feeling']} == hate
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "john hates fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'love', 'type': ['feeling']} == love
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "john loves fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != 1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'hate', 'type': ['emotion']} == hate
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "john doesn't hate fashion"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != selene
+Mismatch in triple predicate: think != work-in
+Mismatch in triple object: selene-works-in-amsterdam != amsterdam
+Mismatch in triple subject: lenka != selene
+Mismatch in triple predicate: think != work-in
+Mismatch in triple object: selene-works-in-amsterdam != amsterdam
+
+Utterance: 	lenka      000: "I think selene works in Amsterdam"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think', 'object': 'selene-works-in-Amsterdam'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Mismatch in perspective certainty: 1.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != john
+Mismatch in triple predicate: think != come-to
+Mismatch in triple object: john-can-not-come-to-school != school
+Mismatch in triple subject: lenka != john
+Mismatch in triple predicate: think != come-to
+Mismatch in triple object: john-can-not-come-to-school != school
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think', 'object': 'john-can-not-come-to-school'}
+Expected triple:   	{'subject': 'john', 'predicate': 'come-to', 'object': 'school'}
+Mismatch in perspective certainty: 1.0 != 0.75
+Mismatch in perspective polarity: 1.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani != lenka
+Mismatch in triple predicate: know != like
+Mismatch in triple object: i-like-coffee != coffee
+
+Utterance: 	lenka      000: "you know I like coffee"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'know', 'object': 'I-like-coffee'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Mismatch in perspective sentiment: 0.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think-that', 'object': 'birds-like-flying'}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Mismatch in perspective sentiment: 0.0 != 0.75
+Mismatch in perspective certainty: 1.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+
+Utterance: 	lenka      000: "I know that you are not a human"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'know-that', 'object': 'you-are-not-a-human'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'human'}
+Mismatch in perspective polarity: 1.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: know-that != be
+Mismatch in triple object: you-are-not-a-human != human
+
+Utterance: 	lenka      000: "I know that you aren't a human"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'know-that', 'object': 'you-are-not-a-human'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'be', 'object': 'human'}
+Mismatch in perspective polarity: 1.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != selene
+Mismatch in triple predicate: think != work-in
+Mismatch in triple object: selene-works-in-amsterdam != amsterdam
+Mismatch in triple subject: lenka != selene
+Mismatch in triple predicate: think != work-in
+Mismatch in triple object: selene-works-in-amsterdam != amsterdam
+
+Utterance: 	lenka      000: "I think Selene works in Amsterdam"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think', 'object': 'Selene-works-in-Amsterdam'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'work-in', 'object': 'amsterdam'}
+Mismatch in perspective certainty: 1.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != john
+Mismatch in triple predicate: think != come-to
+Mismatch in triple object: john-can-not-come-to-school != school
+Mismatch in triple subject: lenka != john
+Mismatch in triple predicate: think != come-to
+Mismatch in triple object: john-can-not-come-to-school != school
+
+Utterance: 	lenka      000: "I think john can't come to school"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think', 'object': 'john-can-not-come-to-school'}
+Expected triple:   	{'subject': 'john', 'predicate': 'come-to', 'object': 'school'}
+Mismatch in perspective certainty: 1.0 != 0.75
+Mismatch in perspective polarity: 1.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+Mismatch in triple subject: lenka != birds
+Mismatch in triple predicate: think-that != like
+Mismatch in triple object: birds-like-flying != flying
+
+Utterance: 	lenka      000: "I think that birds like flying"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think-that', 'object': 'birds-like-flying'}
+Expected triple:   	{'subject': 'birds', 'predicate': 'like', 'object': 'flying'}
+Mismatch in perspective sentiment: 0.0 != 0.75
+Mismatch in perspective certainty: 1.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 0.75, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+Match triple subject: {'label': 'birds', 'type': ['animal']} == birds
+Mismatch in triple predicate: can-talk != talk
+Match triple object: {'label': '', 'type': []} == 
+
+Utterance: 	lenka      000: "birds can't talk"
+Predicted Triple:  	{'subject': 'birds', 'predicate': 'can-talk', 'object': ''}
+Expected triple:   	{'subject': 'birds', 'predicate': 'talk', 'object': ''}
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'John', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'hate', 'type': ['feeling']} == hate
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "John hates fashion"
+Predicted Triple:  	{'subject': 'John', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: leolani != lenka
+Mismatch in triple predicate: know != like
+Mismatch in triple object: i-like-coffee != coffee
+
+Utterance: 	lenka      000: "you know I like coffee"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'know', 'object': 'I-like-coffee'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'like', 'object': 'coffee'}
+Mismatch in perspective sentiment: 0.0 != 0.75
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 0.75}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: selene != lenka
+Mismatch in triple predicate: think != favorite-color
+Mismatch in triple object: my-favorite-color-is-blue != blue
+
+Utterance: 	lenka      000: "Selene thinks my favorite color is blue"
+Predicted Triple:  	{'subject': 'Selene', 'predicate': 'think', 'object': 'my-favorite-color-is-blue'}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'favorite-color', 'object': 'blue'}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: lenka != leolani
+Mismatch in triple predicate: think != like
+Mismatch in triple object: you-do-not-like-pizza != pizza
+
+Utterance: 	lenka      000: "I think you don't like pizza"
+Predicted Triple:  	{'subject': 'lenka', 'predicate': 'think', 'object': 'you-do-not-like-pizza'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'like', 'object': 'pizza'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Mismatch in triple object: a-book != book
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Mismatch in triple object: a-book != book
+Match triple subject: {'label': 'lana', 'type': ['agent']} == lana
+Mismatch in triple predicate: do-read != read
+Mismatch in triple object: a-book != book
+
+Utterance: 	lenka      000: "lana didn't read a book"
+Predicted Triple:  	{'subject': 'lana', 'predicate': 'do-read', 'object': 'a-book'}
+Expected triple:   	{'subject': 'lana', 'predicate': 'read', 'object': 'book'}
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': 0.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'John', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'love', 'type': ['feeling']} == love
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "John loves fashion"
+Predicted Triple:  	{'subject': 'John', 'predicate': 'love', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'love', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != 1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'John', 'type': ['artifact', 'object']} == john
+Match triple predicate: {'label': 'hate', 'type': ['emotion']} == hate
+Match triple object: {'label': 'fashion', 'type': ['attribute']} == fashion
+
+Utterance: 	lenka      000: "John doesn't hate fashion"
+Predicted Triple:  	{'subject': 'John', 'predicate': 'hate', 'object': 'fashion'}
+Expected triple:   	{'subject': 'john', 'predicate': 'hate', 'object': 'fashion'}
+Mismatch in perspective sentiment: 0.0 != -1.0
+Predicted perspective:   	{'sentiment': 0.0, 'certainty': 1.0, 'polarity': -1.0, 'emotion': 0.0}
+Expected perspective:   	{'certainty': 1.0, 'polarity': -1.0, 'sentiment': -1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'leolani', 'type': ['agent']} == leolani
+Mismatch in triple predicate: must-bring != bring
+Match triple object: {'label': 'three-books', 'type': ['communication']} == three-books
+
+Utterance: 	lenka      000: "you must bring three books"
+Predicted Triple:  	{'subject': 'leolani', 'predicate': 'must-bring', 'object': 'three-books'}
+Expected triple:   	{'subject': 'leolani', 'predicate': 'bring', 'object': 'three-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'john', 'type': ['artifact', 'object']} == john
+Mismatch in triple predicate: might-like != like
+Match triple object: {'label': 'reading-books', 'type': ['cognition', 'communication']} == reading-books
+Match triple subject: {'label': 'john', 'type': ['artifact', 'object']} == john
+Mismatch in triple predicate: might-like != like
+Match triple object: {'label': 'reading-books', 'type': ['cognition', 'communication']} == reading-books
+
+Utterance: 	lenka      000: "john might like reading books"
+Predicted Triple:  	{'subject': 'john', 'predicate': 'might-like', 'object': 'reading-books'}
+Expected triple:   	{'subject': 'john', 'predicate': 'like', 'object': 'reading-books'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+Match triple subject: {'label': 'selene', 'type': ['person']} == selene
+Mismatch in triple predicate: should-come != come-to
+Match triple object: {'label': 'the-university', 'type': ['group']} == the-university
+
+Utterance: 	lenka      000: "selene should come to the university"
+Predicted Triple:  	{'subject': 'selene', 'predicate': 'should-come', 'object': 'the-university'}
+Expected triple:   	{'subject': 'selene', 'predicate': 'come-to', 'object': 'the-university'}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'Bob', 'type': ['quantity']} == bob
+Mismatch in triple predicate: might-be != be-from
+Match triple object: {'label': 'england', 'type': ['location']} == england
+Match triple subject: {'label': 'Bob', 'type': ['quantity']} == bob
+Mismatch in triple predicate: might-be != be-from
+Match triple object: {'label': 'england', 'type': ['location']} == england
+
+Utterance: 	lenka      000: "Bob might be from england"
+Predicted Triple:  	{'subject': 'Bob', 'predicate': 'might-be', 'object': 'england'}
+Expected triple:   	{'subject': 'bob', 'predicate': 'be-from', 'object': 'england'}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 27 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 7			INCORRECT TRIPLES: 20			ACCURACY: 25.93%
+
+CORRECT SUBJECTS: 15			INCORRECT SUBJECTS: 12			ACCURACY: 55.56%
+
+CORRECT PREDICATES: 7			INCORRECT PREDICATES: 20			ACCURACY: 25.93%
+
+CORRECT OBJECTS: 14			INCORRECT OBJECTS: 13			ACCURACY: 51.85%
+
+CORRECT PERSPECTIVES: 42			INCORRECT PERSPECTIVES: 21			ACCURACY: 66.67%
+
+ISSUES (22 UTTERANCES): {
+    "Bob might be from england": {
+        "triple": "Bob might be from england: bob be-from england"
+    }, 
+    "I know that you are not a human": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I know that you are not a human: leolani be human"
+    }, 
+    "I know that you aren't a human": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I know that you aren't a human: leolani be human"
+    }, 
+    "I think Selene works in Amsterdam": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think Selene works in Amsterdam: selene work-in amsterdam"
+    }, 
+    "I think john can't come to school": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": -1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think john can't come to school: john come-to school"
+    }, 
+    "I think selene works in Amsterdam": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.0
+        }, 
+        "triple": "I think selene works in Amsterdam: selene work-in amsterdam"
+    }, 
+    "I think that birds like flying": {
+        "perspective": {
+            "certainty": 0.75, 
+            "polarity": 1.0, 
+            "sentiment": 0.75
+        }, 
+        "triple": "I think that birds like flying: birds like flying"
+    }, 
+    "I think you don't like pizza": {
+        "triple": "I think you don't like pizza: leolani like pizza"
+    }, 
+    "John doesn't hate fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "John hates fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "John loves fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }
+    }, 
+    "Selene thinks my favorite color is blue": {
+        "triple": "Selene thinks my favorite color is blue: lenka favorite-color blue"
+    }, 
+    "birds can't talk": {
+        "triple": "birds can't talk: birds talk "
+    }, 
+    "bram doesn't love sport": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "john doesn't hate fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": -1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "john hates fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": -1.0
+        }
+    }, 
+    "john loves fashion": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }
+    }, 
+    "john might like reading books": {
+        "triple": "john might like reading books: john like reading-books"
+    }, 
+    "lana didn't read a book": {
+        "triple": "lana didn't read a book: lana read book"
+    }, 
+    "selene should come to the university": {
+        "triple": "selene should come to the university: selene come-to the-university"
+    }, 
+    "you know I like coffee": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 0.75
+        }, 
+        "triple": "you know I like coffee: lenka like coffee"
+    }, 
+    "you must bring three books": {
+        "triple": "you must bring three books: leolani bring three-books"
+    }
+}
