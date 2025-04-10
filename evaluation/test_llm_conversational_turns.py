@@ -7,12 +7,13 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 """
 
 import logging
+import os
 from collections import defaultdict
 from datetime import datetime
 import json
 from cltl.triple_extraction import logger
 
-from cltl.triple_extraction.conversational_llm_analyzer import LlamaAnalyzer
+from cltl.triple_extraction.conversational_llm_analyzer import LLMAnalyzer
 from test_utils import log_report, report, test_triples
 
 logger.setLevel(logging.ERROR)
@@ -85,7 +86,7 @@ def load_golden_conversation_triples(filepath):
 
 
 def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
-                         speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, verbose=True):
+                         speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, is_conversation=False, verbose=True):
     """
     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
@@ -104,7 +105,7 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     for idx, item in enumerate(test_suite):
         print ('Item', idx, "out of", len(test_suite))
         results, issues = test_triples(item, results, issues, resultfile, analyzer,
-                                       speakers=speakers, is_question=is_question, verbose=verbose)
+                                       speakers=speakers, is_conversation=is_conversation, is_question=is_question, verbose=verbose)
 
     # print report
     result_dict = report(analyzer_name, test_suite, path, results, issues, resultfile, verbose=verbose)
@@ -156,8 +157,14 @@ if __name__ == "__main__":
     LLAMA_MODEL = "llama3.2"
     #MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
-    resultfilename = f"evaluation_reports/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.txt"
-    resultjson = f"evaluation_reports/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.json"
+
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
+
+
+    resultfilename = f"{report_folder}/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.txt"
+    resultjson = f"{report_folder}/evaluation_CONVST_{analyzer_name}_{MODEL}_{current_date}.json"
     analyzer_name += "_" + MODEL
     resultfile = open(resultfilename, "w")
     # Select files to test
@@ -180,7 +187,7 @@ if __name__ == "__main__":
         "./data/conversation_test_examples/test_test.txt"
     ]
     # Analyze utterances
-    analyzer = LlamaAnalyzer(model_name=MODEL,temperature=0.1, keep_alive=20)
+    analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=20)
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
     speakers = {'agent': 'speaker2', 'speaker': 'speaker1'}
 
@@ -189,7 +196,7 @@ if __name__ == "__main__":
         is_question = False
         if "question" in test_file:
             is_question = True
-        result_dict = test_triples_in_file(analyzer_name=analyzer_name, path=test_file, analyzer=analyzer, speakers=speakers, is_question=is_question, resultfile=resultfile, verbose=True)
+        result_dict = test_triples_in_file(analyzer_name=analyzer_name, path=test_file, analyzer=analyzer, speakers=speakers, is_conversation=True, is_question=is_question, resultfile=resultfile, verbose=True)
         jsonresults.append(result_dict)
     resultfile.close()
 

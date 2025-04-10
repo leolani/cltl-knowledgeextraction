@@ -7,6 +7,7 @@ TRIPLE ELEMENTS ARE ONLY COMPARED AT A LABEL LEVEL, NO TYPE INFORMATION IS TAKEN
 """
 
 import logging
+import os
 from collections import defaultdict
 from datetime import datetime
 import json
@@ -145,12 +146,17 @@ if __name__ == "__main__":
 
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
     lang = 'en' #if not MULTILINGUAL else 'nl'
+    current_date = str(datetime.today().date())
+
+    report_folder = os.path.join("evaluation_reports", current_date)
+    if not os.path.exists(report_folder):
+        os.mkdir(report_folder)
 
     # Set up logging file
     current_date = str(datetime.today().date())
-    resultfilename = f"evaluation_reports/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.txt"
+    resultfilename = f"{report_folder}/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.txt"
     resultfile = open(resultfilename, "w")
-    resultjson = f"evaluation_reports/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.json"
+    resultjson = f"{report_folder}/evaluation_CONVST_{base_model.replace('/', '_')}_{current_date}.json"
 
 
     # Select files to test

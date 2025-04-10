@@ -218,7 +218,7 @@ def print_triple(triple):
     return print
 
 def test_triples(item, results, issues, resultfile, analyzer,
-                 speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, verbose=True):
+                 speakers={'agent': 'leolani', 'speaker': 'lenka'}, is_question=False, is_conversation=False, verbose=True):
     """
     Create a chat with the given speakers, add utterances in 'item' and analyze the last utterance
     Collect statistics on extracted triple elements
@@ -252,9 +252,11 @@ def test_triples(item, results, issues, resultfile, analyzer,
         analyzer.analyze(chat)
     elif type(analyzer).__name__ in ['StanzaQuestionAnalyzer', 'ConversationalAnalyzer']:
        analyzer.analyze_in_context(chat)
-    elif type(analyzer).__name__ in ['LlamaAnalyzer']:
-       # analyzer.analyze_in_context(chat)
-        analyzer.analyze_last_utterance(chat)
+    elif type(analyzer).__name__ in ['LLMAnalyzer']:
+        if is_conversation:
+            analyzer.analyze_in_context(chat)
+        else:
+            analyzer.analyze_last_utterance(chat)
     elif type(analyzer).__name__ in ['ConversationalQuestionAnalyzer']:
         analyzer.analyze_question_in_context(chat)
 

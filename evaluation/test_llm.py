@@ -10,7 +10,7 @@ import os
 from datetime import datetime
 import json
 from cltl.triple_extraction import logger
-from cltl.triple_extraction.conversational_llm_analyzer import LlamaAnalyzer
+from cltl.triple_extraction.conversational_llm_analyzer import LLMAnalyzer
 from test_utils import test_triples_in_file, log_report
 
 logger.setLevel(logging.ERROR)
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     ]
 
     # Analyze utterances
-    analyzer = LlamaAnalyzer(model_name=MODEL,temperature=0.1, keep_alive=20)
+    analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=20)
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)
 
     jsonresults = []

@@ -25,9 +25,9 @@ qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "z
 prepositions_en = ["in", "on", "into", "from", "at", "under", "for", "of", "to", "about"]
 prepositions_nl = ["in", "op", "naar", "van", "bij", "onder", "voor", "naast", "te", "over"]
 
-class LlamaAnalyzer(Analyzer):
+class LLMAnalyzer(Analyzer):
     def __init__(self, model_name: str, temperature: float = 0.1,
-                 s_instruct= STATEMENT.INSTRUCT, q_instruct = QUESTION.INSTRUCT, c_instruct = CONVERSATION_SHORT.INSTRUCT,
+                 s_instruct= STATEMENT.INSTRUCT, q_instruct = QUESTION.INSTRUCT, c_instruct = CONVERSATION_LONG.INSTRUCT,
                  keep_alive=10, llama_server= "http://localhost", port= "9001"):
         """
         Parameters
@@ -291,7 +291,7 @@ if __name__ == "__main__":
     '''
     MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
-    analyzer = LlamaAnalyzer( model_name=MODEL,temperature=0.1, keep_alive=10)
+    analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=10)
     agent = "Leolani"
     human = "Lenka"
     utterances = [{"speaker": human, "utterance": "I love cats.", "dialogue_act": DialogueAct.STATEMENT},
