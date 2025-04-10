@@ -139,13 +139,16 @@ if __name__ == "__main__":
     multi-word-expressions have dashes separating their elements, and are marked with apostrophes if they are a 
     collocation
     '''
-    # Test with monolingual model or multilingual
-    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
-   # path = f'./../resources/conversational_triples/{"albert-base-v2" if not MULTILINGUAL else "google-bert"}'
-    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    lang = 'en'  # if not MULTILINGUAL else 'nl'
 
-    base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    lang = 'en' #if not MULTILINGUAL else 'nl'
+    # Test with monolingual model
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/22_04_27'
+    base_model = 'albert-base-v2'
+
+    # Test with multilingual model
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    base_model = 'google-bert/bert-base-multilingual-cased'
+
     current_date = str(datetime.today().date())
 
     report_folder = os.path.join("evaluation_reports", current_date)

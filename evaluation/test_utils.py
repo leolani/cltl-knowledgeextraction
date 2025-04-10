@@ -324,12 +324,13 @@ def test_triples(item, results, issues, resultfile, analyzer,
             # add to statistics
             results['correct_perspective'] += score_best_pesp
             results['incorrect_perspective'] += 3 - score_best_pesp
-            results['correct_certainty'] += best_persp['perspective']['certainty']
-            results['incorrect_certainty'] += 1 - best_persp['perspective']['certainty']
-            results['correct_polarity'] += best_persp['perspective']['polarity']
-            results['incorrect_polarity'] += 1 - best_persp['perspective']['polarity']
-            results['correct_sentiment'] += best_persp['perspective']['sentiment']
-            results['incorrect_sentiment'] += 1 - best_persp['perspective']['sentiment']
+            if 'perspective' in best_persp and 'certainty' in best_persp['perspective'] and 'polarity' in best_persp['perspective'] and 'sentiment' in best_persp['perspective']:
+                results['correct_certainty'] += best_persp['perspective']['certainty']
+                results['incorrect_certainty'] += 1 - best_persp['perspective']['certainty']
+                results['correct_polarity'] += best_persp['perspective']['polarity']
+                results['incorrect_polarity'] += 1 - best_persp['perspective']['polarity']
+                results['correct_sentiment'] += best_persp['perspective']['sentiment']
+                results['incorrect_sentiment'] += 1 - best_persp['perspective']['sentiment']
 
             if score_best_pesp < 3:
                 # Log issues

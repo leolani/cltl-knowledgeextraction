@@ -93,11 +93,17 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     triple elements
     :param path: filepath of test file
     """
+
     results = {'not_parsed': 0, 'correct': 0, 'incorrect': 0,
                'correct_subjects': 0, 'incorrect_subjects': 0,
                'correct_predicates': 0, 'incorrect_predicates': 0,
                'correct_objects': 0, 'incorrect_objects': 0,
-               'correct_perspective': 0, 'incorrect_perspective': 0}
+               'correct_perspective': 0, 'incorrect_perspective': 0,
+               'correct_certainty':0, 'incorrect_certainty':0,
+               'correct_polarity':0, 'incorrect_polarity':0,
+               'correct_sentiment':0, 'incorrect_sentiment':0
+               }
+
     issues = defaultdict(dict)
     test_suite = load_golden_conversation_triples(path)
 
@@ -182,10 +188,10 @@ if __name__ == "__main__":
     ]
     # Analyze utterances
 
-    all_test_files = [
-#        "./data/conversation_test_examples/test_answer_ellipsis.txt"
-        "./data/conversation_test_examples/test_test.txt"
-    ]
+#     all_test_files = [
+# #        "./data/conversation_test_examples/test_answer_ellipsis.txt"
+#         "./data/conversation_test_examples/test_test.txt"
+#     ]
     # Analyze utterances
     analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=20)
     log_report(f'\nRUNNING {len(all_test_files)} FILES\n\n', to_file=resultfile)

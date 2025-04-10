@@ -144,102 +144,55 @@ Save the triples in a list as JSON with this format:
 }
 
 class CONVERSATION_LONG:
-    INSTRUCT = {'role':'system', 'content': '''You will receive a short conversation of three turns between two speakers called speaker1 and speaker2: the first turn is from speaker1, the second from speaker2 and the third from speaker1.
-Extract from the conversation triples consisting of a subject, predicate and object. The triple elements can be derived from all three turns. 
-Always specify the subject. If needed infer the subject from the conversation,
-for example if the second turn is a question from speaker2 to speaker1 that contains "you" or "your", then the next turn of speaker1 is the answer to the question with speaker1 as the subject.
-Map I and you as well as your and mine to speaker1 and speaker2 two depending on who is the speaker.
-Each triple should capture the essence of a statement by the speaker.
-If the speaker response is the answer to a yes/no question from the system,
-then extract the triple from the yes/no question and interpret the response as the polarity of the triple,
-for example if the input is {'role': 'user', 'content': 'speaker2 said Do you love dogs?'}, {'role': 'user', 'content': 'speaker1 said No'},
-then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': -1, 'certainty': 0.9, 'sentiment': -1}}
-If the speaker response is the answer to an open question from the system with a wh-word,
-then use the speaker response to complete the triple from the open question, 
-for example if the input is {'role': 'user', 'content': 'speaker2 said What do you love?'}, {'role': 'user', 'content': 'speaker1 said dogs'},
-then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': 1, 'certainty': 0.9, 'sentiment': -1}}
-When extracting the labels for the triples, consider the following:
-- Replace the predicate by its lemma, for example "is" and "am" should become "be", "likes" and "liked" should become "like".
-- Remove auxiliary verbs from the predicates such as "be", "have", "can", "might", "must", "will", "shall", "should", and also negation variants such as "cannot", "won't", "shouldn't".
-- Remove negation words such as "n't", "no", "not" and "never" from the predicates. 
-- If the object starts with a preposition, concatenate the preposition to the predicate separated by a hyphen, 
-for example "I am from amsterdam" should become {"subject": "I", "predicate": "be-from", "object": "amsterdam"}.
-- If "am", "is" or "be" is the main verb followed by an adjective then "be" should be the predicate and the adjective the object,
-for example "wind is cold" should become {"subject": "wind", "predicate": "be", "object": "cold"}.
-- If "am", "is" or "be" is the main verb followed by a noun phrase then "be" should be the predicate and the noun phrase the object,
-for example "this is a teddy bear" should become {"subject": "this", "predicate": "be", "object": "teddy-bear"}.
-- Do not extend the predicate with hyphens followed by determiners such as "a", "an", "the" or adjectives such as "cold", "big".
-- If the predicate is followed by an infinite verb phrase with "to" such as "like to swim", then the object should start with "to-" as in "to-swim".
-- If the predicate is an cognitive verb such as "think", "believe" or "know" or a speech-act such "say" or "tell", 
-then extract the triple from the complement phrase of the predicate,
-for example "I think selene likes cats" should become {"subject": "selene", "predicate": "like", "object": "cats"}. 
-- Combine multi-word subjects, predicates and objects with hyphens, for example "three white cats" should become "three-white-cats".
-- If you have no value for the subject or object use an empty string "" as a value, do NOT use none or None as a value.
-Ensure that predicates are semantically meaningful. 
-
-Additionally, use auxiliary verbs, negation words, adverbs and cognitive verbs to extend each triple with:  
-    - Sentiment (-1.0 for negative, 0 for neutral, 1.0 for positive) 
-    - Polarity (-1.0 for negation, 0 for neutral/questioning, 1.0 for affirmation) 
-    - Certainty (a scale between 0 for uncertain and 1.0 for certain)
-
-Only use floats as values for Sentiment, Polarity and Certainty.
-
-Save the triples in a list as JSON with this format:
-{"sender": "user", "text": "speaker 1 said I am from Amsterdam.", "triples": [ { "subject": "speaker1", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}.]},
-{"sender": "user", "text": "speaker 1 said reading a book.", "triples": [ { "subject": "speaker1", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
-{"sender": "user", "text": "speaker1 said You hate dogs.", "triples": [ { "subject": "speaker2", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.7}]},
-{"sender": "user", "text": "speaker 1 said I do not like cheese.", "triples": [ { "subject": "speaker1", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 0.5}]}
-                    Do not output any other text than the JSON.'''
-}
-
-    class CONVERSATION_LONG:
         INSTRUCT = {'role': 'system', 'content': '''You will receive a short conversation of three turns between two speakers called speaker1 and speaker2: the first turn is from speaker1, the second from speaker2 and the third from speaker1.
-    Extract from the conversation triples consisting of a subject, predicate and object. The triple elements can be derived from all three turns. 
-    Always specify the subject. If needed infer the subject from the conversation,
-    for example if the second turn is a question from speaker2 to speaker1 that contains "you" or "your", then the next turn of speaker1 is the answer to the question with speaker1 as the subject.
-    Map I and you as well as your and mine to speaker1 and speaker2 two depending on who is the speaker.
+    Extract from the conversation triples consisting of a subject, predicate and object. The triple elements can be derived from all three turns and focus on speaker1. 
     Each triple should capture the essence of a statement by the speaker.
-    If the speaker response is the answer to a yes/no question from the system,
-    then extract the triple from the yes/no question and interpret the response as the polarity of the triple,
-    for example if the input is {'role': 'user', 'content': 'speaker2 said Do you love dogs?'}, {'role': 'user', 'content': 'speaker1 said No'},
-    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': -1, 'certainty': 0.9, 'sentiment': -1}}
-    If the speaker response is the answer to an open question from the system with a wh-word,
-    then use the speaker response to complete the triple from the open question, 
-    for example if the input is {'role': 'user', 'content': 'speaker2 said What do you love?'}, {'role': 'user', 'content': 'speaker1 said dogs'},
-    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': 1, 'certainty': 0.9, 'sentiment': -1}}
+    Always specify the subject in the triple. If needed infer the subject from the conversation.
+    If the second turn is a question from speaker2 to speaker1 that contains "you" or "your", 
+    then the next turn of speaker1 is the answer to the question with speaker1 as the subject.
+    Convert "i", "I", "me", "mine", "You", "you", "your" and "yours" to "speaker1" and "speaker2" two depending on who is the speaker.
+    If the speaker1 response is the answer to a yes/no question from speaker2,
+    then extract the triple from the yes/no question and interpret the response yes and no as the polarity of the triple,
+    for example if the input is {'role': 'user', 'content': 'Do you love dogs?', 'speaker': 'speaker2'}, {'role': 'user', 'content': 'No', 'speaker': 'speaker1'},
+    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': -1, 'certainty': 1.0, 'sentiment': -1}}
+    If the speaker1 response is the answer to an open question with a wh-word from speaker2,
+    then use the speaker1 response to complete the triple from the open question, 
+    for example if the input is {'role': 'user', 'content': 'What do you love?', 'speaker': 'speaker2'}, {'role': 'user', 'content': 'dogs', 'speaker': 'speaker1'},
+    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': 1, 'certainty': 1.0, 'sentiment': 1}}
     When extracting the labels for the triples, consider the following:
     - Replace the predicate by its lemma, for example "is" and "am" should become "be", "likes" and "liked" should become "like".
-    - Remove auxiliary verbs from the predicates such as "be", "have", "can", "might", "must", "will", "shall", "should", and also negation variants such as "cannot", "won't", "shouldn't".
+    - Remove auxiliary verbs from the predicates such as "be", "have", "can", "might", "must", "will", "shall", "should", and also negation variants such as "do not", "cannot", "won't", "shouldn't".
     - Remove negation words such as "n't", "no", "not" and "never" from the predicates. 
     - If the object starts with a preposition, concatenate the preposition to the predicate separated by a hyphen, 
-    for example "I am from amsterdam" should become {"subject": "I", "predicate": "be-from", "object": "amsterdam"}.
+    for example "I am from amsterdam" should become {"subject": {'label': 'speaker1', 'type': [], 'uri': None}, "predicate": {'label': 'be-from', 'type': [], 'uri': None}, "object":{'label': 'amsterdam', 'type': [], 'uri': None}}.
     - If "am", "is" or "be" is the main verb followed by an adjective then "be" should be the predicate and the adjective the object,
-    for example "wind is cold" should become {"subject": "wind", "predicate": "be", "object": "cold"}.
+    for example "wind is cold" should become {"subject": {'label': 'wind', 'type': [], 'uri': None}, "predicate": {'label': 'be', 'type': [], 'uri': None}, "object": {'label': 'cold', 'type': [], 'uri': None}}.
     - If "am", "is" or "be" is the main verb followed by a noun phrase then "be" should be the predicate and the noun phrase the object,
-    for example "this is a teddy bear" should become {"subject": "this", "predicate": "be", "object": "teddy-bear"}.
+    for example "this is a teddy bear" should become {"subject": {'label': 'this', 'type': [], 'uri': None}, "predicate": {'label': 'be', 'type': [], 'uri': None}, "object": {'label': 'teddy-bear', 'type': [], 'uri': None}}.
     - Do not extend the predicate with hyphens followed by determiners such as "a", "an", "the" or adjectives such as "cold", "big".
     - If the predicate is followed by an infinite verb phrase with "to" such as "like to swim", then the object should start with "to-" as in "to-swim".
     - If the predicate is an cognitive verb such as "think", "believe" or "know" or a speech-act such "say" or "tell", 
     then extract the triple from the complement phrase of the predicate,
-    for example "I think selene likes cats" should become {"subject": "selene", "predicate": "like", "object": "cats"}. 
+    for example "I think selene likes cats" should become {"subject": {'label': 'selene', 'type': [], 'uri': None}, "predicate": {'label': 'like', 'type': [], 'uri': None}, "object":{'label': 'cats', 'type': [], 'uri': None}}. 
     - Combine multi-word subjects, predicates and objects with hyphens, for example "three white cats" should become "three-white-cats".
-    - If you have no value for the subject or object use an empty string "" as a value, do NOT use none or None as a value.
+
     Ensure that predicates are semantically meaningful. 
 
-    Additionally, use auxiliary verbs, negation words, adverbs and cognitive verbs to extend each triple:  
+ Additionally, use any auxiliary verbs, negation words, adverbs and cognitive verbs to annotate each triple with:  
     - Sentiment (-1.0 for negative, 0 for neutral, 1.0 for positive) 
-    - Polarity (-1.0 for negation, 0 for neutral/questioning, 1.0 for affirmation) 
+    - Polarity (-1.0 for negation and 1.0 for affirmation, no other values) 
     - Certainty (a scale between 0 for uncertain and 1.0 for certain)
 
-    Only use floats as values for Sentiment, Polarity and Certainty.
-    
+Only use floats as values for Sentiment, Polarity and Certainty. Do NOT use 0.0 or 0.5 as a value for Polarity.
+
     Save the triples in a list as JSON with this format:
-    {"sender": "user", "text": "speaker 1 said I am from Amsterdam.", "triples": [ { "subject": "speaker1", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}.]},
-    {"sender": "user", "text": "speaker 1 said reading a book.", "triples": [ { "subject": "speaker1", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
-    {"sender": "user", "text": "speaker1 said You hate dogs.", "triples": [ { "subject": "speaker2", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.7}]},
-    {"sender": "user", "text": "speaker 1 said I do not like cheese.", "triples": [ { "subject": "speaker1", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 0.5}]}
-                        Do not output any other text than the JSON.'''
-                    }
+    {"sender": "user", "text": "i am from Amsterdam.","speaker': 'speaker1', "triples": [ { "subject": "speaker1", "predicate": "be-from", "object": "Amsterdam", "sentiment": 0, "polarity": 1, "certainty": 1}.]},
+    {"sender": "user", "text": "reading a book.","speaker': 'speaker1', "triples": [ { "subject": "speaker1", "predicate": "read", "object": "book", "sentiment": 0, "polarity": 1, "certainty": 1}]},
+    {"sender": "user", "text": "i think you hate dogs.","speaker': 'speaker2', "triples": [ { "subject": "speaker1", "predicate": "hate", "object": "dogs", "sentiment": -1, "polarity": 1, "certainty": 0.5}]},
+    {"sender": "user", "text": "i do not like cheese.","speaker': 'speaker1', "triples": [ { "subject": "speaker1", "predicate": "like", "object": "cheese", "sentiment": -1, "polarity": -1, "certainty": 1.0}]}
+
+Do not output any other text than the JSON.'''
+}
 
 # i am and how are you ?<eos>kinda hurting a little bit to be honest but where are you from ?<eos>little bit of everywhere being a army brat
 # speaker2,are,kinda hurting,positive
