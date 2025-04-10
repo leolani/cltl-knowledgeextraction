@@ -140,7 +140,7 @@ def compare_elementwise(triple, gold, resultfile, verbose=True):
     matches = {'triple': {}, 'perspective': {}}
 
     for key in triple:
-        if key not in gold.keys():
+        if key not in gold.keys() and not key == 'perspective':
             print('Key not in gold.keys in compare_elementwise', key, gold.keys())
             continue
 

@@ -175,22 +175,22 @@ if __name__ == "__main__":
     resultfile = open(resultfilename, "w")
     # Select files to test
     all_test_files = [
-        #"./data/conversation_test_examples/test_answer_ellipsis.txt",
-        "./data/conversation_test_examples/test_coordination.txt",
-        "./data/conversation_test_examples/test_coreference.txt",
-        "./data/conversation_test_examples/test_declarative_statements.txt",
-        "./data/conversation_test_examples/test_declarative_statements_negated.txt",
-        "./data/conversation_test_examples/test_explicit_no_answers.txt",
-        "./data/conversation_test_examples/test_explicit_yes_answers.txt",
-        #"./data/conversation_test_examples/test_full.txt",
-        # "./data/conversation_test_examples/test_implicit_negation.txt", #TODO not able to read data
-        "./data/conversation_test_examples/test_single_utterances.txt"
+        #"./data/conversation_test_examples/test_test.txt"
+        "./data/conversation_test_examples/test_answer_ellipsis.txt",
+        # "./data/conversation_test_examples/test_coordination.txt",
+        # "./data/conversation_test_examples/test_coreference.txt",
+        # "./data/conversation_test_examples/test_declarative_statements.txt",
+        # "./data/conversation_test_examples/test_declarative_statements_negated.txt",
+        # "./data/conversation_test_examples/test_explicit_no_answers.txt",
+        # "./data/conversation_test_examples/test_explicit_yes_answers.txt",
+        # "./data/conversation_test_examples/test_single_utterances.txt"
     ]
     # Analyze utterances
 
 #     all_test_files = [
-# #        "./data/conversation_test_examples/test_answer_ellipsis.txt"
-#         "./data/conversation_test_examples/test_test.txt"
+    # "./data/conversation_test_examples/test_full.txt",
+    # "./data/conversation_test_examples/test_implicit_negation.txt", #TODO not able to read data
+    #         "./data/conversation_test_examples/test_test.txt"
 #     ]
     # Analyze utterances
     analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=20)

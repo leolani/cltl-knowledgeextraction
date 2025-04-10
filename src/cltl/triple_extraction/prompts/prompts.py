@@ -154,26 +154,26 @@ class CONVERSATION_LONG:
     If the speaker1 response is the answer to a yes/no question from speaker2,
     then extract the triple from the yes/no question and interpret the response yes and no as the polarity of the triple,
     for example if the input is {'role': 'user', 'content': 'Do you love dogs?', 'speaker': 'speaker2'}, {'role': 'user', 'content': 'No', 'speaker': 'speaker1'},
-    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': -1, 'certainty': 1.0, 'sentiment': -1}}
+    then the output should be {'subject': 'speaker1', 'predicate': 'love', 'object': 'dogs', 'perspective': {'polarity': -1, 'certainty': 1.0, 'sentiment': -1}}
     If the speaker1 response is the answer to an open question with a wh-word from speaker2,
     then use the speaker1 response to complete the triple from the open question, 
     for example if the input is {'role': 'user', 'content': 'What do you love?', 'speaker': 'speaker2'}, {'role': 'user', 'content': 'dogs', 'speaker': 'speaker1'},
-    then the output should be {'subject': {'label': 'speaker1', 'type': [], 'uri': None}, 'predicate': {'label': 'love', 'type': [], 'uri': None}, 'object': {'label': 'dogs', 'type': [], 'uri': None}, 'perspective': {'polarity': 1, 'certainty': 1.0, 'sentiment': 1}}
+    then the output should be {'subject': 'speaker1', 'predicate':  'love', 'object': 'dogs', 'perspective': {'polarity': 1, 'certainty': 1.0, 'sentiment': 1}}
     When extracting the labels for the triples, consider the following:
     - Replace the predicate by its lemma, for example "is" and "am" should become "be", "likes" and "liked" should become "like".
     - Remove auxiliary verbs from the predicates such as "be", "have", "can", "might", "must", "will", "shall", "should", and also negation variants such as "do not", "cannot", "won't", "shouldn't".
     - Remove negation words such as "n't", "no", "not" and "never" from the predicates. 
     - If the object starts with a preposition, concatenate the preposition to the predicate separated by a hyphen, 
-    for example "I am from amsterdam" should become {"subject": {'label': 'speaker1', 'type': [], 'uri': None}, "predicate": {'label': 'be-from', 'type': [], 'uri': None}, "object":{'label': 'amsterdam', 'type': [], 'uri': None}}.
+    for example "I am from amsterdam" should become {"subject": 'speaker1', "predicate": 'be-from', "object":'amsterdam',}.
     - If "am", "is" or "be" is the main verb followed by an adjective then "be" should be the predicate and the adjective the object,
-    for example "wind is cold" should become {"subject": {'label': 'wind', 'type': [], 'uri': None}, "predicate": {'label': 'be', 'type': [], 'uri': None}, "object": {'label': 'cold', 'type': [], 'uri': None}}.
+    for example "wind is cold" should become {"subject": 'wind', "predicate": 'be', "object": 'cold',}.
     - If "am", "is" or "be" is the main verb followed by a noun phrase then "be" should be the predicate and the noun phrase the object,
-    for example "this is a teddy bear" should become {"subject": {'label': 'this', 'type': [], 'uri': None}, "predicate": {'label': 'be', 'type': [], 'uri': None}, "object": {'label': 'teddy-bear', 'type': [], 'uri': None}}.
+    for example "this is a teddy bear" should become {"subject": 'this', "predicate": 'be', "object": 'teddy-bear',}.
     - Do not extend the predicate with hyphens followed by determiners such as "a", "an", "the" or adjectives such as "cold", "big".
     - If the predicate is followed by an infinite verb phrase with "to" such as "like to swim", then the object should start with "to-" as in "to-swim".
     - If the predicate is an cognitive verb such as "think", "believe" or "know" or a speech-act such "say" or "tell", 
     then extract the triple from the complement phrase of the predicate,
-    for example "I think selene likes cats" should become {"subject": {'label': 'selene', 'type': [], 'uri': None}, "predicate": {'label': 'like', 'type': [], 'uri': None}, "object":{'label': 'cats', 'type': [], 'uri': None}}. 
+    for example "I think selene likes cats" should become {"subject": 'selene', "predicate": 'like', "object":'cats',}. 
     - Combine multi-word subjects, predicates and objects with hyphens, for example "three white cats" should become "three-white-cats".
 
     Ensure that predicates are semantically meaningful. 
