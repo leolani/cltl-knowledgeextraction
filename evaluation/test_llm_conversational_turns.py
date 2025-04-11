@@ -118,29 +118,6 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     print(results)
     return result_dict
 
-# def test_triples_in_file(path, analyzer, resultfile,
-#                          speakers={'agent': 'leolani', 'speaker': 'lenka'}, verbose=True):
-#     """
-#     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
-#     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
-#     triple elements
-#     :param path: filepath of test file
-#     """
-#     results = {'not_parsed': 0, 'correct': 0, 'incorrect': 0,
-#                'correct_subjects': 0, 'incorrect_subjects': 0,
-#                'correct_predicates': 0, 'incorrect_predicates': 0,
-#                'correct_objects': 0, 'incorrect_objects': 0,
-#                'correct_perspective': 0, 'incorrect_perspective': 0}
-#     issues = defaultdict(dict)
-#     test_suite = load_golden_conversation_triples(path)
-#
-#     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
-#     for item in test_suite:
-#         results, issues = test_triples(item, results, issues, resultfile, analyzer, speakers=speakers, verbose=verbose)
-#     # report
-#     report(test_suite, path, results, issues, resultfile, verbose=verbose)
-
-
 if __name__ == "__main__":
     '''
     test files with triples are formatted like so "test sentence : subject predicate object" 

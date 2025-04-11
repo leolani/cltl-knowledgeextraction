@@ -30,6 +30,14 @@ speaker1 's biggest fear,is,spiders,positive
 '''
 
 
+#@TODO: dependency conflict
+# For ollama:
+# pip install lightning==2.0.4
+# pip install langchain_ollama
+# For spaCy and encoders BERT, ALBERT:
+#  pip install lightning==2.0.1
+
+
 def load_golden_conversation_triples(filepath):
     """
     :param filepath: path to the test file with gold standard
@@ -116,28 +124,6 @@ def test_triples_in_file(analyzer_name, path, analyzer, resultfile,
     print(results)
     return result_dict
 
-# def test_triples_in_file(path, analyzer, resultfile,
-#                          speakers={'agent': 'leolani', 'speaker': 'lenka'}, verbose=True):
-#     """
-#     This function loads the test suite and gold standard and prints the mismatches between the system analysis of the
-#     test suite, including perspective if it is added, as well as the number of correctly and incorrectly extracted
-#     triple elements
-#     :param path: filepath of test file
-#     """
-#     results = {'not_parsed': 0, 'correct': 0, 'incorrect': 0,
-#                'correct_subjects': 0, 'incorrect_subjects': 0,
-#                'correct_predicates': 0, 'incorrect_predicates': 0,
-#                'correct_objects': 0, 'incorrect_objects': 0,
-#                'correct_perspective': 0, 'incorrect_perspective': 0}
-#     issues = defaultdict(dict)
-#     test_suite = load_golden_conversation_triples(path)
-#
-#     log_report(f'\nRUNNING {len(test_suite)} UTTERANCES FROM FILE {path}\n', to_file=resultfile)
-#     for item in test_suite:
-#         results, issues = test_triples(item, results, issues, resultfile, analyzer, speakers=speakers, verbose=verbose)
-#     # report
-#     report(test_suite, path, results, issues, resultfile, verbose=verbose)
-
 
 if __name__ == "__main__":
     '''
@@ -177,7 +163,7 @@ if __name__ == "__main__":
         "./data/conversation_test_examples/test_declarative_statements_negated.txt",
         "./data/conversation_test_examples/test_explicit_no_answers.txt",
         "./data/conversation_test_examples/test_explicit_yes_answers.txt",
-        "./data/conversation_test_examples/test_full.txt",
+        # "./data/conversation_test_examples/test_full.txt",
         # "./data/conversation_test_examples/test_implicit_negation.txt", #TODO not able to read data
         #"./data/conversation_test_examples/test_single_utterances.txt"
     ]
@@ -192,7 +178,7 @@ if __name__ == "__main__":
     analyzer._extractor._speaker2 = speaker2
     jsonresults = []
     for test_file in all_test_files:
-        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, speakers={'agent': speaker2, 'speaker': speaker1}, verbose=False)
+        result_dict = test_triples_in_file(analyzer_name, test_file, analyzer, resultfile, speakers={'agent': speaker2, 'speaker': speaker1}, verbose=True)
         jsonresults.append(result_dict)
     resultfile.close()
     with open (resultjson, 'w') as outfile:
