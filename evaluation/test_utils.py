@@ -380,7 +380,7 @@ def get_overview(path):
    # overviewfile = os.path.join(path, f"CONVSToverview_{current_date}.csv")
     df = pd.DataFrame()
     for file in os.listdir(path):
-        if not "evaluation_CONVST" in file and file.endswith(".json"):
+        if file.endswith(".json"):
             filepath= os.path.join(path, file)
             print(filepath)
             df_t = pd.read_json(filepath)
@@ -389,5 +389,5 @@ def get_overview(path):
 
 
 if __name__ == "__main__":
-    path = "evaluation_reports/2025-04-09/"
+    path = "evaluation_reports/2025-04-11/"
     get_overview(path)

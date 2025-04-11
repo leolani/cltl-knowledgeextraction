@@ -176,13 +176,13 @@ if __name__ == "__main__":
     # Select files to test
     all_test_files = [
         #"./data/conversation_test_examples/test_test.txt"
-        "./data/conversation_test_examples/test_answer_ellipsis.txt",
+        #"./data/conversation_test_examples/test_answer_ellipsis.txt",
         # "./data/conversation_test_examples/test_coordination.txt",
         # "./data/conversation_test_examples/test_coreference.txt",
         # "./data/conversation_test_examples/test_declarative_statements.txt",
-        # "./data/conversation_test_examples/test_declarative_statements_negated.txt",
-        # "./data/conversation_test_examples/test_explicit_no_answers.txt",
-        # "./data/conversation_test_examples/test_explicit_yes_answers.txt",
+        "./data/conversation_test_examples/test_declarative_statements_negated.txt",
+        "./data/conversation_test_examples/test_explicit_no_answers.txt",
+        "./data/conversation_test_examples/test_explicit_yes_answers.txt",
         # "./data/conversation_test_examples/test_single_utterances.txt"
     ]
     # Analyze utterances

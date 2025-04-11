@@ -29,9 +29,9 @@ if __name__ == "__main__":
     base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
     lang = 'en' #if not MULTILINGUAL else 'nl'
     # Test with multilingual model
-    #path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
-    #base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
-    #lang = 'en' #if not MULTILINGUAL else 'nl'
+    path = '/Users/piek/Desktop/d-Leolani/leolani-models/conversational_triples/2024-03-11'
+    base_model = 'albert-base-v2' if not MULTILINGUAL else 'google-bert/bert-base-multilingual-cased'
+    lang = 'en' #if not MULTILINGUAL else 'nl'
 
     # Set up logging file
     current_date = str(datetime.today().date())
