@@ -246,7 +246,7 @@ if __name__ == '__main__':
     examples = [
         "Ik vind het leuk om naar voetbal te kijken maar ik hou niet van huiswerk " + SEP + " Wat zou mike graag willen doen? " + SEP + " gaming, maar ik heb een hekel aan katten " + SEP]
     speakers = ["Thomas", "Leolani", "Thomas"]
-    # examples = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + SEP +  " Do you have any kids of your's own now ? " + SEP + " no " + SEP]
+    # evaluation = ["I hope his school was n't too bad . I am also a mom both kids and pups ! " + SEP +  " Do you have any kids of your's own now ? " + SEP + " no " + SEP]
     # ,
     # 'I went to the new university. It was great! '+model._sep+' I like studying too and learning. You? ' + model._sep+ ' No, can afford it!'+model._sep,
     # 'Ik ben naar de nieuwe universiteit gegaan. Het was geweldig! '+model._sep+' Ik hou ook van studeren en leren. Jij? ' +model._sep +' Nee, ik heb het niet nodig!'+model._sep]

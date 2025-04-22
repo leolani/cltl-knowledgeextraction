@@ -123,7 +123,7 @@ def bio_tags_to_tokens(tokens, mask, one_hot=False):
 
 
 def extract_triples(annotation, neg_oversampling=7, contr_oversampling=0.7, ellipsis_oversampling=3):
-    """ Extracts plain-text triples from an annotation file and samples 'negative' examples by
+    """ Extracts plain-text triples from an annotation file and samples 'negative' evaluation by
         crossover. By default, the function will over-extract triples with negative polarity and
         elliptical constructions to counter class imbalance.
 
@@ -170,7 +170,7 @@ def extract_triples(annotation, neg_oversampling=7, contr_oversampling=0.7, elli
     if not triples:
         return [], [], []
 
-    # Sample fake contrast examples (invalid extractions)
+    # Sample fake contrast evaluation (invalid extractions)
     n = int(len(triples) * contr_oversampling)
     for i in range(50):
         s = random.choice(arguments['subjs'])
@@ -183,7 +183,7 @@ def extract_triples(annotation, neg_oversampling=7, contr_oversampling=0.7, elli
             labels += [0]
             n -= 1
 
-        # Create as many fake examples as there were 'real' triples
+        # Create as many fake evaluation as there were 'real' triples
         if n == 0:
             break
 
