@@ -5,7 +5,7 @@ import json
 from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker_name
 from langchain_ollama import ChatOllama
-from openai import OpenAI
+#from openai import OpenAI
 
 from cltl.triple_extraction.prompts.prompts import STATEMENT, QUESTION, CONVERSATION_SHORT, CONVERSATION_LONG, tools
 from cltl.triple_extraction.analyzer import Analyzer
@@ -28,7 +28,7 @@ prepositions_nl = ["in", "op", "naar", "van", "bij", "onder", "voor", "naast", "
 class LLMAnalyzer(Analyzer):
     def __init__(self, model_name: str, temperature: float = 0.1,
                  s_instruct= STATEMENT.INSTRUCT, q_instruct = QUESTION.INSTRUCT, c_instruct = CONVERSATION_LONG.INSTRUCT,
-                 keep_alive=10, llama_server= "http://localhost", port= "9001"):
+                 keep_alive=10, llama_server= "http://localhost", port= "9001", dialogue_acts: List[DialogueAct] = None, lang="en"):
         """
         Parameters
         ----------
@@ -79,6 +79,14 @@ class LLMAnalyzer(Analyzer):
     #             content += chunk.choices[0].delta.content
     #     return content
 
+    def is_question(self, transcript):
+        words = transcript.split()
+        if words[0].lower() in qwords_en + qwords_nl + qverbs_en + qverbs_nl + whowords:
+            return True
+        if words[-1] == "?":
+            return True
+        return False
+
     def analyze(self, utterance):
         """
         Analyzer factory function
@@ -109,10 +117,13 @@ class LLMAnalyzer(Analyzer):
         triples = []
         input = {"role":"user", "content":chat.last_utterance.transcript}
         instruct = self._s_instruct
-        if chat.last_utterance.dialogue_acts[0]==DialogueAct.QUESTION:
+        instruct = self._s_instruct
+        if self.is_question(chat.last_utterance.transcript):
+            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
             instruct = self._q_instruct
+        else:
+            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
         prompt = [instruct, input]
-        print('PROMPT', prompt)
         attempt = 0
         max=3
         while not triples and attempt<max:
@@ -144,14 +155,17 @@ class LLMAnalyzer(Analyzer):
         """
 
         triples = []
-        instruct = self._c_instruct
-        if chat.last_utterance.dialogue_acts[0]==DialogueAct.QUESTION:
+        #instruct = self._c_instruct
+        instruct = self._s_instruct
+        if self.is_question(chat.last_utterance.transcript):
+            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
             instruct = self._q_instruct
+        else:
+            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
         prompt = [instruct]
 
         conversation = self._chat_to_conversation(chat)
         prompt.extend(conversation)
-        print('INPUT', prompt)
         attempt = 0
         max=3
         while not triples and attempt<max:
@@ -206,7 +220,7 @@ class LLMAnalyzer(Analyzer):
                 if triple:
                     chat.last_utterance.triples.append(triple)
 
-    def _convert_triple(self, triple_value, speaker, human, agent):
+    def _convert_triple(self, utterance_type, triple_value, speaker, human, agent):
         #{"subject": "I", "predicate": "love_dogs", "object": "also", "sentiment": 0, "polarity": 0, "certainty": 1n}
         if len(triple_value) < 3:
             return None
@@ -247,6 +261,7 @@ class LLMAnalyzer(Analyzer):
                 triple["perspective"] = {"polarity": float(triple_value["polarity"]),"certainty": float(triple_value['certainty']), "sentiment": float(triple_value['sentiment'])}
             elif 'perspective' in triple_value:
                 triple["perspective"] = {"polarity": float(triple_value["perspective"]["polarity"]),"certainty": float(triple_value["perspective"]['certainty']), "sentiment": float(triple_value["perspective"]['sentiment'])}
+                triple["utterance_type"] = utterance_type
         print('triple=', triple)
         return triple
 
