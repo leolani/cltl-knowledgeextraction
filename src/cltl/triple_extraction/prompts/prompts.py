@@ -278,3 +278,6 @@ Save it as a JSON with this format:
                     Do not output any other text than the JSON.'''
 
 }
+
+class MODEL_RESPONSE:
+        INSTRUCT = {'role': 'system', 'content': 'You are an Intelligent system. Respond with one sentence and no more than twenty words.'}

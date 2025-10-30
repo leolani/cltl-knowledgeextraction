@@ -1,0 +1,1742 @@
+
+
+RUNNING 1 FILES
+
+
+
+RUNNING 79 UTTERANCES FROM FILE ./data/conversation_test_examples/test_full.txt
+
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: be-promoted != got
+Mismatch in triple object: department-manager != some great news
+
+Utterance: 	speaker1   002: "Yes , I'll be promoted to department manager .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'be-promoted', 'object': 'department-manager'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'got', 'object': 'some great news'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: cost != like
+Mismatch in triple object: 40-per-night != a suite
+
+Utterance: 	speaker1   002: "40 per night .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'cost', 'object': '40-per-night'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'like', 'object': 'a suite'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: the-national-anthem-of-canada != the canada day
+Mismatch in triple predicate: be != is on
+Mismatch in triple object: o-canada != the 1st of july
+
+Utterance: 	speaker1   002: "The national anthem of Canada is O Canada.
+"
+Predicted Triple:  	{'subject': 'the-national-anthem-of-canada', 'predicate': 'be', 'object': 'o-canada'}
+Expected triple:   	{'subject': 'the canada day', 'predicate': 'is on', 'object': 'the 1st of july'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != it
+Mismatch in triple predicate: not-all-of != is
+Mismatch in triple object: it != delicious
+
+Utterance: 	speaker1   002: "Not all of it .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'not-all-of', 'object': 'it'}
+Expected triple:   	{'subject': 'it', 'predicate': 'is', 'object': 'delicious'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: totally-worth-it != speaker2
+Mismatch in triple predicate: be != know
+Mismatch in triple object:  != when the time is right
+Mismatch in triple subject: speaker1 != speaker2
+Mismatch in triple predicate: go-to != know
+Mismatch in triple object: europe != when the time is right
+
+Utterance: 	speaker1   002: "totally worth it . i go to europe all the time
+"
+Predicted Triple:  	{'subject': 'totally-worth-it', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'know', 'object': 'when the time is right'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != they
+Mismatch in triple predicate: feel != make speaker1 feel
+Match triple object: {'label': 'great', 'type': [], 'uri': None} == great
+Mismatch in triple subject:  != they
+Mismatch in triple predicate:  != make speaker1 feel
+Mismatch in triple object:  != great
+Mismatch in triple subject: speaker1 != they
+Mismatch in triple predicate: be != make speaker1 feel
+Mismatch in triple object: 23 != great
+
+Utterance: 	speaker1   002: "i feel great , just been traveling so much lately . i am 23
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'feel', 'object': 'great'}
+Expected triple:   	{'subject': 'they', 'predicate': 'make speaker1 feel', 'object': 'great'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: be != am
+Mismatch in triple object: woman != a man
+
+Utterance: 	speaker1   002: "i'm a woman . . . i
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'woman'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'am', 'object': 'a man'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: thank != want speaker2 to
+Mismatch in triple object: you-all-the-same != buy something for speaker1 to eat
+
+Utterance: 	speaker1   002: "No , there's no need . Thank you all the same .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'thank', 'object': 'you-all-the-same'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'want speaker2 to', 'object': 'buy something for speaker1 to eat'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != susan
+Mismatch in triple predicate: be-surprising != got
+Mismatch in triple object: speaker1 != married
+
+Utterance: 	speaker1   002: "No . That's what is surprising me .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-surprising', 'object': 'speaker1'}
+Expected triple:   	{'subject': 'susan', 'predicate': 'got', 'object': 'married'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != those
+Mismatch in triple predicate: say != are
+Mismatch in triple object: shopping-and-defending-speaker1-career-to-speaker1-family != very cute
+
+Utterance: 	speaker1   002: "shopping , and defending my career to my family
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': 'shopping-and-defending-speaker1-career-to-speaker1-family'}
+Expected triple:   	{'subject': 'those', 'predicate': 'are', 'object': 'very cute'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != it
+Mismatch in triple predicate: work-with != is
+Mismatch in triple object: speaker1-parents-on-the-farm != die hard
+
+Utterance: 	speaker1   002: "no i work with my parents on the farm
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'work-with', 'object': 'speaker1-parents-on-the-farm'}
+Expected triple:   	{'subject': 'it', 'predicate': 'is', 'object': 'die hard'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: watch != are up to
+Mismatch in triple object: star-wars != rob dryden videos on youtube
+
+Utterance: 	speaker1   002: "i'm watching my fave movie star wars .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'watch', 'object': 'star-wars'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'are up to', 'object': 'rob dryden videos on youtube'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: feel-good != work in
+Mismatch in triple object:  != the church
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: make != work in
+Mismatch in triple object: food-in-pantry != the church
+
+Utterance: 	speaker1   002: "it does absolutely , we make lots of food in the pantry and i feel good .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'make', 'object': 'food-in-pantry'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'work in', 'object': 'the church'}
+Mismatch in perspective certainty: 0.8 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'they', 'type': [], 'uri': None} == they
+Mismatch in triple predicate: be != are on
+Mismatch in triple object:  != speaker1 's feet
+Mismatch in triple subject: speaker1 != they
+Mismatch in triple predicate: love != are on
+Mismatch in triple object: jewelry != speaker1 's feet
+Mismatch in triple subject: speaker1 != they
+Mismatch in triple predicate: go-shop != are on
+Mismatch in triple object: often-for-it != speaker1 's feet
+
+Utterance: 	speaker1   002: "yes , they're . i love jewelry ! i go shopping often for it .
+"
+Predicted Triple:  	{'subject': 'they', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'they', 'predicate': 'are on', 'object': "speaker1 's feet"}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be-the != can help
+Mismatch in triple object: very-latest-fashion != speaker2
+
+Utterance: 	speaker1   002: "Certainly . Here you are . They're the very latest fashion .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-the', 'object': 'very-latest-fashion'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'can help', 'object': 'speaker2'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be-dark != am
+Mismatch in triple object: dark-blue-or-black != sure
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: be-not-sure != am
+Mismatch in triple object:  != sure
+
+Utterance: 	speaker1   002: "Boots
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'be-not-sure', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'sure'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: agree != should meet
+Mismatch in triple object:  != about seven
+
+Utterance: 	speaker1   002: "All right .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'agree', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'should meet', 'object': 'about seven'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != that
+Mismatch in triple predicate: live-in != is
+Mismatch in triple object: the-mountains != great
+
+Utterance: 	speaker1   002: "i live in the mountains
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'live-in', 'object': 'the-mountains'}
+Expected triple:   	{'subject': 'that', 'predicate': 'is', 'object': 'great'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: be != prepare for
+Mismatch in triple object: sunny-all-day != the picnic
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: no-sign-of-rain != prepare for
+Mismatch in triple object:  != the picnic
+
+Utterance: 	speaker1   002: "Yes . It says it will be sunny all day . No sign of rain at all .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'sunny-all-day'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'prepare for', 'object': 'the picnic'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker2
+Mismatch in triple predicate: give != have
+Mismatch in triple object: receipt != small bills
+Mismatch in triple subject: speaker1 != speaker2
+Mismatch in triple predicate: thank != have
+Mismatch in triple object:  != small bills
+
+Utterance: 	speaker1   002: "Here is your receipt . Thank you .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'give', 'object': 'receipt'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'have', 'object': 'small bills'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != a bus stop
+Mismatch in triple predicate: be-in != is right behind
+Mismatch in triple object: middle-of-the-parking-lot != macy 's
+
+Utterance: 	speaker1   002: "It's in the middle of the parking lot .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-in', 'object': 'middle-of-the-parking-lot'}
+Expected triple:   	{'subject': 'a bus stop', 'predicate': 'is right behind', 'object': "macy 's"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: say != could spell
+Mismatch in triple object: sure-.-w-e-double-b-e-r-. != the surname
+
+Utterance: 	speaker1   002: "Sure . W E double B E R .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'say', 'object': 'sure-.-w-e-double-b-e-r-.'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'could spell', 'object': 'the surname'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'he', 'type': [], 'uri': None} == he
+Mismatch in triple predicate: be != is
+Mismatch in triple object: nice-guy != tall
+Match triple subject: {'label': 'he', 'type': [], 'uri': None} == he
+Mismatch in triple predicate: be != is
+Mismatch in triple object: considerate != tall
+Mismatch in triple subject: speaker1 != he
+Mismatch in triple predicate: impressed != is
+Mismatch in triple object: smart-humorous != tall
+
+Utterance: 	speaker1   002: "He is a nice guy and very considerate . I am impressed with how smart and humorous .
+"
+Predicted Triple:  	{'subject': 'he', 'predicate': 'be', 'object': 'nice-guy'}
+Expected triple:   	{'subject': 'he', 'predicate': 'is', 'object': 'tall'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker1 's genes
+Mismatch in triple predicate: try != show
+Mismatch in triple object: draw-celebrities-like-her != those characteristics
+
+Utterance: 	speaker1   002: "i sometime tried to draw celebrities like her
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'try', 'object': 'draw-celebrities-like-her'}
+Expected triple:   	{'subject': "speaker1 's genes", 'predicate': 'show', 'object': 'those characteristics'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != it
+Mismatch in triple predicate: be != lose
+Mismatch in triple object: talking != it 's appeal
+
+Utterance: 	speaker1   002: "Sure . Now you are talking .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'talking'}
+Expected triple:   	{'subject': 'it', 'predicate': 'lose', 'object': "it 's appeal"}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Match triple predicate: {'label': 'play', 'type': [], 'uri': None} == play
+Mismatch in triple object: badminton-with-speaker1-parents != badminton
+
+Utterance: 	speaker1   002: "I often play badminton with my parents .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'play', 'object': 'badminton-with-speaker1-parents'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'play', 'object': 'badminton'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != cats
+Mismatch in triple predicate: like != easier than
+Match triple object: {'label': 'dogs', 'type': [], 'uri': None} == dogs
+Mismatch in triple subject: speaker1 != cats
+Mismatch in triple predicate: be-too-lazy-to-take-care-of != easier than
+Mismatch in triple object: them != dogs
+
+Utterance: 	speaker1   002: "i like dogs but i'm too lazy to take care of them .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'like', 'object': 'dogs'}
+Expected triple:   	{'subject': 'cats', 'predicate': 'easier than', 'object': 'dogs'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != cuddle with
+Mismatch in triple object:  != speaker1 's two cats
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: cuddle != cuddle with
+Mismatch in triple object: two-cats != speaker1 's two cats
+
+Utterance: 	speaker1   002: "one is a tabby yet overweight and the other is a black and white cat
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'cuddle with', 'object': "speaker1 's two cats"}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: say != have
+Mismatch in triple object: yes-please-that-would-be-wonderful != any
+
+Utterance: 	speaker1   002: "yes , please . that would be wonderful .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'say', 'object': 'yes-please-that-would-be-wonderful'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'any'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: work != are up to
+Mismatch in triple object: multi-tasking != working
+
+Utterance: 	speaker1   002: "working doing a lot of multi tasking
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'work', 'object': 'multi-tasking'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are up to', 'object': 'working'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker2
+Mismatch in triple predicate: say-at != enjoy
+Mismatch in triple object: -home-watching-movies-and-partying-on-the-weekends != life
+
+Utterance: 	speaker1   002: "at home watching movies and partying on the weekends
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say-at', 'object': '-home-watching-movies-and-partying-on-the-weekends'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'enjoy', 'object': 'life'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: sorry != take
+Mismatch in triple object:  != credit card
+Mismatch in triple subject: it != speaker1
+Mismatch in triple predicate: be != take
+Mismatch in triple object: 30-dollars-and-10-cents-in-total != credit card
+
+Utterance: 	speaker1   002: "No , we don't . I am sorry . It's 30 dollars and 10 cents in total .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'sorry', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'take', 'object': 'credit card'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != that
+Mismatch in triple predicate: have-job != is
+Mismatch in triple object: nursing-home != cool
+
+Utterance: 	speaker1   002: "i've a job in a nursing home
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'have-job', 'object': 'nursing-home'}
+Expected triple:   	{'subject': 'that', 'predicate': 'is', 'object': 'cool'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != like
+Mismatch in triple object:  != wearing skinny jeans
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: have != like
+Mismatch in triple object: cat != wearing skinny jeans
+Mismatch in triple subject: she != speaker1
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: curl-up-on-band-shirts != wearing skinny jeans
+
+Utterance: 	speaker1   002: "i have a cat . she likes to curl up on my band shirts .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'wearing skinny jeans'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: hope != like to
+Mismatch in triple object: not-booked != book a single room
+Mismatch in triple subject: single-room != speaker1
+Mismatch in triple predicate: be-requested != like to
+Mismatch in triple object:  != book a single room
+
+Utterance: 	speaker1   002: "A single room please . I hope you're not fully booked .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'hope', 'object': 'not-booked'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'book a single room'}
+Mismatch in perspective certainty: 0.8 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: collect != collecting
+Mismatch in triple object: stones != coins
+
+Utterance: 	speaker1   002: "Yes , I am collecting stones .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'collect', 'object': 'stones'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'collecting', 'object': 'coins'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be-from != am
+Mismatch in triple object: baltimore-md != a baker
+
+Utterance: 	speaker1   002: "i'm from baltimore md
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-from', 'object': 'baltimore-md'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'a baker'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: everyone != speaker2
+Mismatch in triple predicate: be != should
+Mismatch in triple object: nice != come
+
+Utterance: 	speaker1   002: "everyone is so nice here .
+"
+Predicted Triple:  	{'subject': 'everyone', 'predicate': 'be', 'object': 'nice'}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'should', 'object': 'come'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != fresh
+Mismatch in triple predicate: want != is
+Mismatch in triple object: go-check-it-out != the best way to go
+
+Utterance: 	speaker1   002: "no , but i always wanted to go and check it out .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'want', 'object': 'go-check-it-out'}
+Expected triple:   	{'subject': 'fresh', 'predicate': 'is', 'object': 'the best way to go'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != like
+Mismatch in triple object:  != those
+
+Utterance: 	speaker1   002: "i like sorry a lot .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'those'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: travel != catch
+Mismatch in triple object: europe-and-south-america != the football
+
+Utterance: 	speaker1   002: "i do . i travel extensively to europe and south america .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'travel', 'object': 'europe-and-south-america'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'catch', 'object': 'the football'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker1 's brother
+Mismatch in triple predicate: go-to != worked at
+Mismatch in triple object: university-of-kentucky != starbucks
+
+Utterance: 	speaker1   002: "i'm getting out of here . going to university of kentucky .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'go-to', 'object': 'university-of-kentucky'}
+Expected triple:   	{'subject': "speaker1 's brother", 'predicate': 'worked at', 'object': 'starbucks'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1-cat != everyone
+Mismatch in triple predicate: be != stops
+Mismatch in triple object: huge != 
+
+Utterance: 	speaker1   002: "it was awesome my cat is huge .
+"
+Predicted Triple:  	{'subject': 'speaker1-cat', 'predicate': 'be', 'object': 'huge'}
+Expected triple:   	{'subject': 'everyone', 'predicate': 'stops', 'object': ''}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != class
+Mismatch in triple predicate: camp-hike-fish-hunt-sit != was
+Mismatch in triple object:  != outdoors
+
+Utterance: 	speaker1   002: "camp , hike , fish hunt , even just sit .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'camp-hike-fish-hunt-sit', 'object': ''}
+Expected triple:   	{'subject': 'class', 'predicate': 'was', 'object': 'outdoors'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != have
+Mismatch in triple object: i-work-with-books-in-a-store != a car
+
+Utterance: 	speaker1   002: "i work with books in a store .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': 'i-work-with-books-in-a-store'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'a car'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != she
+Mismatch in triple predicate: be-not-good-at != is
+Mismatch in triple object: -it != very talented
+
+Utterance: 	speaker1   002: "not really . i'm not good at it .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-not-good-at', 'object': '-it'}
+Expected triple:   	{'subject': 'she', 'predicate': 'is', 'object': 'very talented'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: buy-fix != enjoy
+Mismatch in triple object: food-in-household != walking
+
+Utterance: 	speaker1   002: "no , mom buys and fixes all the food in the household .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'buy-fix', 'object': 'food-in-household'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'enjoy', 'object': 'walking'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != he
+Mismatch in triple predicate: have != want to
+Mismatch in triple object: three != be responsible
+
+Utterance: 	speaker1   002: "we do , we have three .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'have', 'object': 'three'}
+Expected triple:   	{'subject': 'he', 'predicate': 'want to', 'object': 'be responsible'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1 's favorite
+Mismatch in triple predicate: be-a-must != is
+Mismatch in triple object: pizza != tupac
+
+Utterance: 	speaker1   002: "since i don't cook pizza is a must .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-a-must', 'object': 'pizza'}
+Expected triple:   	{'subject': "speaker1 's favorite", 'predicate': 'is', 'object': 'tupac'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: be-in != am
+Mismatch in triple object: -national-guard != a weekend warrior
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate:  != am
+Mismatch in triple object:  != a weekend warrior
+
+Utterance: 	speaker1   002: "i'm in the national guard . we do drills and such .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'be-in', 'object': '-national-guard'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'a weekend warrior'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: stay-up-late != stay up
+Mismatch in triple object: reading-mystery-novels-and-eating-pizza != all night
+
+Utterance: 	speaker1   002: "sometimes i stay up late reading mystery novels and eating pizza .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'stay-up-late', 'object': 'reading-mystery-novels-and-eating-pizza'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'stay up', 'object': 'all night'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: go-to != held
+Mismatch in triple object: rock-concerts != a job
+
+Utterance: 	speaker1   002: "somewhat . i go to a lot of rock concerts .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'go-to', 'object': 'rock-concerts'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'held', 'object': 'a job'}
+Mismatch in perspective certainty: 0.5 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: love != am
+Mismatch in triple object: potatoes != an accountant
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: prefer-to-grow != am
+Mismatch in triple object: them != an accountant
+
+Utterance: 	speaker1   002: "no . i really love potatoes and would rather grow them .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'love', 'object': 'potatoes'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'an accountant'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: hear != am
+Mismatch in triple object: it != the opposite
+
+Utterance: 	speaker1   002: "i've never heard of it .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'hear', 'object': 'it'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'the opposite'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: sorry != understand
+Mismatch in triple object: i-can-not-walk != that
+
+Utterance: 	speaker1   002: "i'm so sorry , i can not walk .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'sorry', 'object': 'i-can-not-walk'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'understand', 'object': 'that'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: not-knit != stay at
+Mismatch in triple object:  != home
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: love-to-learn != stay at
+Mismatch in triple object: knit != home
+
+Utterance: 	speaker1   002: "no i don't . i'd love to learn .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'not-knit', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'stay at', 'object': 'home'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != like to
+Mismatch in triple object:  != go to concerts
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: like != like to
+Mismatch in triple object: current-bands != go to concerts
+
+Utterance: 	speaker1   002: "i like current bands , like imagine dragons and linkin park .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'go to concerts'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker1 's skin
+Mismatch in triple predicate: say != looks
+Mismatch in triple object:  != good
+Mismatch in triple subject: speaker1 != speaker1 's skin
+Mismatch in triple predicate: do != looks
+Mismatch in triple object:  != good
+Mismatch in triple subject: it != speaker1 's skin
+Mismatch in triple predicate: help != looks
+Mismatch in triple object: me-be-famous != good
+
+Utterance: 	speaker1   002: "oh yes i do . it will help me be famous one day .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': "speaker1 's skin", 'predicate': 'looks', 'object': 'good'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1-two-siblings != speaker1
+Mismatch in triple predicate: be != are
+Mismatch in triple object:  != a fan
+
+Utterance: 	speaker1   002: "very much so , as are my two siblings .
+"
+Predicted Triple:  	{'subject': 'speaker1-two-siblings', 'predicate': 'be', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are', 'object': 'a fan'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker1 's friends
+Mismatch in triple predicate: say != love
+Mismatch in triple object: pop-be-our-favorite != music
+
+Utterance: 	speaker1   002: "oh pop is our favorite .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': 'pop-be-our-favorite'}
+Expected triple:   	{'subject': "speaker1 's friends", 'predicate': 'love', 'object': 'music'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: know-to != know
+Mismatch in triple object: -get-rid-of-a-cold != how to get rid of a cold
+
+Utterance: 	speaker1   002: "hey , i know how to get rid of a cold .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'know-to', 'object': '-get-rid-of-a-cold'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'know', 'object': 'how to get rid of a cold'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != the craziest things speaker1 have done
+Mismatch in triple predicate: say != is
+Mismatch in triple object: had-two-kids-with-three-dogs-haha != two children with three dogs
+
+Utterance: 	speaker1   002: "had two kids with three dogs . haha .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': 'had-two-kids-with-three-dogs-haha'}
+Expected triple:   	{'subject': 'the craziest things speaker1 have done', 'predicate': 'is', 'object': 'two children with three dogs'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: work-as != am
+Mismatch in triple object: mechanic != wei
+
+Utterance: 	speaker1   002: "i'm working as a mechanic .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'work-as', 'object': 'mechanic'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'wei'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: like != like to
+Mismatch in triple object: muzzleloaders != dove hunt
+
+Utterance: 	speaker1   002: "yes i've but i like muzzleloaders .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'muzzleloaders'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'dove hunt'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != fiber
+Mismatch in triple predicate: be != makes speaker1
+Mismatch in triple object: distributor-for-essential-oils-company != poop
+
+Utterance: 	speaker1   002: "i'm a distributor for an essential oils company .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'distributor-for-essential-oils-company'}
+Expected triple:   	{'subject': 'fiber', 'predicate': 'makes speaker1', 'object': 'poop'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: say != able to
+Mismatch in triple object:  != travel
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: have != able to
+Mismatch in triple object: six-cats != travel
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: let-go != able to
+Mismatch in triple object:  != travel
+
+Utterance: 	speaker1   002: "i had six cats , but had to let them go .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'say', 'object': ''}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'able to', 'object': 'travel'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: do != am on
+Mismatch in triple object: practical-jokes != youtube
+
+Utterance: 	speaker1   002: "mostly practical jokes , lol .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'do', 'object': 'practical-jokes'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am on', 'object': 'youtube'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != that
+Mismatch in triple predicate: be-amazing != is
+Mismatch in triple object:  != amazing
+Mismatch in triple subject: sleeping-in-speaker1-princess-bed != that
+Mismatch in triple predicate: be-nice != is
+Mismatch in triple object:  != amazing
+
+Utterance: 	speaker1   002: "i've brown eyes and hair too .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-amazing', 'object': ''}
+Expected triple:   	{'subject': 'that', 'predicate': 'is', 'object': 'amazing'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be != is
+Mismatch in triple object: three-human-kiddos-and-three-dogs != a lawyer
+
+Utterance: 	speaker1   002: "three human kiddos and three dogs .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be', 'object': 'three-human-kiddos-and-three-dogs'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'is', 'object': 'a lawyer'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: jog-at != love
+Mismatch in triple object: -the-beach != both
+
+Utterance: 	speaker1   002: "sometimes at the beach i jog .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'jog-at', 'object': '-the-beach'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'love', 'object': 'both'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != drama club
+Mismatch in triple predicate: love != is
+Mismatch in triple object: chemistry != cool
+Mismatch in triple subject: speaker1 != drama club
+Mismatch in triple predicate: be-not-fan-of != is
+Mismatch in triple object: biology != cool
+
+Utterance: 	speaker1   002: "i love chemistry ! i'm not a fan of biology however .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'love', 'object': 'chemistry'}
+Expected triple:   	{'subject': 'drama club', 'predicate': 'is', 'object': 'cool'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be-allergic != can have
+Mismatch in triple object: hazel-nuts != hazel nuts
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: eat != can have
+Mismatch in triple object: peanuts != hazel nuts
+
+Utterance: 	speaker1   002: "i'm allergic to hazel nuts i can eat peanuts .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-allergic', 'object': 'hazel-nuts'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'can have', 'object': 'hazel nuts'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject:  != speaker1
+Mismatch in triple predicate: be-animal-doctor != am
+Mismatch in triple object: animal-doctor != great
+
+Utterance: 	speaker1   002: "i am an animal doctor .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'be-animal-doctor', 'object': 'animal-doctor'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'great'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1-mom != speaker1
+Mismatch in triple predicate: not-like != like
+Match triple object: {'label': 'cooking', 'type': [], 'uri': None} == cooking
+
+Utterance: 	speaker1   002: "neither does my mom she just moved in with me .
+"
+Predicted Triple:  	{'subject': 'speaker1-mom', 'predicate': 'not-like', 'object': 'cooking'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'cooking'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: socks != speaker1
+Mismatch in triple predicate: be != bringing
+Mismatch in triple object: his-name != speaker1 's cat
+Mismatch in triple subject: he != speaker1
+Mismatch in triple predicate: be != bringing
+Mismatch in triple object: black-and-white != speaker1 's cat
+
+Utterance: 	speaker1   002: "socks is his name . he is black and white .
+"
+Predicted Triple:  	{'subject': 'socks', 'predicate': 'be', 'object': 'his-name'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'bringing', 'object': "speaker1 's cat"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != speaker1 's name
+Mismatch in triple predicate: have != is
+Mismatch in triple object: big-yellow-cat != jerome
+Mismatch in triple subject: speaker1 != speaker1 's name
+Mismatch in triple predicate: like-to != is
+Mismatch in triple object: -sleep-in-on-sundays != jerome
+
+Utterance: 	speaker1   002: "i've a big yellow cat and i like to sleep in on sundays .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'have', 'object': 'big-yellow-cat'}
+Expected triple:   	{'subject': "speaker1 's name", 'predicate': 'is', 'object': 'jerome'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: he != speaker1
+Mismatch in triple predicate: be != have
+Mismatch in triple object: chocolate-lab != a dog
+Mismatch in triple subject: he != speaker1
+Mismatch in triple predicate: have-age != have
+Mismatch in triple object: four != a dog
+Mismatch in triple subject: he != speaker1
+Mismatch in triple predicate: be-named != have
+Mismatch in triple object: husk != a dog
+
+Utterance: 	speaker1   002: "a chocolate lab . he is four and named husk .
+"
+Predicted Triple:  	{'subject': 'he', 'predicate': 'be', 'object': 'chocolate-lab'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'a dog'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: prefer != have
+Mismatch in triple object: hiking-and-spending-time-outdoors != noticed
+
+Utterance: 	speaker1   002: "i prefer hiking and spending time outdoors .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'prefer', 'object': 'hiking-and-spending-time-outdoors'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'noticed'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+Mismatch in triple subject: speaker1 != that
+Mismatch in triple predicate: live != is
+Mismatch in triple object: portland-maine != nice
+
+Utterance: 	speaker1   002: "i live in portland maine so just around the area .
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'live', 'object': 'portland-maine'}
+Expected triple:   	{'subject': 'that', 'predicate': 'is', 'object': 'nice'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 79 UTTERANCES FROM FILE ./data/conversation_test_examples/test_full.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 79			RECALL: 0.00%
+
+CORRECT SUBJECTS: 21			INCORRECT SUBJECTS: 58			RECALL: 26.58%
+
+CORRECT PREDICATES: 1			INCORRECT PREDICATES: 78			RECALL: 1.27%
+
+CORRECT OBJECTS: 3			INCORRECT OBJECTS: 76			RECALL: 3.80%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 237			RECALL: 0.00%
+
+ISSUES (79 UTTERANCES): {
+    "40 per night .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "40 per night .\n: speaker2 like a suite"
+    }, 
+    "A single room please . I hope you're not fully booked .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "A single room please . I hope you're not fully booked .\n: speaker1 like to book a single room"
+    }, 
+    "All right .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "All right .\n: speaker1 should meet about seven"
+    }, 
+    "Boots\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Boots\n: speaker1 am sure"
+    }, 
+    "Certainly . Here you are . They're the very latest fashion .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Certainly . Here you are . They're the very latest fashion .\n: speaker1 can help speaker2"
+    }, 
+    "He is a nice guy and very considerate . I am impressed with how smart and humorous .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "He is a nice guy and very considerate . I am impressed with how smart and humorous .\n: he is tall"
+    }, 
+    "Here is your receipt . Thank you .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Here is your receipt . Thank you .\n: speaker2 have small bills"
+    }, 
+    "I often play badminton with my parents .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "I often play badminton with my parents .\n: speaker1 play badminton"
+    }, 
+    "It's in the middle of the parking lot .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "It's in the middle of the parking lot .\n: a bus stop is right behind macy 's"
+    }, 
+    "No , there's no need . Thank you all the same .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "No , there's no need . Thank you all the same .\n: speaker1 want speaker2 to buy something for speaker1 to eat"
+    }, 
+    "No , we don't . I am sorry . It's 30 dollars and 10 cents in total .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "No , we don't . I am sorry . It's 30 dollars and 10 cents in total .\n: speaker1 take credit card"
+    }, 
+    "No . That's what is surprising me .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "No . That's what is surprising me .\n: susan got married"
+    }, 
+    "Not all of it .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Not all of it .\n: it is delicious"
+    }, 
+    "Sure . Now you are talking .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Sure . Now you are talking .\n: it lose it 's appeal"
+    }, 
+    "Sure . W E double B E R .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Sure . W E double B E R .\n: speaker1 could spell the surname"
+    }, 
+    "The national anthem of Canada is O Canada.\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "The national anthem of Canada is O Canada.\n: the canada day is on the 1st of july"
+    }, 
+    "Yes , I am collecting stones .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Yes , I am collecting stones .\n: speaker1 collecting coins"
+    }, 
+    "Yes , I'll be promoted to department manager .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Yes , I'll be promoted to department manager .\n: speaker1 got some great news"
+    }, 
+    "Yes . It says it will be sunny all day . No sign of rain at all .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "Yes . It says it will be sunny all day . No sign of rain at all .\n: speaker2 prepare for the picnic"
+    }, 
+    "a chocolate lab . he is four and named husk .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "a chocolate lab . he is four and named husk .\n: speaker1 have a dog"
+    }, 
+    "at home watching movies and partying on the weekends\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "at home watching movies and partying on the weekends\n: speaker2 enjoy life"
+    }, 
+    "camp , hike , fish hunt , even just sit .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "camp , hike , fish hunt , even just sit .\n: class was outdoors"
+    }, 
+    "everyone is so nice here .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "everyone is so nice here .\n: speaker2 should come"
+    }, 
+    "had two kids with three dogs . haha .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "had two kids with three dogs . haha .\n: the craziest things speaker1 have done is two children with three dogs"
+    }, 
+    "hey , i know how to get rid of a cold .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "hey , i know how to get rid of a cold .\n: speaker1 know how to get rid of a cold"
+    }, 
+    "i am an animal doctor .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i am an animal doctor .\n: speaker1 am great"
+    }, 
+    "i do . i travel extensively to europe and south america .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i do . i travel extensively to europe and south america .\n: speaker1 catch the football"
+    }, 
+    "i feel great , just been traveling so much lately . i am 23\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i feel great , just been traveling so much lately . i am 23\n: they make speaker1 feel great"
+    }, 
+    "i had six cats , but had to let them go .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i had six cats , but had to let them go .\n: speaker1 able to travel"
+    }, 
+    "i have a cat . she likes to curl up on my band shirts .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i have a cat . she likes to curl up on my band shirts .\n: speaker1 like wearing skinny jeans"
+    }, 
+    "i like current bands , like imagine dragons and linkin park .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i like current bands , like imagine dragons and linkin park .\n: speaker1 like to go to concerts"
+    }, 
+    "i like dogs but i'm too lazy to take care of them .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i like dogs but i'm too lazy to take care of them .\n: cats easier than dogs"
+    }, 
+    "i like sorry a lot .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i like sorry a lot .\n: speaker1 like those"
+    }, 
+    "i live in portland maine so just around the area .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i live in portland maine so just around the area .\n: that is nice"
+    }, 
+    "i live in the mountains\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i live in the mountains\n: that is great"
+    }, 
+    "i love chemistry ! i'm not a fan of biology however .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i love chemistry ! i'm not a fan of biology however .\n: drama club is cool"
+    }, 
+    "i prefer hiking and spending time outdoors .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i prefer hiking and spending time outdoors .\n: speaker1 have noticed"
+    }, 
+    "i sometime tried to draw celebrities like her\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i sometime tried to draw celebrities like her\n: speaker1 's genes show those characteristics"
+    }, 
+    "i work with books in a store .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i work with books in a store .\n: speaker1 have a car"
+    }, 
+    "i'm a distributor for an essential oils company .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm a distributor for an essential oils company .\n: fiber makes speaker1 poop"
+    }, 
+    "i'm a woman . . . i\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm a woman . . . i\n: speaker2 am a man"
+    }, 
+    "i'm allergic to hazel nuts i can eat peanuts .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm allergic to hazel nuts i can eat peanuts .\n: speaker1 can have hazel nuts"
+    }, 
+    "i'm from baltimore md\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm from baltimore md\n: speaker1 am a baker"
+    }, 
+    "i'm getting out of here . going to university of kentucky .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm getting out of here . going to university of kentucky .\n: speaker1 's brother worked at starbucks"
+    }, 
+    "i'm in the national guard . we do drills and such .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm in the national guard . we do drills and such .\n: speaker1 am a weekend warrior"
+    }, 
+    "i'm so sorry , i can not walk .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm so sorry , i can not walk .\n: speaker1 understand that"
+    }, 
+    "i'm watching my fave movie star wars .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm watching my fave movie star wars .\n: speaker2 are up to rob dryden videos on youtube"
+    }, 
+    "i'm working as a mechanic .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i'm working as a mechanic .\n: speaker1 am wei"
+    }, 
+    "i've a big yellow cat and i like to sleep in on sundays .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i've a big yellow cat and i like to sleep in on sundays .\n: speaker1 's name is jerome"
+    }, 
+    "i've a job in a nursing home\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i've a job in a nursing home\n: that is cool"
+    }, 
+    "i've brown eyes and hair too .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i've brown eyes and hair too .\n: that is amazing"
+    }, 
+    "i've never heard of it .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "i've never heard of it .\n: speaker1 am the opposite"
+    }, 
+    "it does absolutely , we make lots of food in the pantry and i feel good .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "it does absolutely , we make lots of food in the pantry and i feel good .\n: speaker1 work in the church"
+    }, 
+    "it was awesome my cat is huge .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "it was awesome my cat is huge .\n: everyone stops "
+    }, 
+    "mostly practical jokes , lol .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "mostly practical jokes , lol .\n: speaker1 am on youtube"
+    }, 
+    "neither does my mom she just moved in with me .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "neither does my mom she just moved in with me .\n: speaker1 like cooking"
+    }, 
+    "no , but i always wanted to go and check it out .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "no , but i always wanted to go and check it out .\n: fresh is the best way to go"
+    }, 
+    "no , mom buys and fixes all the food in the household .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "no , mom buys and fixes all the food in the household .\n: speaker1 enjoy walking"
+    }, 
+    "no . i really love potatoes and would rather grow them .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "no . i really love potatoes and would rather grow them .\n: speaker1 am an accountant"
+    }, 
+    "no i don't . i'd love to learn .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "no i don't . i'd love to learn .\n: speaker1 stay at home"
+    }, 
+    "no i work with my parents on the farm\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "no i work with my parents on the farm\n: it is die hard"
+    }, 
+    "not really . i'm not good at it .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "not really . i'm not good at it .\n: she is very talented"
+    }, 
+    "oh pop is our favorite .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "oh pop is our favorite .\n: speaker1 's friends love music"
+    }, 
+    "oh yes i do . it will help me be famous one day .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "oh yes i do . it will help me be famous one day .\n: speaker1 's skin looks good"
+    }, 
+    "one is a tabby yet overweight and the other is a black and white cat\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "one is a tabby yet overweight and the other is a black and white cat\n: speaker1 cuddle with speaker1 's two cats"
+    }, 
+    "shopping , and defending my career to my family\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "shopping , and defending my career to my family\n: those are very cute"
+    }, 
+    "since i don't cook pizza is a must .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "since i don't cook pizza is a must .\n: speaker1 's favorite is tupac"
+    }, 
+    "socks is his name . he is black and white .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "socks is his name . he is black and white .\n: speaker1 bringing speaker1 's cat"
+    }, 
+    "sometimes at the beach i jog .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "sometimes at the beach i jog .\n: speaker1 love both"
+    }, 
+    "sometimes i stay up late reading mystery novels and eating pizza .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "sometimes i stay up late reading mystery novels and eating pizza .\n: speaker1 stay up all night"
+    }, 
+    "somewhat . i go to a lot of rock concerts .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "somewhat . i go to a lot of rock concerts .\n: speaker1 held a job"
+    }, 
+    "three human kiddos and three dogs .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "three human kiddos and three dogs .\n: speaker1 is a lawyer"
+    }, 
+    "totally worth it . i go to europe all the time\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "totally worth it . i go to europe all the time\n: speaker2 know when the time is right"
+    }, 
+    "very much so , as are my two siblings .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "very much so , as are my two siblings .\n: speaker1 are a fan"
+    }, 
+    "we do , we have three .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "we do , we have three .\n: he want to be responsible"
+    }, 
+    "working doing a lot of multi tasking\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "working doing a lot of multi tasking\n: speaker1 are up to working"
+    }, 
+    "yes , please . that would be wonderful .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "yes , please . that would be wonderful .\n: speaker1 have any"
+    }, 
+    "yes , they're . i love jewelry ! i go shopping often for it .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "yes , they're . i love jewelry ! i go shopping often for it .\n: they are on speaker1 's feet"
+    }, 
+    "yes i've but i like muzzleloaders .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "yes i've but i like muzzleloaders .\n: speaker1 like to dove hunt"
+    }
+}

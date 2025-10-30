@@ -1,0 +1,10 @@
+
+
+RUNNING 7 FILES
+
+
+
+RUNNING 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------

@@ -17,6 +17,8 @@ def standard_questions(utterance, human, agent):
             who = tokens[2]
             if who.lower() == "i":
                 who = human
+            elif who.lower() == "me":
+                who = human
             elif who.lower() == "you":
                 who = agent
             triple = {"subject": {"label": who.lower(), "type": [], "uri": None},
@@ -126,6 +128,7 @@ def standard_questions(utterance, human, agent):
     return triples
 
 def ask_for_all(utterance, human, agent):
+    punctuation = ["?", ".", "!"]
     triples = []
     if utterance.transcript.lower().startswith("tell me all about ") or \
             utterance.transcript.lower().startswith("tell me about ") or \
@@ -134,7 +137,10 @@ def ask_for_all(utterance, human, agent):
             utterance.transcript.lower().startswith("what you know about ") or \
             utterance.transcript.lower().startswith("what do you know about "):
         tokens = utterance.transcript.split()
-        who = tokens[-1]
+        if tokens[-1] in punctuation:
+            who = tokens[-2]
+        else:
+            who = tokens[-1]
         if who.endswith("?"):
             who = who[:-1]
         if who.lower() == "me":

@@ -19,7 +19,7 @@ DEBUG = False
 #               "    (. ?)))")
 #print(tree.adjust_order())
 # the boy is **blank** holding a toy
-#More examples:
+#More evaluation:
 #what is the boy holding ? --> the boy holding is **blank**
 #who is holding a toy ? --> **blank** is holding a toy
 #what is on the table ? --> **blank** is on the table

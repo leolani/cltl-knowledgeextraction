@@ -1,0 +1,1385 @@
+
+
+RUNNING 7 FILES
+
+
+
+RUNNING 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know you"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "where is she"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my best friend is he"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have three white cats"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene doesn't like cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene hates cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene might come today"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't think selene likes cheese"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in paris"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from france"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know selene might come today"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to smell flowers"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have heard about you"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "sorry this is my chair"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Leolani you are my best friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love ice-cream"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in New York"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I come from the Netherlands"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my mother loves the beatles"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was born in the U.K. "
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana must read"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you should go"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that fruit grows on trees"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bram hates being late"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is my cup"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "these books are mine"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this yellow fruit is a banana"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you like me"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "your sister must come to Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister doesn't like baking cakes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I must go to Paris"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "they are not going to the university"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Suzana might have been at home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have never been to Japan"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I want to go home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana can read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I don't enjoy washing the dishes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "that is a lovely shirt"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are going to England"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I like to talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene likes baking cakes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene loves to bake cakes"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my sister's name is Emma"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you think my name is Anna"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you like talking to people"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds cannot talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you come from France"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john will come to Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I wouldn't like to eat pizza"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you have been in Paris"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is my favorite song"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "my father's favorite movie is the Titanic"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a teddy-bear"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "this is a pink chair"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have always liked reading comic books"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "animals must drink water"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "food should be healthy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana is reading a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john enjoys watching movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I live in the Netherlands"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you live in this office"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you are a robot"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a person"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "humans can eat food"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "swimming is a sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram loves sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I own three beautiful cats"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I love looking at the starry sky"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have to go home"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 88
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 88			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 88			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 88			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 88			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john hates fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john loves fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john doesn't hate fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think selene works in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you are not a human"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know that you aren't a human"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think Selene works in Amsterdam"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think john can't come to school"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think that birds like flying"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "birds can't talk"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John hates fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you know I like coffee"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Selene thinks my favorite color is blue"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I think you don't like pizza"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "lana didn't read a book"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "bram doesn't love sport"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John loves fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "John doesn't hate fashion"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "you must bring three books"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "john might like reading books"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "selene should come to the university"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Bob might be from england"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 28 UTTERANCES FROM FILE ./data/perspective.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 28
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 28			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 28			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 28			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 28			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has a sister called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a brother called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a sister"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a brother"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little sister"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a little brother"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brother is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My brothers name is Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sister is called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My sisters name is Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My father is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mother is called Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My mothers name is Carla"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my brother"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my sister"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my father"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is my mother"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my husband"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My husband is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla is married to Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla's husband is Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla has a husband called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are married"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carla and Carl are together"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is your friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is my friend"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have a friend Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friend is called Carl"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "My friends name is Carl"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 34 UTTERANCES FROM FILE ./data/kinship-friends.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 34
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 34			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 34			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 34			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 34			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I watch a video"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play soccer"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I play cards"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I listen to music"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been dancing"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw an exhibition"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I saw a show"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to a concert"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to a concert"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been to the movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was at the theater"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I went to the museum"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw an exhibition"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl saw a show"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to a concert"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the movies"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the theater"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl went to the museum"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I have been swimming"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl has been running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was running"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I ran a marathon"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 24 UTTERANCES FROM FILE ./data/activities.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 24
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 24			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 24			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 24			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 24			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am sick"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am healthy"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel sick"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I feel great"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels sick"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl feels great"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is sick"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is healthy"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 8 UTTERANCES FROM FILE ./data/feelings.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 8
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 8			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 8			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 8			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 8			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am at the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am in my home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am next to the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is in my home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is at the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is next to the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was in my home"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was at the library"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was next to the library"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 13 UTTERANCES FROM FILE ./data/locations.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 13
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 13			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 13			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 13			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 13			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%
+
+RUNNING 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a teacher"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl is a teacher"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I am a police-officer"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I was a policeman"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl was an actor"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I work as a teacher"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "Carl works as a teacher"
+PARSE ERROR
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 7 UTTERANCES FROM FILE ./data/professions.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 7
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 7			RECALL: 0.00%
+
+CORRECT SUBJECTS: 0			INCORRECT SUBJECTS: 7			RECALL: 0.00%
+
+CORRECT PREDICATES: 0			INCORRECT PREDICATES: 7			RECALL: 0.00%
+
+CORRECT OBJECTS: 0			INCORRECT OBJECTS: 7			RECALL: 0.00%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 0			RECALL: 0.00%

@@ -10,9 +10,13 @@ from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
 from emissor.representation.scenario import TextSignal, Mention
 from cltl_service.emissordata.client import EmissorDataClient
-
+from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct
+## The next code gives feedback on processing the conversation.
+from random import choice
+from cltl.combot.infra.time_util import timestamp_now
+from cltl.combot.event.emissor import TextSignalEvent
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +91,7 @@ class TripleExtractionService(GroupProcessor):
                     resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
-
+        feedback = bool(config.get_boolean("feedback")) if "feedback" in config else False
         agent_topic = config.get("topic_agent") if "topic_agent" in config else None
         dialogue_act_topic = config.get("topic_dialogue_act") if "topic_dialogue_act" in config else None
         topic_input = config.get("topic_input")
@@ -98,12 +102,12 @@ class TripleExtractionService(GroupProcessor):
 
         return cls(topic_input, agent_topic, dialogue_act_topic, topic_output,
                    topic_scenario, topic_intention, intentions,
-                   extractor, emissor_client, event_bus, resource_manager)
+                   extractor, emissor_client, event_bus, resource_manager, feedback=feedback)
 
     def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str,
                  scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
-                 emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager):
+                 emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager, feedback:bool):
         self._extractor = extractor
 
         self._event_bus = event_bus
@@ -126,6 +130,7 @@ class TripleExtractionService(GroupProcessor):
         self._agent = Agent()
 
         self._dialog_aware_processor = GroupByProcessor(self, max_size=4, buffer_size=16)
+        self._feedback = False
 
     @property
     def app(self):
@@ -181,18 +186,30 @@ class TripleExtractionService(GroupProcessor):
                        for mention in text_signal.mentions
                        for annotation in mention.annotations
                        if annotation.type == ConversationalAgent.__name__)
-
+        source = self._chat.agent if is_agent else self._chat.speaker
+        logger.debug("Processing utterance %s (%s) from SOURCE %s", text_signal.id, text_signal.text, source)
         self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_acts)
 
         if is_agent:
+            logger.debug("Skipping triple extraction for SOURCE %s", source)
             # Add robot utterances to the chat without triple extraction
             return
+        else:
+            logger.debug("Doing triple extraction for SOURCE %s", source)
 
-        self._extractor.analyze_in_context(self._chat)
-        response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
+       # self._chat.add_utterance(text_signal.text, self._chat.speaker, dialogue_acts)
 
+        llm_response = self._extractor.analyze_in_context(self._chat)
+
+        if llm_response:
+            response = [{'This is the LLM response': llm_response}]
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(response))
+            return
+       # response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
+        response = self._utterance_to_capsules(self._chat.last_utterance, text_signal)
+
+        #         # TODO: transform capsules into proper EMISSOR annotations
         #         if response:
-        #             # TODO: transform capsules into proper EMISSOR annotations
         #             self._event_bus.publish(self._output_topic, Event.for_payload(response))
         #             logger.info("Published %s triples for signal %s (%s): %s",
         #                          len(response), text_signal.id, text_signal.text, response)
@@ -200,75 +217,135 @@ class TripleExtractionService(GroupProcessor):
         #             logger.info("No triples for signal %s (%s)", text_signal.id, text_signal.text)
 
         scenario_id = self._emissor_client.get_current_scenario_id()
+        dialog_act = self._chat.last_utterance.dialogue_acts[0]
+        logger.debug("Dialog act of the last utterance %s (%s) is %s", text_signal.id, text_signal.text, dialog_act)
 
-        ## The next code gives feedback on processing the conversation.
-        from random import choice
-        from cltl.combot.infra.time_util import timestamp_now
-        from cltl.combot.event.emissor import TextSignalEvent
+        if not self._feedback:
+            ##### Clean version
+            if response:
+                self._event_bus.publish(self._output_topic, Event.for_payload(response))
+                logger.debug("Published %s triples for signal %s (%s): %s",
+                             len(response), text_signal.id, text_signal.text, response)
+            else:
+                logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+                utterance = None
+                signal = None
+                for word in greet_words:
+                    if word in text_signal.text.lower():
+                        utterance = f"{choice(GREETINGS)}"
+                        break
+                if not utterance:
+                    for word in bye_words:
+                        if word in text_signal.text.lower():
+                            utterance = f"{choice(BYES)}"
+                            break
+                if not utterance:
+                    utterance = f"{choice(I_DONT_SEE)}"
 
+                # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+                # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                response = [{'text_response': utterance}]
+                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
+                ### Need to post this as a cltl.topic.brain_response to trigger the replier.
+                #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
+        else:
+            ##### Feedback version
+            if dialog_act == UtteranceType.QUESTION or dialog_act == DialogueAct.QUESTION:
+                self.respond_to_question(response, text_signal, scenario_id)
+            else:
+                self.respond_to_statement(response, text_signal, scenario_id)
+
+    def respond_to_statement(self, response, text_signal: TextSignal, scenario_id):
         if response:
             self._event_bus.publish(self._output_topic, Event.for_payload(response))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
-            # triple = ""
-            # for ch in response:
-            #     triple += "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
-            #         'label'] + ') '
-            #
-            # if dialogue_acts and DialogueAct.QUESTION in dialogue_acts:
-            #     utterance = f"{choice(YOU_ASK)} {triple}"
-            # elif text_signal.text.endswith("?"):
-            #     utterance = f"{choice(YOU_ASK)} {triple}"
-            #
-            # elif text_signal.text.lower().startswith("who") or text_signal.text.lower().startswith(
-            #         "what") or text_signal.text.lower().startswith("where") or text_signal.text.lower().startswith(
-            #         "when") or text_signal.text.lower().startswith("why"):
-            #     utterance = f"{choice(YOU_ASK)} {triple}"
-            # else:
-            #     utterance = f"{choice(I_SEE)} {triple}"
-            # response = [{'text_response': utterance}]
-            # self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
-
+            utterance = f"You said: {text_signal.text}."
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            for ch in response:
+                if isinstance(ch, str):
+                    try:
+                        ch = json.loads(ch)
+                    except json.JSONDecodeError as e:
+                        print(f"Error decoding JSON: {e}")
+                if self.check_triple(ch):
+                    triple = "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
+                        'label'] + ') '
+                    I_SEE = ["And this is what I got from what you said: ", "I got it. So you are claiming: ",
+                             "Ok, so understand this as: ", "So interesting what you said. It boils down to: "]
+                    utterance = f"{choice(I_SEE)} {triple}"
+                    signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                else:
+                    utterance = ""
+                    if "utterance" in ch:
+                        utterance = ch["utterance"]
+                    logger.debug("Malformed triples for signal %s", ch)
+                    I_SEE = ["I could not really understand what you said: ", "I did not got it. So you are claiming: ",
+                             "Ok, so must be interesting but I am lost here: ", "Could be interesting what you said. But I just got: "]
+                    utterance = f"{choice(I_SEE)} {utterance}, This is not a complete triple for my Knowledge Graph."
+                    signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
-            utterance = None
-            signal = None
-            for word in greet_words:
-                if word in text_signal.text.lower():
-                    utterance = f"{choice(GREETINGS)}"
-                    break
-            if not utterance:
-                for word in bye_words:
-                    if word in text_signal.text.lower():
-                        utterance = f"{choice(BYES)}"
-                        break
-            if not utterance:
-                utterance = f"{choice(I_DONT_SEE)}"
+            I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
+                     "Ok, interesting but too much for me. What else?",
+                     "What are you trying to say? I am just a humble AI, please try again.",
+                     "Sorry, I did not get that."]
+            utterance = f"I have no response. {choice(I_SEE)}"
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
 
-            # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
-            response = [{'text_response': utterance}]
-            self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
-            ### Need to post this as a cltl.topic.brain_response to trigger the replier.
-            #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
+    def respond_to_question(self, response, text_signal: TextSignal, scenario_id):
+        if response:
+            self._event_bus.publish(self._output_topic, Event.for_payload(response))
+            logger.debug("Published %s triples for signal %s (%s): %s",
+                         len(response), text_signal.id, text_signal.text, response)
+            utterance = f"You asked me: {text_signal.text}."
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            for ch in response:
+                if self.check_triple(ch):
+                    triple = "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
+                        'label'] + ') '
+                    I_SEE = ["And this is the query for my memory that I got from what you asked: ", "I got it. So you are asking: ",
+                             "Ok, so: ", "So interesting what you asked. Your question boils down to: "]
+                    utterance = f"{choice(I_SEE)} {triple}. I will check my memory for this triple. One moment please..."
+                    signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                else:
+                    logger.debug("Malformed triples for signal %s", text_signal.text)
+                    I_SEE = ["And this is what I got from what you asked: ", "I got it. So you are asking: ",
+                             "Ok, so: ", "So interesting what you asked. It boils down to: "]
+                    utterance = f"{choice(I_SEE)} {ch}, but it is not a complete triple for my Knowledge Graph."
+                    signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+        else:
+            logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
+            I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
+                     "Ok, interesting but too much for me. What else?",
+                     "What are you trying to say? I am just a humble AI, please try again.",
+                     "Sorry, I did not get that."]
+            utterance = f"I did not manage to get a query from your question. {choice(I_SEE)}"
+            signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
 
-        # if response:
-        #     self._event_bus.publish(self._output_topic, Event.for_payload(response))
-        #     logger.debug("Published %s triples for signal %s (%s): %s",
-        #                  len(response), text_signal.id, text_signal.text, response)
-        #     triple = ""
-        #     for ch in response:
-        #         triple+= "("+ch['subject']['label']+", "+ch['predicate']['label']+", "+ch['object']['label']+') '
-        #     I_SEE = ["I see. This is what I got from what you said: ", "I got it. So you are claiming: ", "Ok, so: ", "So interesting what you said. It boils down to: "]
-        #     utterance =  f"{choice(I_SEE)} {triple}"
-        #     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-        #     self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
-        # else:
-        #     logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
-        #     I_SEE = ["I see. Cannot make much of what you said.", "I hear you but it does not make sense to me.", "Ok, interesting but too much for me. What else?", "What are you trying to say? I am just a humble AI, please try again.", "Sorry, I did not get that."]
-        #     utterance =  f"{choice(I_SEE)}"
-        #     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-        #     self._event_bus.publish("cltl.topic.text_out_chatonly", Event.for_payload(TextSignalEvent.for_agent(signal)))
+
+    def check_triple(self, triple):
+        if 'subject' not in triple:
+            logger.debug("No subject in triple %s", triple)
+            return False
+        if 'predicate' not in triple:
+            logger.debug("No predicate in triple %s", triple)
+            return False
+        if 'object' not in triple:
+            logger.debug("No object in triple %s", triple)
+            return False
+        # if 'perspective' not in triple:
+        #     logger.debug("No perspective in triple %s", triple)
+        #     return False
+        return True
 
     def get_key(self, event: Event):
         key = None
@@ -291,6 +368,10 @@ class TripleExtractionService(GroupProcessor):
         self._process_last_utterance(group.text_signal, group.dialogue_acts)
 
     def _get_name(self, agent_annotation):
+        # "type": "ConversationalAgent",
+        # "value": "SPEAKER",
+        # "@type": "Annotation",
+        # "source": "LEOLANI",
         if isinstance(agent_annotation.value, str):
             return agent_annotation.value
         if isinstance(agent_annotation.value, ConversationalAgent):
@@ -324,29 +405,31 @@ class TripleExtractionService(GroupProcessor):
 
     def _utterance_to_capsules(self, utterance, signal):
         capsules = []
-
+        utterance_type = UtteranceType.STATEMENT
+        if utterance._dialogue_acts and len(utterance._dialogue_acts[0])>0:
+            utterance_type = utterance._dialogue_acts[0]
+            logger.debug("Obtained UtteranceType from utterance: %s", utterance_type)
         for triple in utterance.triples:
             logger.debug("Triple input: %s", triple)
             self._add_uri_to_triple(triple)
             logger.debug("Triple input after adding URI: %s", triple)
             scenario_id = signal.time.container_id
-
             capsule = {"chat": scenario_id,
                        "turn": signal.id,
                        "author": self._get_author(),
                        "utterance": utterance.transcript,
-                       "utterance_type": triple['utterance_type'],
+                       "utterance_type": utterance_type,
                        "position": "0-" + str(len(utterance.transcript)),
                        ###
                        "subject": triple['subject'],
                        "predicate": triple['predicate'],
                        "object": triple['object'],
-                       "perspective": triple["perspective"],
                        ###
                        "context_id": scenario_id,
                        "timestamp": timestamp_now()
                        }
-
+            if 'perspective' in triple:
+                capsule.update({'perspective': triple['perspective']})
             capsules.append(capsule)
             logger.debug("Capsule input after adding URI: %s", capsule)
         return capsules

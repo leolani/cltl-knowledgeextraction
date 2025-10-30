@@ -1,0 +1,909 @@
+
+
+RUNNING 9 FILES
+
+
+
+RUNNING 101 UTTERANCES FROM FILE ./data/conversation_test_examples/test_answer_ellipsis.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "spending a lot of time running and getting resources for my new job
+"
+Triple:            	{'subject': {'label': 'school', 'type': []}, 'predicate': {'label': 'keeps-speaker1', 'type': []}, 'object': {'label': 'pretty-busy', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'spending', 'object': 'a lot of time'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "spiders . . . i absolutely hate and fear them
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'fear', 'type': []}, 'object': {'label': 'spiders', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's biggest fear", 'predicate': 'is', 'object': 'spiders'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "little bit of everywhere being a army brat
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'hurt', 'type': []}, 'object': {'label': 'a-little-bit-to-be-honest', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'are', 'object': 'kinda hurting'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "pink, but that may be because i'm a female .
+"
+Triple:            	{'subject': {'label': 'who', 'type': []}, 'predicate': {'label': 'goes-to-church', 'type': []}, 'object': {'label': 'pink', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite color", 'predicate': 'is', 'object': 'pink'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "from europe , far away i was
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': '14', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'move to america from', 'object': 'europe'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "mickey mouse for sure , he's so boss
+"
+Triple:            	{'subject': {'label': "speaker1-'-s", 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'brown', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite disney character", 'predicate': 'is', 'object': 'mickey mouse'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "carnivores and my favorite color
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'writing-about', 'type': []}, 'object': {'label': 'carnivores', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'writing about', 'object': 'carnivores'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "playing ultimate frisbee with my dude .
+"
+Triple:            	{'subject': {'label': 'he', 'type': []}, 'predicate': {'label': 'play', 'type': []}, 'object': {'label': "ultimate-frisbee-with-speaker1-'-s-dude", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to do for', 'object': "ultimate frisbee with speaker1 's dude"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "a bacon enthusiast and appreciation event my car is candy apple red
+"
+Triple:            	{'subject': {'label': "speaker1-'-s-car", 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'candy-apple-red', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'it', 'predicate': 'is', 'object': 'a bacon enthusiast and appreciation event'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "economics . that would be my first choice .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'need', 'type': []}, 'object': {'label': 'a-job', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'teach economics'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i have 2 of my own , as well as 30 in my class lol
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': "2-of-speaker1-'-s-own", 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': "2 of speaker1 's own"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i love music . especially prince , i am also bi lingual i speak english and spanish
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'music', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'love', 'object': 'music'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "school . i really really do not like it,
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'eos', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': ' like', 'object': 'school'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "most any type of outdoor activity , attending sporting events , reading, and cooking .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': "taking-taking-speaker1-'-s-dogs-hiking", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'outdoor activity'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "trying to turn my life around . i am serving time for shoplifting .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'serving-time-for', 'type': []}, 'object': {'label': 'shoplifting', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'trying to', 'object': "turn speaker1 's life around"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "rock . i usually do gigs on saturdays but a job is a job .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'do', 'type': []}, 'object': {'label': 'rock', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'rock'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "my daily six miles a day
+"
+Triple:            	{'subject': {'label': "speaker2-'-s", 'type': []}, 'predicate': {'label': 'going-plans-for-s', 'type': []}, 'object': {'label': 'the-weekend', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's plans", 'predicate': 'are', 'object': "speaker1 's daily six miles"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "fun toys for my nieces .
+"
+Triple:            	{'subject': {'label': 'shopping', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'okay', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite thing", 'predicate': 'is', 'object': "fun toys for speaker1 's nieces"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "geology but i hate it
+"
+Triple:            	{'subject': {'label': "speaker2-'-s-major", 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'geology', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's major", 'predicate': 'is', 'object': 'geology'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "ride horses and be on a farm .
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'work', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'ride', 'object': 'horses'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "special effects competition . i've to make cookies for the bake sale after .
+"
+Triple:            	{'subject': {'label': 'that', 'type': []}, 'predicate': {'label': 'show-about', 'type': []}, 'object': {'label': 'special-effects-competition', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'that show', 'predicate': 'is about', 'object': 'special effects competition'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i am a music producer for rap artists
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'a-music-producer-for-rap-artists', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'am', 'object': 'a music producer for rap artists'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like country and pop how about you
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'country-and-pop', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'country'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "well , chicago but i'm in high school near the ghetto at the moment
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'locate', 'type': []}, 'object': {'label': 'high-school-near-the-ghetto', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are from', 'object': 'chicago'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "work in the health field
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'work', 'type': []}, 'object': {'label': 'the-health-field', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'want to', 'object': 'do the health field'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i travel . to foreign countries mostly .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'be-a-doctor', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'travel'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "just dolls . i do not know what a call of duty is .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'know', 'type': []}, 'object': {'label': 'what-a-call-of-duty-is', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'play', 'object': 'dolls'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "lots of stuff i like to swim so i also like to play swimming games .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'play-swimming-games', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'play', 'object': 'lots of stuff'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "work with a bitcoin company
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'work', 'type': []}, 'object': {'label': 'a', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'work with', 'object': 'a bitcoin company'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "jazz is awesome , i am into rock . nickelback is my jam .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'rock', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'like', 'object': 'jazz'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "hunt , i just really love it .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'do', 'type': []}, 'object': {'label': 'great', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do for fun', 'object': 'hunt'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "the colts , from my home state
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'country-music', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite team", 'predicate': 'is', 'object': 'the colts'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "same , with feta cheese and onions
+"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like to dance on the weekends
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'dance-on-the-weekends', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'dance'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i liked going to church and riding my tractor , the simple life !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'going-to-church', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to do', 'object': 'the simple life'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "north carolina . i never been to the west coast .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'live-on', 'type': []}, 'object': {'label': 'the-west-coast', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'live on', 'object': 'north carolina'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "fifty shades darker . very good movie
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'see', 'type': []}, 'object': {'label': 'a-movie', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'watching', 'object': 'fifty shades darker'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "the fish i catch obviously
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'should-cook-for', 'type': []}, 'object': {'label': "speaker1-on-speaker1-'-s-boat-fish", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'eat the fish speaker1 catch'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "not really . too busy with my business .
+"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "computer engineering and math. have an internship starting later this year i'm very excited for .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'sean', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'studying', 'object': 'computer engineering'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "thanksgiving i get to see family from far away
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'see-family', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite holiday", 'predicate': 'is', 'object': 'thanksgiving'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "in nyc i work from my condo
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'work-from', 'type': []}, 'object': {'label': "speaker1-'-s-condo", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'live', 'object': 'in nyc'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "pastas . do you like to cook
+"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i need to catch up on sleep
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'everything', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'catch up on sleep'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "a piranha . i was just feeding him pieces of my ex boyfriend .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'got-finished', 'type': []}, 'object': {'label': "feeding-speaker1-'-s-fish", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'a piranha'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "anything at all . i am not picky
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'picky', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite food", 'predicate': 'is', 'object': 'anything'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "definitely , a cat named mittens !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': "speaker1-'-s-dog-ralph", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'a cat named mittens'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "horror movies !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'the-movies', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite movie", 'predicate': 'is', 'object': 'horror movies'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "I mean the food for something spicy .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'somewhere', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'something spicy'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "yes , the alphabet . that is really sweet
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'use', 'type': []}, 'object': {'label': 'a-bike', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': ' look at the alphabet'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like to listen to rap while cooking dinner .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'listen-listen-to-rap', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'listen to rap'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "country music , its mostly using the computer
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'use', 'type': []}, 'object': {'label': 'a-cane', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'work at', 'object': 'country music'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like pink an awful lot
+"
+Triple:            	{'subject': {'label': "speaker1-'-s", 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'blonde', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite color", 'predicate': 'is', 'object': 'pink'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "currently enlisted in the canadian army .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'work', 'type': []}, 'object': {'label': 'the-supermarket', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'enlisted in', 'object': ' the canadian army'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "mostly fiction and biographies . i like those two genres the best .
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'read', 'type': []}, 'object': {'label': 'fiction', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'read', 'object': 'fiction'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "high school japanese and classes for drawing . been doing it 10 years .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'teach', 'type': []}, 'object': {'label': 'high-school-japanese', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'teach', 'object': 'high school japanese'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i'm from daly city , california
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'switched-from-from', 'type': []}, 'object': {'label': 'being-vegetarian', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are from', 'object': 'daly city california'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "It's just around the corner .
+"
+Triple:            	{'subject': {'label': 'it', 'type': []}, 'predicate': {'label': "'", 'type': ['None']}, 'object': {'label': 's-around-the-corner', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'the fitting room', 'predicate': 'is around', 'object': 'the corner'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "mechanical engineer for chevy and nissan
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'work-out-with', 'type': []}, 'object': {'label': "speaker1-'-s-lab-named-trooper", 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'mechanical engineer'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "History .
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'should-be-enough-for', 'type': []}, 'object': {'label': 'any-student-needs-speaker2-might-have', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are in', 'object': 'history'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "when i'm not reading , i love going to the river
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'read', 'type': []}, 'object': {'label': 'going-to', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.QUESTION: '2'>}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'enjoy', 'object': 'going out fishing'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like to play music . it is a passion of mine .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'it', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': 'play music'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Well , let's see . I'd like to go to the Summer Palace .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'go-to-the-summer-palace', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to', 'object': ' see in the summer palace'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "We are on Nanjing Road , next to the theatre .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'do', 'type': []}, 'object': {'label': 'nanjing-road', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's store", 'predicate': 'is located', 'object': 'nanjing road'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "that is cool i've never played that
+"
+Triple:            	{'subject': {'label': 'dragons', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'real', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'playing d&d', 'predicate': 'are', 'object': "speaker2 's hobbies"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i am in school in florida getting my degree .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'get', 'type': []}, 'object': {'label': 'school-in-florida', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are in', 'object': 'school in florida'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "No , thanks . I'm going home . My wife's expecting me .
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'the-cinema', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'going to', 'object': 'the cinema'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i collect hats ! i have a collection of 1000 hats !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'get', 'type': []}, 'object': {'label': 'enough', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do for fun', 'object': 'collect hats'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "the alphabet . there is a song they taught me .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'learn', 'type': []}, 'object': {'label': 'a-lot', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'learn about', 'object': 'the alphabet'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Your starting salary is 2500 yuan a month , and after you become a permanent employee , it will be higher .
+"
+Triple:            	{'subject': {'label': "speaker2-'-s-starting-salary", 'type': []}, 'predicate': {'label': 'become', 'type': []}, 'object': {'label': '2500-yuan-a-month', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'the starting salary', 'predicate': 'is', 'object': '2500 yuan a month'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "going outdoors and hiking
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': '2-dogs', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'going', 'object': 'outdoors'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "pizza really any normal food
+"
+Triple:            	{'subject': {'label': "speaker2-'-s-favorite-food", 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'pizza', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite food", 'predicate': 'is', 'object': 'pizza'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "paint and take pictures
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'hur', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like to do', 'object': 'paint'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "English , of course .
+"
+Triple:            	{'subject': {'label': 'she', 'type': []}, 'predicate': {'label': 'teach', 'type': []}, 'object': {'label': 'english', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'she', 'predicate': 'teach', 'object': 'english'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "14 Yuan .
+"
+Triple:            	{'subject': {'label': 'the-fare', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': '14-yuan', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'the fare', 'predicate': 'is', 'object': '14 yuan'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "just started working from home , the internet is a heck of a thing
+"
+Triple:            	{'subject': {'label': 'the-internet', 'type': []}, 'predicate': {'label': 'start', 'type': []}, 'object': {'label': 'working-from-home', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'working from home'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "The South of China .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be-from', 'type': []}, 'object': {'label': 'guangzhou', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'guangzhou', 'predicate': 'is', 'object': 'the south of china'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Just my cameras , my clothes , and some books .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'spend-a-couple-days-in-new-york', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': "speaker1 's cameras"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "I only had time for Edinburgh .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'edinburgh', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'visit', 'object': 'edinburgh'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "law school , but i also train horses
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'could-live-with', 'type': []}, 'object': {'label': 'horses', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do', 'object': 'law school'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "miami ! i also like to eat clean
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'a-new-job', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are from', 'object': 'miami'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "mainly just heavy metal and old school rock .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'play', 'type': []}, 'object': {'label': 'a-band', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'play', 'object': 'heavy metal'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Just a few Christmas gifts , to this season , after all !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'step-out-of', 'type': []}, 'object': {'label': 'the-vehicle', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have in the back', 'object': 'a few christmas gifts'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "it field for 5 years now
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'field-for', 'type': []}, 'object': {'label': 'a-living-deon', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'do for', 'object': 'it field'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "just collecting baking stuffs
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'a-comic-book-collection-baking-stuffs', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'collecting', 'object': 'baking stuffs'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "binge watching supernatural , hard to do anything with a broken leg .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'be', 'type': []}, 'object': {'label': 'good', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are up to', 'object': 'binge watching supernatural'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "88267894 extension to 208
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'the-fair', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'the telephone number', 'predicate': 'is', 'object': '88267894 extension to 208'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Laptop .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'laptop', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'say', 'object': 'laptop'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "the first year , i just moved here with my best friend for school too .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'finished-in', 'type': []}, 'object': {'label': '1995', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'are in', 'object': 'the first year'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Kebabs and roast squid .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'try-try-some-snacks', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'want to', 'object': 'have kebabs'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "currently docked at the isle of man .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'docked-at', 'type': []}, 'object': {'label': 'the-isle-of-man', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'docked at', 'object': 'the isle of man'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "the 100 meter dash ! i got 7 seconds !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': '7-seconds', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'win for', 'object': 'the 100 meter dash'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "indian mountains and valleys . also their culture . i go often there .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'go', 'type': []}, 'object': {'label': 'there', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'exploring', 'object': 'indian mountains'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Black . Classic .
+"
+PARSE ERROR
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "baked ziti ! its easy and flavorful .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'like', 'type': []}, 'object': {'label': 'cook-good-mealsade', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker1 's favorite homemade meal", 'predicate': 'is', 'object': 'baked ziti'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "3000 RIB per month .
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'expect', 'type': []}, 'object': {'label': '3000-rib-per-month', 'type': ['None']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'expect', 'object': '3000 rib per month'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "english . at school . me from tokyo now los angeles . big actor someday
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'doing-from', 'type': []}, 'object': {'label': 'tokyo-angeles', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'doing', 'object': 'english'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "Melbourne Zoo .
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'an-important-attraction', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'that', 'predicate': 'is', 'object': 'melbourne zoo'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i like to be outdoors and wish i were a better artist
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'want', 'type': []}, 'object': {'label': 'outdoors', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': "speaker2 's hobbies", 'predicate': 'are', 'object': "tending speaker2 's bars"}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "i was playing with little brother gods of war , we live with our mother
+"
+Triple:            	{'subject': {'label': 'speaker2', 'type': []}, 'predicate': {'label': 'play', 'type': []}, 'object': {'label': 'little-brother-gods-of-war', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker2', 'predicate': 'practicing', 'object': 'violin'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+Utterance: 	speaker1   002: "one dog sugar . i named her after my famous sugar cookies !
+"
+Triple:            	{'subject': {'label': 'speaker1', 'type': []}, 'predicate': {'label': 'have', 'type': []}, 'object': {'label': 'a-dog-biscuit', 'type': []}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'have', 'object': 'one dog sugar'}
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}

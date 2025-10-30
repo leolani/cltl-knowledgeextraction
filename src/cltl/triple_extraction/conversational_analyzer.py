@@ -41,8 +41,8 @@ class ConversationalAnalyzer(Analyzer):
         self._batch_size = batch_size
         self._sep = self._extractor._sep
         self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
-
         self._chat = None
+        #self._utterance = None
 
     def analyze(self, utterance):
         """
@@ -93,23 +93,22 @@ class ConversationalAnalyzer(Analyzer):
 
         """
         if self.is_question(chat.last_utterance.transcript):
-            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
+            chat.last_utterance._dialogue_acts = [UtteranceType.QUESTION]
             self.analyze_question_in_context(chat)
         else:
-            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
+            chat.last_utterance._dialogue_acts = [UtteranceType.STATEMENT]
             self.analyze_statement_in_context(chat)
 
     def analyze_statement_in_context(self, chat):
         self._chat = chat
-        if (self._dialogue_acts and self.utterance.dialogue_acts
-                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
-            logger.debug("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+        if (self._dialogue_acts and self.utterance._dialogue_acts
+                and not self._dialogue_acts.intersection(self.utterance._dialogue_acts)):
+            logger.debug("Ignore utterance with dialogue acts %s", self.utterance._dialogue_acts)
             return
 
         triples = []
         if chat.last_utterance.utterance_speaker == chat.speaker:
             self._chat = chat
-
             self._utterance = chat.last_utterance
             speakers, conversation, speaker1, speaker2 = self._chat_to_conversation(chat)
 
@@ -149,9 +148,9 @@ class ConversationalAnalyzer(Analyzer):
         """
         self._chat = chat
 
-        if (self._dialogue_acts and self.utterance.dialogue_acts
-                and not self._dialogue_acts.intersection(self.utterance.dialogue_acts)):
-            logger.info("Ignore utterance with dialogue acts %s", self.utterance.dialogue_acts)
+        if (self._dialogue_acts and self.utterance._dialogue_acts
+                and not self._dialogue_acts.intersection(self.utterance._dialogue_acts)):
+            logger.info("Ignore utterance with dialogue acts %s", self.utterance._dialogue_acts)
             return
         triples = []
         if chat.last_utterance.utterance_speaker == chat.speaker:
@@ -278,7 +277,6 @@ class ConversationalAnalyzer(Analyzer):
         #     speaker2 = chat.agent if speaker1 == chat.speaker else chat.speaker
 
         return speakers, conversation, chat.speaker, chat.agent
-
 
     @property
     def utterance(self) -> Utterance:

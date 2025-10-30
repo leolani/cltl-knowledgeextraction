@@ -1,0 +1,122 @@
+
+
+RUNNING 1 FILES
+
+
+
+RUNNING 3 UTTERANCES FROM FILE ./data/conversation_test_examples/test_test.txt
+
+
+---------------------------------------------------------------
+
+
+I love music . especially prince , I am also bi lingual I speak english and spanish
+
+
+Mismatch in triple subject:  != speaker1
+Match triple predicate: {'label': 'love', 'type': [], 'uri': None} == love
+Match triple object: {'label': 'music', 'type': [], 'uri': None} == music
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: like != love
+Mismatch in triple object: prince != music
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: be-lingual != love
+Mismatch in triple object: speak-english-and-spanish != music
+
+Utterance: 	speaker1   002: "I love music . especially prince , I am also bi lingual I speak english and spanish
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'love', 'object': 'music'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'love', 'object': 'music'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+school . I really really do not like it,
+
+
+Match triple subject: {'label': 'speaker1', 'type': [], 'uri': None} == speaker1
+Mismatch in triple predicate: not-like !=  like
+Match triple object: {'label': 'school', 'type': [], 'uri': None} == school
+
+Utterance: 	speaker1   002: "school . I really really do not like it,
+"
+Predicted Triple:  	{'subject': 'speaker1', 'predicate': 'not-like', 'object': 'school'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': ' like', 'object': 'school'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+---------------------------------------------------------------
+
+
+most any type of outdoor activity , attending sporting events , reading, and cooking .
+
+
+Mismatch in triple subject:  != speaker1
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: outdoor-activity != outdoor activity
+Mismatch in triple subject:  != speaker1
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: sporting-event != outdoor activity
+Mismatch in triple subject:  != speaker1
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: reading != outdoor activity
+Mismatch in triple subject:  != speaker1
+Match triple predicate: {'label': 'like', 'type': [], 'uri': None} == like
+Mismatch in triple object: cooking != outdoor activity
+
+Utterance: 	speaker1   002: "most any type of outdoor activity , attending sporting events , reading, and cooking .
+"
+Predicted Triple:  	{'subject': '', 'predicate': 'like', 'object': 'outdoor-activity'}
+Expected triple:   	{'subject': 'speaker1', 'predicate': 'like', 'object': 'outdoor activity'}
+Mismatch in perspective certainty: 0.9 != 1.0
+Expected perspective:   	{'certainty': 1.0, 'polarity': 1.0, 'sentiment': 1.0}
+
+
+
+---------------------------------------------------------------
+SUMMARY
+
+
+RAN 3 UTTERANCES FROM FILE ./data/conversation_test_examples/test_test.txt
+
+
+UTTERANCE WITHOUT TRIPLES: 0
+
+CORRECT TRIPLES: 0			INCORRECT TRIPLES: 3			RECALL: 0.00%
+
+CORRECT SUBJECTS: 1			INCORRECT SUBJECTS: 2			RECALL: 33.33%
+
+CORRECT PREDICATES: 2			INCORRECT PREDICATES: 1			RECALL: 66.67%
+
+CORRECT OBJECTS: 2			INCORRECT OBJECTS: 1			RECALL: 66.67%
+
+CORRECT PERSPECTIVES: 0			INCORRECT PERSPECTIVES: 9			RECALL: 0.00%
+
+ISSUES (3 UTTERANCES): {
+    "I love music . especially prince , I am also bi lingual I speak english and spanish\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "I love music . especially prince , I am also bi lingual I speak english and spanish\n: speaker1 love music"
+    }, 
+    "most any type of outdoor activity , attending sporting events , reading, and cooking .\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "most any type of outdoor activity , attending sporting events , reading, and cooking .\n: speaker1 like outdoor activity"
+    }, 
+    "school . I really really do not like it,\n": {
+        "perspective": {
+            "certainty": 1.0, 
+            "polarity": 1.0, 
+            "sentiment": 1.0
+        }, 
+        "triple": "school . I really really do not like it,\n: speaker1  like school"
+    }
+}

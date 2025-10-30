@@ -4,31 +4,33 @@ from typing import List
 import json
 from cltl.commons.discrete import UtteranceType, Polarity, Certainty
 from cltl.triple_extraction.conversational_triples.utils import pronoun_to_speaker_name
+import cltl.triple_extraction.utils.standard_question_to_triple as standard_question
 from langchain_ollama import ChatOllama
-#from openai import OpenAI
-
-from cltl.triple_extraction.prompts.prompts import STATEMENT, QUESTION, CONVERSATION_SHORT, CONVERSATION_LONG, tools
+from ollama import Client
+from openai import OpenAI
+from cltl.triple_extraction.prompts.prompts import MODEL_RESPONSE, STATEMENT, QUESTION, CONVERSATION_SHORT, CONVERSATION_LONG, tools
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct, Utterance
+
 # to use ollama pull the model from the terminal in the venv: ollama pull <model-name>
 #LLAMA_MODEL = "llama3.2:1b"
 LLAMA_MODEL = "llama3.2"
 QWEN_MODEL = "qwen2.5"
 logger = logging.getLogger(__name__)
-#from ollama.keep_alive import KeepAlive
 
 qwords_en = ["what", "when", "where", "who", "whom", "why", "how"]
 whowords = ["who", "wie"]
-qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was", "tell", "give", "show", "provide", "list"]
+qverbs_en = ["do", "does", "did", "have", "has", "is", "are", "were", "was", "tell", "can", "give", "show", "provide", "list"]
 qwords_nl = ["wat", "wie","wanneer", "waar", "waarom", "waardoor", "waarnaar", "waarin", "waarover", "hoe"]
-qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "zal", "gaan", "gingen"]
+qverbs_nl = ["kan", "kun", "wil", "ben", "is", "zijn", "waren", "moet", "ga", "vertel", "weet", "ken", "zal", "gaan", "gingen"]
 prepositions_en = ["in", "on", "into", "from", "at", "under", "for", "of", "to", "about"]
 prepositions_nl = ["in", "op", "naar", "van", "bij", "onder", "voor", "naast", "te", "over"]
 
 class LLMAnalyzer(Analyzer):
-    def __init__(self, model_name: str, temperature: float = 0.1,
+    def __init__(self, model_name: str, model_server="cloud", model_url="https://ollama.com", model_port="9001", model_key = "",
+                 temperature: float = 0.1, dialogue_acts: List[DialogueAct] = None,
                  s_instruct= STATEMENT.INSTRUCT, q_instruct = QUESTION.INSTRUCT, c_instruct = CONVERSATION_LONG.INSTRUCT,
-                 keep_alive=10, llama_server= "http://localhost", port= "9001", dialogue_acts: List[DialogueAct] = None, lang="en"):
+                 keep_alive=10,  lang="en", context_length = 3):
         """
         Parameters
         ----------
@@ -38,46 +40,33 @@ class LLMAnalyzer(Analyzer):
             Dialogue acts for which triple extraction should be performed
         """
         super().__init__()
-
+        self._language = lang
         self._q_instruct = q_instruct
         self._s_instruct = s_instruct
         self._c_instruct = c_instruct
         self._model = model_name
-        url = llama_server+ ":"+port+"/v1"
-        self._llama_client = OpenAI(base_url=url, api_key="not-needed")
         self._temperature = temperature
         self._keep_alive = keep_alive
-        self._llm = ChatOllama(
-            model=self._model,
-            temperature=self._temperature,
-            keep_alive = self._keep_alive,
-            cache = False,
-            # repeat_last_n = 0,
-            # top_k = 5,
-            # top_p = 0.5,
-            format = 'json',
-            tools = tools
-            # other params ...
-        )
+        self._context_length = context_length
+        self._SERVER = model_server
+        if self._SERVER=="server":
+            self._client = OpenAI(base_url=model_url, api_key="not-needed")
+        elif self._SERVER=="local":
+            self._client = ChatOllama(
+                model=self._model,
+                temperature=self._temperature,
+                base_url=model_url
+                # other params ...
+            )
+        elif self._SERVER=="cloud":
+            self._client = Client(
+                host=model_url,
+                headers={'Authorization': 'Bearer ' + model_key})
+        else:
+            raise ValueError("Unknown server type")
+        logger.debug("Initializing LLM triple extractor: %s, %s, %s", model_server, model_url, model_name)
         self._chat = None
-
-    # def call_llama_server (self, prompt):
-    #     completion = self._llama_client.chat.completions.create(
-    #         # completion = client.chatCompletions.create(
-    #         model="local-model",  # this field is currently unused
-    #         messages=prompt,
-    #         temperature=self._temperature,
-    #
-    #         keep_alive= self._keep_alive,
-    #         #max_tokens=100,
-    #         stream=True,
-    #     )
-    #
-    #     content = ""
-    #     for chunk in completion:
-    #         if chunk.choices[0].delta.content is not None:
-    #             content += chunk.choices[0].delta.content
-    #     return content
+        self._dialogue_acts = set(dialogue_acts) if dialogue_acts else None
 
     def is_question(self, transcript):
         words = transcript.split()
@@ -86,7 +75,7 @@ class LLMAnalyzer(Analyzer):
         if words[-1] == "?":
             return True
         return False
-
+        
     def analyze(self, utterance):
         """
         Analyzer factory function
@@ -101,45 +90,19 @@ class LLMAnalyzer(Analyzer):
         """
         raise NotImplementedError("Analyzing a single utterance is deprecated, use analayze_in_context instead!")
 
-    def analyze_last_utterance(self, chat):
-        """
-        Analyzer factory function
-
-        Find appropriate Analyzer for this utterance
-
-        Parameters
-        ----------
-        utterance: Utterance
-            utterance to be analyzed
-
-        """
-
-        triples = []
-        input = {"role":"user", "content":chat.last_utterance.transcript}
-        instruct = self._s_instruct
-        instruct = self._s_instruct
-        if self.is_question(chat.last_utterance.transcript):
-            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
-            instruct = self._q_instruct
+    def call_llm(self, prompt):
+        response = ''
+        if self._SERVER=="cloud":
+            for part in self._client.chat(model=self._model, messages=prompt, stream=True):
+                response += part['message']['content']
+        elif self._SERVER=="local":
+            response = self._client.invoke(prompt)
+        elif self._SERVER=="server":
+            response = self._client.chat.completions.create(model=self._model, messages=prompt)
         else:
-            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
-        prompt = [instruct, input]
-        attempt = 0
-        max=3
-        while not triples and attempt<max:
-            attempt += 1
-            response = self._llm.invoke(prompt)
-            try:
-                content = json.loads(response.content)
-                #print('content', content)
-                if "triples" in content:
-                    triples.extend(content["triples"])
-            except:
-                logger.debug("ERROR parsing JSON",response.content)
-        for triple_value in triples:
-            triple = self._convert_triple(triple_value, chat.last_utterance.utterance_speaker, chat.speaker, chat.agent)
-            if triple:
-                chat.last_utterance.triples.append(triple)
+            raise ValueError("Unknown server type")
+        logger.debug('LLM response: %s', response)
+        return response
 
     def analyze_in_context(self, chat):
         """
@@ -153,79 +116,133 @@ class LLMAnalyzer(Analyzer):
             utterance to be analyzed
 
         """
-
-        triples = []
-        #instruct = self._c_instruct
-        instruct = self._s_instruct
+        logger.debug('Analyze in context the last utterance: %s', chat.last_utterance.transcript)
         if self.is_question(chat.last_utterance.transcript):
-            chat.last_utterance.dialogue_acts = [UtteranceType.QUESTION]
-            instruct = self._q_instruct
+            chat.last_utterance._dialogue_acts = [UtteranceType.QUESTION]
+            logger.debug("Asking a question: %s, %s", chat.last_utterance.transcript, chat.last_utterance._dialogue_acts)
+            self.analyze_question_in_context(chat)
         else:
-            chat.last_utterance.dialogue_acts = [UtteranceType.STATEMENT]
+            chat.last_utterance._dialogue_acts = [UtteranceType.STATEMENT]
+            logger.debug("Making a statement: %s, %s", chat.last_utterance.transcript, chat.last_utterance._dialogue_acts)
+            self.analyze_statement_in_context(chat)
+        content = None
+        if not chat.last_utterance.triples:
+            content = self.get_model_response(chat)
+        return content
+
+    def get_model_response(self, chat):
+        instruct = MODEL_RESPONSE.INSTRUCT
         prompt = [instruct]
-
-        conversation = self._chat_to_conversation(chat)
+        conversation = self._chat_to_conversation(chat=chat, context_length=self._context_length)
         prompt.extend(conversation)
-        attempt = 0
-        max=3
-        while not triples and attempt<max:
-            attempt += 1
-            response = self._llm.invoke(prompt)
-            try:
-                content = json.loads(response.content)
-                print('content', content)
-                if "triples" in content:
-                    triples.extend(content["triples"])
-            except:
-                logger.debug("ERROR parsing JSON",response.content)
-        for triple_value in triples:
-            triple = self._convert_triple(triple_value, chat.last_utterance.utterance_speaker, chat.speaker, chat.agent)
-            if triple:
-                chat.last_utterance.triples.append(triple)
+        response = self.call_llm(prompt=prompt)
+        return response
 
-    #@TODO needs to be fixed as we are requesting different output format now
-    def analyze_in_context_server(self, chat):
-            """
-            Analyzer factory function
+    def analyze_statement_in_context(self, chat):
+        #Already done
+        self._chat = chat
+        self._utterance = chat.last_utterance
+        triples = []
+        if chat.last_utterance.utterance_speaker == chat.speaker:
 
-            Find appropriate Analyzer for this utterance
+            ## Already done
+            self._chat = chat
+            self._utterance = chat.last_utterance
 
-            Parameters
-            ----------
-            utterance: Utterance
-                utterance to be analyzed
+            ### For conversational behaviour use next prompt instead of s_instruct
+            # instruct = self._c_instruct
 
-            """
-
-            triples = []
-            conversation = self._chat_to_conversation(chat)
-            input = {"role": "user", "content": conversation}
-            prompt = [self._instruct, input]
-            attempt = 0
-            max = 5
-            while not triples and attempt < max:
-                attempt += 1
-                response = self.call_llama_server(prompt)
-                #response {"dialogue": [{"sender": "human", "text": "I have three white cats",
-                # "triples": [ { "subject": "I", "predicate": "have", "object": "three-white-cats", "sentiment": 0, "polarity": 1, "certainty": 1}]}]}
+            instruct = self._s_instruct
+            prompt = [instruct]
+            conversation = self._chat_to_conversation(chat=chat, context_length=self._context_length)
+            prompt.extend(conversation)
+            response = self.call_llm(prompt=prompt)
+            if response:
                 try:
                     content = json.loads(response)
                     if "triples" in content:
                         triples.extend(content["triples"])
                 except:
-                    logger.debug("ERROR parsing JSON", response)
+                    logger.debug("ERROR parsing JSON %s", response)
             for triple_value in triples:
-                triple = self._convert_triple(triple_value, chat.last_utterance.utterance_speaker, chat.speaker,
-                                              chat.agent)
+                if not self._check_triple(triple_value):
+                    triple = self._convert_triple(UtteranceType.STATEMENT, triple_value, chat.last_utterance.utterance_speaker, chat.speaker, chat.agent)
+                else:
+                    triple = triple_value
                 if triple:
+                    logger.debug("LLM Analyzer: extracted triple as STATEMENT: %s", triple)
                     chat.last_utterance.triples.append(triple)
+        else:
+            logger.debug('LLM Analyzer: This is not from the human speaker %s but from %s', chat.speaker,
+                         chat.last_utterance.utterance_speaker)
+        if not triples:
+            logger.warning("LLM Analyzer: couldn't extract STATEMENT triples")
+
+    def analyze_question_in_context(self, chat):
+        """
+        Analyzer factory function
+
+        Find appropriate Analyzer for this utterance
+
+        Parameters
+        ----------
+        utterance: Utterance
+            utterance to be analyzed
+
+        """
+        ## Already done
+        self._chat = chat
+        self._utterance = chat.last_utterance
+
+        triples = []
+        if chat.last_utterance.utterance_speaker == chat.speaker:
+            ## Already done
+            self._chat = chat
+            self._utterance = chat.last_utterance
+            triple_values = []
+            triple_values = standard_question.ask_for_all(chat.last_utterance, chat.speaker, chat.agent)
+            if not triple_values:
+                triple_values = standard_question.standard_questions(chat.last_utterance, chat.speaker, chat.agent)
+            if not triple_values:
+                instruct = self._q_instruct
+                prompt = [instruct]
+                #### We only consider the last utterance to extract a question!!!
+                conversation = self._chat_to_conversation(chat=chat, context_length=1)
+                prompt.extend(conversation)
+                response = self.call_llm(prompt=prompt)
+                if response:
+                    try:
+                        content = json.loads(response)
+                        if "triples" in content:
+                            triple_values.extend(content["triples"])
+                    except:
+                        logger.debug("ERROR parsing JSON %s", response)
+            for triple_value in triple_values:
+                if not self._check_triple(triple_value):
+                    triple = self._convert_triple(UtteranceType.QUESTION, triple_value, chat.last_utterance.utterance_speaker,
+                                                  chat.speaker, chat.agent)
+                else:
+                    triple = triple_value
+                logger.debug("LLM Analyzer: extracted triple as a QUESTION: %s", triple)
+                chat.last_utterance.triples.append(triple)
+        else:
+            logger.warning(f'LLM Analyzer: This is not from the human speaker {chat.speaker} but from {chat.last_utterance.utterance_speaker}')
+
+        if not triples:
+            logger.warning("LLM Analyzer: couldn't extract triples")
+
+    def _check_triple(self, triple):
+        #{'subject': {'label': 'jan', 'type': [], 'uri': None}, 'predicate': {'label': '', 'type': [], 'uri': None}, 'object': {'label': '', 'type': [], 'uri': None}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}}
+        if 'subject' in triple and 'predicate' in triple and 'object' in triple:
+            if 'label' in triple['subject'] and 'label' in triple['predicate'] and 'label' in triple['object']:
+                return True
+        return False
 
     def _convert_triple(self, utterance_type, triple_value, speaker, human, agent):
         #{"subject": "I", "predicate": "love_dogs", "object": "also", "sentiment": 0, "polarity": 0, "certainty": 1n}
         if len(triple_value) < 3:
             return None
         triple = None
-        print('triple_value', triple_value)
         if 'subject' in triple_value and 'predicate' in triple_value and 'object' in triple_value and\
             not triple_value['subject']==None and not triple_value['predicate'] ==None and not triple_value['object']==None:
            # not triple_value['subject']=='' and not triple_value['predicate'] =='' and not triple_value['object']=='' and\
@@ -254,15 +271,14 @@ class LLMAnalyzer(Analyzer):
             triple_value['predicate'] = triple_value['predicate'].replace("_", "-")
             triple_value['predicate'] = triple_value['predicate'].replace(" ", "-")
             triple = {"subject": {"label": triple_value['subject'].lower(), "type": [], "uri": None},
-                          "predicate": {"label": triple_value['predicate'].lower(), "type": [], "uri": None},
+                          "predicate": {"label": triple_value['predicate'].lower(), "type": [], "uri": "n2mu:"+triple_value['predicate'].lower()},
                           "object": {"label": triple_value['object'].lower(), "type": [], "uri": None}
                           }
             if 'polarity' in triple_value and 'certainty' in triple_value and 'sentiment' in triple_value:
                 triple["perspective"] = {"polarity": float(triple_value["polarity"]),"certainty": float(triple_value['certainty']), "sentiment": float(triple_value['sentiment'])}
             elif 'perspective' in triple_value:
                 triple["perspective"] = {"polarity": float(triple_value["perspective"]["polarity"]),"certainty": float(triple_value["perspective"]['certainty']), "sentiment": float(triple_value["perspective"]['sentiment'])}
-                triple["utterance_type"] = utterance_type
-        print('triple=', triple)
+            triple["utterance_type"] = utterance_type
         return triple
 
     def _fix_pp_objects(self, triple):
@@ -272,32 +288,21 @@ class LLMAnalyzer(Analyzer):
                     triple["predicate"] += "-"+preposition
                     triple["object"] = triple["object"][len(preposition):].strip()
 
-
-    def _chat_to_conversation(self, chat):
+    def _chat_to_conversation(self, chat, context_length=3):
         conversation = []
-        utterances_by_speaker = [(speaker, " ".join(utt.transcript for utt in utterances)) for speaker, utterances
-                                 in itertools.groupby(chat.utterances, lambda utt: utt.utterance_speaker)]
-        utterances_by_speaker = utterances_by_speaker[-3:]
-        speakers = list(zip(*utterances_by_speaker))[0]
-        turns = list(zip(*utterances_by_speaker))[1]
-
-        print(utterances_by_speaker)
-        #print(speakers)
-        #print(turns)
-        for element in utterances_by_speaker:
-            utterance = None
-            print('element[0]', element[0])
-            if chat.agent == element[0]:
-              #  utterance = {'role': 'assistant', 'content': f'''{element[0]} said {element[1]}'''}
-                utterance = {'role': 'user','content': element[1],  'speaker': element[0]}
-            else:
-               # utterance = {'role': 'user', 'content': f'''{element[0]} said {element[1]}'''}
-                utterance = {'role': 'user','content': element[1],  'speaker': element[0]}
-            if utterance:
-                conversation.append(utterance)
-        print(conversation)
+        for utt in chat.utterances:
+            utterance = {'role': 'user', 'content': utt.transcript, 'speaker':utt.utterance_speaker}
+            conversation.append(utterance)
+        logger.debug("Conversation before trimming: %s", conversation)
+        if len(conversation)>=context_length:
+            conversation = conversation[-context_length:]
+        logger.debug("Conversation after trimming to the context length of %s: %s", context_length, conversation)
         return conversation
 
+    @property
+    def utterance(self) -> Utterance:
+        return self._chat.last_utterance
+    
 if __name__ == "__main__":
     '''
     test files with triples are formatted like so "test sentence : subject predicate object" 
@@ -306,18 +311,23 @@ if __name__ == "__main__":
     '''
     MODEL = LLAMA_MODEL
     MODEL = QWEN_MODEL
-    analyzer = LLMAnalyzer(model_name=MODEL, temperature=0.1, keep_alive=10)
+    MODEL = "gpt-oss:120b"
+    url = model_url="https://ollama.com"
+    server = "cloud"
+    ollama_cloud_key = ''
+    analyzer = LLMAnalyzer(model_name=MODEL, model_server = server, model_url=url, model_key = ollama_cloud_key, temperature=0.1, keep_alive=10)
     agent = "Leolani"
     human = "Lenka"
     utterances = [{"speaker": human, "utterance": "I love cats.", "dialogue_act": DialogueAct.STATEMENT},
-                  {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
+#                  {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
                   {"speaker": agent, "utterance": "Do you also love dogs?", "dialogue_act": DialogueAct.QUESTION},
-                  {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}]
-    # utterances = [
-    #     #{"speaker": human, "utterance": "my mother loves the beatles.", "dialogue_act": DialogueAct.STATEMENT},
-    #               {"speaker": agent, "utterance": "I have three white cats", "dialogue_act": DialogueAct.STATEMENT},
-    #              # {"speaker": agent, "utterance": "I come from the Netherlands", "dialogue_act": DialogueAct.STATEMENT},
-    #               ]
+                  {"speaker": human, "utterance": "What do I like?", "dialogue_act": DialogueAct.QUESTION},
+                  {"speaker": human, "utterance": "What do I have?", "dialogue_act": DialogueAct.QUESTION},
+                  {"speaker": human, "utterance": "Who likes cats?", "dialogue_act": DialogueAct.QUESTION},
+                  {"speaker": human, "utterance": "What do you know about me?", "dialogue_act": DialogueAct.QUESTION},
+                  {"speaker": human, "utterance": "Tell me all about me?", "dialogue_act": DialogueAct.QUESTION},
+           #       {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}
+                ]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:
         chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"],

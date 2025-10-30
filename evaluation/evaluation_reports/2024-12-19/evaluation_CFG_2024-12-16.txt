@@ -1,0 +1,17 @@
+
+
+RUNNING 9 FILES
+
+
+
+RUNNING 88 UTTERANCES FROM FILE ./data/statements.txt
+
+
+---------------------------------------------------------------
+
+
+Utterance: 	lenka      000: "I know you"
+Triple:            	{'subject': {'label': 'lenka', 'type': ['agent']}, 'predicate': {'label': 'know', 'type': ['cognition']}, 'object': {'label': 'leolani', 'type': ['agent']}, 'perspective': {'sentiment': 0.0, 'certainty': 1.0, 'polarity': 1.0, 'emotion': 0.0}, 'utterance_type': <UtteranceType.STATEMENT: '1'>}
+Expected triple:   	{'subject': 'lenka', 'predicate': 'know', 'object': 'leolani'}
+
+---------------------------------------------------------------

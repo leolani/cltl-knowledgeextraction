@@ -1,0 +1,15 @@
+personachat-train-002458
+what kind of hobbies do you like ?<eos>i'm taking swimming lessons . . . didn't learn as a kid . how about you ?<eos>i love music . especially prince , i am also bi lingual i speak english and spanish
+speaker1,love,music,positive
+speaker1,love,prince,positive
+
+personachat-valid-000033
+i can tell you what i don't like<eos>what do you not like ?<eos>school . i really really do not like it,
+speaker1, like,school,negative
+
+personachat-valid-000310
+do you like the outdoors ?<eos>i like taking my dogs hiking . what do you like to do for fun ?<eos>most any type of outdoor activity , attending sporting events , reading, and cooking .
+speaker1,like,outdoor activity,positive
+speaker1,attending, sporting events,positive
+speaker1,like,reading,positive
+speaker1,like,cooking,positive
