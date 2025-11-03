@@ -37,10 +37,10 @@ setup(
     },
     python_requires='>=3.7',
     install_requires=[
-        'nltk~=3.4',
-        'stanford_openie~=1.3',
-        'spacy~=3.2',
-        'stanza~=1.5',
+        'nltk',
+        'stanford_openie',
+        'spacy',
+        'stanza',
         "cltl.combot"
     ],
     extras_require={
@@ -49,8 +49,8 @@ setup(
             "cltl.emissor-data[client]"
         ],
         "conversational": [
-            "torch~=1.12",
-            "transformers~=4.10",
+            "torch",
+            "transformers",
             "tqdm"
         ]
     },
