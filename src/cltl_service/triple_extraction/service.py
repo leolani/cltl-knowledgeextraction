@@ -1,9 +1,11 @@
 import logging
+from collections import defaultdict
 from typing import List
 
 from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent, ConversationalAgent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
+from cltl.combot.infra.event.util import extract_scenario_id
 from cltl.combot.infra.groupby_processor import GroupProcessor, Group, GroupByProcessor
 from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
@@ -125,9 +127,10 @@ class TripleExtractionService(GroupProcessor):
 
         self._topic_worker = None
         self._emissor_client = emissor_client
-        self._chat = None
-        self._speaker = Agent()
-        self._agent = Agent()
+
+        self._chat = dict()
+        self._speaker = defaultdict(Agent)
+        self._agent = defaultdict(Agent)
 
         self._dialog_aware_processor = GroupByProcessor(self, max_size=4, buffer_size=16)
         self._feedback = False
@@ -172,23 +175,27 @@ class TripleExtractionService(GroupProcessor):
                          self._intentions, self._active_intentions, event)
             return
 
-        if not self._chat:
+        if event.metadata.scenario_id and event.metadata.scenario_id not in self._chat:
             logger.warning("Received utterance outside of a chat (%s)", event)
             return
 
         if self._dialogue_act_topic:
+            # TODO support multiple scenarios for GroupByProcessor
+            raise NotImplementedError("Multiple scenarios are not supported")
             self._dialog_aware_processor.process(event)
         else:
-            self._process_last_utterance(event.payload.signal)
+            self._process_last_utterance(event.payload.signal, event)
 
-    def _process_last_utterance(self, text_signal: TextSignal, dialogue_acts: List[DialogueAct] = None):
+    def _process_last_utterance(self, text_signal: TextSignal, source_event, dialogue_acts: List[DialogueAct] = None):
+        scenario_id = extract_scenario_id(source_event)
+
         is_agent = any(self._get_name(annotation).lower() == ConversationalAgent.LEOLANI.name.lower()
                        for mention in text_signal.mentions
                        for annotation in mention.annotations
                        if annotation.type == ConversationalAgent.__name__)
-        source = self._chat.agent if is_agent else self._chat.speaker
+        source = self._chat[scenario_id].agent if is_agent else self._chat[scenario_id].speaker
         logger.debug("Processing utterance %s (%s) from SOURCE %s", text_signal.id, text_signal.text, source)
-        self._chat.add_utterance(text_signal.text, self._chat.agent if is_agent else self._chat.speaker, dialogue_acts)
+        self._chat[scenario_id].add_utterance(text_signal.text, self._chat[scenario_id].agent if is_agent else self._chat[scenario_id].speaker, dialogue_acts)
 
         if is_agent:
             logger.debug("Skipping triple extraction for SOURCE %s", source)
@@ -199,14 +206,14 @@ class TripleExtractionService(GroupProcessor):
 
        # self._chat.add_utterance(text_signal.text, self._chat.speaker, dialogue_acts)
 
-        llm_response = self._extractor.analyze_in_context(self._chat)
+        llm_response = self._extractor.analyze_in_context(self._chat[scenario_id])
 
         if llm_response:
             response = [{'This is the LLM response': llm_response}]
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(response))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(response), source=source_event)
             return
        # response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
-        response = self._utterance_to_capsules(self._chat.last_utterance, text_signal)
+        response = self._utterance_to_capsules(self._chat[scenario_id].last_utterance, text_signal)
 
         #         # TODO: transform capsules into proper EMISSOR annotations
         #         if response:
@@ -217,13 +224,13 @@ class TripleExtractionService(GroupProcessor):
         #             logger.info("No triples for signal %s (%s)", text_signal.id, text_signal.text)
 
         scenario_id = self._emissor_client.get_current_scenario_id()
-        dialog_act = self._chat.last_utterance.dialogue_acts[0]
+        dialog_act = self._chat[scenario_id].last_utterance.dialogue_acts[0]
         logger.debug("Dialog act of the last utterance %s (%s) is %s", text_signal.id, text_signal.text, dialog_act)
 
         if not self._feedback:
             ##### Clean version
             if response:
-                self._event_bus.publish(self._output_topic, Event.for_payload(response))
+                self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
                 logger.debug("Published %s triples for signal %s (%s): %s",
                              len(response), text_signal.id, text_signal.text, response)
             else:
@@ -245,24 +252,25 @@ class TripleExtractionService(GroupProcessor):
                 # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
                 # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
                 response = [{'text_response': utterance}]
-                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response))
+                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response), source=source_event)
                 ### Need to post this as a cltl.topic.brain_response to trigger the replier.
                 #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
             ##### Feedback version
             if dialog_act == UtteranceType.QUESTION or dialog_act == DialogueAct.QUESTION:
-                self.respond_to_question(response, text_signal, scenario_id)
+                self.respond_to_question(response, text_signal, source_event)
             else:
-                self.respond_to_statement(response, text_signal, scenario_id)
+                self.respond_to_statement(response, text_signal, source_event)
 
-    def respond_to_statement(self, response, text_signal: TextSignal, scenario_id):
+    def respond_to_statement(self, response, text_signal: TextSignal, source_event: Event):
+        scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response))
+            self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You said: {text_signal.text}."
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
             for ch in response:
                 if isinstance(ch, str):
                     try:
@@ -276,7 +284,7 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so understand this as: ", "So interesting what you said. It boils down to: "]
                     utterance = f"{choice(I_SEE)} {triple}"
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
                 else:
                     utterance = ""
                     if "utterance" in ch:
@@ -286,7 +294,7 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so must be interesting but I am lost here: ", "Could be interesting what you said. But I just got: "]
                     utterance = f"{choice(I_SEE)} {utterance}, This is not a complete triple for my Knowledge Graph."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
@@ -295,16 +303,17 @@ class TripleExtractionService(GroupProcessor):
                      "Sorry, I did not get that."]
             utterance = f"I have no response. {choice(I_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
 
-    def respond_to_question(self, response, text_signal: TextSignal, scenario_id):
+    def respond_to_question(self, response, text_signal: TextSignal, source_event: Event):
+        scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response))
+            self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You asked me: {text_signal.text}."
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
             for ch in response:
                 if self.check_triple(ch):
                     triple = "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
@@ -313,14 +322,14 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so: ", "So interesting what you asked. Your question boils down to: "]
                     utterance = f"{choice(I_SEE)} {triple}. I will check my memory for this triple. One moment please..."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
                 else:
                     logger.debug("Malformed triples for signal %s", text_signal.text)
                     I_SEE = ["And this is what I got from what you asked: ", "I got it. So you are asking: ",
                              "Ok, so: ", "So interesting what you asked. It boils down to: "]
                     utterance = f"{choice(I_SEE)} {ch}, but it is not a complete triple for my Knowledge Graph."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
@@ -329,7 +338,7 @@ class TripleExtractionService(GroupProcessor):
                      "Sorry, I did not get that."]
             utterance = f"I did not manage to get a query from your question. {choice(I_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
 
 
     def check_triple(self, triple):
@@ -380,28 +389,30 @@ class TripleExtractionService(GroupProcessor):
         raise ValueError("Cannot parse annotation value " + str(agent_annotation))
 
     def _update_chat(self, event):
+        scenario_id = extract_scenario_id(event)
+
         if event.payload.scenario.context.agent:
-            self._agent = event.payload.scenario.context.agent
+            self._agent[scenario_id] = event.payload.scenario.context.agent
         if event.payload.scenario.context.speaker:
-            self._speaker = event.payload.scenario.context.speaker
+            self._speaker[scenario_id] = event.payload.scenario.context.speaker
 
         if event.payload.type == ScenarioStarted.__name__:
-            agent_name = self._agent.name if self._agent.name else "Leolani"
-            speaker_name = self._speaker.name if self._speaker and self._speaker.name else "Stranger"
-            self._chat = Chat(agent_name, speaker_name)
-            logger.debug("Started chat with speaker %s, agent %s", self._chat.speaker, self._chat.agent)
+            agent_name = self._agent[scenario_id].name if self._agent[scenario_id].name else "Leolani"
+            speaker_name = self._speaker[scenario_id].name if self._speaker[scenario_id].name else "Stranger"
+            self._chat[scenario_id] = Chat(agent_name, speaker_name)
+            logger.debug("Started chat with speaker %s, agent %s", self._chat[scenario_id].speaker, self._chat[scenario_id].agent)
         elif event.payload.type == ScenarioStopped.__name__:
-            logger.debug("Stopping chat with %s, agent %s", self._chat.speaker, self._chat.agent)
-            self._chat = None
-            self._speaker = None
-            self._agent = None
+            logger.debug("Stopping chat with %s, agent %s", self._chat[scenario_id].speaker, self._chat[scenario_id].agent)
+            del self._chat[scenario_id]
+            del self._speaker[scenario_id]
+            del self._agent[scenario_id]
         elif event.payload.type == ScenarioEvent.__name__:
-            if self._speaker.name and self._speaker.name != self._chat.speaker:
-                self._chat.speaker = self._speaker.name
-                logger.debug("Set speaker in chat to %s", self._chat.speaker)
-            if self._agent.name and self._agent.name != self._chat.agent:
-                self._chat.agent = self._agent.name
-                logger.debug("Set agent in chat to %s", self._chat.agent)
+            if self._speaker[scenario_id].name and self._speaker[scenario_id].name != self._chat[scenario_id].speaker:
+                self._chat[scenario_id].speaker = self._speaker[scenario_id].name
+                logger.debug("Set speaker in chat to %s", self._chat[scenario_id].speaker)
+            if self._agent[scenario_id].name and self._agent[scenario_id].name != self._chat[scenario_id].agent:
+                self._chat[scenario_id].agent = self._agent[scenario_id].name
+                logger.debug("Set agent in chat to %s", self._chat[scenario_id].agent)
 
     def _utterance_to_capsules(self, utterance, signal):
         capsules = []
@@ -416,7 +427,7 @@ class TripleExtractionService(GroupProcessor):
             scenario_id = signal.time.container_id
             capsule = {"chat": scenario_id,
                        "turn": signal.id,
-                       "author": self._get_author(),
+                       "author": self._get_author(scenario_id),
                        "utterance": utterance.transcript,
                        "utterance_type": utterance_type,
                        "position": "0-" + str(len(utterance.transcript)),
@@ -441,9 +452,9 @@ class TripleExtractionService(GroupProcessor):
         triple['object'].update(uri)
 
     # @TODO check if this needs to be the TextSignal source
-    def _get_author(self):
+    def _get_author(self, scenario_id):
         return {
-            "label": self._speaker.name if self._speaker and self._speaker.name else self._chat.speaker,
+            "label": self._speaker[scenario_id].name if self._speaker[scenario_id].name else self._chat[scenario_id].speaker,
             "type": ["person"],
-            "uri": self._speaker.uri if self._speaker else None
+            "uri": self._speaker[scenario_id].uri
         }
