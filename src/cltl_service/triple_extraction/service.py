@@ -89,7 +89,7 @@ class UtteranceGroup(Group):
 
 class TripleExtractionService(GroupProcessor):
     @classmethod
-    def from_config(cls, extractor: Analyzer, emissor_client: EmissorDataClient, event_bus: EventBus,
+    def from_config(cls, extractor: Analyzer, event_bus: EventBus,
                     resource_manager: ResourceManager,
                     config_manager: ConfigurationManager):
         config = config_manager.get_config("cltl.triple_extraction")
@@ -104,12 +104,12 @@ class TripleExtractionService(GroupProcessor):
 
         return cls(topic_input, agent_topic, dialogue_act_topic, topic_output,
                    topic_scenario, topic_intention, intentions,
-                   extractor, emissor_client, event_bus, resource_manager, feedback=feedback)
+                   extractor, event_bus, resource_manager, feedback=feedback)
 
     def __init__(self, input_topic: str, agent_topic: str, dialogue_act_topic: str, output_topic: str,
                  scenario_topic: str,
                  intention_topic: str, intentions: List[str], extractor: Analyzer,
-                 emissor_client: EmissorDataClient, event_bus: EventBus, resource_manager: ResourceManager, feedback:bool):
+                 event_bus: EventBus, resource_manager: ResourceManager, feedback:bool):
         self._extractor = extractor
 
         self._event_bus = event_bus
@@ -126,7 +126,6 @@ class TripleExtractionService(GroupProcessor):
         self._active_intentions = set()
 
         self._topic_worker = None
-        self._emissor_client = emissor_client
 
         self._chat = dict()
         self._speaker = defaultdict(Agent)
@@ -223,7 +222,6 @@ class TripleExtractionService(GroupProcessor):
         #         else:
         #             logger.info("No triples for signal %s (%s)", text_signal.id, text_signal.text)
 
-        scenario_id = self._emissor_client.get_current_scenario_id()
         dialog_act = self._chat[scenario_id].last_utterance.dialogue_acts[0]
         logger.debug("Dialog act of the last utterance %s (%s) is %s", text_signal.id, text_signal.text, dialog_act)
 
