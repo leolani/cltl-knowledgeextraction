@@ -209,7 +209,7 @@ class TripleExtractionService(GroupProcessor):
 
         if llm_response:
             response = [{'This is the LLM response': llm_response}]
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(response), source=source_event)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(response, source=source_event))
             return
        # response = self._utterance_to_capsules(self._extractor.utterance, text_signal)
         response = self._utterance_to_capsules(self._chat[scenario_id].last_utterance, text_signal)
@@ -228,7 +228,7 @@ class TripleExtractionService(GroupProcessor):
         if not self._feedback:
             ##### Clean version
             if response:
-                self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
+                self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
                 logger.debug("Published %s triples for signal %s (%s): %s",
                              len(response), text_signal.id, text_signal.text, response)
             else:
@@ -250,7 +250,7 @@ class TripleExtractionService(GroupProcessor):
                 # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
                 # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
                 response = [{'text_response': utterance}]
-                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response), source=source_event)
+                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response, source=source_event))
                 ### Need to post this as a cltl.topic.brain_response to trigger the replier.
                 #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
@@ -263,12 +263,12 @@ class TripleExtractionService(GroupProcessor):
     def respond_to_statement(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
+            self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You said: {text_signal.text}."
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
             for ch in response:
                 if isinstance(ch, str):
                     try:
@@ -282,7 +282,7 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so understand this as: ", "So interesting what you said. It boils down to: "]
                     utterance = f"{choice(I_SEE)} {triple}"
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
                 else:
                     utterance = ""
                     if "utterance" in ch:
@@ -292,7 +292,7 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so must be interesting but I am lost here: ", "Could be interesting what you said. But I just got: "]
                     utterance = f"{choice(I_SEE)} {utterance}, This is not a complete triple for my Knowledge Graph."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
@@ -301,17 +301,17 @@ class TripleExtractionService(GroupProcessor):
                      "Sorry, I did not get that."]
             utterance = f"I have no response. {choice(I_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
 
     def respond_to_question(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response), source=source_event)
+            self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You asked me: {text_signal.text}."
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
             for ch in response:
                 if self.check_triple(ch):
                     triple = "(" + ch['subject']['label'] + ", " + ch['predicate']['label'] + ", " + ch['object'][
@@ -320,14 +320,14 @@ class TripleExtractionService(GroupProcessor):
                              "Ok, so: ", "So interesting what you asked. Your question boils down to: "]
                     utterance = f"{choice(I_SEE)} {triple}. I will check my memory for this triple. One moment please..."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
                 else:
                     logger.debug("Malformed triples for signal %s", text_signal.text)
                     I_SEE = ["And this is what I got from what you asked: ", "I got it. So you are asking: ",
                              "Ok, so: ", "So interesting what you asked. It boils down to: "]
                     utterance = f"{choice(I_SEE)} {ch}, but it is not a complete triple for my Knowledge Graph."
                     signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+                    self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
         else:
             logger.debug("No triples for signal %s (%s)", text_signal.id, text_signal.text)
             I_SEE = ["Cannot make much of what you said.", "I hear you but it does not make any sense to me.",
@@ -336,7 +336,7 @@ class TripleExtractionService(GroupProcessor):
                      "Sorry, I did not get that."]
             utterance = f"I did not manage to get a query from your question. {choice(I_SEE)}"
             signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
-            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)), source=source_event)
+            self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal), source=source_event))
 
 
     def check_triple(self, triple):
