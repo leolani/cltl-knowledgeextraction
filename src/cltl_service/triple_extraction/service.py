@@ -449,7 +449,10 @@ class TripleExtractionService(GroupProcessor):
         return capsules
 
     def _to_json(self, capsules):
-        return [brain_response_to_json(capsule) for capsule in capsules]
+        if isinstance(capsules, (list, tuple)):
+            return [self._to_json(item) for item in capsules]
+
+        return brain_response_to_json(capsules)
 
     def _add_uri_to_triple(self, triple: dict):
         uri = {'uri': None}
