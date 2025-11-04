@@ -228,7 +228,7 @@ class TripleExtractionService(GroupProcessor):
         if not self._feedback:
             ##### Clean version
             if response:
-                json_response = brain_response_to_json(response)
+                json_response = self._to_json(response)
                 self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
                 logger.debug("Published %s triples for signal %s (%s): %s",
                              len(response), text_signal.id, text_signal.text, response)
@@ -251,7 +251,7 @@ class TripleExtractionService(GroupProcessor):
                 # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
                 # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
                 response = [{'text_response': utterance}]
-                json_response = brain_response_to_json(response)
+                json_response = self._to_json(response)
                 # TODO topic
                 self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(json_response, source=source_event))
                 ### Need to post this as a cltl.topic.brain_response to trigger the replier.
@@ -266,7 +266,7 @@ class TripleExtractionService(GroupProcessor):
     def respond_to_statement(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            json_response = brain_response_to_json(response)
+            json_response = self._to_json(response)
             self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
@@ -310,7 +310,7 @@ class TripleExtractionService(GroupProcessor):
     def respond_to_question(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            json_response = brain_response_to_json(response)
+            json_response = self._to_json(response)
             self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
@@ -447,6 +447,9 @@ class TripleExtractionService(GroupProcessor):
             capsules.append(capsule)
             logger.debug("Capsule input after adding URI: %s", capsule)
         return capsules
+
+    def _to_json(self, capsules):
+        return [brain_response_to_json(capsule) for capsule in capsules]
 
     def _add_uri_to_triple(self, triple: dict):
         uri = {'uri': None}
