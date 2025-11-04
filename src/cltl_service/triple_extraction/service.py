@@ -1,8 +1,11 @@
 import logging
 from collections import defaultdict
+## The next code gives feedback on processing the conversation.
+from random import choice
 from typing import List
 
 from cltl.combot.event.emissor import ScenarioStarted, ScenarioStopped, ScenarioEvent, Agent, ConversationalAgent
+from cltl.combot.event.emissor import TextSignalEvent
 from cltl.combot.infra.config import ConfigurationManager
 from cltl.combot.infra.event import Event, EventBus
 from cltl.combot.infra.event.util import extract_scenario_id
@@ -10,15 +13,12 @@ from cltl.combot.infra.groupby_processor import GroupProcessor, Group, GroupByPr
 from cltl.combot.infra.resource import ResourceManager
 from cltl.combot.infra.time_util import timestamp_now
 from cltl.combot.infra.topic_worker import TopicWorker
+from cltl.commons.discrete import UtteranceType
 from emissor.representation.scenario import TextSignal, Mention
-from cltl_service.emissordata.client import EmissorDataClient
-from cltl.commons.discrete import UtteranceType, Polarity, Certainty
+
 from cltl.triple_extraction.analyzer import Analyzer
 from cltl.triple_extraction.api import Chat, DialogueAct
-## The next code gives feedback on processing the conversation.
-from random import choice
-from cltl.combot.infra.time_util import timestamp_now
-from cltl.combot.event.emissor import TextSignalEvent
+from cltl.brain.utils.helper_functions import brain_response_to_json
 
 logger = logging.getLogger(__name__)
 
@@ -228,7 +228,8 @@ class TripleExtractionService(GroupProcessor):
         if not self._feedback:
             ##### Clean version
             if response:
-                self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
+                json_response = brain_response_to_json(response)
+                self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
                 logger.debug("Published %s triples for signal %s (%s): %s",
                              len(response), text_signal.id, text_signal.text, response)
             else:
@@ -250,7 +251,9 @@ class TripleExtractionService(GroupProcessor):
                 # signal = TextSignal.for_scenario(scenario_id, timestamp_now(), timestamp_now(), None, utterance)
                 # self._event_bus.publish("cltl.topic.text_out", Event.for_payload(TextSignalEvent.for_agent(signal)))
                 response = [{'text_response': utterance}]
-                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(response, source=source_event))
+                json_response = brain_response_to_json(response)
+                # TODO topic
+                self._event_bus.publish("cltl.topic.brain_response", Event.for_payload(json_response, source=source_event))
                 ### Need to post this as a cltl.topic.brain_response to trigger the replier.
                 #  self._event_bus.publish(self._output_topic, Event.for_payload(TextSignalEvent.for_agent(signal)))
         else:
@@ -263,7 +266,8 @@ class TripleExtractionService(GroupProcessor):
     def respond_to_statement(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
+            json_response = brain_response_to_json(response)
+            self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You said: {text_signal.text}."
@@ -306,7 +310,8 @@ class TripleExtractionService(GroupProcessor):
     def respond_to_question(self, response, text_signal: TextSignal, source_event: Event):
         scenario_id = extract_scenario_id(source_event)
         if response:
-            self._event_bus.publish(self._output_topic, Event.for_payload(response, source=source_event))
+            json_response = brain_response_to_json(response)
+            self._event_bus.publish(self._output_topic, Event.for_payload(json_response, source=source_event))
             logger.debug("Published %s triples for signal %s (%s): %s",
                          len(response), text_signal.id, text_signal.text, response)
             utterance = f"You asked me: {text_signal.text}."
