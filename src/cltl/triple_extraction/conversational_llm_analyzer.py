@@ -194,7 +194,6 @@ class LLMAnalyzer(Analyzer):
         self._chat = chat
         self._utterance = chat.last_utterance
 
-        triples = []
         if chat.last_utterance.utterance_speaker == chat.speaker:
             ## Already done
             self._chat = chat
@@ -218,17 +217,21 @@ class LLMAnalyzer(Analyzer):
                     except:
                         logger.debug("ERROR parsing JSON %s", response)
             for triple_value in triple_values:
+                logger.info("LLM triple value for QUESTION: %s", triple_value)
                 if not self._check_triple(triple_value):
                     triple = self._convert_triple(UtteranceType.QUESTION, triple_value, chat.last_utterance.utterance_speaker,
                                                   chat.speaker, chat.agent)
                 else:
                     triple = triple_value
-                logger.debug("LLM Analyzer: extracted triple as a QUESTION: %s", triple)
+                #### hack to fix for type ['n2mu'] in subject and object inserted by LLM
+                triple['subject']['type'] = []
+                triple['object']['type'] = []
+                logger.info("LLM Analyzer: extracted triple as a QUESTION: %s", triple)
                 chat.last_utterance.triples.append(triple)
         else:
             logger.warning(f'LLM Analyzer: This is not from the human speaker {chat.speaker} but from {chat.last_utterance.utterance_speaker}')
 
-        if not triples:
+        if not chat.last_utterance.triples:
             logger.warning("LLM Analyzer: couldn't extract triples")
 
     def _check_triple(self, triple):
@@ -328,6 +331,9 @@ if __name__ == "__main__":
                   {"speaker": human, "utterance": "Tell me all about me?", "dialogue_act": DialogueAct.QUESTION},
            #       {"speaker": human, "utterance": "No I do not.", "dialogue_act": DialogueAct.STATEMENT}
                 ]
+    utterances = [
+                  {"speaker": human, "utterance": "What do I own?", "dialogue_act": DialogueAct.QUESTION}
+                  ]
     chat = Chat("Leolani", "Lenka")
     for utterance in utterances:
         chat.add_utterance(transcript=utterance["utterance"], utterance_speaker=utterance["speaker"],
